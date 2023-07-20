@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Invoice Details";
+}
+<head>
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+</head>
+<div class="app-root">
+    <div class="app-wrapper">
+        <main class="app-content">
+            <div class="app-content-wrapper">
+
+                <div class="app-content-inner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 mt-3" id="VendorTypeInvoiceDetails">
+
+                            </div>
+                            <div id="orderinvoiceloader" style="display: none;" class="text-center w-100 mb-2 mt-2">
+                                <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/InvoicesAPI/ManageTaxInvoice/InvoiceDetails.js"></script>
+
+
+<script>
+    //OrderInvoice function
+    $(document).ready(function () {
+        ArbicLanguage();
+        VendorTypeInvoiceDetails();
+    })
+</script>

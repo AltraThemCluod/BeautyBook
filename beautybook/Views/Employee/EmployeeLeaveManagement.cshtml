@@ -1,0 +1,562 @@
+﻿@{
+    ViewBag.Title = "Add Manager";
+}
+<style>
+
+    .text-truncate {
+        width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Employee_Leave_Management)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Employee_Leave_Management)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-header">
+            <form class="container">
+                <div class="row align-items-center align-items-xl-end mb-5">
+
+                    <div class="col-lg-6 mb-3">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeName" class="custom-label">@(beautybook.Resources.Languages.Employee_Name)</label>
+                            <select class="selectpicker form-control" id="employeeDatalistSearch" name="employeeDatalistSearch" title="@(beautybook.Resources.Languages.Select_a_Employee_Name)" data-live-search="true" data-size="5"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 mb-3">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeRole" class="custom-label">@(beautybook.Resources.Languages.Role)</label>
+                            <select class="selectpicker form-control" id="employeeRole" title="@(beautybook.Resources.Languages.Select_a_option)" data-size="5">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 mb-3">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeRole" class="custom-label">@(beautybook.Resources.Languages.Leave_Type)</label>
+                            <select class="selectpicker form-control" name="LookUpLeaveTypeSearch" id="LookUpLeaveTypeSearch" title="@(beautybook.Resources.Languages.Select_a_option)" data-size="6"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                        <div class="form-group mb-xl-0">
+                            <label for="searchStatus" class="custom-label">@(beautybook.Resources.Languages.Status)</label>
+                            <select class="selectpicker form-control" id="SearchStatus" title="@(beautybook.Resources.Languages.Select_a_status)" data-size="6">
+                                <option value="0">@(beautybook.Resources.Languages.Any)</option>
+                                <option value="3">@(beautybook.Resources.Languages.Approved)</option>
+                                <option value="4">@(beautybook.Resources.Languages.Rejected)</option>
+                                <option value="5">@(beautybook.Resources.Languages.Approval_Pending)</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                        <div class="form-group mb-xl-0">
+                            <label for="attendanceDate" class="custom-label">@(beautybook.Resources.Languages.From_Date)</label>
+                            <input type="text" class="datepicker singledatepicker form-control" id="FromDateSearch" placeholder="mm/dd/yyyy" />
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                        <div class="form-group mb-xl-0">
+                            <label for="attendanceDate" class="custom-label">@(beautybook.Resources.Languages.To_Date)</label>
+                            <input type="text" class="datepicker singledatepicker form-control" id="ToDateSearch" placeholder="mm/dd/yyyy" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 mb-3">
+                        <button type="button" class="btn btn-primary btn-wide" tabindex="4" id="Searchbtn" onclick="EmployeeLeaveDataSearch();">@(beautybook.Resources.Languages.Search)</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="Searchbtnloading" disabled style="display:none;">
+                            @(beautybook.Resources.Languages.Search)  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" tabindex="5" onclick="ResetEmployeeLeaveData();" id="ResetServiceDatabtn">@(beautybook.Resources.Languages.Reset)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="ResetServiceDatabtnloading" disabled style="display:none;">
+                            @(beautybook.Resources.Languages.Reset) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="app-content-inner">
+                <div class="container">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="grid-view" role="tabpanel">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive table-hover fs-14">
+                                        <div id="employeeLeaveManagementListingdiv">
+                                            <table id="employeeLeaveManagementListing" class="table table-card" style="width:100%; display:inherit;">
+                                            </table>
+                                            <div id="employeeLeaveManagementloader" style="display:none;" class="text-center mb-2 mt-2">
+                                                <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="addLeaveModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addLeaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content" name="addLeave">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addLeaveModalLabel">@(beautybook.Resources.Languages.Add_Leave)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close" onclick="location.reload();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label for="employeeStatus" class="col-sm-2 col-form-label text-sm-right">@(beautybook.Resources.Languages.Name)</label>
+                    <div class="col-sm-10">
+                        <select class="selectpicker form-control" id="employeeDatalist" name="employeeDatalist" title="@(beautybook.Resources.Languages.Select_a_Employee_Name)" data-live-search="true" data-size="5"></select>
+
+                        @* <input type="text" class="form-control" name="employeeName" id="employeeName" placeholder="Employee Name">*@
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.From_Date)</label>
+
+                            <div class="col-sm-8">
+                                <input type="text" class="datepicker form-control" autocomplete="off" name="FromDate" id="FromDate" placeholder="mm/dd/yyyy" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="employeeStatus" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.No__of_Days)</label>
+
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="NoOfDays" name="NoOfDays" placeholder="@(beautybook.Resources.Languages.No__of_Days)" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.To_Date)</label>
+
+                            <div class="col-sm-8">
+                                <input type="text" class="datepicker form-control" autocomplete="off" name="ToDate" id="ToDate" placeholder="mm/dd/yyyy" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="employeeStatus" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Leave_Type)</label>
+
+                            <div class="col-sm-8">
+                                <select class="selectpicker form-control" name="LookUpLeaveType" id="LookUpLeaveType" title="@(beautybook.Resources.Languages.Select_a_Leave_Type)" data-live-search="true" data-size="5"></select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label text-sm-right">@(beautybook.Resources.Languages.Reson)</label>
+
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="Reason" name="Reason" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal" onclick="location.reload();">@(beautybook.Resources.Languages.Close)</button>
+                <button type="submit" name="submit" class="btn btn-primary font-weight-medium" id="employeeLeaveBtn">@(beautybook.Resources.Languages.Save)</button>
+                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="employeeLeaveBtnloading" style="display:none;">
+                    @(beautybook.Resources.Languages.Save)  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="leaveEditModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="leaveEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content" name="editLeave">
+            <div class="modal-header">
+                <h5 class="modal-title" id="leaveEditModalLabel">@(beautybook.Resources.Languages.Edit_Leave)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close" onclick="location.reload();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <input type="hidden" name="Id" id="Id" />
+            <input type="hidden" name="employeeDatalistEdit" id="employeeDatalistEdit" />
+            <input type="hidden" name="NoOfDaysEdit" id="NoOfDaysEdit" />
+            <div class="modal-body" id="updateLeavegrp">
+                <div class="form-group row">
+                    <label for="employeeStatus" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Leave_Type)</label>
+
+                    <div class="col-sm-7">
+                        <select class="selectpicker form-control" name="LookUpLeaveTypeEdit" id="LookUpLeaveTypeEdit" title="@(beautybook.Resources.Languages.Select_a_Leave_Type)" data-live-search="true" data-size="5"></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.From_Date)</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" class="datepicker form-control" autocomplete="off" name="FromDateEdit" id="FromDateEdit" placeholder="mm/dd/yyyy" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.To_Date)</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" class="datepicker form-control" autocomplete="off" id="ToDateEdit" name="ToDateEdit" placeholder="mm/dd/yyyy" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.No__of_Days)</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="NoOfDaysedit" name="NoOfDaysedit" placeholder="@(beautybook.Resources.Languages.No__of_Days)" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Reson)</label>
+
+                    <div class="col-sm-7">
+                        <textarea class="form-control" id="ReasonEdit" name="ReasonEdit" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div id="updateLeavegrploader" style="display: none;" class="text-center mb-2 mt-2">
+                <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal" onclick="location.reload();">@(beautybook.Resources.Languages.Close)</button>
+                <button type="submit" name="submit" class="btn btn-primary font-weight-medium" id="employeeLeaveEditBtn">@(beautybook.Resources.Languages.Save)</button>
+                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="employeeLeaveEditBtnloading" style="display:none;" disabled>
+                    @(beautybook.Resources.Languages.Save)  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Employee Profile Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="employeeModalLabel">@(beautybook.Resources.Languages.Employee_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <ul class="nav nav-lines" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">@(beautybook.Resources.Languages.Basic_Info)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">@(beautybook.Resources.Languages.Services)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="WorkingHours-tab" data-toggle="tab" href="#WorkingHours" role="tab" aria-controls="WorkingHours" aria-selected="false">@(beautybook.Resources.Languages.Working_Hours)</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="leave-tab" data-toggle="tab" href="#leave" role="tab" aria-controls="leave" aria-selected="false">@(beautybook.Resources.Languages.Leave)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="AssignToAppointments-tab" data-toggle="tab" href="#AssignToAppointments" role="tab" aria-controls="leave" aria-selected="false">@(beautybook.Resources.Languages.Appointments)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+                        <div class="row fs-14" id="employeeInfodetails">
+
+                        </div>
+                        <div id="employeeProfileloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="services" role="tabpanel" aria-labelledby="services-tab">
+                        <div class="fs-14 mx-3" id="userServicestable">
+
+                        </div>
+                        <div id="userServicestableloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="WorkingHours" role="tabpanel" aria-labelledby="WorkingHours-tab">
+                        <div class="fs-14 mx-3">
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary w-lg-50">@(beautybook.Resources.Languages.Day)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Start)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.End)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeeWorksheet"></tbody>
+                                </table>
+                                <div id="employeeWorksheetloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+                        <div class="fs-14 mx-3">
+                            <div id="leaveCountList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 text-center">
+
+                            </div>
+                            <div id="leaveCountListloader" style="display: none;" class="text-center mb-2 mt-2">
+                                <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="AssignToAppointments" role="tabpanel" aria-labelledby="AssignToAppointments-tab">
+                        <div class="fs-14 mx-3" id="AssignToAppointmentsListtable">
+                            <h6 class="mb-3">@(beautybook.Resources.Languages.Appointments)</h6>
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.ID)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Date)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Service_Name)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Customer_Name)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Price)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Status)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="AssignToAppointmentslist">
+                                    </tbody>
+                                </table>
+                                <div id="AssignToAppointmentslistloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" id="profileModalbtn">
+
+            </div>
+        </form>
+    </div>
+</div>
+<!-- UPDATE STATUS MODAL -->
+<div class="modal fade" id="changeLeaveStatusModal" tabindex="-1" aria-labelledby="changeLeaveStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeLeaveStatusModalLabel">@(beautybook.Resources.Languages.Update_Status)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group" id="updateStatusgrp">
+                            <input type="hidden" name="LeaveId" id="LeaveId" />
+                            <label for="updateStatus" class="custom-label">@(beautybook.Resources.Languages.Status)</label>
+                            <select class="selectpicker form-control" id="updateStatus" title="@(beautybook.Resources.Languages.Select_a_status)" data-size="5">
+                                <option value="3">@(beautybook.Resources.Languages.Approved)</option>
+                                <option value="4">@(beautybook.Resources.Languages.Rejected)</option>
+                                <option value="5">@(beautybook.Resources.Languages.Approval_Pending)</option>
+                            </select>
+                        </div>
+                        <div id="updateStatusgrploader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal" onclick="statuscancel();">@(beautybook.Resources.Languages.Cancel)</button>
+                <button type="button" class="btn btn-primary font-weight-medium" id="employeeLeaveStatusBtn" onclick="changestatus();">@(beautybook.Resources.Languages.Update)</button>
+                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="employeeLeaveStatusBtnloading" style="display:none;">
+                    @(beautybook.Resources.Languages.Update) Book...  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- Custom JS -->
+<script src="~/Content/assets/js/main.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/EmployeeLeaveManagement/EmployeeLeaveManagement.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/ManageEmployee/EmployeeProfile.js"></script>
+
+<script>
+    const OpenAddLeavePopup = () => {
+        $("#addLeaveModal").modal("show");
+    }
+    $(document).ready(function () {
+        ArbicLanguage();
+        //EmployeeLeaveList API function call
+        EmployeeLeaveList.init();
+
+        //employeeData API function call
+        employeeData();
+
+        //employeeRolesdrp API function call
+        employeeRolesdrp();
+
+        //SelectLeaveType API function call
+        SelectLeaveType();
+    });
+
+    // add Leave validation
+    $(function () {
+        $("form[name='addLeave']").validate({
+            rules: {
+
+                FromDate: {
+                    required: true
+                },
+                NoOfDays: {
+                    required: true
+                },
+                ToDate: {
+                    required: true,
+                },
+            },
+            messages: {
+                FromDate: "From Date is required",
+                NoOfDays: "No Of Days is required",
+                ToDate: "To Date is required",
+            },
+            submitHandler: function () {
+                employeeLeaveAdd();
+            }
+        });
+    });
+
+    // edit Leave validation
+    $(function () {
+
+        $("form[name='editLeave']").validate({
+            rules: {
+                FromDateEdit: {
+                    required: true
+                },
+                ToDateEdit: {
+                    required: true,
+                },
+            },
+            messages: {
+                FromDateEdit: "From Date is required",
+                ToDateEdit: "To Date is required",
+            },
+
+            submitHandler: function () {
+                employeeLeaveAdd();
+            }
+        });
+    });
+
+    function changestatus() {
+
+        var changeStatusno = $('#updateStatus').val();
+
+        if (changeStatusno === "") {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Please select status',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        } else {
+            chageLeaveStatus();
+        }
+    }
+
+    ////printData Sheet
+    //function ExportToExcel() {
+    //    var htmltable = document.getElementsByTagName("tr");
+    //    for (var i = 0; i < htmltable.length; i++) {
+    //        htmltable[i].style.removeProperty("display");
+    //    }
+    //    var htmltable = $('#grid-view').clone();
+    //    htmltable.find("table thead tr th:last-child , table tbody tr td:last-child,table tbody tr td span:first-child,#pagin").remove();
+    //    var html = htmltable[0].outerHTML;
+    //    window.open('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,' + encodeURIComponent(html));
+    //    window.location.reload();
+    //}
+
+    ////printData PDF
+    //function printData() {
+    //    var divToPrint = document.getElementsByTagName("tr");
+    //    for (var i = 0; i < divToPrint.length; i++) {
+    //        divToPrint[i].style.removeProperty("display");
+    //    }
+    //    var divToPrint = document.getElementById("grid-view");
+    //    newWin = window.open('', '', 'height = 800, width = 600');
+    //    newWin.document.write('<!DOCTYPE html><html dir="ltr"><head>');
+    //    newWin.document.write('<link href="/Content/assets/css/main.min.css" rel="stylesheet" />');
+    //    newWin.document.write('</head></html>');
+    //    newWin.document.write(divToPrint.outerHTML);
+    //    setTimeout(function () {
+    //        newWin.print();
+    //        newWin.close();
+    //        window.location.reload();
+    //    }, 1);
+    //}
+
+</script>

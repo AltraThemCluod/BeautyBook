@@ -1,0 +1,574 @@
+﻿@{
+
+    var curController = Convert.ToString(ViewContext.RouteData.Values["Controller"]);
+    var curAction = Convert.ToString(ViewContext.RouteData.Values["Action"]);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaan Supplier - @ViewBag.Title</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/Content/assets/images/small-logo.png">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" />
+    <link rel="stylesheet" href="~/Content/assets/SalonMaterial/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/SalonMaterial/css/style.css">
+    <link href="~/Content/Social/css/socialSharing.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        .arabic-lan section.one_stop.pt-5 .image {
+            right: inherit !important;
+            left: -50px !important;
+        }
+
+        .arabic-lan .img-box {
+            text-align: right !important;
+        }
+
+        .arabic-lan .card_boxes .card-body {
+            text-align: right !important;
+        }
+
+        .arabic-lan .banner-text {
+            text-align: right;
+            margin-right: 50px;
+        }
+
+        .arabic-lan .banner-text1 {
+            text-align: left !important;
+            margin-right: 50px;
+        }
+
+        .arabic-lan .blog-text {
+            text-align: right;
+            margin-right: 50px;
+        }
+
+        .arabic-lan #ImageSet {
+            /* float: left !important; */
+            margin-right: 235px !important;
+        }
+
+        .arabic-lan .row1 {
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -80px !important;
+            margin-left: -55px !important;
+        }
+       
+        .arabic-lan .them-button1 {
+            direction:rtl !important;
+        }
+        .arabic-lan .one_stop_inner {
+            text-align: right;
+        }
+
+        .arabic-lan .invoice {
+            text-align: right;
+        }
+
+        .arabic-lan .form_inner {
+            text-align: right;
+        }
+
+        .arabic-lan #footer {
+            text-align: right;
+        }
+
+        .arabic-lan .footer-about .text {
+            margin-right: 77px;
+        }
+
+        .arabic-lan .footer-about .social {
+            margin-right: 70px;
+        }
+
+        .arabic-lan .salon-owner, .arabic-lan .salon-vendor {
+            text-align: right;
+        }
+
+        .arabic-lan .our-customer-says .schedule-text {
+            text-align: right !important;
+        }
+
+        .arabic-lan .our-customer-says .client-review {
+            text-align: right !important;
+        }
+
+        .arabic-lan .our-customer-says .quote-icon {
+            display: flex;
+            justify-content: start;
+        }
+
+        .arabic-lan .our-customer-says .client-profile {
+            justify-content: start !important;
+        }
+
+        .arabic-lan .next-arrow {
+            left: 12%;
+            right: auto;
+        }
+
+        .arabic-lan .prev-arrow {
+            right: 92%;
+        }
+
+        .arabic-lan .mr-50 {
+            margin-right: 57.666667%;
+        }
+
+        .arabic-lan .our-customer-says .client-profile .client-username {
+            margin-left: 0px !important;
+        }
+
+        .arabic-lan #schedule_call {
+            text-align: right !important;
+        }
+
+            .arabic-lan #schedule_call #duringDay {
+                text-align: end !important;
+            }
+
+        .arabic-lan .slick-prev.slick-arrow {
+            left: 15px;
+            right: auto;
+        }
+
+        .arabic-lan .slick-arrow.slick-next {
+            left: 105px !important;
+            right: auto;
+        }
+
+        .arabic-lan .search-icon {
+            left: 10px;
+            right: auto;
+        }
+
+        .arabic-lan .aboutus-content {
+            text-align: right;
+        }
+
+        .arabic-lan .banner-content {
+            text-align: right;
+        }
+
+        .arabic-lan .follow_top1 {
+            margin-top: 30px;
+            direction: rtl !important;
+        }
+
+        .arabic-lan .follow_us1 {
+            direction: ltr !important;
+        }
+
+        /*.arabic-lan .banner-content1 {
+            text-align: right;
+            padding:50px 0px !important;
+        }*/
+
+        /*.arabic-lan .banner-section1 {
+            text-align: right !important;
+            padding: 1px 0px;
+        }*/
+
+        .arabic-lan .curve_arrow1 {
+            left: 100% !important;
+            top: 15% !important;
+            transform: rotateY(182deg);
+        }
+
+        .arabic-lan .curve_arrow2 {
+            left: 50% !important;
+            top: 15% !important;
+            transform: rotateY(182deg);
+        }
+
+        arabic-lan .title_top1 {
+            margin-bottom: 71px !important;
+        }
+
+        
+        .arabic-lan .blog-content {
+            text-align: right;
+        }
+
+        .arabic-lan .first {
+            order: 1;
+        }
+
+        .arabic-lan #footer {
+            text-align: right;
+        }
+
+        .arabic-lan .footer-about .text {
+            margin-right: 77px;
+        }
+
+        .arabic-lan .footer-about .social {
+            margin-right: 70px;
+        }
+
+        .arabic-lan .salon-owner, .arabic-lan .salon-vendor {
+            text-align: right;
+        }
+        .arabic-lan .banner-heading .date{
+            font-size:small;
+        }
+        .arabic-lan input#email {
+            padding-right: 50px;
+        }
+        .arabic-lan form.relative.flex.items-center.my-10 img.position-absolute {
+            margin-right: 10px;
+        }
+        .tab-active {
+            background: #00515B;
+        }
+
+            .tab-active a {
+                color: #fff !important;
+            }
+
+            .tab-active:first-child {
+                border-top-left-radius: 0.3rem;
+                border-bottom-left-radius: 0.3rem;
+            }
+
+            .tab-active:last-child {
+                border-top-right-radius: 0.3rem;
+                border-bottom-right-radius: 0.3rem;
+            }
+
+        /*//////////////////////////////////////////////////////*/
+        .notifyjs-bootstrap-base {
+            font-weight: 500 !important;
+        }
+
+        .field-validation-error span {
+            color: red;
+            font-size: 11px;
+        }
+    </style>
+
+</head>
+<body>
+    @*  *@
+    <header class="fixed-top">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                    <img class="company-logo" src="~/Content/assets/images/zaan.png" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="~/Content/assets/images/MenuLine.png" alt="Alternate Text" />
+                </button>
+                <div class="collapse menubar navbar-collapse justify-content-end header-menu" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Home")">@Resources.Language.Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about_us">@Resources.Language.AboutUs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("HomeStore","Home")">@Resources.Language.Store</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Blog")">@Resources.Language.Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#product">@Resources.Language.Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#schedule_call">@Resources.Language.Contact</a>
+                        </li>
+                    </ul>
+                    <div class="auth-area d-flex">
+                        <button onclick="startProduct();" class="btn btn-primary auth-them-button">
+                            @Resources.Language.Start
+                        </button>
+                    </div>
+                    <select onchange="LanguageSelect()" class="form-control p-0 ml-2 selectpicker" style="width:50px;" id="LanSelect">
+                        <option value="en">En</option>
+                        <option value="ar" selected>@Resources.Language.Ar</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="header-fixed-placeholder"></div>
+    @RenderBody()
+    <!-- footer section -->
+    <footer id="footer" class="footer-area bg_cover mt-4">
+        <div class="container">
+            <div class="footer-widget pt-30 pb-70">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="footer-about pt-40">
+                            <a href="#">
+                                <img src="~/Content/assets/images/zaan.png" alt="Logo">
+                            </a>
+                            <p class="text">
+                                @Resources.Language.footerContent
+                            </p>
+                            <ul class="social mt-40">
+                                <li>
+                                    <a href="https://twitter.com/ZaanApp?s=20&t=5nrzKzYSO9xBF5QnQhrLvw" target="_blank">
+                                        <img src="~/Content/assets/images/twitter.png" width="30" height="30">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://instagram.com/zaan.app?igshid=YmMyMTA2M2Y=" target="_blank">
+                                        <img src="~/Content/assets/images/social.png" width="30" height="30">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <img src="~/Content/assets/images/linkedin.png" width="30" height="30">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="footer-link pt-40">
+                            <div class="footer-title">
+                                <h5 class="title f-header">@Resources.Language.QuickLinks</h5>
+                            </div>
+                            <div class="row">
+                                <ul class="col-lg-12">
+                                    <li><a href="javascript:void(0)" class="textdecoration-none">@Resources.Language.Home</a></li>
+                                    <li><a href="javascript:void(0)" class="textdecoration-none">@Resources.Language.Store</a></li>
+                                    <li><a href="javascript:void(0)" class="textdecoration-none">@Resources.Language.Blog</a></li>
+                                    <li><a href="javascript:void(0)" class="textdecoration-none">@Resources.Language.Jobs</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="footer-link pt-40 about">
+                            <div class="footer-title">
+                                <h5 class="title f-header">@Resources.Language.About</h5>
+                            </div>
+                            <ul>
+                                <li><a href="javascript:void(0)" class="textdecoration-none">@Resources.Language.TermsAndContitions</a></li>
+                                <li><a href="javascript:void(0)" class="textdecoration-none">@Resources.Language.PrivacyPolicy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="footer-contact pt-40">
+                            <div class="footer-title">
+                                <h5 class="title f-header">@Resources.Language.Contact</h5>
+                            </div>
+                            <div class="contact pt-10">
+                                @*<p class="text">
+                                        //Address
+                                    </p>*@
+                                <a class="text" href="tel:+966 56 078 2900">
+                                    <img src="~/Content/assets/images/phone.png" width="35" height="35" class="mr-2">
+                                    <span dir="ltr">+966 56 078 2900</span>
+                                </a>
+                                <a class="text" href="mailto:info@zaan.com.sa">
+                                    <img src="~/Content/assets/images/mail.png" width="35" height="35" class="mr-2">
+                                    info@zaan.com.sa
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright text-center">
+                <p class="text mb-0">@Resources.Language.CopyrightZaan</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="startProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body">
+                    <div class="schedule-text text-center mb-5">
+                        <h4>@Resources.Language.Iwantto</h4>
+                        <p>
+                            @Resources.Language.IwanttoContent
+                        </p>
+                    </div>
+                    <div class="product-cards">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card salon-owner">
+                                    <h4 class="text-center"> @Resources.Language.SalonOwner</h4>
+                                    <div class="list-details mb-3">
+                                        <p class="d-flex mb-4">
+                                            <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/Check.png" />
+                                            <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/Check_2.png" />
+                                            <span>@Resources.Language.SalonOwnerContent1</span>
+                                        </p>
+                                        <p class="d-flex">
+                                            <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/Check.png" />
+                                            <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/Check_2.png" />
+                                            <span>@Resources.Language.SalonOwnerContent2</span>
+                                        </p>
+                                    </div>
+                                    <a href="https://salon.zaan.com.sa/Authentication/SignUp" target="_blank" class="btn btn-outline-primary product-started">
+                                        @Resources.Language.GetStarted
+                                    </a>
+                                    <p class="signin-link">
+                                        @Resources.Language.Alreadyhaveanaccount
+                                        <a href="https://salon.zaan.com.sa/" target="_blank" class=""> @Resources.Language.Signinhere</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card salon-vendor">
+                                    <h4 class="text-center">@Resources.Language.ProductSupplier</h4>
+                                    <div class="list-details mb-3">
+                                        <p class="d-flex mb-4">
+                                            <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/VendorCheck.png" />
+                                            <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/VendorCheck_2.png" />
+                                            <span>@Resources.Language.ProductsupplierContent1</span>
+                                        </p>
+                                        <p class="d-flex">
+                                            <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/VendorCheck.png" />
+                                            <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/VendorCheck_2.png" />
+
+                                            <span>@Resources.Language.ProductsupplierContent2</span>
+                                        </p>
+                                    </div>
+                                    <a href="https://vendor.zaan.com.sa/Authentication/SignUp" target="_blank" class="btn btn-outline-primary product-started">
+                                        @Resources.Language.GetStarted
+                                    </a>
+                                    <p class="signin-link">
+                                        @Resources.Language.Alreadyhaveanaccount
+                                        <a href="https://vendor.zaan.com.sa/" target="_blank" class=""> @Resources.Language.Signinhere</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Script-->
+    <script type="text/javascript" src="~/Content/assets/SalonMaterial/bootstrap/jquery/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/Content/assets/SalonMaterial/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/assets/SalonMaterial/bootstrap/dist/js/popper.min.js"></script>
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+    <script src="~/Content/jquery-validate/jquery.validate.js"></script>
+    <script src="~/Content/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Content/assets/js/main.js"></script>
+    <script src="~/Content/Social/js/socialSharing.js"></script>
+
+    <script>
+        function Undefined(val) {
+            return ~~val;
+        }
+
+        //SetCookie
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        //getCookie
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+            debugger;
+            var Language = getCookie("Languages");
+
+            if (Language == "") {
+                LanguageSelect();
+            }
+
+            $("#LanSelect").selectpicker("val", Language == "" ? "ar" : Language);
+            if (Language == "en") {
+                $('html').attr('dir', 'ltl');
+                $('#bannerContent').attr('dir', 'ltl');
+                $('html').attr('lang', 'en');
+            } else if (Language == "ar") {
+                $('html').attr('dir', 'rtl');
+                $('#bannerContent').attr('dir', 'rtl');
+                $('html').attr('lang', 'ar');
+                $('body').addClass('arabic-lan');
+            }
+
+            //banner-content change dir
+            $(".arabic-lan .banner-content").attr("dir", "ltr");
+            $(".arabic-lan .blog-content").attr("dir", "ltr");
+            $(".arabic-lan #slick1").attr("dir", "ltr");
+            $(".arabic-lan #adjustview").attr("dir", "ltr");
+            $(".arabic-lan #LanSelect").addClass("mr-2");
+            $(".arabic-lan #subButton").removeClass("py-3");
+            
+        })
+
+        //Custom Script
+        function LanguageSelect() {
+            debugger;
+            var Item = $('#LanSelect').val();
+            window.location.href = `/Home/Change?LanguageAbbrevation=${Item}&con=${"@curController"}&act=${"@curAction"}`
+        }
+
+        $(document).on("scroll", function () {
+            if($(document).scrollTop() > 86) {
+                $("#banner").addClass("shrink");
+            }
+            else {
+                $("#banner").removeClass("shrink");
+            }
+        })
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+    @Html.Raw(ViewBag.openPopup)
+</body>
+</html>

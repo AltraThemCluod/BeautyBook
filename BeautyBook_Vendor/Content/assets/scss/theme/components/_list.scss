@@ -1,0 +1,47 @@
+.list-inline {
+    padding-left: 0;
+    list-style: none;
+}
+
+.list-inline-item {
+    display: inline-block;
+
+    &:not(:last-child) {
+        margin-right: 0.5rem;
+    }
+}
+
+
+// List Separator
+.list-separator {
+    margin-bottom: 0;
+
+    .list-inline-item {
+        position: relative;
+        margin-left: 0;
+        margin-right: -0.25rem;
+
+        &:not(:last-child) {
+            padding-right: 2rem;
+
+            &::after {
+                position: absolute;
+                top: calc(50% - .15625rem);
+                right: .84375rem;
+                width: .3125rem;
+                height: .3125rem;
+                background-color: $gray-500;
+                border-radius: .3125rem;
+                content: "";
+            }
+        }
+    }
+
+    .list-separator-link {
+        color: $gray-600;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+}

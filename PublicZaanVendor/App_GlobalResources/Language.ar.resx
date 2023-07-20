@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>حول</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>نبذة عنا</value>
+  </data>
+  <data name="AboutUsCheckContent1" xml:space="preserve">
+    <value>نحن نساعد الموردين وتجار الجملة على عرض منتجاتهم للمشترين الذين يبحثون عن صفقات رائعة على منتجات التجميل بالجملة.</value>
+  </data>
+  <data name="AboutUsCheckContent2" xml:space="preserve">
+    <value>البائعين لدينا على استعداد لشحن سلعهم إليك مباشرة. بالإضافة إلى أننا نساعدك على الانتهاء من الشراء من خلال خدمات البيع السريعة وغير المؤلمة التي نقدمها.</value>
+  </data>
+  <data name="AboutUsCheckContent3" xml:space="preserve">
+    <value>تم تصميم شبكتنا لمساعدتك في العثور على الموردين بكفاءة ومواكبة أحدث التطورات في الصناعة.</value>
+  </data>
+  <data name="AboutUsCheckContent4" xml:space="preserve">
+    <value>نجعل العثور على الموردين تجربة ممتعة حتى تتمكن من قضاء المزيد من الوقت في تحسين عملك</value>
+  </data>
+  <data name="AboutUsContent1" xml:space="preserve">
+    <value>زان منصة معنية بكل ما يخدم قطاع الصالونات والسبا بمختلف التفاصيل. لذا أنشئنا متجر زان الشامل لمستلزمات الصالون والسبا من ضمن خدماتنا المتعددة. هدفنا هو جعل حياتك أسهل من خلال مساعدتك في العثور على ما تحتاجه، وإعطائك نصائح رائعة حول كيفية استخدامه، ثم شحنه إليك بسرعة وكفاءة. نحن شركة شابة، تم بناؤها من قبل محترفين ذوي تفكير مماثل يحبون ما يفعلونه، ونحن جادون لمساعدة عملائنا في العثور على المنتجات التي يحتاجونها في مكان واحد مناسب.</value>
+  </data>
+  <data name="AboutUsContent2" xml:space="preserve">
+    <value>نحن نسعى جاهدين لنكون أفضل منصة عبر الإنترنت لموردي صناعة التجميل من خلال إلزام أنفسنا بتوفير مجموعة مختارة ومؤهلة وعالية الجودة من الموردين لعملائنا في بيئة موثوق بها.</value>
+  </data>
+  <data name="AllInOne" xml:space="preserve">
+    <value>نظام إداري شامل متخصص لإدارة أعمال الصالون والسبا وتنميتها</value>
+  </data>
+  <data name="AllServices" xml:space="preserve">
+    <value>جميع المقالات</value>
+  </data>
+  <data name="Alreadyhaveanaccount" xml:space="preserve">
+    <value>لديك حساب بالفعل ؟</value>
+  </data>
+  <data name="Alwaysfocus" xml:space="preserve">
+    <value>دائما ركز على نمو اعمالك، وأترك الابداع لنا</value>
+  </data>
+  <data name="Anytime" xml:space="preserve">
+    <value>أي وقت</value>
+  </data>
+  <data name="Appointments" xml:space="preserve">
+    <value>المواعيد</value>
+  </data>
+  <data name="AppointmentsContent" xml:space="preserve">
+    <value>نظام مواعيد سريع وسهل الاستخدام لموظفي الاستقبال هو مجرد بداية لتجارب الحجز متعددة القنوات التي سنقدمها. وفر لضيوفك (وموظفيك) السهولة والراحة التي يتوقعونها.</value>
+  </data>
+  <data name="Ar" xml:space="preserve">
+    <value>أر</value>
+  </data>
+  <data name="BeautySalon" xml:space="preserve">
+    <value>صالون تجميل</value>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>المدونة</value>
+  </data>
+  <data name="Branchesmanagement" xml:space="preserve">
+    <value>إدارة الفروع</value>
+  </data>
+  <data name="BranchesmanagementContent" xml:space="preserve">
+    <value>افتح عددًا غير محدود من الفروع لأعمالك وتابعهم جميعًا بمرونة من مكان واحد</value>
+  </data>
+  <data name="BuyNow" xml:space="preserve">
+    <value>أحصل على المنتج</value>
+  </data>
+  <data name="Conditioner" xml:space="preserve">
+    <value>مرطب شعر</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>تواصل</value>
+  </data>
+  <data name="Contents" xml:space="preserve">
+    <value>المحتويات</value>
+  </data>
+  <data name="CopyrightZaan" xml:space="preserve">
+    <value>حقوق النشر و الطبع لزان 2022 . جميع الحقوق محفوظة ©</value>
+  </data>
+  <data name="Customermanagement" xml:space="preserve">
+    <value>ادارة العملاء</value>
+  </data>
+  <data name="CustomermanagementContent" xml:space="preserve">
+    <value>مع زان يمكنك إدارة سجلات عملائك بطريقة رائعة، حيث يمكنك تتبع زيارتهم الأخيرة ومعرفة بعض التفاصيل التي تهمك عنهم بأدوات بسيطة.</value>
+  </data>
+  <data name="CustomerTestimonialBy1" xml:space="preserve">
+    <value>زهرة احمد</value>
+  </data>
+  <data name="CustomerTestimonialBy2" xml:space="preserve">
+    <value>مشاعل القحطاني</value>
+  </data>
+  <data name="CustomerTestimonialBy3" xml:space="preserve">
+    <value>جانا طارق</value>
+  </data>
+  <data name="CustomerTestimonialBy4" xml:space="preserve">
+    <value>مراد العنزي</value>
+  </data>
+  <data name="CustomerTestimonialContent1" xml:space="preserve">
+    <value>أنا سعيدة جدًا لأني وجدت سوق زان قبل أن أضيع وقتي وأموالي في الأسواق الأخرى.</value>
+  </data>
+  <data name="CustomerTestimonialContent2" xml:space="preserve">
+    <value>مرحبًا ، لقد ساعدني زان في الوصول إلى جمهور أكبر ، وأن أحصل  الكثير من المشاهدات والمبيعات هنا. استغرق الأمر بعض الوقت لمعرفة كيفية استخدام الأدوات ولكنها كانت مفيدة جداً.</value>
+  </data>
+  <data name="CustomerTestimonialContent3" xml:space="preserve">
+    <value>أنا سعيدة جدًا بالخدمة والدعم المقدمين من زان! أنا أحب مدى سرعة معالجة طلباتي. أنا معجبة جدًا بهذا!</value>
+  </data>
+  <data name="CustomerTestimonialContent4" xml:space="preserve">
+    <value>نحن شركة صغيرة جدًا ولدينا الكثير من المنتجات ذات العلامات التجارية الخاصة. لقد ساعدنا زان في بيع منتجاتنا على نطاق أوسع من قبل</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>لوحة المعلومات</value>
+  </data>
+  <data name="DashboardContent1" xml:space="preserve">
+    <value>اسحب البيانات من كل جانب من جوانب عملك، بما في ذلك المبيعات والعمليات والتسويق وأداء الموظفين وسلوك العملاء.</value>
+  </data>
+  <data name="DashboardContent2" xml:space="preserve">
+    <value>ستتمتع دائمًا بإمكانية الوصول إلى لوحة معلومات محدثة ودقيقة، دون بذل جهد يدوي لتجميع بياناتك خارج النظام.</value>
+  </data>
+  <data name="DREOXHAIRDRYER" xml:space="preserve">
+    <value>إستشوار هوائي من DREOX ,2000 واط</value>
+  </data>
+  <data name="Duringtheday" xml:space="preserve">
+    <value>خلال النهار</value>
+  </data>
+  <data name="DuringtheNight" xml:space="preserve">
+    <value>خلال المساء</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>الإيميل</value>
+  </data>
+  <data name="Emailisrequired" xml:space="preserve">
+    <value>الايميل مطلوب</value>
+  </data>
+  <data name="EmailValidationMessage" xml:space="preserve">
+    <value>الرجاء أدخل إيميلك</value>
+  </data>
+  <data name="FacialSteamer" xml:space="preserve">
+    <value>جهاز بخار الوجه</value>
+  </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>تابعنا</value>
+  </data>
+  <data name="footerContent" xml:space="preserve">
+    <value>يقدم نظام زان كل ما تحتاجه لصالونك ومنتجعك الصحي لتحسين جدولة المواعيد وإدارة الموظفين وإدارة العملاء والتسويق والمخزون وغير ذلك الكثير.</value>
+  </data>
+  <data name="FreeConsultation" xml:space="preserve">
+    <value>استشارة مجانية</value>
+  </data>
+  <data name="GetAConsultant" xml:space="preserve">
+    <value>أحصل على استشارة</value>
+  </data>
+  <data name="GetAnInvoice" xml:space="preserve">
+    <value>أحصل على الفواتير</value>
+  </data>
+  <data name="GetMoreUpdate" xml:space="preserve">
+    <value>احصل على المزيد من التحديثات</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>البـدء</value>
+  </data>
+  <data name="Gloves" xml:space="preserve">
+    <value>قفازات</value>
+  </data>
+  <data name="HeatProtectingSmoothingSpray" xml:space="preserve">
+    <value>بخاخ منعم حامي من الحرارة</value>
+  </data>
+  <data name="HeatProtectionSpray" xml:space="preserve">
+    <value>بخاخ حماية الشعر</value>
+  </data>
+  <data name="HighlightBrush" xml:space="preserve">
+    <value>فرشاة هايلايت</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>المخزون</value>
+  </data>
+  <data name="InventoryContent1" xml:space="preserve">
+    <value>برنامج يساعدك على التحكم في مخزونك</value>
+  </data>
+  <data name="InventoryContent2" xml:space="preserve">
+    <value>تبسيط العمليات لإدارة المخزون بشكل أكثر كفاءة. من السهل السحب والإضافة إلى منتجاتك. تنبيهات تحذرك عندما ينخفض المخزون</value>
+  </data>
+  <data name="InventoryContent3" xml:space="preserve">
+    <value>تعًرف على وقت إعادة الطلب</value>
+  </data>
+  <data name="InventoryContent4" xml:space="preserve">
+    <value>تنبيهات تحذرك عندما ينخفض المخزون.</value>
+  </data>
+  <data name="InventoryContent5" xml:space="preserve">
+    <value>ابحث عن موردي المنتجات الذين تم دمجهم بذكاء في المخزون، وتتبع منتجات المخزون وقوائم الموردين</value>
+  </data>
+  <data name="InvoiceContent" xml:space="preserve">
+    <value>يسمح لك زان بإصدار فواتير إلكترونية وفقًا لمتطلبات الهيئة العامة للزكاة والدخل لنظام الفواتير الإلكترونية، حيث يمكنك إصدار فواتيرك بنماذج معتمدة من الفاتورة الضريبية أو فاتورة مبسطة، بالإضافة إلى دعم البرنامج لـ الضرائب المطبقة مثل ضريبة القيمة المضافة والمدرجة تلقائيًا في الفواتير الصادرة.</value>
+  </data>
+  <data name="InvoiceTitle" xml:space="preserve">
+    <value>ابدأ الفوترة الإلكترونية بنظام زان المعتمد من ZATCA</value>
+  </data>
+  <data name="Iwantto" xml:space="preserve">
+    <value>أريد أن أبدا مع زان كـ ...</value>
+  </data>
+  <data name="IwanttoContent" xml:space="preserve">
+    <value>زان خلقت هنا مجتمع متخصص لتجميل وبكل ما يخصه وسيكون هناك قريباً المزيد من ممثلي مجتمع الجمال</value>
+  </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>الوظائف</value>
+  </data>
+  <data name="KnowMore" xml:space="preserve">
+    <value>أعرف أكثر</value>
+  </data>
+  <data name="Marketing" xml:space="preserve">
+    <value>التسويق</value>
+  </data>
+  <data name="MarketingContent1" xml:space="preserve">
+    <value>تم تصميم نظام أتمتة التسويق من زان خصيصًا لأعمال الصالون والسبا. يقلل حلنا من الوقت والمصاريف لتخطيط وتنفيذ برامج التسويق. الأهم من ذلك، نحن نساعدك على زيادة الإيرادات بنتائج دائمة.</value>
+  </data>
+  <data name="MarketingContent2" xml:space="preserve">
+    <value>نوفر لصالونك خيارات متعددة للقيام بالتسويق ونختار العملاء بعناية لاستهدافهم من خلال قنوات تسويق متعددة.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="NameValidationMessage" xml:space="preserve">
+    <value>الرجاء أدخل أسمك</value>
+  </data>
+  <data name="Nosetup" xml:space="preserve">
+    <value>لا يوجد عقد أو تكاليف إعداد</value>
+  </data>
+  <data name="Onestopshop" xml:space="preserve">
+    <value>محطة تسوق واحدة</value>
+  </data>
+  <data name="OnestopshopContent1" xml:space="preserve">
+    <value>تسوق منتجات الصالون والسبا الخاصة بك من موردين مختلفين من مكان واحد، قارن الأسعار، واطلع على التعليقات، اترك تعليقاتك، وتتبع مشترياتك، وخيارات الدفع المختلفة والمزيد من داخل متجر زان.</value>
+  </data>
+  <data name="OnestopshopContent2" xml:space="preserve">
+    <value>إذا كنت مورد، ولديك منتجاتك الخاصة لصالونات التجميل والسبا؟</value>
+  </data>
+  <data name="OnestopshopContent3" xml:space="preserve">
+    <value>سجل الآن كمورد لدى سوق زان وأخلق الفرصة لمزيد من العملاء للوصول إليك</value>
+  </data>
+  <data name="OurBestSell" xml:space="preserve">
+    <value>المنتج الأكثر مبيعاً لدينا هذا الأسبوع</value>
+  </data>
+  <data name="OurBlogPost" xml:space="preserve">
+    <value>مقالات المدونة</value>
+  </data>
+  <data name="OurCustomerSays" xml:space="preserve">
+    <value>أقوال عملائنا</value>
+  </data>
+  <data name="OurCustomerSaysContent" xml:space="preserve">
+    <value>عملاؤنا هم أساس نجاحنا ، وهم الدافع الأول لنا للتطور والتفوق. نبحث دائمًا عن رضاهم وتقديم أفضل الخدمات التي تساعدهم في تطوير أعمالهم.</value>
+  </data>
+  <data name="OurProduct" xml:space="preserve">
+    <value>منتجاتنا</value>
+  </data>
+  <data name="OurProductContent" xml:space="preserve">
+    <value>بنقرة واحدة فقط يمكنك الوصول إلى الآلاف من المنتجات عالية الجودة.
+ نحن نقوم بكل العمل الشاق من أجلك من خلال التفاوض مع الموردين حتى تتمكن من العثور على ما تحتاجه بالضبط بسرعة وبساطة.</value>
+  </data>
+  <data name="OurSupplier" xml:space="preserve">
+    <value>موردينا</value>
+  </data>
+  <data name="OurSupplierContent" xml:space="preserve">
+    <value>الأعمال التجارية قوية وعظيمة بقدر مورديها. 
+مع الأدوات المناسبة من زان، يمكنك اتخاذ قرارات أفضل بسهولة للوصول إلى قائمة طويلة من الموردين الذين نفخر بشراكاتهم معنا.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم الجوال</value>
+  </data>
+  <data name="PhoneNumberValidation" xml:space="preserve">
+    <value>الرجاء أدخل رقم هاتفك</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>سياسة الخصوصية</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>المنتجات</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>المنتجات</value>
+  </data>
+  <data name="ProductSupplier" xml:space="preserve">
+    <value>مورد منتجات</value>
+  </data>
+  <data name="ProductsupplierContent1" xml:space="preserve">
+    <value>أخلق سوق جديدة هنا لك ولعملائك</value>
+  </data>
+  <data name="ProductsupplierContent2" xml:space="preserve">
+    <value>أجعل منتجاتك تصل إلى يد عملائك بأسلوب عصري مُبتكر</value>
+  </data>
+  <data name="QuickLinks" xml:space="preserve">
+    <value>روابط سريعة</value>
+  </data>
+  <data name="ReachOutTime" xml:space="preserve">
+    <value>وقت التواصل</value>
+  </data>
+  <data name="ReachOutTimeLabel" xml:space="preserve">
+    <value>أختر وقت مناسب لتواصل</value>
+  </data>
+  <data name="ReachOutTimeValidation" xml:space="preserve">
+    <value>الرجاء أدخل وقتك المناسب للتواصل</value>
+  </data>
+  <data name="ReadLess" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>أقراء المزيد</value>
+  </data>
+  <data name="RecommendedBlogs" xml:space="preserve">
+    <value>مقالات يوصى بها</value>
+  </data>
+  <data name="RegularUser" xml:space="preserve">
+    <value>مستخدم عادي</value>
+  </data>
+  <data name="RequestACall" xml:space="preserve">
+    <value>أطلب مكالمة</value>
+  </data>
+  <data name="Salon" xml:space="preserve">
+    <value>الصالون</value>
+  </data>
+  <data name="SalonOwner" xml:space="preserve">
+    <value>مالك صالون</value>
+  </data>
+  <data name="SalonOwnerContent1" xml:space="preserve">
+    <value>أحصل على النظام الإداري الأفضل لإدارة كل جوانب صالونك</value>
+  </data>
+  <data name="SalonOwnerContent2" xml:space="preserve">
+    <value>أجعل أعمالك تنمو مع خبراء زان الذين يهتمون في تقديم كل ما يلزم لتطوير أعمالك</value>
+  </data>
+  <data name="scheduleacall" xml:space="preserve">
+    <value>حدد موعداً لأجراء مكالمة</value>
+  </data>
+  <data name="scheduleacallContent" xml:space="preserve">
+    <value>تحدث مع أحد خبرائنا وتحقق من نموذج عمل زان الفريد الذي يسمح لأعمالك بالوصول إلى آلاف المستهلكين عبر العديد من البلدان من خلال منصة واحدة.</value>
+  </data>
+  <data name="SearchHere" xml:space="preserve">
+    <value>المنتجات الحاصلة على تقييم 5  نجوم</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>مشاهدة الجميع</value>
+  </data>
+  <data name="SellProductPrice" xml:space="preserve">
+    <value>السعر: 299 SAR</value>
+  </data>
+  <data name="ServiceManagement" xml:space="preserve">
+    <value>إدارة الخدمات</value>
+  </data>
+  <data name="ServiceManagementContent" xml:space="preserve">
+    <value>نظام مرن لسرد جميع الخدمات وأي خدمات يقدمها صالونك. يمكنك إدارتها من خلال تعيينها للموظفين، وتحديد أسعارها ومدتها، وكذلك تعيينها كباقات وأكثر من ذلك بكثير.</value>
+  </data>
+  <data name="ShareArticle" xml:space="preserve">
+    <value>مشاركة المقال</value>
+  </data>
+  <data name="Shareon" xml:space="preserve">
+    <value>مشاركة على</value>
+  </data>
+  <data name="Signinhere" xml:space="preserve">
+    <value>سجل دخولك من هنا</value>
+  </data>
+  <data name="Spa" xml:space="preserve">
+    <value>السبا</value>
+  </data>
+  <data name="Staffmanagement" xml:space="preserve">
+    <value>إدارة الموظفين</value>
+  </data>
+  <data name="StaffmanagementContent" xml:space="preserve">
+    <value>قم بإدارة قائمة الموظفين لديك وما له علاقة مباشرة بهم كالأداء، الإجازات والحضور من خلال برنامج إدارة موظفي السبا والصالون متعدد الإمكانات.</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>ابدأ</value>
+  </data>
+  <data name="Startmanaging" xml:space="preserve">
+    <value>ابدأ في إدارة صالون التجميل الخاص بك في دقائق معدودة</value>
+  </data>
+  <data name="Stayinformedonthelatestinsalons" xml:space="preserve">
+    <value>"ابق على اطلاع على آخر المستجدات في مجال التجميل ومنتجات التجميل. اشترك في نشرتنا البريدية للحصول على نصائح الخبراء و تطورات الصناعة ومراجعات المنتجات الجديدة والمزيد، اشترك الآن. "</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>المتجر</value>
+  </data>
+  <data name="StoreBannerContent1" xml:space="preserve">
+    <value>سوق زان عبارة عن منصة توفر أفضل الحلول لربط مصنعي منتجات صالونات التجميل والموزعين وتجار الجملة ومقدمي خدمات التجميل تحت سقف واحد.
+مع آلاف الخيارات، لدى زان كل منتج يحتاجه الصالون لخلق أفضل تجربة يستحقها العميل.</value>
+  </data>
+  <data name="StoreBannerContent2" xml:space="preserve">
+    <value>انضم إلى سوق زان كبائع واستمتع بجمال سهولة وصول منتجاتك إلى عملائك بطريقة عصرية فريدة.</value>
+  </data>
+  <data name="StoreBannerHeading" xml:space="preserve">
+    <value>الحل المتكامل في صناعة التجميل لتنمية أعمالك في الصالون والسبا</value>
+  </data>
+  <data name="StylingChair" xml:space="preserve">
+    <value>كرسي تسريح</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>الموضوع</value>
+  </data>
+  <data name="SubjectValidationMessage" xml:space="preserve">
+    <value>الرجاء أدخل موضوع استشارتك</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>اشتراك</value>
+  </data>
+  <data name="SubscribeNewslatter" xml:space="preserve">
+    <value>اشترك في النشرة البريدية</value>
+  </data>
+  <data name="TermsAndContitions" xml:space="preserve">
+    <value>الشروط و الأحكام</value>
+  </data>
+  <data name="TopArticles" xml:space="preserve">
+    <value>أعلى المقالات</value>
+  </data>
+  <data name="TopPosts" xml:space="preserve">
+    <value>أعلى المقالات</value>
+  </data>
+  <data name="Wedesigned" xml:space="preserve">
+    <value>صممنا نظام زان ليغطي جميع احتياجات الصالون الخاص بك، ليساعدك على العمل بشكل جميل</value>
+  </data>
+  <data name="YourName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="YourNameValidation" xml:space="preserve">
+    <value>الرجاء أدخل أسمك الكامل</value>
+  </data>
+  <data name="ZaanSalonSoftware" xml:space="preserve">
+    <value>يقدم نظام زان كل ما تحتاجه لصالونك ومنتجعك الصحي لتحسين جدولة المواعيد وإدارة الموظفين وإدارة العملاء والتسويق والمخزون وغير ذلك الكثير.</value>
+  </data>
+  <data name="Zaansalonsoftwaredelivers" xml:space="preserve">
+    <value>مجموعة Philips Prestige style مع جهاز تجعيد تلقائي وفرشاة تمليس ساخنة لتسريحات مثالية تدوم طويلاً. يأتي 
+مع حقيبة فاخرة. ابتكري أسلوبك الخاص بسرعة وسهولة: تجعيدات براقة أو شعر مفرود بشكل طبيعي.</value>
+  </data>
+</root>

@@ -1,0 +1,488 @@
+﻿@using BeautyBook.Common;
+@{
+    ViewBag.Title = "SalonService Details";
+}
+@using BeautyBook.Pages
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageSalonServices", "SalonServices")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Salon_Service_Details)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageSalonServices", "SalonServices")">@(beautybook.Resources.Languages.Manage_Salon_Services)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Salon_Service_Details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="app-content-inner">
+            <div id="addServiceformloader" style="display: none;" class="text-center mb-2 mt-2">
+                <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+            </div>
+            <form action="/" method="post" id="addServiceform" style="display:none;">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 col-xl-9">
+                            <div class="card card-lg mb-3 text-left-to-right">
+                                <div class="card-header">
+                                    @if (ViewBag.SalonId > 0)
+                                    {
+                                        <h6 class="mb-1">@(beautybook.Resources.Languages.Edit_Service_Details)</h6>
+                                        <p class="mb-0 text-muted fs-13">@(beautybook.Resources.Languages.Salon_Service_Details).</p>
+                                    }
+                                    else
+                                    {
+                                        <h6 class="mb-1">@(beautybook.Resources.Languages.New_Service_Details)</h6>
+                                        <p class="mb-0 text-muted fs-13">@(beautybook.Resources.Languages.Tell_us_all_about_your_new_service).</p>
+                                    }
+
+                                </div>
+                                <input type="hidden" name="salonsServiceId" id="salonsServiceId" value="0" />
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="categoryName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Category)</label>
+                                                <div class="col-sm-8">
+                                                    <select class="selectpicker form-control" tabindex="1" id="categoryName" name="categoryName" title="@(beautybook.Resources.Languages.Select_a_category)" data-live-search="true" data-size="5">
+                                                    </select>
+                                                    <div class="w-100">
+                                                        <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none float-left" data-toggle="modal" data-target="#viewSalonCategory">@(beautybook.Resources.Languages.View_Category)</a>
+                                                        <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none float-right" data-toggle="modal" data-target="#newCategoryModal">@(beautybook.Resources.Languages.New_Category)</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="serviceName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Service_Name)</label>
+                                                <div class="col-sm-8">
+                                                    <select class="selectpicker form-control" tabindex="2" id="serviceName" name="serviceName" onchange="SetServicePriceDuration()" title="@(beautybook.Resources.Languages.Select_a_service)" data-live-search="true" data-size="5" disabled>
+                                                    </select>
+                                                    <div class="w-100">
+                                                        <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none float-left" data-toggle="modal" data-target="#viewSalonServices">@(beautybook.Resources.Languages.View_Services)</a>
+                                                        <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none float-right" data-toggle="modal" data-target="#newServiceModal">@(beautybook.Resources.Languages.Custom_Service)</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label for="appoinmentComment" class="col-sm-2 col-form-label text-sm-right">@(beautybook.Resources.Languages.Description)</label>
+
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" tabindex="3" id="DescriptionComment" rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "AddEmployeeAndCharges").FirstOrDefault().Value == true)
+                            {
+                                <div class="card card-lg mb-5" id="employeeCharges" style="display:none;">
+                                    <div class="card-header">
+                                        <h6 class="mb-1">@(beautybook.Resources.Languages.Add_Employee_and_Charges)</h6>
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <form id="formEmployee" method="post">
+                                            <div class="row align-items-end" id="serverAssignEmployee">
+                                                <div class="col-lg-4 mb-3 mb-lg-0">
+                                                    <label class="custom-label font-weight-medium">@(beautybook.Resources.Languages.Employee_Name)</label>
+
+                                                    <select class="selectpicker form-control" id="EmployeeName" tabindex="5" name="EmployeeName" title="@(beautybook.Resources.Languages.Select_Employee)" data-live-search="true" data-size="5"></select>
+                                                </div>
+                                                <div class="col-lg-3 mb-3 mb-lg-0">
+                                                    <label class="custom-label font-weight-medium">@(beautybook.Resources.Languages.Price)</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <input type="number" id="Price" name="Price" tabindex="6" class="form-control" placeholder="60" disabled>
+
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">SAR</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 mb-3 mb-lg-0">
+                                                    <label class="custom-label font-weight-medium">@(beautybook.Resources.Languages.Duration)</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <input type="number" class="form-control duration-field" tabindex="7" min="1" max="000" name="Duration" id="Duration" placeholder="60" disabled>
+
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><i class="bb-clock fs-16"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 mb-3 mb-lg-0">
+                                                    <button type="button" onclick="AddEmpoyee();" id="addBtn" tabindex="8" class="btn btn-primary btn-block font-weight-semibold">@(beautybook.Resources.Languages.Add)</button>
+                                                    <button type="button" class="btn btn-primary btn-block font-weight-semibold" id="addBtnloader" disabled style="display:none;">
+                                                        @(beautybook.Resources.Languages.Adding) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                        <div class="row mt-4">
+                                            <div class="col-12">
+                                                <div class="table-responsive-lg">
+                                                    <table class="table table-hover border table-service employee-charges">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">@(beautybook.Resources.Languages.Perform_By)</th>
+                                                                <th scope="col">@(beautybook.Resources.Languages.Price)</th>
+                                                                <th scope="col">@(beautybook.Resources.Languages.Duration)</th>
+                                                                <th scope="col">@(beautybook.Resources.Languages.Actions)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="EmployeeData"></tbody>
+                                                    </table>
+                                                    <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+
+                            <div class="fixed-footer text-center">
+                                <button type="button" class="btn btn-primary font-weight-medium btn-wide" tabindex="4" id="addSalonservicesbtn" onclick="addSalonservices();">@(beautybook.Resources.Languages.Save)</button>
+                                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="addSalonservicesbtnloading" disabled style="display:none;">
+                                    @(beautybook.Resources.Languages.Save) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                </button>
+
+                                <a href="@Url.Action("ManageSalonServices","SalonServices")" tabindex="5" class="btn btn-link btn-wide">@(beautybook.Resources.Languages.Cancel)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- Employee Profile Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="employeeModalLabel">@(beautybook.Resources.Languages.Employee_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <ul class="nav nav-lines" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">@(beautybook.Resources.Languages.Basic_Info)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">@(beautybook.Resources.Languages.Services)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="WorkingHours-tab" data-toggle="tab" href="#WorkingHours" role="tab" aria-controls="WorkingHours" aria-selected="false">@(beautybook.Resources.Languages.Working_Hours)</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="leave-tab" data-toggle="tab" href="#leave" role="tab" aria-controls="leave" aria-selected="false">@(beautybook.Resources.Languages.Leave)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="AssignToAppointments-tab" data-toggle="tab" href="#AssignToAppointments" role="tab" aria-controls="leave" aria-selected="false">@(beautybook.Resources.Languages.Appointments)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+                        <div class="row fs-14" id="employeeInfodetails">
+
+                        </div>
+                        <div id="employeeProfileloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="services" role="tabpanel" aria-labelledby="services-tab">
+                        <div class="fs-14 mx-3" id="userServicestable">
+
+                        </div>
+                        <div id="userServicestableloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="WorkingHours" role="tabpanel" aria-labelledby="WorkingHours-tab">
+                        <div class="fs-14 mx-3">
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary w-lg-50">@(beautybook.Resources.Languages.Day)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Start)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.End)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeeWorksheet"></tbody>
+                                </table>
+                                <div id="employeeWorksheetloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="tab-pane" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+                        <div class="fs-14 mx-3">
+                            <div id="leaveCountList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 text-center">
+
+                            </div>
+                        </div>
+                        <div id="leaveCountListloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="AssignToAppointments" role="tabpanel" aria-labelledby="AssignToAppointments-tab">
+                        <div class="fs-14 mx-3" id="AssignToAppointmentsListtable">
+                            <h6 class="mb-3">@(beautybook.Resources.Languages.Appointments)</h6>
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.ID)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Date)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Service_Name)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Customer_Name)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Price)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Status)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="AssignToAppointmentslist">
+                                    </tbody>
+                                </table>
+                                <div id="AssignToAppointmentslistloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" id="profileModalbtn">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add New Category Modal -->
+<div class="modal fade" id="newCategoryModal" tabindex="-1" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCategoryModalLabel">@(beautybook.Resources.Languages.Add_New_Category)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="newProductName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Category_Name)</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="CustomCategory" name="CustomCategory" placeholder="@(beautybook.Resources.Languages.Skin_care)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                <button type="button" name="button" id="AddCustomCategory" class="btn btn-primary font-weight-medium" onclick="customCategoryadd();">@(beautybook.Resources.Languages.Add_New_Category)</button>
+                <button type="button" id="AddCustomCategoryLoading" class="btn btn-primary font-weight-medium btn-wide" id="saveBtnloading" style="display:none;" disabled>
+                    <span id="saveSalonsdetailsbtntext">Adding new category</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add New Service Modal -->
+<div class="modal fade" id="newServiceModal" tabindex="-1" aria-labelledby="newServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newServiceModalLabel">@(beautybook.Resources.Languages.Add_New_Service)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body ">
+                <div class="form-group row">
+                    <label for="customCategoryName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Category)</label>
+                    <div class="col-sm-7">
+                        <select class="selectpicker form-control" tabindex="1" id="customCategoryName" name="customCategoryName" title="@(beautybook.Resources.Languages.Select_a_category)" data-live-search="true" data-size="5">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="CustomService" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Service_Name)</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="CustomService" name="CustomService" placeholder="@(beautybook.Resources.Languages.Service_Name)">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="purchasePrice" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Service_Price)</label>
+
+                    <div class="col-sm-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control w-100" tabindex="1" name="CustomServicePrice" id="CustomServicePrice" placeholder="0.00">
+                            <div class="input-group-append input-box-label">
+                                <span class="input-group-text text-muted">SAR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="purchasePrice" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Service_Duration)</label>
+
+                    <div class="col-sm-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control w-100" tabindex="1" name="CustomServiceDuration" id="CustomServiceDuration" placeholder="0:00">
+                            <div class="input-group-append input-box-label">
+                                <span class="input-group-text text-muted">@(beautybook.Resources.Languages.Min)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="CustomServPhoto" class="col-sm-4 col-form-label text-sm-right">Service Image</label>
+
+                    <div class="col-sm-7">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="servPhoto" onchange="servPhotoUpload();" tabindex="9" id="servPhoto">
+                            <label class="custom-file-label" for="servPhoto">@(beautybook.Resources.Languages.Choose_Photo)</label>
+                        </div>
+                        <span class="mb-0 text-muted fs-13" id="uploadImagenames"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                <button type="button" name="button" id="AddCustomService" class="btn btn-primary font-weight-medium" onclick="customCategoryadd();">@(beautybook.Resources.Languages.Add_New_Category)</button>
+                <button type="button" id="AddCustomServiceLoading" class="btn btn-primary font-weight-medium btn-wide" id="saveBtnloading" style="display:none;" disabled>
+                    <span id="saveSalonsdetailsbtntext">Adding new category</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- View category Modal -->
+<div class="modal fade" id="viewSalonCategory" tabindex="-1" aria-labelledby="viewSalonCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewSalonCategoryLabel">@(beautybook.Resources.Languages.View_Category)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-left-to-right" id="SalonCategory">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- View Services Modal -->
+<div class="modal fade" id="viewSalonServices" tabindex="-1" aria-labelledby="viewSalonServicesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewSalonServicesLabel">@(beautybook.Resources.Languages.View_Services)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body text-left-to-right" id="SalonServices">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<!-- Custom JS -->
+<script src="~/Content/assets/js/main.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/SalonServiceDetails/EditSalonService.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/SalonServiceDetails/SalonServiceDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/SalonServiceDetails/CustomServiceAndCategory.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/ManageEmployee/EmployeeProfile.js"></script>
+<script>
+    var EmployeeLength = 0;
+    var Langaugestore = {};
+    $(document).ready(function () {
+        ArbicLanguage();
+         Langaugestore = {
+            NoRecordsFound: "@beautybook.Resources.Languages.No_Records_Found",
+         };
+        //CategoryName API function call
+        CategoryName();
+        // Set Data
+        editSalonServices();
+        //ServiceName API function call
+        ServiceName();
+        //customCategoryGet api function call
+        customCategoryGet();
+        //View Salon Category
+        ViewCategoryName();
+        //View Salon Services
+        ViewServicesName();
+    });
+</script>
+

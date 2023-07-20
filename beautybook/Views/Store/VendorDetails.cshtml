@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Vendor Details";
+}
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Vendor_Details)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Vendor_Details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-header">
+            <div class="container" id="vendorDetailscard">
+                
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <ul class="nav nav-pills bg-white p-2 rounded" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" data-toggle="pill" href="#my-orders" role="tab">@(beautybook.Resources.Languages.My_Orders)</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="pill" href="#products" role="tab">@(beautybook.Resources.Languages.Products)</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="pill" href="#feedback" role="tab">@(beautybook.Resources.Languages.Feedback)</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="tab-content">
+                    <!-- My Orders -->
+                    <div class="tab-pane fade show active" id="my-orders" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-card table-responsive fs-14">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">@(beautybook.Resources.Languages.Order_ID)</th>
+                                                <th scope="col">@(beautybook.Resources.Languages.Date)</th>
+                                                <th scope="col">@(beautybook.Resources.Languages.Total_Items)</th>
+                                                <th scope="col">@(beautybook.Resources.Languages.Total_Price)</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="salonOrderdata">
+                                        </tbody>
+                                    </table>
+                                    <div id="salonOrderdataloader" style="display: none;" class="text-center mb-2 mt-2">
+                                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product List -->
+                    <div class="tab-pane fade" id="products" role="tabpanel">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-5" id="viewProductlist">
+
+                        </div>
+                        <div id="viewProductlistloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                        <div class="w-100 text-center">
+                            <button class="btn btn-primary font-weight-medium btn-wide" id="loadMorebtn" onclick="loadMore();">
+                                @(beautybook.Resources.Languages.Load_more) <i class="fa fa-circle-o-notch ml-1 fa-spin" style="display:none;" id="loadIcon" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Feedback & Reviews -->
+                    <div class="tab-pane fade" id="feedback" role="tabpanel">
+
+                        <div class="row">
+                            <div class="col-lg-8 order-2 order-lg-1">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="feedBack_list"></div>
+                                        <div id="feedBack_listloader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                        <div class="d-sm-flex justify-content-sm-end">
+                                            <a class="btn btn-link w-100 w-sm-auto px-5 mb-2 mr-sm-3" id="viewMorebtn" onclick="viewMore();" href="javascript:void(0)">@(beautybook.Resources.Languages.View_More)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 mb-5 mb-lg-0 order-1 order-lg-2" id="customerOverview">
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- View Order Details Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">@(beautybook.Resources.Languages.Order_Details) <span class="text-muted font-weight-medium fs-16" id="OrderId"></span></h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive fs-14">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">@(beautybook.Resources.Languages.Product_Name)</th>
+                                        <th scope="col">@(beautybook.Resources.Languages.Weight)</th>
+                                        <th scope="col">@(beautybook.Resources.Languages.Price)</th>
+                                        <th scope="col">@(beautybook.Resources.Languages.Quantity)</th>
+                                        <th scope="col">@(beautybook.Resources.Languages.Total)</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="orderItem">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-end mt-3 fs-14">
+                    <div class="col-md-8 col-lg-6 col-xl-4" id="subTotalarea">
+                        
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/VendorDetails/VendorProduct.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/VendorDetails/VendorFeedBack.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/VendorDetails/SalonOrder.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Cart/AddToCart.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/WishlistAPI/Wishlist/Index.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //vendor all product feedback list api function call
+        feedBacklist();
+
+        //Vendor all product list api function call
+        ViewProductList();
+
+        //SalonOrder liti api function call
+        SalonOrderData();
+    });
+</script>

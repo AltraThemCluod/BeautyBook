@@ -1,0 +1,37 @@
+﻿@using BeautyBook.Common;
+@using BeautyBookAdmin.Pages;
+@using System.Web.Optimization;
+<style>
+    .sidebar-nav .metismenu ul a::before {
+        content: '';
+        position: absolute;
+        left: 19px
+    }
+</style>
+<ul class="main-menu metismenu">
+    <li class="custom"><a href="@Url.Action(Actions.Index, Controllers.Home, new { Area = "" })" id="Dashboard"><i class="icon-speedometer"></i><span>Dashboard</span></a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Index, Controllers.SalonOwner, new { Area = "" })" id="SalonOwner"><i class="icon-users"></i><span>Manage Salon Owners</span></a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Index, Controllers.ManageVendor, new { Area = "" })" id="ManageVendor"><i class="icon-users"></i><span>Manage Vendor</span></a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Index, Controllers.CreateEmailTemplate, new { Area = "" })" id="ManageEmailTemplate"><i class="icon-users"></i><span>Manage Email Template</span></a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Salon, Controllers.TermsAndConditions, new { Area = "" })" id="Salon_TermsAndConditions"><i class="fa fa-cog" aria-hidden="true"></i><span>Salon T&C</span> </a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Vendor, Controllers.TermsAndConditions, new { Area = "" })" id="Vendor_TermsAndConditions"><i class="fa fa-cog" aria-hidden="true"></i><span>Vendor T&C</span> </a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Salon, Controllers.PrivacyPolicy, new { Area = "" })" id="Salon_PrivacyPolicy"><i class="fa fa-cog" aria-hidden="true"></i><span>Salon Privacy Policy</span> </a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Vendor, Controllers.PrivacyPolicy, new { Area = "" })" id="Vendor_PrivacyPolicy"><i class="fa fa-cog" aria-hidden="true"></i><span>Vendor Privacy Policy</span> </a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Index, Controllers.TechnicalSupport, new { Area = "" })" id="SMS_Packages"><i class="fa fa-phone" aria-hidden="true"></i><span>Technical Support</span></a></li>
+    <li class="custom">
+        <a href="javascript:void(0)" id="MasterData" class="has-arrow" aria-expanded="false"><i class="icon-globe"></i> <span>Master Data</span></a>
+        <ul aria-expanded="false" class="collapse" style="height: 0px;">
+            <li><a id="ProductBrand" href="@Url.Action(Actions.MasterProductBrand, Controllers.MasterData, new { Area = "" })">Product Brand</a></li>
+            <li><a id="ProductType" href="@Url.Action(Actions.MasterProductType, Controllers.MasterData, new { Area = "" })">Product Type</a></li>
+            <li><a id="ProductWeight" href="@Url.Action(Actions.MasterProductWeight, Controllers.MasterData, new { Area = "" })">Product Weight</a></li>
+            <li><a id="OrderStatus" href="@Url.Action(Actions.MasterOrderStatus, Controllers.MasterData, new { Area = "" })">Order Status</a></li>
+            <li><a id="ProductCategory" href="@Url.Action(Actions.MasterProductCategory, Controllers.MasterData, new { Area = "" })">Product Category</a></li>
+        </ul>
+    </li>
+    <li class="custom"><a href="@Url.Action(Actions.Index, Controllers.SMSPackages, new { Area = "" })" id="SMS_Packages"><i class="fa fa-commenting-o" aria-hidden="true"></i><span>Manage SMS Package</span></a></li>
+    <li class="custom"><a href="@Url.Action(Actions.Index, Controllers.EmailPackages, new { Area = "" })" id="Email_Packages"><i class="fa fa-envelope-o" aria-hidden="true"></i><span>Manage Email Package</span></a></li>
+    <li class="custom"><a href="@Url.Action(Actions.ChangePassword, Controllers.ChangePassword, new { Area = "" })" id="ChangePassword"><i class="fa fa-key" aria-hidden="true"></i><span>Change Password</span></a></li>
+    <li class="custom mb-5"><a href="@Url.Action(Actions.Signout,Controllers.Authentication)" id="logout"><i class="fa fa-power-off"></i>Logout</a></li>
+</ul>
+
+

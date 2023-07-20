@@ -1,0 +1,256 @@
+﻿@{
+    ViewBag.Title = "Customer Details";
+}
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageCustomers","Customers")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Customer_Details)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageCustomers","Customers")">@(beautybook.Resources.Languages.Manage_Customers)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Customer_Details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9">
+                        <div id="signinformloader" style="display: none;" class="text-center mb-4">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                        <form action="" name="signinform" id="signinform" style="display:none;">
+                            <div class="card card-lg mb-5">
+                                <div class="card-header">
+                                    <h6 class="mb-1">@(beautybook.Resources.Languages.Customer_Info)</h6>
+                                    <p class="mb-0 text-muted fs-13">@(beautybook.Resources.Languages.Tell_us_all_about_your_new_customer_)<span class="customernew">@(beautybook.Resources.Languages.New_Customer)</p>
+                                </div>
+
+                                <div class="card-body pb-0">
+                                    <div class="row">
+
+                                        <input type="hidden" name="Id" id="Id" value="0" />
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="firstName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.First_Name)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" tabindex="1" name="firstName" id="firstName" placeholder="@(beautybook.Resources.Languages.First_Name)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="lastName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Last_Name)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" tabindex="2" name="lastName" id="lastName" placeholder="@(beautybook.Resources.Languages.Last_Name)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <fieldset class="form-group row">
+                                                <legend class="col-form-label col-sm-4 float-sm-left text-sm-right pt-0">@(beautybook.Resources.Languages.Gender)</legend>
+                                                <div class="col-sm-7">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" tabindex="3" type="radio" name="gender" id="maleRadio" value="Male" checked>
+                                                        <label class="form-check-label" for="maleRadio">
+                                                            @(beautybook.Resources.Languages.Male)
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" tabindex="4" type="radio" name="gender" id="femaleRadio" value="Female">
+                                                        <label class="form-check-label" for="femaleRadio">
+                                                            @(beautybook.Resources.Languages.Female)
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="birthDate" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Birthdate)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="datepicker singledatepicker form-control" tabindex="5" name="birthDate" id="birthDate" placeholder="mm/dd/yyyy">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="emailAddress" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Email)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="email" class="form-control" name="emailAddress" tabindex="6" id="emailAddress" placeholder="@(beautybook.Resources.Languages.Email)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="phonephoneNumber" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Primary_Phone)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group contact-number">
+                                                        <div>
+                                                            <span class="input-group-text text-muted brrt-rb">+966</span>
+                                                        </div>
+                                                        <input type="text" class="form-control brlt-lb" name="phoneNumber" id="phoneNumber" tabindex="7" placeholder="011 XXX XXXX" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="alternateNumber" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Alternate_Phone)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group contact-number">
+                                                        <div>
+                                                            <span class="input-group-text text-muted brrt-rb">+966</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="alternateNumber" id="alternateNumber" tabindex="8" placeholder="011 XXX XXXX" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="customerPhoto" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Customer_Photo)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="customerPhoto" tabindex="9" onchange="profileUpload();" id="customerPhoto">
+                                                        <label class="custom-file-label" for="customerPhoto">@(beautybook.Resources.Languages.Choose_file)</label>
+                                                    </div>
+                                                    <span class="mb-0 text-muted fs-13" id="uploadImagename"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="referredBy" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Referred_By)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" name="referredBy" id="referredBy" tabindex="10" placeholder="@(beautybook.Resources.Languages.Referred_By)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="customerTags" class="col-sm-4 col-form-label text-sm-right">Tags</label>
+
+                                                <div class="col-sm-7">
+                                                    <input name='customerTags' id="customerTags" class="form-control customer-tags h-auto" tabindex="11" placeholder="@(beautybook.Resources.Languages.Add_tags_and_Press_enter)" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fixed-footer text-center">
+                                <button type="submit" name="submit" id="addCustomerbtn" tabindex="11" class="btn btn-primary font-weight-medium btn-wide">@(beautybook.Resources.Languages.Save_Customer_Information)</button>
+                                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="addCustomerbtnloading" style="display:none;" disabled>
+                                    <span id="saveSalonsdetailsbtntext">@(beautybook.Resources.Languages.Save_Customer_Information)</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                </button>
+                                @*<button type="button" class="btn btn-link btn-wide">Cancle</button>*@
+                            <a href="@Url.Action("ManageCustomers","Customers")" tabindex="12" class="btn btn-link btn-wide text-muted">@(beautybook.Resources.Languages.Cancel)</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/CustomersAPI/CustomerDetails/CustomerDetails.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        ArbicLanguage();
+        getCustomerdata();
+    });
+
+    $(function () {
+        $("form[name='signinform']").validate({
+            rules: {
+                firstName: {
+                    required: true
+                },
+                lastName: {
+                    required: true
+                },
+                //birthDate: {
+                //    required: true
+                //},
+                //emailAddress: {
+                //    required: true,
+                //    email: true
+                //},
+                phoneNumber: {
+                    required: true,
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                alternateNumber: {
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                referredBy: {
+                    email: true
+                },
+            },
+            messages: {
+                firstName: "@beautybook.Resources.Languages.First_Name_is_required",
+                lastName: "@beautybook.Resources.Languages.Last_Name_is_required",
+                @*birthDate: "@beautybook.Resources.Languages.Date_of_Birth_is_required",
+                emailAddress: {
+                    required: "@beautybook.Resources.Languages.Email_is_required"
+                },*@
+                phoneNumber: {
+                    required: "@beautybook.Resources.Languages.Primary_Phone_is_required",
+                    number : "@beautybook.Resources.Languages.Please_enter_a_valid_number"
+                },
+                alternateNumber: {
+                    number : "@beautybook.Resources.Languages.Please_enter_a_valid_number"
+                }
+            },
+            submitHandler: function () {
+                addCustomer();
+            }
+        });
+    });
+
+
+</script>

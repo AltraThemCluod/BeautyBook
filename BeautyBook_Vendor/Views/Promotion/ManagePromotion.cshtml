@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = "Manage Promotion";
+}
+<link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(BeautyBook_Vendor.Resources.Languages.Promotion_Manager)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(BeautyBook_Vendor.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(BeautyBook_Vendor.Resources.Languages.Promotion_Manager)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive table-hover fs-14">
+                            <div class="">
+                                <div id="managePromotiondiv">
+                                    <table id="promotionList" class="table table-card" style="width:100%; display:inherit;">
+                                        <!-- Ajax Color Table Body -->
+                                    </table>
+                                    <div id="promotionListloader" style="display: none;" class="text-center mb-2 mt-2">
+                                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Edit Product Modal -->
+<div class="modal fade" id="editProduct" tabindex="-1" aria-labelledby="editProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductLabel">@(BeautyBook_Vendor.Resources.Languages.Edit_Product)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="productName" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Name)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="productName" placeholder="Facewash">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="productType" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Type)</label>
+
+                            <div class="col-sm-7">
+                                <select class="selectpicker form-control" id="productType" title="Select a product type" data-live-search="true" data-size="5">
+                                    <option data-tokens="Mackup">@(BeautyBook_Vendor.Resources.Languages.Mackup)</option>
+                                    <option data-tokens="Skin Care">@(BeautyBook_Vendor.Resources.Languages.Skin_Care)</option>
+                                    <option data-tokens="Eye Care">@(BeautyBook_Vendor.Resources.Languages.Eye_Care)</option>
+                                    <option data-tokens="Face Care">@(BeautyBook_Vendor.Resources.Languages.Face_Care)</option>
+                                    <option data-tokens="Hair Care">@(BeautyBook_Vendor.Resources.Languages.Hair_Care)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="productBrand" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Brand)</label>
+
+                            <div class="col-sm-7">
+                                <select class="selectpicker form-control" id="productBrand" title="Select a option" data-live-search="true" data-size="5">
+                                    <option data-tokens="Lakme">Lakme</option>
+                                    <option data-tokens="Lotus Herbals">Lotus Herbals</option>
+                                    <option data-tokens="Biotique">Biotique</option>
+                                    <option data-tokens="Colorbar">Colorbar</option>
+                                    <option data-tokens="VLCC">VLCC</option>
+                                    <option data-tokens="Himalaya">Himalaya</option>
+                                    <option data-tokens="Kama Ayurveda">Kama Ayurveda</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="productQty" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Qty)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="productQty" placeholder="100">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="purchasePrice" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Price)</label>
+
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" tabindex="1" id="purchasePrice" placeholder="120">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text text-muted">SAR</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="productWeight" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Weight)</label>
+
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" tabindex="1" id="productWeight" placeholder="250">
+                                    <div class="input-group-append">
+                                        <select class="form-control selectpicker rounded-left-0" data-width="fit">
+                                            <option>ML</option>
+                                            <option>L</option>
+                                            <option>GM</option>
+                                            <option>KG</option>
+                                            <option>N/A</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="qtyAlert" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Low_Qty_Alert)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="qtyAlert" placeholder="10">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="customFile" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Images)</label>
+
+                            <div class="col-sm-7">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">@(BeautyBook_Vendor.Resources.Languages.Choose_file)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">@(BeautyBook_Vendor.Resources.Languages.Close)</button>
+                <button type="button" class="btn btn-primary font-weight-medium">@(BeautyBook_Vendor.Resources.Languages.Save)</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Update QTY Modal -->
+<div class="modal fade" id="updateQtyModal" tabindex="-1" aria-labelledby="updateQtyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateQtyModalLabel">@(BeautyBook_Vendor.Resources.Languages.Update_Quantity)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label for="productQty" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Qty)</label>
+
+                            <div class="col-sm-7">
+                                <input id="productQty" class="subtract-quantity" type="text" value="55" name="subtract-quantity">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">@(BeautyBook_Vendor.Resources.Languages.Close)</button>
+                <button type="button" class="btn btn-primary font-weight-medium">@(BeautyBook_Vendor.Resources.Languages.Save)</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/daterangepicker/moment.min.js"></script>
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+
+<script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/PromotionAPI/ManagePromotion/ManagePromotion.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/PromotionAPI/PromotionDetails/PromotionDetails.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/PromotionAPI/PromotionDetails/PromotionDetailsEdit.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //promotionList api function call
+        promotionList.init();
+    });
+</script>
+
+
+

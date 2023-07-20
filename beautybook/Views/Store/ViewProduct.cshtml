@@ -1,0 +1,271 @@
+﻿@{
+    ViewBag.Title = "Product Page";
+}
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a Id="productBackarrow" href="@Url.Action("StoreInside","Store")" class="mr-auto"><i class="bb-arrow-left mr-3"></i></a>
+
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Store")">@(beautybook.Resources.Languages.Store)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("StoreInside","Store")">@(beautybook.Resources.Languages.Store_Inside)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Product_details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-inner bg-white border-top">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-lg-5">
+                        <div class="overflow-hidden">
+                            <div id="MainImage" class="slider slider-for bg-white border rounded mb-3">
+                                
+                            </div>
+
+                            <div id="SideImage" class="slider slider-nav">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div Id="productDetailsrighttop">
+
+                            
+                        </div>
+
+                        <hr>
+
+                        <div id="vendorWholesaler">
+                            
+                        </div>
+                        <p class="fs-14 text-muted">@(beautybook.Resources.Languages.Compare_price_with_other_seller): <a href="" class="font-weight-medium" role="button" data-toggle="modal" data-target="#otherSeller">@(beautybook.Resources.Languages.View_seller_list)</a></p>
+
+                        <hr>
+
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h6 class="my-3">@(beautybook.Resources.Languages.Highlights) </h6>
+                                <ul class="list-unstyled fs-14" id="productHighlights">
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <h6 class="my-3">@(beautybook.Resources.Languages.Service) </h6>
+                                <ul class="list-unstyled fs-14" id="productService">
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-top bg-gray-50 py-5">
+                <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <ul class="nav nav-custom-pills" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" data-toggle="pill" href="#my-orders" role="tab">@(beautybook.Resources.Languages.Product_details)</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-toggle="pill" href="#feedback" role="tab">@(beautybook.Resources.Languages.Feedback)</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab-content">
+                        <!-- My Orders -->
+                        <div class="tab-pane fade show active product-details-feedback" id="my-orders" role="tabpanel">
+                            <div class="row">
+                                <div class="col-12">
+
+
+                                    <div class="card border mb-3">
+                                        <div class="card-header">@(beautybook.Resources.Languages.Information)</div>
+                                        <div class="card-body">
+                                            <p class="lh-17" id="productInformation"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="card border mb-3">
+                                        <div class="card-header">@(beautybook.Resources.Languages.Specifications)</div>
+                                        <div class="card-body">
+                                            <table class="table table-borderless table-sm fs-14" id="productSpecifications">
+                                                <tr class="row">
+                                                    <td class="col-4 col-sm-2"><span class="text-muted">@(beautybook.Resources.Languages.Skin_Type)</span></td>
+                                                    <td class="col-8 col-sm-9">@(beautybook.Resources.Languages.All_Skin_Types)</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="card border mb-3">
+                                        <div class="card-header">@(beautybook.Resources.Languages.Return_Policy)</div>
+                                        <div class="card-body" id="productReturnPolicy">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Feedback & Reviews -->
+                        <div class="tab-pane fade" id="feedback" role="tabpanel">
+
+                            <div class="row">
+                                <div class="col-lg-8 order-2 order-lg-1">
+                                    <div class="card border">
+                                        <div class="card-body">
+
+                                            <div id="feedBack_list">
+
+                                            </div>
+
+
+                                            <div class="d-sm-flex justify-content-sm-end">
+                                                <a class="btn btn-link w-100 w-sm-auto px-5 mb-2 mr-sm-3" id="viewMorebtn" onclick="viewMore();" href="javascript:void(0)">@(beautybook.Resources.Languages.View_More)</a>
+                                                <button type="button" data-target="#reviewModal" data-toggle="modal" class="btn btn-primary w-100 w-sm-auto px-5 mb-2">@(beautybook.Resources.Languages.Write_a_Review)</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 mb-5 mb-lg-0 order-1 order-lg-2" id="feedbackCountbox">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Other Seller Modal -->
+<div class="modal fade" id="otherSeller" tabindex="-1" aria-labelledby="otherSellerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="otherSellerLabel">@(beautybook.Resources.Languages.Seller_List)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12" id="sellerListmodal">
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModal" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-fullscreen-md-down">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="reviewModal">@(beautybook.Resources.Languages.Write_a_Review)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="custom-label" for="review-rating">@(beautybook.Resources.Languages.Rating)<span class="text-danger">*</span></label>
+                            <select class=" selectpicker form-control" id="ratingofreview">
+                                <option value="">@(beautybook.Resources.Languages.Choose_rating)</option>
+                                <option value="5">@(beautybook.Resources.Languages._5_stars)</option>
+                                <option value="4">@(beautybook.Resources.Languages._4_stars)</option>
+                                <option value="3">@(beautybook.Resources.Languages._3_stars)</option>
+                                <option value="2">@(beautybook.Resources.Languages._2_stars)</option>
+                                <option value="1">@(beautybook.Resources.Languages._1_star)</option>
+                            </select>
+                            <div class="invalid-feedback">@(beautybook.Resources.Languages.Please_choose_rating_)</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="custom-label" for="heading-text">@(beautybook.Resources.Languages.Heading)<span class="text-danger">*</span></label>
+                            <input class="form-control" required id="heading">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="custom-label" for="review-text">@(beautybook.Resources.Languages.Reviews)<span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="6" required id="review"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary font-weight-medium btn-wide btn-shadow w-100" tabindex="4" id="addbtn" onclick="submitreview();">@(beautybook.Resources.Languages.Submit_a_Review)</button>
+                        <button type="button" class="btn btn-primary font-weight-medium btn-wide btn-shadow w-100" id="btnloading" disabled style="display:none;">
+                            @(beautybook.Resources.Languages.Submit_a_Review)<i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/ViewProduct/FeedBackList.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/ViewProduct/ProductDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Cart/AddToCart.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/WishlistAPI/Wishlist/Index.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //add product feedback api function call
+        feedBacklist();
+
+        //get ProductDetails api function call
+        ProductDetails();
+    });
+    function touchSpin() {
+        $(".subtract-quantity").TouchSpin({
+            min: 0,
+            max: 1000000000,
+            step: 1,
+            boostat: 5,
+            maxboostedstep: 10,
+        });
+    }
+
+</script>

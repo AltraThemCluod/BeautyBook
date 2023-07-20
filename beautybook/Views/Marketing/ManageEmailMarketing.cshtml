@@ -1,0 +1,455 @@
+﻿@using BeautyBook.Common;
+@{
+    ViewBag.Title = "Email Marketing";
+}
+
+<p class="loader-text cmn-text"><span>Payment is in process please do not refresh the page</span></p>
+
+<body class="has-fixed-footer">
+
+    <div class="app-root">
+        <div class="app-wrapper">
+
+
+            <main class="app-content">
+
+                <div class="app-content-wrapper">
+
+                    <div class="app-content-title">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                                        <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Email_Marketing)</h6>
+                                        <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                            <ol class="breadcrumb mb-0 pl-0">
+                                                <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Email_Marketing)</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-content-inner">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xl-9">
+                                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ChooseEmailTemplate").FirstOrDefault().Value == true)
+                                    {
+                                        <div class="row justify-content-between mb-3" id="CreateEmailMarketing_Btn">
+                                            <div class="col-12 mb-3">
+                                                <a href="@Url.Action("ChooseEmailTemplate","Marketing")" class="btn btn-primary">@(beautybook.Resources.Languages.Add_New_Email)</a>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "CreateEmail").FirstOrDefault().Value == true)
+                                        {
+                                            <div class="row justify-content-between mb-3" id="CreateEmailMarketing_Btn">
+                                                <div class="col-12 mb-3">
+                                                    <a href="@Url.Action("EmailTemplateEditor","Marketing")" class="btn btn-primary">@(beautybook.Resources.Languages.Add_New_Email)</a>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="table-responsive table-hover fs-14">
+                                                <div class="emailMarketingListdiv">
+                                                    <table id="emailMarketinglist" class="table table-card" style="width:100%; display:inherit;">
+                                                    </table>
+                                                    <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="sticky-panel-top">
+                                        <h6 class="mb-3">@(beautybook.Resources.Languages.My_Plane)</h6>
+                                        <div class="card bg-primary text-center">
+                                            <div class="card-body" id="showpackages">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Employee Profile Modal -->
+    <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+            <form class="modal-content">
+                <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                    <div class="d-flex justify-content-between w-100 mb-2">
+                        <h5 class="modal-title text-white" id="employeeModalLabel">@(beautybook.Resources.Languages.Employee_Details)</h5>
+                        <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <ul class="nav nav-lines" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">Basic Info</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">@(beautybook.Resources.Languages.Services)</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="WorkingHours-tab" data-toggle="tab" href="#WorkingHours" role="tab" aria-controls="WorkingHours" aria-selected="false">@(beautybook.Resources.Languages.Working_Hours)</a>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="leave-tab" data-toggle="tab" href="#leave" role="tab" aria-controls="leave" aria-selected="false">@(beautybook.Resources.Languages.Leave)</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+                            <div class="row fs-14">
+
+                                <div class="col-lg-9">
+
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.Full_Name)</div>
+                                            <div>
+                                                <span class="font-weight-medium">John</span>
+                                                <span class="font-weight-medium">Doe</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.Gender)</div>
+                                            <div>
+                                                <span class="font-weight-medium">@(beautybook.Resources.Languages.Male)</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.Email)</div>
+                                            <div>
+                                                <span class="font-weight-medium">william@beautybook.com</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.PHONE)</div>
+                                            <div>
+                                                <span class="font-weight-medium">9856545656</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.Alternate_Phone)</div>
+                                            <div>
+                                                <span class="font-weight-medium">9904187145</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.Joining_Date)</div>
+                                            <div>
+                                                <span class="font-weight-medium">18/04/2018</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.Role)</div>
+                                            <div>
+                                                <span class="font-weight-medium">Trainer</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">@(beautybook.Resources.Languages.Type)</div>
+                                            <div>
+                                                <span class="font-weight-medium">Full Time</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-3">
+                                            <div class="text-gray-500 fs-12 mb-1">Address</div>
+                                            <div>
+                                                <span class="font-weight-medium">Box No. 65438, Mishui Avenue</span>
+                                                <span class="font-weight-medium">Gaomi City</span><br>
+                                                <span class="font-weight-medium">Ahmedabad</span>
+                                                <span class="font-weight-medium">Gujarat</span>
+                                                <span class="font-weight-medium">India </span>-
+                                                <span class="font-weight-medium">380058</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="employee-photo-view-mode">
+                                        <img src="./images/avatar/avatar-4.jpg" class="img-fluid rounded shadow-sm" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane" id="services" role="tabpanel" aria-labelledby="services-tab">
+                            <div class="fs-14 mx-3">
+                                <div class="table-responsive table-card mb-3">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-soft-primary text-primary w-lg-50">Hair Salon</th>
+                                                <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Duration)</th>
+                                                <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Price)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            <tr>
+                                                <th>Cut & Blow-Dry Hair</th>
+                                                <td>80 Min</td>
+                                                <td>$60</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Hair Dye</th>
+                                                <td>40 Min</td>
+                                                <td>$120</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Hair Styling</th>
+                                                <td>10 Min</td>
+                                                <td>$500</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Hair Treatment</th>
+                                                <td>45 Min</td>
+                                                <td>$50</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Tattoos</th>
+                                                <td>240 Min</td>
+                                                <td>$80</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-responsive table-card mb-3">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-soft-primary text-primary w-lg-50">Hair Removal</th>
+                                                <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Duration)</th>
+                                                <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Price)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Manicure</th>
+                                                <td>80 Min</td>
+                                                <td>$60</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Pedicure</th>
+                                                <td>50 Min</td>
+                                                <td>$40</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="WorkingHours" role="tabpanel" aria-labelledby="WorkingHours-tab">
+                            <div class="fs-14 mx-3">
+                                <div class="table-responsive table-card mb-3">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-soft-primary text-primary w-lg-50">@(beautybook.Resources.Languages.Day)</th>
+                                                <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.State)</th>
+                                                <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.End)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>@(beautybook.Resources.Languages.Monday)</th>
+                                                <td>11:00 AM</td>
+                                                <td>08:00 PM</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>@(beautybook.Resources.Languages.Tuesday)</th>
+                                                <td>11:00 AM</td>
+                                                <td>08:00 PM</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>@(beautybook.Resources.Languages.Wednesday)</th>
+                                                <td>11:00 AM</td>
+                                                <td>08:00 PM</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>@(beautybook.Resources.Languages.Thrusday)</th>
+                                                <td>11:00 AM</td>
+                                                <td>08:00 PM</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>@(beautybook.Resources.Languages.Friday)</th>
+                                                <td>11:00 AM</td>
+                                                <td>08:00 PM</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>@(beautybook.Resources.Languages.Saturday)</th>
+                                                <td>11:00 AM</td>
+                                                <td>08:00 PM</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>@(beautybook.Resources.Languages.Sunday)</th>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="tab-pane" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+                            <div class="fs-14 mx-3">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 text-center">
+
+                                    <div class="col mb-3">
+                                        <div class="card shadow-1 py-2">
+                                            <div class="card-body">
+                                                <h6>10</h6>
+                                                <p class="text-muted fs-13 mb-0">@(beautybook.Resources.Languages.Casual_Leave)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col mb-3">
+                                        <div class="card shadow-1 py-2">
+                                            <div class="card-body">
+                                                <h6>8</h6>
+                                                <p class="text-muted fs-13 mb-0">Medical Leave</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col mb-3">
+                                        <div class="card shadow-1 py-2">
+                                            <div class="card-body">
+                                                <h6>5</h6>
+                                                <p class="text-muted fs-13 mb-0">Paternity Leave</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col mb-3">
+                                        <div class="card shadow-1 py-2">
+                                            <div class="card-body">
+                                                <h6>90</h6>
+                                                <p class="text-muted fs-13 mb-0">@(beautybook.Resources.Languages.Maternity_Leave)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                    <a href="./employee-edit.html" role="button" class="btn btn-primary">@(beautybook.Resources.Languages.Edit_Profile)</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/MarketingAPI/ManageEmailMarketing/ManageEmailMarketing.js"></script>
+<script src="~/Content/BeautyBookAPI/MarketingAPI/EmailMarketingDetails/EmailMarketingDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/MarketingAPI/ManageEmailMarketing/EditEmailMarketingDetails.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //EmailMarketingList api funcation call
+        EmailMarketingList.init();
+        getEmailMarketingdata();
+        myEmailPakagesPlanlist();
+    });
+
+
+    $(document).ready(function () {
+        if (@ViewBag.PackagesId > 0) {
+            $('.loader-text').show();
+            IsPaymentComplete();
+        }
+    });
+
+    //IsPaymentComplete api call
+    function IsPaymentComplete() {
+        var DeviceTokenNumber = getCookie("DeviceToken&Type");
+        debugger;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/selectPlan_EmailPackages/SelectPlanEmailPackages_UpdatePaymentStatus?SelectPlanEmailPackagesId=@ViewBag.PackagesId`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            crossDomain: true,
+            success: function (result) {
+                debugger;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: result.Message,
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+                setTimeout(function () {
+                    window.location.href = "/Marketing/ManageEmailMarketing"
+                }, 3000);
+                $('.loader-text').hide();
+                $('.loader-text').hide();
+            }, error: function (error) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: error.responseJSON.Message,
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                $('.loader-text').hide();
+            }
+        });
+    }
+</script>

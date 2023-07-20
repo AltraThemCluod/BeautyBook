@@ -1,0 +1,781 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D52B03F7-8319-4A37-8FC0-72F196993930}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Blog</RootNamespace>
+    <AssemblyName>Blog</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44346</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="DataTables">
+      <HintPath>..\Dependancy\DataTables.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Core.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=7.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.7.0.1\lib\net462\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation, Version=7.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.KeyDerivation.7.0.1\lib\net462\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.DataProtection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.DataProtection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.7.0.0\lib\net462\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.7.0.0\lib\net462\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.7.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.WebEncoders.2.2.0\lib\netstandard2.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.5.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.5.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\UsersBlogController.cs" />
+    <Compile Include="Controllers\BlogUsersController.cs" />
+    <Compile Include="Controllers\SubscribeNewslatterController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\BaseController.cs" />
+    <Compile Include="Infrastructure\EnumHelper.cs" />
+    <Compile Include="Infrastructure\UserAccessData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\Gallery\21122022092720_unsplash_ZsUbK9zSgMo %281%29.png" />
+    <Content Include="Blog\Gallery\21122022094919_unsplash_ZsUbK9zSgMo.png" />
+    <Content Include="Blog\Gallery\21122022095128_auth-banner.jpeg" />
+    <Content Include="Blog\Gallery\21122022095134_pexels-photo-3992865.jpg" />
+    <Content Include="Blog\Gallery\21122022095159_pexels-photo-3993449.jpeg" />
+    <Content Include="Blog\Gallery\21122022095205_pexels-photo-3992863.jpeg" />
+    <Content Include="Blog\Gallery\21122022104018_pexels-photo-3992863.jpeg" />
+    <Content Include="Blog\Gallery\21122022104023_pexels-photo-3992865.jpg" />
+    <Content Include="Blog\Gallery\21122022104028_pexels-photo-3993449.jpeg" />
+    <Content Include="Blog\Gallery\21122022104037_auth-banner.jpeg" />
+    <Content Include="Blog\Gallery\21122022105500_bg-1.jpg" />
+    <Content Include="Content\assets\css\app.min.css" />
+    <Content Include="Content\assets\css\bootstrap.min.css" />
+    <Content Include="Content\assets\css\cropper.css" />
+    <Content Include="Content\assets\css\icons.min.css" />
+    <Content Include="Content\assets\css\preloader.min.css" />
+    <Content Include="Content\assets\fonts\boxiconsd41d.svg" />
+    <Content Include="Content\assets\fonts\dripicons-v2.svg" />
+    <Content Include="Content\assets\fonts\fa-brands-400.html" />
+    <Content Include="Content\assets\fonts\fa-brands-400.svg" />
+    <Content Include="Content\assets\fonts\fa-regular-400.html" />
+    <Content Include="Content\assets\fonts\fa-regular-400.svg" />
+    <Content Include="Content\assets\fonts\fa-solid-900.svg" />
+    <Content Include="Content\assets\fonts\materialdesignicons-webfont1d2d.html" />
+    <Content Include="Content\assets\images\auth-banner.jpeg" />
+    <Content Include="Content\assets\images\bg-1.jpg" />
+    <Content Include="Content\assets\images\bg-2.jpg" />
+    <Content Include="Content\assets\images\bg-3.jpg" />
+    <Content Include="Content\assets\images\brands\bitbucket.png" />
+    <Content Include="Content\assets\images\brands\dribbble.png" />
+    <Content Include="Content\assets\images\brands\dropbox.png" />
+    <Content Include="Content\assets\images\brands\github.png" />
+    <Content Include="Content\assets\images\brands\mail_chimp.png" />
+    <Content Include="Content\assets\images\brands\slack.png" />
+    <Content Include="Content\assets\images\error-img.png" />
+    <Content Include="Content\assets\images\favicon.ico" />
+    <Content Include="Content\assets\images\flags\germany.jpg" />
+    <Content Include="Content\assets\images\flags\italy.jpg" />
+    <Content Include="Content\assets\images\flags\russia.jpg" />
+    <Content Include="Content\assets\images\flags\spain.jpg" />
+    <Content Include="Content\assets\images\flags\us.jpg" />
+    <Content Include="Content\assets\images\giftbox.png" />
+    <Content Include="Content\assets\images\logo-sm.svg" />
+    <Content Include="Content\assets\images\logo.png" />
+    <Content Include="Content\assets\images\small-logo.png" />
+    <Content Include="Content\assets\images\small\img-1.jpg" />
+    <Content Include="Content\assets\images\small\img-2.jpg" />
+    <Content Include="Content\assets\images\small\img-3.jpg" />
+    <Content Include="Content\assets\images\small\img-4.jpg" />
+    <Content Include="Content\assets\images\small\img-5.jpg" />
+    <Content Include="Content\assets\images\small\img-6.jpg" />
+    <Content Include="Content\assets\images\small\img-7.jpg" />
+    <Content Include="Content\assets\images\undraw-calendar.svg" />
+    <Content Include="Content\assets\images\users\avatar-1.jpg" />
+    <Content Include="Content\assets\images\users\avatar-2.jpg" />
+    <Content Include="Content\assets\images\users\avatar-3.jpg" />
+    <Content Include="Content\assets\images\users\avatar-4.jpg" />
+    <Content Include="Content\assets\images\users\avatar-5.jpg" />
+    <Content Include="Content\assets\images\users\avatar-6.jpg" />
+    <Content Include="Content\assets\images\users\avatar-8.jpg" />
+    <Content Include="Content\assets\images\users\avatar-9.jpg" />
+    <Content Include="Content\assets\js\app.js" />
+    <Content Include="Content\assets\js\cropper.js" />
+    <Content Include="Content\assets\js\pages\alert.init.js" />
+    <Content Include="Content\assets\js\pages\apexcharts.init.js" />
+    <Content Include="Content\assets\js\pages\bootstrap-toasts.init.js" />
+    <Content Include="Content\assets\js\pages\calendar.init.js" />
+    <Content Include="Content\assets\js\pages\chartjs.init.js" />
+    <Content Include="Content\assets\js\pages\coming-soon.init.js" />
+    <Content Include="Content\assets\js\pages\dashboard.init.js" />
+    <Content Include="Content\assets\js\pages\datatable-pages.init.js" />
+    <Content Include="Content\assets\js\pages\datatables.init.js" />
+    <Content Include="Content\assets\js\pages\echarts.init.js" />
+    <Content Include="Content\assets\js\pages\email-editor.init.js" />
+    <Content Include="Content\assets\js\pages\fontawesome.init.js" />
+    <Content Include="Content\assets\js\pages\form-advanced.init.js" />
+    <Content Include="Content\assets\js\pages\form-editor.init.js" />
+    <Content Include="Content\assets\js\pages\form-mask.init.js" />
+    <Content Include="Content\assets\js\pages\form-validation.init.js" />
+    <Content Include="Content\assets\js\pages\form-wizard.init.js" />
+    <Content Include="Content\assets\js\pages\gmaps.init.js" />
+    <Content Include="Content\assets\js\pages\invoices-list.init.js" />
+    <Content Include="Content\assets\js\pages\jquery-knob.init.js" />
+    <Content Include="Content\assets\js\pages\leaflet-map.init.js" />
+    <Content Include="Content\assets\js\pages\leaflet-us-states.js" />
+    <Content Include="Content\assets\js\pages\lightbox.init.js" />
+    <Content Include="Content\assets\js\pages\materialdesign.init.js" />
+    <Content Include="Content\assets\js\pages\modal.init.js" />
+    <Content Include="Content\assets\js\pages\notification.init.js" />
+    <Content Include="Content\assets\js\pages\pass-addon.init.js" />
+    <Content Include="Content\assets\js\pages\rangeslider.init.js" />
+    <Content Include="Content\assets\js\pages\rating.init.js" />
+    <Content Include="Content\assets\js\pages\session-timeout.init.js" />
+    <Content Include="Content\assets\js\pages\sparklines.init.js" />
+    <Content Include="Content\assets\js\pages\sweetalert.init.js" />
+    <Content Include="Content\assets\js\pages\table-editable.int.js" />
+    <Content Include="Content\assets\js\pages\table-responsive.init.js" />
+    <Content Include="Content\assets\js\pages\two-step-verification.init.js" />
+    <Content Include="Content\assets\js\pages\validation.init.js" />
+    <Content Include="Content\assets\js\pages\vector-maps.init.js" />
+    <Content Include="Content\assets\js\plugin.js" />
+    <Content Include="Content\assets\libs\%40ckeditor\ckeditor5-build-classic\build\ckeditor.js" />
+    <Content Include="Content\assets\libs\%40curiosityx\bootstrap-session-timeout\index.js" />
+    <Content Include="Content\assets\libs\%40fullcalendar\bootstrap\main.min.css" />
+    <Content Include="Content\assets\libs\%40fullcalendar\bootstrap\main.min.js" />
+    <Content Include="Content\assets\libs\%40fullcalendar\core\main.min.css" />
+    <Content Include="Content\assets\libs\%40fullcalendar\core\main.min.js" />
+    <Content Include="Content\assets\libs\%40fullcalendar\daygrid\main.min.css" />
+    <Content Include="Content\assets\libs\%40fullcalendar\daygrid\main.min.js" />
+    <Content Include="Content\assets\libs\%40fullcalendar\interaction\main.min.js" />
+    <Content Include="Content\assets\libs\%40fullcalendar\timegrid\main.min.css" />
+    <Content Include="Content\assets\libs\%40fullcalendar\timegrid\main.min.js" />
+    <Content Include="Content\assets\libs\%40simonwep\pickr\pickr.es5.min.js" />
+    <Content Include="Content\assets\libs\%40simonwep\pickr\pickr.min.js" />
+    <Content Include="Content\assets\libs\%40simonwep\pickr\themes\classic.min.css" />
+    <Content Include="Content\assets\libs\%40simonwep\pickr\themes\monolith.min.css" />
+    <Content Include="Content\assets\libs\%40simonwep\pickr\themes\nano.min.css" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-au-mill-en.js" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-ca-lcc-en.js" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-in-mill-en.js" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-uk-mill-en.js" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-us-il-chicago-mill-en.js" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-us-merc-en.js" />
+    <Content Include="Content\assets\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\assets\libs\admin-resources\rwd-table\rwd-table.min.css" />
+    <Content Include="Content\assets\libs\admin-resources\rwd-table\rwd-table.min.js" />
+    <Content Include="Content\assets\libs\alertifyjs\build\alertify.min.js" />
+    <Content Include="Content\assets\libs\alertifyjs\build\css\alertify.min.css" />
+    <Content Include="Content\assets\libs\alertifyjs\build\css\themes\default.min.css" />
+    <Content Include="Content\assets\libs\apexcharts\apexcharts.min.js" />
+    <Content Include="Content\assets\libs\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\assets\libs\chart.js\Chart.bundle.min.js" />
+    <Content Include="Content\assets\libs\choices.js\public\assets\scripts\choices.min.js" />
+    <Content Include="Content\assets\libs\choices.js\public\assets\styles\choices.min.css" />
+    <Content Include="Content\assets\libs\datatables.net-bs4\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\assets\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\assets\libs\datatables.net-buttons-bs4\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\assets\libs\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js" />
+    <Content Include="Content\assets\libs\datatables.net-buttons\js\buttons.colVis.min.js" />
+    <Content Include="Content\assets\libs\datatables.net-buttons\js\buttons.html5.min.js" />
+    <Content Include="Content\assets\libs\datatables.net-buttons\js\buttons.print.min.js" />
+    <Content Include="Content\assets\libs\datatables.net-buttons\js\dataTables.buttons.min.js" />
+    <Content Include="Content\assets\libs\datatables.net-responsive-bs4\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\assets\libs\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js" />
+    <Content Include="Content\assets\libs\datatables.net-responsive\js\dataTables.responsive.min.js" />
+    <Content Include="Content\assets\libs\datatables.net\js\jquery.dataTables.min.js" />
+    <Content Include="Content\assets\libs\dropzone\min\dropzone.min.css" />
+    <Content Include="Content\assets\libs\dropzone\min\dropzone.min.js" />
+    <Content Include="Content\assets\libs\echarts\echarts.min.js" />
+    <Content Include="Content\assets\libs\feather-icons\feather.min.js" />
+    <Content Include="Content\assets\libs\flatpickr\flatpickr.min.css" />
+    <Content Include="Content\assets\libs\flatpickr\flatpickr.min.js" />
+    <Content Include="Content\assets\libs\glightbox\css\glightbox.min.css" />
+    <Content Include="Content\assets\libs\glightbox\js\glightbox.min.js" />
+    <Content Include="Content\assets\libs\gmaps\gmaps.min.js" />
+    <Content Include="Content\assets\libs\imask\imask.min.js" />
+    <Content Include="Content\assets\libs\jquery-countdown\jquery.countdown.min.js" />
+    <Content Include="Content\assets\libs\jquery-knob\jquery.knob.min.js" />
+    <Content Include="Content\assets\libs\jquery-sparkline\jquery.sparkline.min.js" />
+    <Content Include="Content\assets\libs\jquery\jquery.min.js" />
+    <Content Include="Content\assets\libs\jszip\jszip.min.js" />
+    <Content Include="Content\assets\libs\leaflet\images\layers-2x.png" />
+    <Content Include="Content\assets\libs\leaflet\images\layers.png" />
+    <Content Include="Content\assets\libs\leaflet\images\marker-icon.png" />
+    <Content Include="Content\assets\libs\leaflet\leaflet.css" />
+    <Content Include="Content\assets\libs\leaflet\leaflet.js" />
+    <Content Include="Content\assets\libs\masonry-layout\masonry.pkgd.min.js" />
+    <Content Include="Content\assets\libs\metismenu\metisMenu.min.js" />
+    <Content Include="Content\assets\libs\node-waves\waves.min.js" />
+    <Content Include="Content\assets\libs\nouislider\nouislider.min.css" />
+    <Content Include="Content\assets\libs\nouislider\nouislider.min.js" />
+    <Content Include="Content\assets\libs\pace-js\pace.min.js" />
+    <Content Include="Content\assets\libs\pdfmake\build\pdfmake.min.js" />
+    <Content Include="Content\assets\libs\pdfmake\build\vfs_fonts.js" />
+    <Content Include="Content\assets\libs\pristinejs\pristine.min.js" />
+    <Content Include="Content\assets\libs\rater-js\index.js" />
+    <Content Include="Content\assets\libs\simplebar\simplebar.min.js" />
+    <Content Include="Content\assets\libs\sweetalert2\sweetalert2.min.css" />
+    <Content Include="Content\assets\libs\sweetalert2\sweetalert2.min.js" />
+    <Content Include="Content\assets\libs\swiper\swiper-bundle.min.css" />
+    <Content Include="Content\assets\libs\swiper\swiper-bundle.min.js" />
+    <Content Include="Content\assets\libs\table-edits\build\table-edits.min.js" />
+    <Content Include="Content\assets\libs\twitter-bootstrap-wizard\jquery.bootstrap.wizard.min.js" />
+    <Content Include="Content\assets\libs\twitter-bootstrap-wizard\prettify.css" />
+    <Content Include="Content\assets\libs\twitter-bootstrap-wizard\prettify.js" />
+    <Content Include="Content\assets\libs\wnumb\wNumb.min.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-ajax-unobtrusive\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\jquery-ajax-unobtrusive\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\jquery-validate\additional-methods.js" />
+    <Content Include="Content\jquery-validate\additional-methods.min.js" />
+    <Content Include="Content\jquery-validate\jquery.validate.js" />
+    <Content Include="Content\jquery-validate\jquery.validate.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ar.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ar.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_az.js" />
+    <Content Include="Content\jquery-validate\localization\messages_az.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bg.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bg.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bn_BD.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bn_BD.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ca.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ca.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_cs.js" />
+    <Content Include="Content\jquery-validate\localization\messages_cs.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_da.js" />
+    <Content Include="Content\jquery-validate\localization\messages_da.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_de.js" />
+    <Content Include="Content\jquery-validate\localization\messages_de.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_el.js" />
+    <Content Include="Content\jquery-validate\localization\messages_el.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_AR.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_AR.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_PE.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_PE.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_et.js" />
+    <Content Include="Content\jquery-validate\localization\messages_et.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_eu.js" />
+    <Content Include="Content\jquery-validate\localization\messages_eu.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fa.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fa.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fi.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fi.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ge.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ge.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_gl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_gl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_he.js" />
+    <Content Include="Content\jquery-validate\localization\messages_he.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hu.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hu.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hy_AM.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hy_AM.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_id.js" />
+    <Content Include="Content\jquery-validate\localization\messages_id.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_is.js" />
+    <Content Include="Content\jquery-validate\localization\messages_is.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_it.js" />
+    <Content Include="Content\jquery-validate\localization\messages_it.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ja.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ja.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ka.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ka.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_kk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_kk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ko.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ko.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lt.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lt.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lv.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lv.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_mk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_mk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_my.js" />
+    <Content Include="Content\jquery-validate\localization\messages_my.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_nl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_nl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_no.js" />
+    <Content Include="Content\jquery-validate\localization\messages_no.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_BR.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_BR.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_PT.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_PT.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ro.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ro.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ru.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ru.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sd.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sd.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_si.js" />
+    <Content Include="Content\jquery-validate\localization\messages_si.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr_lat.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr_lat.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sv.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sv.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_th.js" />
+    <Content Include="Content\jquery-validate\localization\messages_th.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tj.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tj.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_uk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_uk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ur.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ur.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_vi.js" />
+    <Content Include="Content\jquery-validate\localization\messages_vi.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh_TW.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh_TW.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_de.js" />
+    <Content Include="Content\jquery-validate\localization\methods_de.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_es_CL.js" />
+    <Content Include="Content\jquery-validate\localization\methods_es_CL.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_fi.js" />
+    <Content Include="Content\jquery-validate\localization\methods_fi.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_it.js" />
+    <Content Include="Content\jquery-validate\localization\methods_it.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_nl.js" />
+    <Content Include="Content\jquery-validate\localization\methods_nl.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_pt.js" />
+    <Content Include="Content\jquery-validate\localization\methods_pt.min.js" />
+    <Content Include="Content\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Content Include="EmailTemplate\CreateBlogUsers.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\assets\fonts\boxicons.eot" />
+    <Content Include="Content\assets\fonts\boxicons.ttf" />
+    <Content Include="Content\assets\fonts\boxicons.woff" />
+    <Content Include="Content\assets\fonts\boxicons.woff2" />
+    <Content Include="Content\assets\fonts\dripicons-v2.eot" />
+    <Content Include="Content\assets\fonts\dripicons-v2.ttf" />
+    <Content Include="Content\assets\fonts\dripicons-v2.woff" />
+    <Content Include="Content\assets\fonts\dripicons-v2d41d.eot" />
+    <Content Include="Content\assets\fonts\fa-brands-400.eot" />
+    <Content Include="Content\assets\fonts\fa-brands-400.ttf" />
+    <Content Include="Content\assets\fonts\fa-brands-400.woff" />
+    <Content Include="Content\assets\fonts\fa-brands-400d41d.eot" />
+    <Content Include="Content\assets\fonts\fa-regular-400.eot" />
+    <Content Include="Content\assets\fonts\fa-regular-400.ttf" />
+    <Content Include="Content\assets\fonts\fa-regular-400.woff" />
+    <Content Include="Content\assets\fonts\fa-regular-400d41d.eot" />
+    <Content Include="Content\assets\fonts\fa-solid-900.eot" />
+    <Content Include="Content\assets\fonts\fa-solid-900.ttf" />
+    <Content Include="Content\assets\fonts\fa-solid-900.woff" />
+    <Content Include="Content\assets\fonts\fa-solid-900.woff2" />
+    <Content Include="Content\assets\fonts\fa-solid-900d41d.eot" />
+    <Content Include="Content\assets\fonts\materialdesignicons-webfont1d2d.eot" />
+    <Content Include="Content\assets\fonts\materialdesignicons-webfont1d2d.ttf" />
+    <Content Include="Content\assets\fonts\materialdesignicons-webfont1d2d.woff" />
+    <Content Include="Content\assets\fonts\materialdesignicons-webfontd41d.eot" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="UserProfile\Admin\16122022120224_pexels-photo-4100432.jpeg" />
+    <Content Include="UserProfile\Admin\16122022123256_avatar-2.jpg" />
+    <Content Include="UserProfile\Admin\19122022020313_pexels-photo-4100432.jpeg" />
+    <Content Include="UserProfile\Admin\19122022114024_pexels-photo-4099998.jpeg" />
+    <Content Include="UserProfile\Admin\19122022114650_pexels-photo-4099998.jpeg" />
+    <Content Include="UserProfile\Admin\19122022115359_pexels-photo-6334886.jpeg" />
+    <Content Include="UserProfile\Admin\19122022115920_avatar-4.jpg" />
+    <Content Include="UserProfile\Admin\19122022120223_pexels-photo-3778607.jpeg" />
+    <Content Include="UserProfile\Admin\19122022120404_pexels-photo-4921138.jpeg" />
+    <Content Include="UserProfile\Employee\19122022091342_pexels-photo-4100432.jpeg" />
+    <Content Include="UserProfile\Employee\19122022110626_pexels-photo-4100482.jpeg" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Authentication\AuthLogin.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\SubscribeNewslatter\Index.cshtml" />
+    <Content Include="Views\Profile\ChangePassword.cshtml" />
+    <Content Include="Views\BlogUsers\Index.cshtml" />
+    <Content Include="Views\BlogUsers\Details.cshtml" />
+    <Content Include="Views\UsersBlog\Details.cshtml" />
+    <Content Include="Views\UsersBlog\Index.cshtml" />
+    <Content Include="Views\UsersBlog\ImageGallery.cshtml" />
+    <Content Include="Views\UsersBlog\ViewDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Blog\ThumbnailImage\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\beautybook.Common\BeautyBook.Common.csproj">
+      <Project>{8529A692-F045-4CBF-860F-6E006DED5CA7}</Project>
+      <Name>BeautyBook.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\beautybook.Entities\BeautyBook.Entities.csproj">
+      <Project>{04e7e08d-16ed-4223-b428-d52666d3dbc4}</Project>
+      <Name>BeautyBook.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\beautybook.Services\BeautyBook.Services.csproj">
+      <Project>{26C1A3F8-6D53-4938-8461-96C5AEBDBA05}</Project>
+      <Name>BeautyBook.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53518</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44346/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

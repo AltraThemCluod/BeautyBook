@@ -1,0 +1,928 @@
+﻿@using PublicZaanVendor.Pages
+@{
+    ViewBag.Title = "Home Store";
+}
+<div class="banner-section" style="margin-top: 68px;">
+    <div class="container">
+        <div class="row align-items-center banner-main" dir="ltr">
+            <div class="col-lg-7 banner-content" style="position:relative;z-index:1;">
+                <div class="banner-text" id="bannerContent">
+                    <div class="banner-heading">
+                        <h1>
+                            @Resources.Language.StoreBannerHeading
+                        </h1>
+                        <p>
+                            @Resources.Language.StoreBannerContent1
+                        </p>
+                    </div>
+                    <div>
+                        <button type="button" onclick="startProduct();" class="btn btn-primary them-button">@Resources.Language.GetStarted</button>
+                    </div>
+                    <div class="mt-4">
+                        @Resources.Language.StoreBannerContent2
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+
+            </div>
+        </div>
+    </div>
+    <div class="banner-image-section">
+        <img src="~/Content/assets/images/hair-styling-tools-beauty-parlour-cosmetologist-waxing-hair.png"
+             class="banner-image">
+    </div>
+</div>
+
+<!-- counter section -->
+<div class="counter-section">
+    <div class="container">
+        <div class="count-part">
+            <div class="row m-0 align-items-center justify-content-center">
+                <div class="col-lg-4 col-md-4 text-center">
+                    <h4>+2500</h4>
+                    <p>@Resources.Language.RegularUser</p>
+                </div>
+                <div class="col-lg-4 col-md-4 counter-center text-center">
+                    <h4>+100</h4>
+                    <p>@Resources.Language.BeautySalon</p>
+                </div>
+                <div class="col-lg-4 col-md-4 text-center">
+                    <h4>+750</h4>
+                    <p>@Resources.Language.Products</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- aboutus section -->
+<div class="aboutus-section" id="about_us">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <img class="w-100"
+                     src="~/Content/assets/images/cosmetologist-hairstyle-hair-clipper-comb-beauty-parlour-shampoo.png">
+            </div>
+            <div class="col-lg-6">
+                <div class="aboutus-content">
+                    <h4 class="mb-4">@Resources.Language.AboutUs</h4>
+                    <p class="mb-4">
+                        @Resources.Language.AboutUsContent1
+                    </p>
+                    <p>
+                        @Resources.Language.AboutUsContent2
+                    </p>
+                    <ul class="aboutus-list p-0 mt-4">
+                        <li class="nav-link p-0">
+                            <img width="24" src="~/Content/assets/images/checkmark-square.png">
+                            <span>
+                                @Resources.Language.AboutUsCheckContent1
+                            </span>
+                        </li>
+                        <li class="mt-2 nav-link p-0">
+                            <img width="24" src="~/Content/assets/images/checkmark-square.png">
+                            <span>
+                                @Resources.Language.AboutUsCheckContent2
+                            </span>
+                        </li>
+                        <li class="mt-2 nav-link p-0">
+                            <img width="24" src="~/Content/assets/images/checkmark-square.png">
+                            <span>
+                                @Resources.Language.AboutUsCheckContent3
+                            </span>
+                        </li>
+                        <li class="mt-2 nav-link p-0">
+                            <img width="24" src="~/Content/assets/images/checkmark-square.png">
+                            <span>
+                                @Resources.Language.AboutUsCheckContent4
+                            </span>
+                        </li>
+                    </ul>
+                    @*<div class="mt-4">
+                            <button class="btn btn-primary them-button">Learn More</button>
+                            <button class="btn btn-primary them-border-button">Products</button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Schedule A Call section -->
+<div class="schedule-section" id="schedule_call">
+    <div class="container">
+        <div class="row m-0">
+            <div class="col-lg-12">
+                <div class="schedule-text text-center mb-4">
+                    <h4>@Resources.Language.scheduleacall</h4>
+                    <p>
+                        @Resources.Language.scheduleacallContent
+                    </p>
+                </div>
+                <div class="schedule-form-section">
+                    <form class="schedule-form row m-0" id="scheduleCall">
+                        <div class="form-group col-lg-4">
+                            <label class="schedule-input-label"> @Resources.Language.YourName</label>
+                            <input type="text" id="fullName" name="fullName" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="schedule-input-label">@Resources.Language.PhoneNumber</label>
+                            <input type="number" id="phoneNumber" name="phoneNumber" autocomplete="off" class="form-control">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="schedule-input-label">@Resources.Language.ReachOutTime</label>
+                            <select class="form-control" id="duringDay" name="duringDay">
+
+                                <option value="" disabled selected hidden>@Resources.Language.ReachOutTimeLabel</option>
+                                <option value="@Resources.Language.Duringtheday">@Resources.Language.Duringtheday</option>
+                                <option value="@Resources.Language.DuringtheNight">@Resources.Language.DuringtheNight</option>
+                                <option value="@Resources.Language.Anytime">@Resources.Language.Anytime</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12 text-center mt-4">
+                            <button type="submit" class="btn btn-primary them-button button">
+                                @Resources.Language.RequestACall
+                            </button>
+                            <button type="submit" class="btn btn-primary them-button button-loader" disabled style="display:none;">
+                                <div class="spinner-border text-light mr-1" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                @Resources.Language.RequestACall
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Our Products section -->
+<div class="schedule-section" id="product" style="background: transparent;">
+    <div class="container">
+        <div class="row m-0">
+            <div class="col-lg-12">
+                <div class="schedule-text text-center">
+                    <h4>@Resources.Language.OurProduct</h4>
+                    <p>
+                        @Resources.Language.OurProductContent
+                    </p>
+                </div>
+                <div class="ourproduct-section">
+                    <div class="row">
+                        <div class="col-lg-12 p-0">
+                            <div class="wrapper">
+                                <div class="product-carousel slick-wrapper">
+
+                                    <div id="slick1">
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/20 Volume Gentle Creme Developer.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0" dir="ltr">20 Volume Gentle Creme Developer</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Conditioner.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.Conditioner</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/DREOX HAIR DRYER, 2000W AC.jpg">
+                                                <div class="product-details pb-4 pt-4 pl-2 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.DREOXHAIRDRYER</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Facial Steamer.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.FacialSteamer</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Gloves.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.Gloves</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Heat Protecting Smoothing Spray.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.HeatProtectingSmoothingSpray</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Heat Protection Spray.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.HeatProtectionSpray</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Highlight Brush.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.HighlightBrush</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/OLAPLEX NO. 4 INTENSIVE BOND BUILDING HAIR TREATMENT.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0" dir="ltr">OLAPLEX NO. 4 INTENSIVE BOND BUILDING HAIR TREATMENT</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Powder Lightener Tub.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0" dir="ltr">Powder Lightener Tub</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Pro Diamond Nail Bits.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0" dir="ltr">Pro Diamond Nail Bits</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Skin Perfect HD Foundation 20C.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0" dir="ltr">Skin Perfect HD Foundation 20C</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Styling Chair.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">@Resources.Language.StylingChair</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Styling Comb.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0" dir="ltr">Styling Comb</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Top Coat.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0" dir="ltr">Top Coat</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="slide-item">
+                                            <div class="card p-1">
+                                                <img src="~/Content/assets/images/Artist Hand Professional Hair Steamer.jpg">
+                                                <div class="product-details pb-4 pt-4 px-4">
+                                                    <div class="pname-rating d-flex align-items-center justify-content-between">
+                                                        <h4 class="mb-0">Hair Steamers Blowers</h4>
+                                                        <div class="rating-start d-flex align-items-center">
+                                                            <img width="25" height="25" src="~/Content/assets/images/star.png">
+                                                            <span class="pl-1">5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="mt-2 supplier-price d-flex align-items-center justify-content-between">
+                                                            <p class="mb-0">Supplier By Gama</p>
+                                                            <h6 class="mb-0">Price: $200</h6>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Schedule A Call section -->
+<div class="schedule-section our-customer-says">
+    <div class="container">
+        <div class="row m-0 align-items-center">
+            <div class="col-lg-6">
+                <div class="schedule-text text-left">
+                    <h4>@Resources.Language.OurCustomerSays</h4>
+                    <p>
+                        @Resources.Language.OurCustomerSaysContent
+                    </p>
+                    <div class="mt-3">
+                        <button class="btn btn-primary them-button">@Resources.Language.SeeAll</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="wrapper">
+                    <div class="carousel">
+                        <div>
+                            <div class="client-review schedule-text">
+                                <div class="quote-icon">
+                                    <img width="60" height="60" src="~/Content/assets/images/Quote.png">
+                                </div>
+                                <p>
+                                    @Resources.Language.CustomerTestimonialContent1
+                                </p>
+                                <div class="client-profile d-flex align-items-center">
+
+                                    <div class="client-username ml-3">
+                                        <h5 class="mb-1">- @Resources.Language.CustomerTestimonialBy1</h5>
+                                        @*<p class="mb-0">Review via Facebook</p>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="client-review schedule-text">
+                                <div class="quote-icon">
+                                    <img width="60" height="60" src="~/Content/assets/images/Quote.png">
+                                </div>
+                                <p>
+                                    @Resources.Language.CustomerTestimonialContent2
+                                </p>
+                                <div class="client-profile d-flex align-items-center">
+
+                                    <div class="client-username ml-3">
+                                        <h5 class="mb-1"> - @Resources.Language.CustomerTestimonialBy2</h5>
+                                        @*<p class="mb-0">Review via Facebook</p>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="client-review schedule-text">
+                                <div class="quote-icon">
+                                    <img width="60" height="60" src="~/Content/assets/images/Quote.png">
+                                </div>
+                                <p>
+                                    @Resources.Language.CustomerTestimonialContent3
+                                </p>
+                                <div class="client-profile d-flex align-items-center">
+
+                                    <div class="client-username ml-3">
+                                        <h5 class="mb-1"> - @Resources.Language.CustomerTestimonialBy3</h5>
+                                        @*<p class="mb-0">Review via Facebook</p>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="client-review schedule-text">
+                                <div class="quote-icon">
+                                    <img width="60" height="60" src="~/Content/assets/images/Quote.png">
+                                </div>
+                                <p>
+                                    @Resources.Language.CustomerTestimonialContent4
+                                </p>
+                                <div class="client-profile d-flex align-items-center">
+
+                                    <div class="client-username ml-3">
+                                        <h5 class="mb-1"> - @Resources.Language.CustomerTestimonialBy4</h5>
+                                        @*<p class="mb-0">Review via Facebook</p>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Our best sell section -->
+<div class="ourbestsell-section pb-0">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="aboutus-content">
+                    <h4 class="mb-3">
+                        @Resources.Language.OurBestSell
+                    </h4>
+                    <div class="rating-start mb-3">
+                        <img width="28" height="28" src="~/Content/assets/images/star.png">
+                        <img width="28" height="28" src="~/Content/assets/images/star.png">
+                        <img width="28" height="28" src="~/Content/assets/images/star.png">
+                        <img width="28" height="28" src="~/Content/assets/images/star.png">
+                        <img width="28" height="28" src="~/Content/assets/images/star.png">
+                    </div>
+                    <p>
+                        @Resources.Language.Zaansalonsoftwaredelivers
+                    </p>
+                    <div class="pro-price">
+                        <h4 class="fs-20">@Resources.Language.SellProductPrice</h4>
+                    </div>
+                    <div class="mt-3">
+                        <button onclick="startProduct();" class="btn btn-primary them-button">@Resources.Language.BuyNow</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9">
+                        <img class="w-100"
+                             src="~/Content/assets/images/hair-clipper-comb-philips-hairclipper-series-3000-hair-trimmer.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Our Supplier Partners section -->
+<div class="schedule-section" style="background: transparent;">
+    <div class="container">
+        <div class="row m-0">
+            <div class="col-lg-12">
+                <div class="schedule-text text-center mb-5">
+                    <h4>@Resources.Language.OurSupplier</h4>
+                    <p>
+                        @Resources.Language.OurSupplierContent
+                    </p>
+                </div>
+                <div class="schedule-form-section">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col mt-4">
+                            <div class="row m-0 justify-content-center">
+                                <div class="col-lg-10">
+                                    <img class="w-100" src="~/Content/assets/images/Madi.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mt-4">
+                            <img class="w-100" src="~/Content/assets/images/logo-prime-preto.png">
+                        </div>
+                        <div class="col mt-4">
+                            <div class="row m-0 justify-content-center">
+                                <div class="col-lg-6">
+                                    <img class="w-100" src="~/Content/assets/images/Nazih.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mt-4">
+                            <img class="w-100" src="~/Content/assets/images/logo-new-slogan.png">
+                        </div>
+                        <div class="col mt-4">
+                            <img class="w-100" src="~/Content/assets/images/logo-sh1.png">
+                        </div>
+                        <div class="col mt-4">
+                            <img class="w-100" src="~/Content/assets/images/NiceOne.png">
+                        </div>
+                        <div class="col mt-4">
+                            <img class="w-100" src="~/Content/assets/images/Baheya.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="startProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>*@
+            <div class="modal-body">
+                <div class="schedule-text text-center mb-5">
+                    <h4>@Resources.Language.Iwantto</h4>
+                    <p>
+                        @Resources.Language.IwanttoContent
+                    </p>
+                </div>
+                <div class="product-cards">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card salon-owner">
+                                <h4 class="text-center"> @Resources.Language.SalonOwner</h4>
+                                <div class="list-details mb-3">
+                                    <p class="d-flex mb-4">
+                                        <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/Check.png" />
+                                        <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/Check_2.png" />
+                                        <span>@Resources.Language.SalonOwnerContent1</span>
+                                    </p>
+                                    <p class="d-flex">
+                                        <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/Check.png" />
+                                        <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/Check_2.png" />
+                                        <span>@Resources.Language.SalonOwnerContent2</span>
+                                    </p>
+                                </div>
+                                <a href="https://salon.zaan.com.sa/Authentication/SignUp" target="_blank" class="btn btn-outline-primary product-started">
+                                    @Resources.Language.GetStarted
+                                </a>
+                                <p class="signin-link">
+                                    @Resources.Language.Alreadyhaveanaccount
+                                    <a href="https://salon.zaan.com.sa/" target="_blank" class=""> @Resources.Language.Signinhere</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card salon-vendor">
+                                <h4 class="text-center">@Resources.Language.ProductSupplier</h4>
+                                <div class="list-details mb-3">
+                                    <p class="d-flex mb-4">
+                                        <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/VendorCheck.png" />
+                                        <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/VendorCheck_2.png" />
+                                        <span>@Resources.Language.ProductsupplierContent1</span>
+                                    </p>
+                                    <p class="d-flex">
+                                        <img width="21" height="21" class="mr-2 ml-2 dpall" src="~/Content/assets/images/VendorCheck.png" />
+                                        <img width="21" height="21" class="mr-2 ml-2 dphover" src="~/Content/assets/images/VendorCheck_2.png" />
+
+                                        <span>@Resources.Language.ProductsupplierContent2</span>
+                                    </p>
+                                </div>
+                                <a href="https://vendor.zaan.com.sa/Authentication/SignUp" target="_blank" class="btn btn-outline-primary product-started">
+                                    @Resources.Language.GetStarted
+                                </a>
+                                <p class="signin-link">
+                                    @Resources.Language.Alreadyhaveanaccount
+                                    <a href="https://vendor.zaan.com.sa/" target="_blank" class=""> @Resources.Language.Signinhere</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function ($) {
+            $("#scheduleCall").validate({
+                rules: {
+                    fullName: "required",
+                    phoneNumber: {
+                        required: true,
+                        minlength: 9,
+                        maxlength: 9,
+                    },
+                    duringDay: "required",
+                },
+                messages: {
+                    fullName: "@Resources.Language.YourNameValidation",
+                    phoneNumber: {
+                        required: "@Resources.Language.PhoneNumberValidation"
+                    },
+                    duringDay: "@Resources.Language.ReachOutTimeValidation",
+
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is(":radio")) {
+                        error.appendTo(element.parents('.form-group'));
+                    }
+                    else { // This is the default behavior
+                        error.insertAfter(element);
+                    }
+                },
+                submitHandler: function (form) {
+                    SendScheduleDetails();
+                }
+
+            });
+        });
+
+        function SendScheduleDetails() {
+
+            $(".button-loader").show();
+            $(".button").hide();
+
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action(Actions.SendScheduleDetails, Controllers.Home)",
+                dataType: 'json',
+                data: ({
+                    FullName: $("#fullName").val(),
+                    PhoneNumber: $("#phoneNumber").val(),
+                    DuringDay: $("#duringDay").val(),
+                }),
+                success: function (result) {
+
+                    if (result == true) {
+                        $("#fullName").val("");
+                        $("#phoneNumber").val("");
+                        $("#duringDay").val("");
+                    } else {
+                        window.location.reload();
+                    }
+
+                    $(".button-loader").hide();
+                    $(".button").show();
+
+                }, error: function (error) {
+                    window.location.reload();
+
+                    $(".button-loader").hide();
+                    $(".button").show();
+                }
+            });
+        }
+
+        var Language = getCookie("Languages");
+
+        $('.slick-slider').slick({
+            arrows: true,
+            prevArrow: "<img class='a-left control-c prev slick-prev' src='YOUR LEFT ARROW IMAGE URL'>",
+            nextArrow: "<img class='a-right control-c next slick-next' src='YOUR RIGHT ARROW IMAGE URL'>"
+        });
+
+        if (Language == "ar") {
+            $('.carousel').slick({
+                slidesToShow: 1,
+                dots: false,
+                rtl : true,
+                prevArrow: '<img class="prev-arrow" src="../Content/assets/images/PrevArrow1.png" width=""/>',
+                nextArrow: '<img class="next-arrow" src="../Content/assets/images/NextArrow1.png" width=""/>'
+            });
+
+            $('#slick1').slick({
+                rows: 2,
+                dots: true,
+                arrows: false,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                rtl: true,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 1008,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 800,
+                        settings: {
+                            rows: 3,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            rows: 3,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            arrows: false,
+                        },
+                    },
+                ],
+            });
+        } else {
+            $('.carousel').slick({
+                slidesToShow: 1,
+                dots: false,
+                ltr : true,
+                prevArrow: '<img class="prev-arrow" src="../Content/assets/images/PrevArrow1.png" width=""/>',
+                nextArrow: '<img class="next-arrow" src="../Content/assets/images/NextArrow1.png" width=""/>'
+            });
+
+            $('#slick1').slick({
+                rows: 2,
+                dots: true,
+                arrows: false,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                ltr: true,
+                responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 1008,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 800,
+                        settings: {
+                            rows: 3,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                        },
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            rows: 3,
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            arrows: false,
+                        },
+                    },
+                ],
+            });
+        }
+    </script>
+}

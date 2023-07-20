@@ -1,0 +1,348 @@
+services >>
+---------------------------
+select a ststus  = أختر الحالة 
+
+any = الكل 
+active = نشط 
+in-active = غير نشط
+
+
+show =  أظهر
+entries = مدخلات 
+
+showing = عرض
+to = إلى 
+of = من
+entries = مدخلات 
+
+
+edit = تعديل 
+
+previous = السابق 
+next = التالي 
+
+
+Salon Service Details = تفاصيل خدمة الصالون
+New Service Details = تفاصيل الخدمة الجديدة
+Tell us all about your new service = أخبرنا كل شي عن خدمتك الجديدة
+view category = مشاهدة الفئات 
+new catagory = فئة جديدة 
+view services = مشاهدة الخدمات
+custom service = خدمة مخصصة
+description = الوصف
+save in create new service = حفظ و إنشاء خدمة أخرى 
+
+
+packeges >>
+------------------
+create new package = إنشاء باقة جديدة
+service list = قائمة الخدمات
+Create Package = إنشاء باقة 
+Tell us all about your new service=  أخبرنا كل شي عن باقتك الجديدة
+package name  = أسم الباقة 
+enter package name = ادخل أسم الباقة 
+
+package custom price = سعر الباقة المخصص
+Create Custom Price = إنشاء سعر مخصص 
+custom price = السعر المخصص 
+update = تحديث
+
+active = نشط 
+service packge saved sucssesfully = تم حفظ باقة الخدمة بنجاح 
+
+save package = حفظ الباقة 
+cancel = إلغاء 
+
+
+mange employee >>
+------------------
+manage employee = إدارة الموظفين
+select a type = أختر النوع
+temporary = مؤقت 
+seasonal = موسمي 
+part-time = دوام جزئي
+full- time = دوام كامل
+
+
+add new employee = إضافة موظف جديد
+
+employee details = تفاصيل الموظف
+Tell us all about your new employee= أخبرنا كل شي عن موظفك الجديد
+select a type = أختر نوع الوظيفة
+select a role = أختر الوظيفة 
+enter your city = أدخل مدينتك 
+save change = حفظ التغييرات 
+save in create new employee = حفظ و إنشاء موظف جديد 
+
+full anme = الأسم كامل 
+email =  الإيميل
+alternate phone = الهاتف البديل 
+role = الوظيفة 
+adress = العنوان 
+gender = الجنس
+phone = الهاتف 
+joining date = تاريخ الانضمام 
+type = نوع 
+
+working hours = ساعات العمل 
+start = يبداء
+end = ينتهي
+sunday = الأحد
+monday = الأثنين 
+tuesday = الثلاثاء 
+wednesday = الأربعاء 
+thursday = الخميس 
+friday = الجمعة 
+saturday = السبت 
+
+leave = إجازة 
+Appointments = المواعيد
+
+CLOSE= إغلاق 
+edit profile = تعديل الملف الشخصي
+Employee Info = معلومات الموظف 
+
+edit = تعديل 
+terminate = إنهاء من العمل 
+Are you sure In-Active this employee ? = هل أنت متأكد من عدم تنشيط هذا الموظف ؟
+yes = نعم 
+cancel = إلغاء 
+
+search = بحث 
+
+
+mange leave >>
+----------------------------
+Employee Leave Management = إدارة إجازة الموظفين 
+sick leave = إجازة مرضية 
+maternity leave = إجازة أمومة 
+holidays = أيام عطل 
+half pay leave = إجازة بنصف راتب
+casual leave = إجازة عارضة  
+
+any = الكل 
+approved = موافق علية 
+rejected = مرفوض 
+approval pending = في انتظار الموافقة
+
+add leave = إضافة إجازة
+leave type = نوع الإجازة 
+from = من 
+to = إلى 
+reason = السبب 
+
+change status = تغيير الحالة 
+
+
+worksheet>>
+-----------------------------
+
+select a employee name = اختر أسم الموظف 
+select an option = أختر الوظيفة 
+Working Hours = ساعات العمل 
+present = حاضر 
+absent = غائب 
+close = إغلاق
+
+
+customer >>
+-----------------------------
+both = الجميع
+male = ذكر 
+female = أنثى 
+
+add new customer = إضافة عميل جديد
+edit = تعديل
+delete = حذف 
+
+Customer Details = تفاصيل العميل 
+full name = الأسم الكامل 
+email = الإيميل
+alternate phone = الهاتف البديل 
+refeerd by = نسب من قبل 
+last vist = أخر زيارة 
+gender = الجنس
+phone = الهاتف 
+customer since = عميل منذ
+appoinments = الحجوزات 
+sales = المبيعات
+service provider = مقدم الخدمة 
+waiting = أنتظار 
+completed = مكتمل 
+cancelled = ملغي 
+postpone = مؤجل 
+in progress = تحت التنفيذ 
+
+edit profile = تعديل الملف الشخصي 
+save customer information = حفظ معلومات العميل 
+
+
+inventory >>
+-------------------------------
+add new product =  إضافة منتج جديد
+not available online store = غير متاح في المتجر 
+buy now = أشتر الان 
+view = مشاهدة 
+low QTY Alert = تنبية انخفاض الكمية
+update quantity = تحديث الكمية 
+subtract quantity = سحب كمية 
+
+delete = حذف  
+
+Bill No = رقم الفاتورة 
+product name = أسم المنتج 
+view brand = مشاهدة المنتج
+new brand = منتج جديد
+product Qty = كمية المنتج
+wight = الوزن 
+vendor name = اسم المورد 
+create vendor = إنشاء مورد 
+product type = نوع المنتج 
+purchase date = تاريخ الشراء
+price = السعر 
+product image = صورة المنتج
+
+add product to inventory = إضافة منتج إلى المخزون 
+
+
+marketing >>
+--------------------------
+create email marketing = إنشاء تسويق عبر البريد الإلكتروني
+add new email = إضافة بريد إلكتروني جديد 
+Choose Email Template = اختر قالب البريد الإلكتروني
+next = التالي 
+cancel = إلغاء
+send E-mail = إرساء البريد الإلكتروني 
+Email Template Editor = محرر قالب البريد الإلكتروني
+upgrade plane = ترقية الخطة 
+try for free = تجربة مجاناً
+
+creat SMS marketing = إنشاء تسويق عبر الرسائل SMS
+add new SMS = اضافة رسائل SMS جديدة
+add sms marketing = إضافة تسويق رسائل قصيرة SMS 
+SMS subject = عنوان الرسالة القصيرة 
+enter sms subject = أدخل عنوان رسالة SMS 
+SMS recipients = مستلمو رسالة SMS 
+sms template = قالب الرسالة القصيرة
+save change = حفظ التغييرات
+
+
+create offers = إنشاء العروض 
+add new offer = إضافة عرض جديد
+start date = تاريخ البداية
+end date = تاريخ النهاية 
+edit = تعديل 
+delete = حذف 
+Offer Details = تفاصيل العرض
+both = الجميع
+Edit Daily Deals= تعديل الصفقات اليومية 
+Deal Details = تفاصيل الصفقة 
+Offer Price for Single Service = سعر العرض للخدمة الواحدة 
+
+
+appointment>> 
+-------------------------
+select a customer name = أختر أسم العميل 
+select a assigned to = أختر نسب لـِ
+select option = حدد خيار 
+
+
+today = اليوم 
+month = شهر 
+week = أسبوع 
+day = يوم 
+list = قائمة 
+previous month = الشهر السابق 
+next month = الشهر القادم 
+
+sun = الأحد 
+mon = الأثنين 
+tue = الثلاثاء 
+wed = الأربعاء 
+thu= الخميس 
+fri = الجمعة 
+sat = السبت 
+
+Appointments Details= تفاصيل الحجوزات 
+Tell us all about your new appointments= أخبرنا كل شي عن حجوزاتك الجديدة 
+new customer = عميل جديد 
+
+time = الوقت 
+select a assign to = أختر نسب لـِ
+comment = التعليق 
+Employee Working Hourse = ساعات عمل الموظف 
+Select Category and Service show emaployee working hourse= حدد الفئة و الخدمة ليظهر لك ساعات عمل الموظفين
+
+
+
+store >>
+------------------------------------------
+store inside = داخل المتجر 
+product details = تفاصيل المنتج 
+
+in stock = متوفر في المخزون
+stock out = نفذ المخزون 
+reviews = المراجعات 
+ratings = التقييمات 
+inclusive of all taxes = شاملة لجميع الضرائب
+add to cart = إضافة لسلة التسوق 
+add to wishlist = إضافة لقائمة الأمنيات
+seller = البائع
+compare price with other seller = قارن السعر مع البائعين الأخرين 
+view seller list = مشاهدة قائمة البائع 
+highlights = توضيحات 
+service = الخدمة 
+product details = تفاصيل المنتج
+feedback = التقييمات
+
+information = معلومات 
+specifications = المواصفات 
+Return Policy = سياسة الأسترجاع 
+write a review = أكتب تعليق 
+
+of cusromers recommend this product = من العملاء يوصي بهذا المنتج 
+Seller since = بائع منذ 
+contact = تواصل 
+order id = رقم الطلب 
+total price = مجموع السعر 
+Vendor Details = تفاصيل المورد 
+
+Wishlist = قائمة الأمنيات
+No Wishlist found = لا يوجد قائمة أمنيات 
+Your Cart = سلة التسوق 
+cart = السلة 
+================================
+continue shopping = متابعة التسوق 
+subtotal = المبلغ الأجمالي 
+delivery = التوصيل 
+VAT included = اضافة الضريبة الضريبة المضافة 
+total to pay = المجموع لدفع 
+proceed to chechouts = 
+
+Checkout Details= تفاصيل الدفع
+Shipping address = عنوان الشحن 
+
+default = أفتراضي 
+add new address = إضافة عنوان جديد 
+billing address = عنوان الفاتورة 
+same as shipping adderss = نفس عنوان الشحن 
+====
+procees to payment = الأنتقال لصفحة الدفع 
+
+Payment Details = تفاصيل الدفع
+cash on delivery = نقداً عند الأستلام
+You have selected to pay with cash upon delivery = عليك أن تدفع المبلغ نقدا عند أستلام شحنتك المطلوبة
+debit or credit card = بطاقة ائتمان 
+
+complet order = أكمال الطلب 
+
+Order NO = رقم الطلب 
+Thank you for your order!= شكرا لك على طلبك 
+
+Your order has been placed and will be processed as soon as possible. 
+You will receive an email confirmation. =
+تم تقديم طلبك وستتم معالجته في أقرب وقت ممكن. سيصلك ايميل لتأكيد.
+
+continue shopping = متابعة التسوق
+invoice = الفاتورة 
+

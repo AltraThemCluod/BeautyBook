@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Return Invoice";
+}
+<style>
+    .them-color {
+        color: #00515b;
+    }
+</style>
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Return_Invoice_Details</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Return_Invoice_Details</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-12">
+                        <div class="invoice-details card">
+                            <div class="card-header">
+                                <h6 class="mb-1">@beautybook.Resources.Languages.Create_a_credit_invoice</h6>
+                                <p class="mb-0 text-muted fs-13">@beautybook.Resources.Languages.Save_the_new_invoice_</p>
+                            </div>
+                            <div class="card-body" id="returnInvoice">
+                                <div id="returnInvoiceLoader" style="display: none;" class="text-center mb-4">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed-footer text-center" id="editpackagebutton">
+            <button type="button" id="saveButton" class="btn btn-primary font-weight-medium btn-wide" onclick="UpdateReturnInvoiceData();">@beautybook.Resources.Languages.Save_Change</button>
+            <button type="button" class="btn btn-primary" id="saveLoadingButton" style="display:none;" disabled="">
+                <span>@beautybook.Resources.Languages.Save_Change</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+            </button>
+            <a class="btn btn-link btn-wide" href="/Invoices/SiplifedInvoice">@beautybook.Resources.Languages.Cancel</a>
+        </div>
+    </div>
+</main>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<!-- Custom JS -->
+<script src="~/Content/assets/js/main.js"></script>
+
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/InvoicesAPI/ManageSiplifedInvoice/ManageSiplifedInvoice.js"></script>
+<script src="~/Content/BeautyBookAPI/InvoicesAPI/ReturnInvoice/ReturnInvoice.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        
+        //InvoiceCustomers list
+        returnInvoice();
+
+        $("#saveButton").attr('disabled', 'disabled');
+        $("#saveButton").attr('title', 'Please select a more then 1 item');
+    });
+</script>

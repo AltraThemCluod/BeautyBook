@@ -1,0 +1,301 @@
+﻿@{
+    ViewBag.Title = "Salons Details";
+}
+<input type="hidden" id="addNewsalon" value="@beautybook.Resources.Languages.Add_New_Salon" />
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-xl-5">
+                        <h3>@(beautybook.Resources.Languages.My_Salons_Details)</h3>
+                        <p class="text-muted">@(beautybook.Resources.Languages.You_are_now_minutes_away_from_creativity_than_ever_before__Enjoy_)</p>
+                    </div>
+                </div>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 justify-content-center text-center mb-10" id="salonsList">
+                    <div id="loader" style="display: none;" class="text-center mb-4">
+                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+<!-- Modals -->
+<div class="modal fade p-0" id="addSalonInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addSalonInfoModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom modal-fullscreen-md-down">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSalonInfoModalLabel">@(beautybook.Resources.Languages.Add_Salon_Information)</h5>
+                <button type="button" onclick="location.reload();" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="row" id="salonsForm" name="salonsForm">
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <input type="hidden" name="salonsId" id="salonsId" value="0" />
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="input-label" for="salonName">@(beautybook.Resources.Languages.Salon_Name)</label>
+                                    <input type="text" class="form-control" tabindex="1" placeholder="@(beautybook.Resources.Languages.Enter_salon_name)" id="salonName" name="salonName">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="input-label" for="addressArea">@(beautybook.Resources.Languages.Address_line_1)</label>
+                                    <input type="text" class="form-control" onFocus="initializeAutocomplete()" tabindex="2" id="addressLine1" name="addressLine1" autocomplete="off" placeholder="@(beautybook.Resources.Languages.Enter_your_address_here)" />
+                                </div>
+                            </div>
+
+                            <input type="hidden" class="form-control" id="VisitorLatitude" name="VisitorLatitude" autocomplete="off" />
+                            <input type="hidden" class="form-control" id="VisitorLongitude" name="VisitorLongitude" autocomplete="off" />
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="input-label" for="addressArea">@(beautybook.Resources.Languages.Address_line_2)</label>
+                                    <input type="text" class="form-control" tabindex="3" id="addressLine2" name="addressLine2" autocomplete="off" placeholder="@(beautybook.Resources.Languages.Enter_your_address_here)" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="input-label" for="salonsCountry">@(beautybook.Resources.Languages.Country)</label>
+                                    @*<input type="text" class="form-control" placeholder="Enter phone number" id="salonsCountry">*@
+                                    <select class="selectpicker form-control" tabindex="4" id="salonsCountry" name="salonsCountry" title="@(beautybook.Resources.Languages.Select_a_Country)" data-live-search="true" data-size="5"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="input-label" for="salonsState">@(beautybook.Resources.Languages.State)</label>
+                                    <select class="selectpicker form-control" tabindex="5" id="salonsState" name="salonsState" title="@(beautybook.Resources.Languages.Select_a_State)" data-live-search="true" data-size="5"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="input-label" for="primaryNumber">@(beautybook.Resources.Languages.City)</label>
+                                    <input type="text" class="form-control" tabindex="6" placeholder="@(beautybook.Resources.Languages.Enter_your_city)" id="salonsCity" name="salonsCity">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="input-label" for="alternateNumber">@(beautybook.Resources.Languages.Zip_Code)</label>
+                                    <input type="text" class="form-control" tabindex="7" placeholder="@(beautybook.Resources.Languages.Enter_your_zipcode)" id="salonsZipcode" name="salonsZipcode">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="input-label" for="primaryNumber">@(beautybook.Resources.Languages.Primary_Phone)</label>
+                                    <div class="input-group contact-number">
+                                        <div>
+                                            <span class="input-group-text text-muted brrt-rb">+966</span>
+                                        </div>
+                                        <input type="text" class="form-control" tabindex="8" placeholder="@(beautybook.Resources.Languages.Enter_your_primarynumber)" id="salonsPrimarynumber" name="salonsPrimarynumber" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="input-label" for="alternateNumber">@(beautybook.Resources.Languages.Alternate_Phone)</label>
+                                    <div class="input-group contact-number">
+                                        <div>
+                                            <span class="input-group-text text-muted brrt-rb">+966</span>
+                                        </div>
+                                        <input type="text" class="form-control" tabindex="9" placeholder="@(beautybook.Resources.Languages.Enter_your_alternatenumber)" id="salonsAlternatenumber" name="salonsAlternatenumber" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="input-label" for="bankName">@(beautybook.Resources.Languages.Bank_Name)</label>
+                                    <input type="text" class="form-control" tabindex="10" id="salonsBankName" name="salonsBankName" autocomplete="off" placeholder="@(beautybook.Resources.Languages.Enter_your_Bank_Name_here)" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="input-label" for="iBANNumber">@(beautybook.Resources.Languages.IBAN_Number)</label>
+                                    <input type="text" class="form-control" tabindex="11" id="salonsIBANNumber" name="salonsIBANNumber" autocomplete="off" placeholder="@(beautybook.Resources.Languages.Enter_your_IBAN_Number_here)" />
+                                </div>
+                            </div> 
+                            <div class="col-6">
+                                <div class="form-group">
+                                    @*<label class="input-label" for="salonsTaxNumber">@(beautybook.Resources.Languages.Tax_Number)</label>*@ @*old code comment 09/03/2023*@
+                                    <label class="input-label" for="salonsTaxNumber">@(beautybook.Resources.Languages.Commercial_Register_No)</label>
+                                    <input type="text" class="form-control" tabindex="11" id="salonsTaxNumber" name="salonsTaxNumber" autocomplete="off" placeholder="@(beautybook.Resources.Languages.Enter_your_Commercial_register_no)" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="input-label" for="salonsVATNumber">@(beautybook.Resources.Languages.VAT_Number)</label>
+                                    <input type="text" class="form-control" tabindex="11" id="salonsVATNumber" name="salonsVATNumber" autocomplete="off" placeholder="@(beautybook.Resources.Languages.Enter_VAT_Number)" />
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mt-2">
+                                    <div class="image-upload">
+                                        <div class="row align-items-center" style="justify-content:space-between;">
+                                            <div class="col-lg-12">
+                                                <label class="input-label" for="alternateNumber">@(beautybook.Resources.Languages.Choose_salon_logo_file)</label>
+                                                <input type="file" tabindex="12" class="form-control-file" id="salonLogourl" name="salonLogourl">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="modal-footer w-100">
+                        <button type="button" class="btn btn-link text-muted" tabindex="14" onclick="location.reload();" data-dismiss="modal">@(beautybook.Resources.Languages.Cancel)</button>
+                        <button type="submit" name="submit" tabindex="13" class="btn btn-primary" id="saveSalonsdetailsbtn">
+                            @(beautybook.Resources.Languages.Create)
+                        </button>
+                        <button type="button" class="btn btn-primary" id="saveSalonsdetailsbtnloading" style="display:none;" disabled>
+                            <span id="saveSalonsdetailsbtntext">
+                                Processing
+                            </span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modals -->
+@*<div class="modal fade p-0" id="CreateSuccessSalon" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addSalonInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xxl modal-dialog-centered modal-dialog-zoom modal-fullscreen-md-down">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="https://www.legalpillers.com/wp-content/uploads/2020/09/success.gif" class="w-50 mb-3" alt="Alternate Text" />
+                <p class="mb-0 text-center">
+                    The application will be reviewed and approved by the system management
+                </p>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+@*Google map api key*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABofRnRkpT_4m344ZOsyRnT90uSGF5H6A&amp;libraries=places"></script>
+<script src="~/Content/assets/js/AutoLocation.js"></script>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonsAPI/SalonsDetails/SalonsDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonsAPI/SalonsDetails/MySalons.js"></script>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        ArbicLanguage();
+        //Address autocompleteField
+        googleAutocomplete.autocompleteField("addressLine1");
+
+        //mySalonslist API function call
+        mySalonslist();
+
+        //SalonsCountry API function call
+        SalonsCountry();
+
+        //SalonsState API function call
+        SalonsState();
+
+        $("#CreateSuccessSalon").modal("show");
+
+    })
+    $(function () {
+        $.validator.addMethod("alphabetsnspace", function (value, element) {
+            return this.optional(element) || /^[a-zA-Z\u0600-\u06FF,-][\sa-zA-Z\u0600-\u06FF,-]*$/.test(value);
+        });
+        $("form[name='salonsForm']").validate({
+            rules: {
+                salonName: {
+                    required: true
+                },
+                addressLine1: {
+                    required: true
+                },
+                salonsCity: {
+                    required: true
+                },
+                salonsZipcode: {
+                    required: true,
+                    number: true
+                },
+                salonsPrimarynumber: {
+                    required: true,
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                salonsAlternatenumber: {
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                salonsIBANNumber: {
+                    required: false,
+                    maxlength: 24,
+                    minlength: 24
+                },
+                salonsBankName: {
+                    required: false,
+                    alphabetsnspace: true
+                },
+                salonsTaxNumber: {
+                    required: true
+                },
+                //salonsVATNumber: {
+                //    required: true
+                //}
+
+            },
+            messages: {
+             salonName: "@(beautybook.Resources.Languages.Salon_Name_is_required)",
+                addressLine1: "@(beautybook.Resources.Languages.Address_Line1_is_required)",
+                salonsCity: "@(beautybook.Resources.Languages.City_is_required)",
+                salonsZipcode: {
+                     required : "@(beautybook.Resources.Languages.Zipcode_is_required)",
+                },
+                salonsPrimarynumber: {
+                    required : "@(beautybook.Resources.Languages.Primary_Phone_is_required)"
+                },
+                @*salonsIBANNumber: {
+                    required: "@(beautybook.Resources.Languages.IBAN_Number_is_required)"
+                },*@
+                salonsBankName: {
+                    //required: "@(beautybook.Resources.Languages.Bank_Name_is_required)",
+                    alphabetsnspace: "@(beautybook.Resources.Languages.The_name_of_the_bank_must_accept_letters_only)"
+                },
+                 //salonsTaxNumber: "@(beautybook.Resources.Languages.Tax_Number_is_required)", Old code comment 09/03/2023
+                salonsTaxNumber: "@(beautybook.Resources.Languages.Commercial_Register_No_is_required)",
+                //salonsVATNumber: "@(beautybook.Resources.Languages.VAT_Number_is_required)"
+            },
+            submitHandler: function () {
+                saveSalonsdetails();
+            }
+        });
+    });
+
+</script>

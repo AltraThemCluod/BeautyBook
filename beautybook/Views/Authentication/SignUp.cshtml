@@ -1,0 +1,371 @@
+﻿@{
+    ViewBag.Title = "SignUp";
+    Layout = null;
+}
+@using BeautyBook.Common;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Zaan</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon.png">
+    @*<link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <link href="~/Content/assets/css/arabic.css" rel=stylesheet>
+
+    <style>
+        .custom-checkbox #termsCheckbox-error {
+            position: absolute;
+            bottom: -66%;
+            left: 0;
+            font-size: 13px;
+        }
+
+        .password-checkbox {
+            float: right;
+        }
+
+        @@media(max-width:1024px) {
+            .password-checkbox {
+                float: inherit;
+                margin-top: 20px;
+            }
+        }
+
+        .bg-white {
+            background: url('../Content/assets/images/signinbackground.svg') !important;
+        }
+
+        .google-btn {
+            background: #EFF6F7 !important;
+            border-radius: 8px !important;
+            border-color: transparent !important;
+        }
+
+        .account-backside {
+            background: #F3F6FB !important;
+            border-radius: 30px 0px 0px 30px !important;
+            width: 100%;
+            height: 100%;
+        }
+
+        .auth-images {
+            padding-right: 0px;
+        }
+
+        .logo-content p {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: center;
+            color: #4A525E;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="app-root bg-white">
+        <div class="app-wrapper">
+            <main>
+                <div class="position-fixed top-0 right-0 left-0 bg-img-hero " style="height: 32rem;">
+                    <figure class="">
+                        <svg width="100%" height="100vh" viewBox="0 0 100vh 100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="1000" fill="#F7F8FC" />
+                            <g filter="url(#filter0_f_0_1)">
+                                <circle cx="375" cy="280" r="120" fill="#C57171" />
+                            </g>
+                            <g filter="url(#filter1_f_0_1)">
+                                <circle cx="1498.5" cy="789.5" r="196.5" fill="#AFBAE1" />
+                            </g>
+                            <defs>
+                                <filter id="filter0_f_0_1" x="-45" y="-140" width="840" height="840" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1" />
+                                </filter>
+                                <filter id="filter1_f_0_1" x="1002" y="293" width="993" height="993" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1" />
+                                </filter>
+                            </defs>
+                        </svg>
+                    </figure>
+                </div>
+                <div class="container py-5 py-sm-7">
+                    @*<a class="d-flex justify-content-center mb-2" href="javascript:void(0)">
+                            <img class="z-index-2" src="~/Content/assets/images/favicons/safari-pinned-tab.svg" alt="" style="width: 4rem;">
+                        </a>
+                        <a class="d-flex justify-content-center mb-5" href="javascript:void(0)">
+                            <img class="z-index-2" src="~/Content/assets/images/favicons/logo.png" alt="" style="width: 150px;">
+                        </a>*@
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-10 col-lg-10">
+                            <div class="card card-lg mb-5">
+                                <div class="row">
+                                    <div class="col-lg-5 auth-images">
+                                        <div class="w-100 h-100">
+                                            <div class="account-backside p-2">
+                                                <div class="logo-content text-center mb-4" style="margin-top:40px;">
+                                                    <img src="~/Content/assets/images/logo.png" class="w-40" />
+                                                </div>
+                                                <img src="~/Content/assets/images/SalonBackground.png" class="w-100" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <div class="mb-5 text-left">
+                                                    <h3>@(beautybook.Resources.Languages.Create_your_account)</h3>
+                                                    <p>@(beautybook.Resources.Languages.Already_have_an_account) <a href="@Url.Action("SignIn","Authentication")">@(beautybook.Resources.Languages.Sign_in_here)</a></p>
+                                                </div>
+                                            </div>
+                                            <form id="signUpform" name="signUpform">
+                                                <div class="form-row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="input-label" for="fullNameSrEmail">@(beautybook.Resources.Languages.First_Name)</label>
+                                                            <input type="text" class="form-control form-control-lg" tabindex="1" name="userFirstname" id="userFirstname" placeholder="@(beautybook.Resources.Languages.First_Name)" aria-label="Firstname">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="input-label" for="fullNameSrEmail">@(beautybook.Resources.Languages.Last_Name)</label>
+                                                            <input type="text" class="form-control form-control-lg" tabindex="2" name="userLastname" id="userLastname" placeholder="@(beautybook.Resources.Languages.Last_Name)" aria-label="Lastname">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="input-label" for="signinSrEmail">@(beautybook.Resources.Languages.Email)</label>
+                                                    <input type="text" class="form-control form-control-lg" tabindex="3" name="userEmail" id="userEmail" placeholder="Email@address.com" aria-label="email@address.com">
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-sm-6">
+                                                        <label class="input-label" for="signupPassword">@(beautybook.Resources.Languages.Password)</label>
+                                                        <input type="password" class="form-control form-control-lg" tabindex="4" name="userPassword" id="userPassword" placeholder="@(beautybook.Resources.Languages._8__characters_required)" aria-label="8+ characters required" autocomplete="off">
+                                                    </div>
+
+                                                    <div class="form-group col-sm-6">
+                                                        <label class="input-label" for="signupSrConfirmPassword">@(beautybook.Resources.Languages.Confirm_Password)</label>
+                                                        <input type="password" class="js-toggle-password form-control form-control-lg" tabindex="5" name="userConfirmpassword" id="userConfirmpassword" placeholder="@(beautybook.Resources.Languages._8__characters_required)" aria-label="8+ characters required" autocomplete="off">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group mb-2">
+                                                    <div class="custom-control custom-checkbox d-inline-block">
+                                                        <input type="checkbox" class="custom-control-input terms-conditions" tabindex="6" id="termsCheckbox" name="termsCheckbox">
+                                                        <label class="custom-control-label text-muted" for="termsCheckbox"> <a href="#!" data-toggle="modal" data-target="#TnCModal" id="TnCModalClick">@(beautybook.Resources.Languages.I_accept_the_Terms_and_Conditions)</a></label>
+                                                    </div>
+
+                                                    @*show password input box*@
+                                                    <div class="custom-control custom-checkbox password-checkbox">
+                                                        <input type="checkbox" class="custom-control-input terms-conditions" tabindex="6" id="passwordCheckbox" name="passwordCheckbox">
+                                                        <label class="custom-control-label text-muted cursor-pointer mb-0" for="passwordCheckbox">@(beautybook.Resources.Languages.Show_Password)</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group mb-5">
+                                                    <div class="custom-control custom-checkbox d-inline-block">
+                                                        <input type="checkbox" class="custom-control-input terms-conditions" tabindex="6" id="PrivacyPolicyCheckbox" name="PrivacyPolicyCheckbox">
+                                                        <label class="custom-control-label text-muted" for="PrivacyPolicyCheckbox"> <a href="#!" data-toggle="modal" data-target="#PrivacyPolicyModal" id="PrivacyPolicyModalClick">@(beautybook.Resources.Languages.I_accept_the_Privacy_Policy)</a></label>
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit" name="submit" class="btn btn-lg btn-block btn-primary" tabindex="7" id="userSignUpbtn">@(beautybook.Resources.Languages.Create_an_account)</button>
+                                                <button type="button" class="btn btn-lg btn-block btn-primary" id="userSignUpbtnLoading" style="display:none;" disabled>
+                                                    @(beautybook.Resources.Languages.Creating_your_account)
+                                                    <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                                </button>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal -->
+
+
+    <div class="modal fade" id="TnCModal" tabindex="-1" role="dialog" aria-labelledby="TnCModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TnCModalLabel">@(beautybook.Resources.Languages.Terms_and_Conditions)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="TnCBodyContent">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="PrivacyPolicyModal" tabindex="-1" role="dialog" aria-labelledby="PrivacyPolicyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="PrivacyPolicyModalLabel">@(beautybook.Resources.Languages.Privacy_Policy)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="PrivacyPolicyBodyContent">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script>var plugin_path = './js/';</script>
+
+    <script src="~/Content/assets/js/main.js"></script>
+
+    @*API JS FILE*@
+
+    <script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+    <script src="~/Content/BeautyBookAPI/AuthenticationAPI/SignUp/SignUp.js"></script>
+    <script src="~/Content/assets/js/sweetalert/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
+    <script>
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        $(document).ready(function () {
+            var Language = getCookie("Languages");
+            $('#LanSelect').val(Language == "" ? 'en' : Language);
+            if (Language == "en") {
+                $('html').attr('dir', 'ltl');
+                $('html').attr('lang', 'en');
+            } else if (Language == "ar") {
+                $('html').attr('dir', 'rtl');
+                $('html').attr('lang', 'ar');
+                $('body').addClass('arabic-lan-signin');
+            }
+        })
+
+        $(function () {
+            $("form[name='signUpform']").validate({
+                rules: {
+                    userFirstname: {
+                        required: true
+                    },
+                    userLastname: {
+                        required: true
+                    },
+                    userEmail: {
+                        required: true,
+                        email: true
+                    },
+                    userPassword: {
+                        required: true,
+                        minlength: 8,
+                    },
+                    userConfirmpassword: {
+                        required: true,
+                        minlength: 8,
+
+                    },
+                    termsCheckbox: {
+                        required: true
+                    }
+                },
+                messages: {
+                    userFirstname: "@(beautybook.Resources.Languages.First_Name_is_required)" ,
+                    userLastname: "@(beautybook.Resources.Languages.Last_Name_is_required)" ,
+                    userEmail: {
+                        required:  "@(beautybook.Resources.Languages.Email_is_required)",
+                    },
+                    userPassword: {
+                        required: "@(beautybook.Resources.Languages.Password_is_required)",
+                    },
+                    userConfirmpassword: {
+                        required: "@(beautybook.Resources.Languages.Confirm_Password_is_required)",
+                    },
+                    termsCheckbox: "@(beautybook.Resources.Languages.Please_check_this_box)",
+                },
+                submitHandler: function () {
+                    userCheckconfirmpwd();
+                }
+            });
+        });
+
+        $("#TnCModalClick").click(function () {
+            $("#TnCModal").modal('show');
+        });
+
+        $("#PrivacyPolicyModalClick").click(function () {
+            $("#PrivacyPolicyModal").modal('show');
+        });
+
+        $(document).ready(function () {
+            TermsAndConditions();
+            PrivacyPolicy();
+        });
+
+    </script>
+    <script src="~/Content/assets/js/arabic.js"></script>
+</body>
+</html>
+
+
+

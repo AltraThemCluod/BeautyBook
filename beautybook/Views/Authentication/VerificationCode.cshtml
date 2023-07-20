@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Verification Code";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Zaan</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon.png">
+    @*<link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">*@
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+</head>
+<body>
+
+    <div class="app-root bg-white">
+        <div class="app-wrapper">
+            <main>
+                <div class="position-fixed top-0 right-0 left-0 bg-img-hero overlay-white-60" style="height: 32rem; background-image: url(../Content/assets/images/media/bg-cover-01.jpg);">
+                    <!-- SVG Bottom Shape -->
+                    <figure class="position-absolute right-0 bottom-0 left-0">
+                        <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1921 273">
+                            <polygon fill="#fff" points="0,273 1921,273 1921,0 " />
+                        </svg>
+                    </figure>
+                    <!-- End SVG Bottom Shape -->
+                </div>
+
+                <div class="container py-5 py-sm-7">
+                    <a class="d-flex justify-content-center mb-5" href="index.html">
+                        <img class="z-index-2" src="~/Content/assets/images/logo.png" alt="" style="width: 4rem;">
+                    </a>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-7 col-lg-5">
+                            <div class="card card-lg mb-5">
+                                <div class="card-body text-center">
+                                    <div class="mb-4">
+                                        <img class="avatar avatar-xxl avatar-4by3" src="https://htmlstream.com/front-dashboard/assets/svg/illustrations/unlock.svg" alt="">
+                                    </div>
+
+                                    <h3>2-step Verification</h3>
+                                    <p class="mb-0">We sent a verification code to your email.</p>
+                                    <p>Enter the code from the email in the field below.</p>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-single-number" name="code1" id="twoStepCodeInput1" placeholder="" aria-label="" maxlength="1" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus="">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-single-number" name="code2" id="twoStepCodeInput2" placeholder="" aria-label="" maxlength="1" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus="">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-single-number" name="code3" id="twoStepCodeInput3" placeholder="" aria-label="" maxlength="1" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus="">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-single-number" name="code4" id="twoStepCodeInput4" placeholder="" aria-label="" maxlength="1" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus="">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-lg btn-block btn-primary">Verify my account</button>
+                                    <div class="text-center mt-3">
+                                        <p>Haven't received it? <a href="#">Resend a new code.</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script>var plugin_path = './js/';</script>
+
+    <script src="~/Content/assets/js/main.js"></script>
+</body>
+</html>
+
+
+

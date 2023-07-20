@@ -1,0 +1,181 @@
+.custom-select:focus,
+.form-control:focus {
+    box-shadow: 0 0 0.625rem rgba($color: $primary, $alpha: 0.1);
+}
+
+// Input Group Merge
+.input-group {
+
+    &.input-group-merge {
+        position: relative;
+
+        .input-group-prepend {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            .input-group-text {
+                padding: 0 0 0 0.875rem;
+
+                &:first-child {
+                    border-top-left-radius: $input-border-radius-lg;
+                    border-bottom-left-radius: $input-border-radius-lg;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+            }
+        }
+
+        .input-group-append {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+
+            .input-group-text {
+                padding: 0 0.875rem 0 0;
+
+                &:last-child {
+                    border-top-right-radius: $input-border-radius-lg;
+                    border-bottom-right-radius: $input-border-radius-lg;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+            }
+        }
+
+        .input-group-text {
+            z-index: 4;
+            border: none;
+        }
+
+        .custom-select:not(:first-child),
+        .form-control:not(:first-child) {
+            padding-left: 2.625rem;
+            border-top-left-radius: $input-border-radius-lg;
+            border-bottom-left-radius: $input-border-radius-lg;
+        }
+
+        .custom-select:not(:last-child),
+        .form-control:not(:last-child) {
+            padding-right: 2.625rem;
+            border-top-right-radius: $input-border-radius-lg;
+            border-bottom-right-radius: $input-border-radius-lg;
+        }
+
+        &.input-group-sm {
+
+            .custom-select:not(:first-child),
+            .form-control:not(:first-child) {
+                border-top-left-radius: $input-border-radius;
+                border-bottom-left-radius: $input-border-radius;
+            }
+
+            .custom-select:not(:last-child),
+            .form-control:not(:last-child) {
+                border-top-right-radius: $input-border-radius;
+                border-bottom-right-radius: $input-border-radius;
+            }
+
+            .input-group-prepend .input-group-text:first-child {
+                border-top-left-radius: $input-border-radius;
+                border-bottom-left-radius: $input-border-radius;
+            }
+
+            .input-group-append .input-group-text:last-child {
+                border-top-right-radius: $input-border-radius;
+                border-bottom-right-radius: $input-border-radius;
+            }
+        }
+
+        &.input-group-lg {
+
+            .custom-select:not(:first-child),
+            .form-control:not(:first-child) {
+                padding-left: 2.625rem;
+                border-top-left-radius: $input-border-radius-lg;
+                border-bottom-left-radius: $input-border-radius-lg;
+            }
+
+            .custom-select:not(:last-child),
+            .form-control:not(:last-child) {
+                padding-right: 2.625rem;
+                border-top-right-radius: $input-border-radius-lg;
+                border-bottom-right-radius: $input-border-radius-lg;
+            }
+
+            .input-group-prepend .input-group-text:first-child {
+                border-top-left-radius: $input-border-radius-lg;
+                border-bottom-left-radius: $input-border-radius-lg;
+            }
+
+            .input-group-append .input-group-text:last-child {
+                border-top-right-radius: $input-border-radius-lg;
+                border-bottom-right-radius: 0$input-border-radius-lg;
+            }
+        }
+    }
+
+}
+
+
+.input-label {
+    display: block;
+    color: $gray-900;
+}
+
+.input-label-secondary {
+    color: $gray-500;
+    margin-left: .25rem;
+}
+
+.form-control-single-number {
+    font-size: 1.75rem;
+    text-align: center;
+}
+
+
+
+.form-check-input {
+    height: 18px;
+    width: 18px;
+}
+
+.form-check-label {
+    user-select: none;
+    margin-left: 0.5rem;
+    font-size: $font-size-sm;
+}
+
+.multiple-checkbox {
+    ul {
+        li {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+    }
+}
+
+label{
+    user-select: none;
+}
+
+.custom-label{
+    font-weight: $font-weight-medium;
+    font-size:$font-size-sm;
+}
+
+.col-form-label{
+    font-weight: $font-weight-semibold;
+      font-size:$font-size-sm;
+}
+
+.custom-file-label{
+    font-size:$font-size-sm;
+}
+
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    outline: none;
+  }

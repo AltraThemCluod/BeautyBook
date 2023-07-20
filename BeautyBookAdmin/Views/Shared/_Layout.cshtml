@@ -1,0 +1,358 @@
+﻿@using BeautyBook.Common;
+@using BeautyBookAdmin.Pages;
+@using System.Web.Optimization;
+@using BeautyBookAdmin.Infrastructure;
+
+@{
+    /**/
+
+    var curController = Convert.ToString(ViewContext.RouteData.Values["Controller"]);
+    var curAction = Convert.ToString(ViewContext.RouteData.Values["Action"]);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BeautyBook Admin | @ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css">
+    @*<link rel="stylesheet" href="~/assets/vendor/font-awesome/css/font-awesome.min.css">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css">
+    @*<link rel="stylesheet" href="~/assets/vendor/summernote/dist/summernote.css" />*@
+    <link rel="stylesheet" href="~/assets/vendor/dropify/css/dropify.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/assets/vendor/sweetalert/sweetalert.css" />
+    <link rel="stylesheet" href="~/Styles/datatables.min.css" />
+    <link rel="stylesheet" href="~/Styles/datatables.bootstrap.css" />
+    @*<link rel="stylesheet" href="~/assets/vendor/jquery-datatable/dataTables.bootstrap4.min.css">*@
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="~/assets/vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/select2/select2.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/assets/vendor/css/main.css">
+    <link rel="stylesheet" href="~/assets/vendor/css/color_skins.css">
+
+    <style>
+        .or_logo {
+            width: 160px !important;
+        }
+
+        @@media only screen and (max-width: 992px) {
+
+            .mobile_logo {
+                width: 80px !important;
+            }
+        }
+
+        .them-btn {
+            background: #0069d9 !important;
+            color: #fff !important;
+            border: none !important;
+        }
+
+        .them-reset-btn {
+            color: #fff !important;
+            background: #6c757d !important;
+            border: #6c757d !important;
+        }
+
+        .navbar-fixed-top {
+            top: 0 !important;
+        }
+
+        #left-sidebar {
+            margin-top: 60px !important;
+            left: 0 !important;
+        }
+
+        .text-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 270px !important;
+            cursor: pointer;
+        }
+
+        .profile-size {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .w-25 {
+            width: 25% !important;
+        }
+
+        .custome-badge-size {
+            padding: 8px 8px !important;
+        }
+
+        .c-text-primary {
+            color: #5c8ed4 !important;
+        }
+
+        .table-condensed thead {
+            background: transparent !important;
+            color: #000 !important;
+        }
+
+        .scrollbar-table {
+            height: 400px !important;
+        }
+        .card-border {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+
+    @*<link rel="stylesheet" href="~/assets/validation/css/components-md.min.css" />*@
+
+
+    @*<script src="~/assets/validation/js/jquery.min.js"></script>
+        <script src="~/assets/validation/js/bootstrap.min.js"></script>
+        <script src="~/assets/validation/js/jquery.blockui.min.js"></script>*@
+    <script src="~/assets/validation/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/assets/validation/js/moment.min.js"></script>
+    <script src="~/assets/validation/js/bootstrap.min.js"></script>
+    <script src="~/assets/validation/js/jquery.blockui.min.js"></script>
+    <script type="text/javascript" src="~/assets/validation/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        function imgError(image) {
+
+            //image.onerror = imgError(image);
+            $(image).attr('src', "/assets/images/image-not-available.png");
+            image.src = "/assets/images/image-not-available.png";
+        }
+        function DefaultImage(image) {
+            $(image).attr('src', "/assets/images/user-default-profile.png");
+            image.src = "/assets/images/user-default-profile.png";
+        }
+        function DefaultLogo(Logo) {
+            $(Logo).attr('src', "/assets/salon-shop.svg");
+            $(Logo).attr('class', "w-25");
+            Logo.src = "/assets/salon-shop.svg";
+            Logo.class = "w-25";
+        }
+    </script>
+</head>
+<body class="theme-blue">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <h3 class="text-white">Please wait...</h3>
+        </div>
+    </div>
+    <!-- Overlay For Sidebars -->
+
+    <div id="wrapper">
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-btn">
+                    <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
+                </div>
+
+                <div class="navbar-brand">
+                    <a href="@Url.Action(Actions.Index,Controllers.Home,new { Area = ""})">
+                        <img src="~/assets/images/logo.png" alt="BeautyBook Logo" class="img-responsive logo or_logo mobile_logo">
+                    </a>
+                </div>
+
+                <div class="navbar-right">
+
+
+                </div>
+            </div>
+        </nav>
+
+        <div id="left-sidebar" class="sidebar">
+            <div class="sidebar-scroll">
+                <div class="user-account">
+                    <div class="dropdown">
+                        <img src="" alt="Profile Picture" onerror="DefaultImage(this);" class="rounded-circle img-thumbnail mb-2 mx-auto d-block img_size" style="height:51px;" />
+                        <span>
+                            Welcome, <strong>@ProjectSession.AdminName</strong>
+                        </span>
+
+                    </div>
+                    <hr>
+                </div>
+
+                <!-- Left menu -->
+                <div class="tab-content p-l-0 p-r-0">
+                    <div class="tab-pane animated fadeIn active" id="hr_menu">
+                        <nav class="sidebar-nav">
+                            @Html.Partial("_LeftMenu")
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Javascript -->
+    @RenderSection("dashboardscripts", required: false)
+    <script src="~/assets/bundles/vendorscripts.bundle.js"></script>
+    <script src="~/assets/bundles/mainscripts.bundle.js"></script>
+    @*<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>*@
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            setSelectedMenu();
+        });
+
+        $(function () {
+            $('input.singledatepicker').daterangepicker({
+                "singleDatePicker": true,
+                autoUpdateInput: false,
+                "showDropdowns": true,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+            $('input.singledatepicker').attr("placeholder", "mm/dd/yyyy");
+            $('input.singledatepicker').on('apply.daterangepicker', function (ev, picker) {
+
+                $(this).val(picker.startDate.format('MM/DD/YYYY'));
+                $('input.singledatepicker').trigger('keyup');
+            });
+        });
+
+        $(function () {
+            $('input.Ordersingledatepicker').daterangepicker({
+                "singleDatePicker": true,
+                autoUpdateInput: false,
+                "showDropdowns": true,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+            $('input.Ordersingledatepicker').attr("placeholder", "dd/mm/yyyy");
+            $('input.Ordersingledatepicker').on('apply.daterangepicker', function (ev, picker) {
+                debugger;
+                $(this).val(picker.startDate.format('DD/MM/YYYY'));
+                $('input.Ordersingledatepicker').trigger('keyup');
+            });
+        });
+
+        //Input time picker 24 ht to convert 12 hr
+        function onTimeChange(timeVal) {
+            var timeSplit = timeVal.split(':'),
+                hours,
+                minutes,
+                meridian;
+            hours = timeSplit[0];
+            minutes = timeSplit[1];
+            if (hours > 12) {
+                meridian = 'PM';
+                hours -= 12;
+            } else if (hours < 12) {
+                meridian = 'AM';
+                if (hours == 0) {
+                    hours = 12;
+                }
+            } else {
+                meridian = 'PM';
+            }
+            return hours + ':' + minutes + ' ' + meridian;
+        }
+
+        function setSelectedMenu() {
+            $(".main-menu").find("li.active").each(function () {
+                $(this).removeClass("active");
+            });
+
+            if ("@curController" == "Home") {
+                setActiveLink($('#Dashboard').attr('id'));
+            } else if ("@curController" == "SalonOwner") {
+                setActiveLink($('#SalonOwner').attr('id'));
+            } else if ("@curController" == "TermsAndConditions"  && "@curAction" == "Salon") {
+                setActiveLink($('#Salon_TermsAndConditions').attr('id'));
+            }else if ("@curController" == "TermsAndConditions" && "@curAction" == "Vendor") {
+                setActiveLink($('#Vendor_TermsAndConditions').attr('id'));
+            } else if ("@curController" == "PrivacyPolicy"  && "@curAction" == "Salon") {
+                setActiveLink($('#Salon_PrivacyPolicy').attr('id'));
+            } else if ("@curController" == "PrivacyPolicy" && "@curAction" == "Vendor") {
+                setActiveLink($('#Vendor_PrivacyPolicy').attr('id'));
+            }else if ("@curController" == "ManageVendor") {
+                setActiveLink($('#ManageVendor').attr('id'));
+            } else if ("@curController" == "CreateEmailTemplate") {
+                setActiveLink($('#ManageEmailTemplate').attr('id'));
+            }else if ("@curController" == "SMSPackages") {
+                setActiveLink($('#SMS_Packages').attr('id'));
+            }
+            else if ("@curController" == "ChangePassword") {
+                setActiveLink($('#ChangePassword').attr('id'));
+            } else if ("@curController" == "MasterData" && "@curAction" == "MasterProductType") {
+                setActiveLink($('#MasterData').attr('id'));
+                setActiveLink($('#ProductType').attr('id'));
+                $('.active ul').attr('aria-expanded', true);
+                $('.active ul').addClass('in');
+                $('.active ul').css('height', 'inherit');
+            } else if ("@curController" == "MasterData" && "@curAction" == "MasterProductBrand") {
+                setActiveLink($('#MasterData').attr('id'));
+                setActiveLink($('#ProductBrand').attr('id'));
+                $('.active ul').attr('aria-expanded', true);
+                $('.active ul').addClass('in');
+                $('.active ul').css('height', 'inherit');
+            } else if ("@curController" == "MasterData" && "@curAction" == "MasterProductWeight") {
+                setActiveLink($('#MasterData').attr('id'));
+                setActiveLink($('#ProductWeight').attr('id'));
+                $('.active ul').attr('aria-expanded', true);
+                $('.active ul').addClass('in');
+                $('.active ul').css('height', 'inherit');
+            } else if ("@curController" == "MasterData" && "@curAction" == "MasterOrderStatus") {
+                setActiveLink($('#MasterData').attr('id'));
+                setActiveLink($('#OrderStatus').attr('id'));
+                $('.active ul').attr('aria-expanded', true);
+                $('.active ul').addClass('in');
+                $('.active ul').css('height', 'inherit');
+            } else if ("@curController" == "MasterData" && "@curAction" == "MasterProductCategory") {
+                setActiveLink($('#MasterData').attr('id'));
+                setActiveLink($('#ProductCategory').attr('id'));
+                $('.active ul').attr('aria-expanded', true);
+                $('.active ul').addClass('in');
+                $('.active ul').css('height', 'inherit');
+            }
+
+            function setActiveLink(menuId) {
+
+                $(".custom").find("a[id='" + menuId + "']").parent("li").addClass("active");
+                //$(".items").find("a[id='" + menuId + "']").parent("li").append("<span class='selected'></span>");
+            };
+
+            function setSubActiveLink(menuId) {
+                $(".custom").find("a[id='" + menuId + "']").parent("li").addClass("active");
+                //$(".items").find("a[id='" + menuId + "']").parent("li").append("<span class='selected'></span>");
+            };
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+    @Html.Raw(ViewBag.openPopup)
+</body>
+</html>

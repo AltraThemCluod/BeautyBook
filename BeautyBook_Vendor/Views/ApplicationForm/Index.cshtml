@@ -1,0 +1,521 @@
+﻿@{
+    ViewBag.Title = "Sort Application Form";
+    Layout = null;
+}
+@using BeautyBook.Common;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Zaan Vendor</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon.png">
+    @*<link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <style>
+        .error:before {
+            bottom: 59%;
+            right: 21px;
+        }
+
+        .send-code-text {
+            position: absolute;
+            top: -52%;
+            font-size: 15px;
+            right: 15px;
+        }
+
+        .brrt-rb {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        .brlt-lb {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+
+        .contact-number {
+            flex-wrap: inherit;
+        }
+        .contact-number input {
+            width: 100% !important;
+        }
+        .contact-number label.error {
+            position: absolute;
+            bottom: -28px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="position-fixed top-0 right-0 left-0 bg-img-hero " style="/* height: 32rem; */">
+            <figure class="">
+                <svg width="100%" height="100vh" viewBox="0 0 100% 100vh" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100%" height="1000" fill="url(#paint0_linear_0_1)"></rect>
+                    <g filter="url(#filter0_f_0_1)">
+                        <circle cx="375" cy="280" r="120" fill="#43CF7B"></circle>
+                    </g>
+                    <g filter="url(#filter1_f_0_1)">
+                        <circle cx="1498.5" cy="789.5" r="196.5" fill="#C9CDF0"></circle>
+                    </g>
+                    <path d="M109 1001C109 987.736 111.612 974.603 116.688 962.349C121.764 950.095 129.203 938.961 138.582 929.582C147.961 920.203 159.095 912.764 171.349 907.688C183.603 902.612 196.737 900 210 900C223.264 900 236.397 902.612 248.651 907.688C260.905 912.764 272.039 920.204 281.418 929.582C290.797 938.961 298.236 950.095 303.312 962.349C308.388 974.603 311 987.737 311 1001L233.674 1001C233.674 997.891 233.062 994.813 231.872 991.94C230.682 989.068 228.938 986.458 226.74 984.26C224.542 982.062 221.932 980.318 219.06 979.128C216.187 977.938 213.109 977.326 210 977.326C206.891 977.326 203.813 977.938 200.94 979.128C198.068 980.318 195.458 982.062 193.26 984.26C191.062 986.458 189.318 989.068 188.128 991.94C186.938 994.813 186.326 997.891 186.326 1001L109 1001Z" fill="#D5DBE7"></path>
+                    <path d="M1920 292C1912.51 292 1905.1 290.526 1898.19 287.661C1891.27 284.797 1884.99 280.598 1879.69 275.305C1874.4 270.012 1870.2 263.729 1867.34 256.813C1864.47 249.897 1863 242.485 1863 235C1863 227.515 1864.47 220.103 1867.34 213.187C1870.2 206.271 1874.4 199.988 1879.69 194.695C1884.99 189.402 1891.27 185.203 1898.19 182.339C1905.1 179.474 1912.51 178 1920 178L1920 221.054C1918.17 221.054 1916.36 221.415 1914.66 222.116C1912.97 222.817 1911.43 223.844 1910.14 225.139C1908.84 226.434 1907.82 227.971 1907.12 229.663C1906.42 231.355 1906.05 233.169 1906.05 235C1906.05 236.831 1906.42 238.645 1907.12 240.337C1907.82 242.029 1908.84 243.566 1910.14 244.861C1911.43 246.156 1912.97 247.183 1914.66 247.884C1916.36 248.585 1918.17 248.946 1920 248.946L1920 292Z" fill="#D5E4E6"></path>
+                    <defs>
+                        <filter id="filter0_f_0_1" x="-45" y="-140" width="840" height="840" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                            <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1"></feGaussianBlur>
+                        </filter>
+                        <filter id="filter1_f_0_1" x="1002" y="293" width="993" height="993" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                            <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1"></feGaussianBlur>
+                        </filter>
+                        <linearGradient id="paint0_linear_0_1" x1="0" y1="0" x2="1920" y2="1000" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#E1EAEB"></stop>
+                            <stop offset="0.515625" stop-color="#E9ECF7"></stop>
+                            <stop offset="1" stop-color="white"></stop>
+                        </linearGradient>
+                    </defs>
+                </svg>
+
+            </figure>
+        </div>
+
+        <div class="app-content-inner" style="padding-bottom:100px">
+            <form id="employeeForm" name="employeeForm" style="">
+                <div class="container-fluid py-5 py-sm-7">
+
+                    <a class="d-flex justify-content-center mb-2" href="javascript:void(0)">
+                        <img class="z-index-2 w-40 my-5" src="/Content/assets/images/logo.png" alt="" style="">
+                    </a>
+                    @*<a class="d-flex justify-content-center mb-5" href="javascript:void(0)">
+                        <img class="z-index-2" src="/Content/assets/images/favicons/logo.png" alt="" style="width: 150px;">
+                    </a>*@
+
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-8 col-xl-9">
+
+                            <div class="card card-lg">
+                                <div class="card-header">
+                                    <h6 class="mb-1 mt-1">Short Application Form</h6>
+                                    <p class="mb-0 text-muted fs-13">@(BeautyBook_Vendor.Resources.Languages.Pleaseaddyourdetails)</p>
+                                </div>
+
+                                <div class="card-body pb-0">
+                                    <div class="row">
+
+                                        <div class="col-lg-6">
+                                            <input type="hidden" name="Id" id="Id" />
+                                            <div class="form-group row">
+                                                <label for="firstName" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.First_Name)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" tabindex="1" name="Firstname" id="Firstname" placeholder="@(BeautyBook_Vendor.Resources.Languages.First_Name)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="lastName" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Last_Name)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" tabindex="2" name="Lastname" id="Lastname" placeholder="@(BeautyBook_Vendor.Resources.Languages.Last_Name)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <fieldset class="form-group row">
+                                                <legend class="col-form-label col-sm-4 float-sm-left text-sm-right pt-0">@(BeautyBook_Vendor.Resources.Languages.Gender)</legend>
+                                                <div class="col-sm-7">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" tabindex="3" type="radio" name="gender" id="maleRadio" value="Male" checked>
+                                                        <label class="form-check-label" for="maleRadio">
+                                                            @(BeautyBook_Vendor.Resources.Languages.Male)
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" tabindex="4" type="radio" name="gender" id="femaleRadio" value="Female">
+                                                        <label class="form-check-label" for="femaleRadio">
+                                                            @(BeautyBook_Vendor.Resources.Languages.Female)
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="birthDate" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Birthdate)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="datepicker singledatepicker form-control" tabindex="5" name="birthDate" id="birthDate" placeholder="mm/dd/yyyy" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="emailAddress" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Email)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="email" class="form-control" name="Email" tabindex="6" id="Email" placeholder="@(BeautyBook_Vendor.Resources.Languages.Email)">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="phoneNumber" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Primary_Phone)</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group contact-number">
+                                                        <div>
+                                                            <span class="input-group-text text-muted brrt-rb">+966</span>
+                                                        </div>
+                                                        <input type="text" class="form-control brlt-lb" name="Primaryphone" id="Primaryphone" tabindex="7" placeholder="011 XXX XXXX" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="alternateNumber" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Alternate_Phone)</label>
+                                                <div class="col-sm-7">
+                                                    <div class="input-group contact-number">
+                                                        <div>
+                                                            <span class="input-group-text text-muted brrt-rb">+966</span>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="Alternatephone" id="Alternatephone" tabindex="8" placeholder="011 XXX XXXX" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="customerPhoto" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Profile_Photo)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="profilePhoto" onchange="profileUpload();" tabindex="9" id="profilePhoto">
+                                                        <label class="custom-file-label" for="profilePhoto">@(BeautyBook_Vendor.Resources.Languages.Choose_Photo)</label>
+                                                    </div>
+                                                    <span class="mb-0 text-muted fs-13" id="uploadImagename"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="zipCode" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Bank_Name)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" tabindex="10" id="VendorBankName" name="VendorBankName" autocomplete="off" placeholder="@(BeautyBook_Vendor.Resources.Languages.Enter_your_Bank_Name_here)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="zipCode" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.IBAN_Number)</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" tabindex="11" id="VendorIBANNumber" name="VendorIBANNumber" autocomplete="off" placeholder="@(BeautyBook_Vendor.Resources.Languages.Enter_your_IBAN_Number_here)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="zipCode" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.VAT_Number</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" tabindex="11" id="VendorVATNumber" name="VendorVATNumber" autocomplete="off" placeholder="@BeautyBook_Vendor.Resources.Languages.Enter_your_vat_number_here" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="card-body pb-0">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group row">
+                                                    <label for="addressLine1" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Address_line_1)</label>
+
+                                                    <div class="col-sm-7">
+                                                        <input type="text" class="form-control" name="AddressLine1" id="AddressLine1" tabindex="10" placeholder="@(BeautyBook_Vendor.Resources.Languages.Address_line_1)" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" class="form-control" id="VisitorLatitude" name="VisitorLatitude" autocomplete="off" />
+                                            <input type="hidden" class="form-control" id="VisitorLongitude" name="VisitorLongitude" autocomplete="off" />
+                                            <div class="col-lg-6">
+                                                <div class="form-group row">
+                                                    <label for="addressLine2" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Address_line_2)</label>
+
+                                                    <div class="col-sm-7">
+                                                        <input type="text" class="form-control" name="AddressLine2" id="AddressLine2" tabindex="11" placeholder="@(BeautyBook_Vendor.Resources.Languages.Address_line_2)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group row">
+                                                    <label for="selectCountry" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Country)</label>
+
+                                                    <div class="col-sm-7">
+                                                        <select class="selectpicker form-control" id="Country" name="Country" title="Select a Country" tabindex="12" data-live-search="true" data-size="5"></select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group row">
+                                                    <label for="selectState" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.State)</label>
+
+                                                    <div class="col-sm-7">
+                                                        <select class="selectpicker form-control" id="State" name="State" title="Select a State" tabindex="13" data-live-search="true" data-size="5"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group row">
+                                                    <label for="selectCity" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.City)</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="text" class="form-control" name="City" id="City" tabindex="14" placeholder="@(BeautyBook_Vendor.Resources.Languages.City)">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group row">
+                                                    <label for="zipCode" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Zip_Code)</label>
+
+                                                    <div class="col-sm-7">
+                                                        <input type="text" class="form-control" name="Zipcode" id="Zipcode" tabindex="15" placeholder="@(BeautyBook_Vendor.Resources.Languages.Zip_Code)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fixed-footer text-center">
+                                <button type="submit" name="submit" class="btn btn-primary font-weight-medium btn-wide" tabindex="16" id="editProfilebtn">@(BeautyBook_Vendor.Resources.Languages.Submit)</button>
+                                <button type="button" name="button" class="btn btn-primary font-weight-medium btn-wide" id="editProfilebtnloading" style="display: none;">
+                                    Submiting <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                </button>
+                                <a href="#" id="calcelButton" tabindex="17" class="btn btn-link btn-wide">@(BeautyBook_Vendor.Resources.Languages.Cancel)</a>
+                                <a class="btn btn-link" href="@Url.Action("SignIn","Authentication")">
+                                    <i class="bb-chevron-left align-middle"></i> @(BeautyBook_Vendor.Resources.Languages.Back_to_Sign_in)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+
+
+    @*Google map api key*@
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABofRnRkpT_4m344ZOsyRnT90uSGF5H6A&amp;libraries=places"></script>
+    <script src="~/Content/assets/js/AutoLocation.js"></script>
+
+    <!-- Core Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    @*API JS FILE*@
+    <script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+    <script src="~/Content/BeautyBook_VendorAPI/MyProfileAPI/EditProfile/EditProfile.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('select').selectpicker();
+            //Address autocompleteField
+            googleAutocomplete.autocompleteField("AddressLine1");
+
+            //SelectCountry API function call
+            SelectCountry();
+
+            //SelectState API function call
+            SelectState();
+        });
+
+        $(function () {
+            $.validator.addMethod("alphabetsnspace", function (value, element) {
+                return this.optional(element) || /^[a-zA-Z\u0600-\u06FF,-][\sa-zA-Z\u0600-\u06FF,-]*$/.test(value);
+            });
+            $("form[name='employeeForm']").validate({
+                rules: {
+                    Firstname: {
+                        required: true
+                    },
+                    Lastname: {
+                        required: true
+                    },
+                    birthDate: {
+                        required: true,
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    Primaryphone: {
+                        required: true,
+                        number: true,
+                        minlength: 9,
+                        maxlength: 9
+                    },
+                    Alternatephone: {
+                        number: true,
+                        minlength: 9,
+                        maxlength: 9
+                    },
+                    City: {
+                        required: true
+                    },
+                    AddressLine1: {
+                        required: true
+                    },
+                    VendorBankName: {
+                        required: true,
+                        alphabetsnspace: true
+                    },
+                    VendorIBANNumber: {
+                        required: true,
+                        maxlength: 24,
+                        minlength: 24
+                    },
+                    VendorVATNumber: {
+                        required:true,
+                    },
+                    Zipcode: {
+                        required: true,
+                        number: true
+                    }
+                },
+                messages: {
+                    Firstname: "@(BeautyBook_Vendor.Resources.Languages.Firstnameisrequired)",
+                    Lastname: "@(BeautyBook_Vendor.Resources.Languages.Lastnameisrequired)",
+                    birthDate: "@(BeautyBook_Vendor.Resources.Languages.Birthofdateisrequired)",
+                    Email: {
+                        required: "Email is required",
+                    },
+                    Primaryphone: {
+                        required: "@(BeautyBook_Vendor.Resources.Languages.Primaryphoneisrequired)"
+                    },
+                    City: "@(BeautyBook_Vendor.Resources.Languages.Cityisrequired)",
+                    AddressLine1: "@(BeautyBook_Vendor.Resources.Languages.Addressline1isrequired)",
+                    VendorBankName: {
+                        required: "@(BeautyBook_Vendor.Resources.Languages.Banknameisrequired)",
+                        alphabetsnspace: "The name of the bank must accept letters only [a-zA-Z]"
+                    },
+                    VendorIBANNumber: {
+                        required: "@(BeautyBook_Vendor.Resources.Languages.IBANnumberisrequired)"
+                    },
+                    Zipcode: {
+                        required: "@(BeautyBook_Vendor.Resources.Languages.Zipcodeisrequired)"
+                    },
+                    VendorVATNumber: {
+                        required: "@(BeautyBook_Vendor.Resources.Languages.VATnumberisrequired)"
+                    }
+                },
+                submitHandler: function () {
+                    editProfile();
+                }
+            });
+        });
+
+        //var validator = '';
+        $(function () {
+            $("form[name='verificationCode']").validate({
+                rules: {
+                    EmailVerifycode: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 6
+                    },
+                },
+                messages: {
+                    EmailVerifycode: {
+                        required: "Verify code is required",
+                    },
+                },
+                submitHandler: function () {
+                    verifyCode();
+                }
+            });
+        });
+        $('#Cancelbtn').click(function () {
+            //if (validator.errorList.length != 0) {
+            //    validator.destroy();
+            //}
+            $('#emailVerifycode').hide();
+            $('#sendVerifycode').show();
+            $('#Cancelbtn').hide();
+            $('#Skipbtn').show();
+            $('#Verifybtn').hide();
+        });
+
+    </script>
+
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/assets/js/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Content/assets/js/jquery-repeater/jquery.repeater.js"></script>
+    <script src="~/Content/assets/js/jquery-repeater/jquery.repeater.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script>var plugin_path = '/Content/assets/js/';</script>
+
+    <script src="~/Content/assets/js/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Content/assets/js/daterangepicker/daterangepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Content/assets/js/main.js"></script>
+
+</body>
+</html>

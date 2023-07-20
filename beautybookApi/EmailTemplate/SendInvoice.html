@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <div id="invoice">
+            <div class="card">
+                <div class="row col-md-12 mt-10">
+                    <div class="logo col-md-10">
+                        <img src="~/Content/images/logoOptn.jpg" style="width:100px" alt="">
+                    </div>
+                </div>
+                <div class="card-header bg-white">
+                    <h2 class="text-center page-heading"><strong>Invoice @*#@ViewBag.Id*@</strong></h2>
+                    @*<p class="text-center">SquareUp Transaction No : #TransactionNumber#<p>*@
+                </div>
+                <div class="card-body mb-20">
+                    <div class="row">
+                        <div class="col-md-3" style="margin-top: 30px;">
+                            <strong>Seller: @Model.FirstOrDefault().SellerName</strong><br />@Model.FirstOrDefault().SellerAddress<br /> GST Number : @Model.FirstOrDefault().GSTNumber
+                        </div>
+                        <div class="col-md-4" style="margin-top: 30px;">
+                            Invoice Number: @Model.FirstOrDefault().InvoiceNumber<br /><br />
+                            Invoice Date: @Model.FirstOrDefault().OrderDate.ToString("dd/MMM/yyyy")
+                        </div>
+                        <div class="col-md-5" style="margin-top: 30px;">
+                            <b>@Model.FirstOrDefault().ConsigneeName @Model.FirstOrDefault().LastName</b><br />
+                            @Model.FirstOrDefault().Address <br />
+                            Mobile No: @Model.FirstOrDefault().Mobile
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-fit mb-0">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Unit</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>₹ @item.Price</td>
+                            <td>₹ @item.PurchaseRate</td>
+                        </tr>
+                        }
+
+                        @if (Model.FirstOrDefault().State.ToString().ToLower() == "gujarat")
+                        {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>SGST</td>
+                            <td>₹ @Model.FirstOrDefault().SGST</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>CGST</td>
+                            <td>₹ @Model.FirstOrDefault().CGST</td>
+                        </tr>
+                        }
+                        else
+                        {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>IGST</td>
+                            <td>₹ @Model.FirstOrDefault().IGST</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <br><br><br><br>
+                <hr class="mb-0">
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-2"><strong>Subtotal</strong><br>₹ @Model.FirstOrDefault().OriginalPrice</div>
+                        <div class="col-2"><strong>GST</strong><br>₹ @Model.FirstOrDefault().GST</div>
+                        <div class="col-2"><strong>Discount</strong><br>₹ @Model.FirstOrDefault().Discount</div>
+                        <div class="col-3"><strong>Shipping Price</strong><br>₹ @Model.FirstOrDefault().ShippingCharge</div>
+                        <div class="col-3">
+                            <strong>Amount</strong><br>
+                            <span class="h2" style="color: #7bc242"><strong>₹ @Model.FirstOrDefault().PurchasePrice</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <strong>Payment type : </strong>@Model.FirstOrDefault().PaymentType
+                </div>
+                <div class="col-4 mt-10">Subject to Ahmedabad jurisdiction</div>
+                <div class="col-4 mb-10">This is a system generated invoice. No signature required</div>
+            </div>
+        </div>
+
+
+        <div id="invoiceprint" style="border-color:black">
+            <div class="card">
+                <div class="row col-md-12 mt-10">
+                    <div class="logo col-md-11">
+                        <img src="~/Content/images/logoOptn.jpg" style="width:100px" alt="">
+                    </div>
+                    <div class="card__options col-md-1">
+                        <a href="#" onclick="printDiv()" class="btn btn-primary btn-sm d-print-none ml-20">
+                            <i class="material-icons btn__icon--left"></i> Print
+                        </a>
+                    </div>
+                </div>
+                <div class="card-header bg-white">
+                    <h2 class="text-center page-heading"><strong>Invoice @*#@ViewBag.Id*@</strong></h2>
+                    @*<p class="text-center">SquareUp Transaction No : @Model.Transaction.Id<p>*@
+                </div>
+                <div class="card-body mb-20">
+                    <div class="row">
+                        <div class="col-3">
+                            <strong>@Model.FirstOrDefault().SellerName</strong><br />@Model.FirstOrDefault().SellerAddress<br /> GST Number : @Model.FirstOrDefault().GSTNumber
+                        </div>
+                        <div class="col-4">
+                            Invoice Number: @Model.FirstOrDefault().InvoiceNumber<br />
+                            Invoice Date: @Model.FirstOrDefault().OrderDate.ToString("dd/MMM/yyyy")
+                        </div>
+                        <div class="col-5">
+                            <b>@Model.FirstOrDefault().ConsigneeName @Model.FirstOrDefault().LastName</b><br />
+                            @Model.FirstOrDefault().Address
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-fit mb-0">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Cost</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>₹ @item.Price</td>
+                            <td>₹ @item.PurchaseRate</td>
+                        </tr>
+                        }
+                        @if (Model.FirstOrDefault().State.ToString().ToLower() == "gujarat")
+                        {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>SGST</td>
+                            <td>₹ @Model.FirstOrDefault().SGST</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>CGST</td>
+                            <td>₹ @Model.FirstOrDefault().CGST</td>
+                        </tr>
+                        }
+                        else
+                        {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>IGST</td>
+                            <td>₹ @Model.FirstOrDefault().IGST</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <br><br><br><br>
+                <hr class="mb-0">
+                <div class="card-body col-12">
+                    <div class="row col-12">
+                        <div class="col-9"><strong>Payment type : </strong>@Model.FirstOrDefault().PaymentType</div>
+                        <div class="col-md-offset-9 col-3"><strong>Subtotal : </strong>₹ @Model.FirstOrDefault().OriginalPrice</div>
+                        <div class="col-9">Subject to Ahmedabad jurisdiction</div>
+                        <div class="col-md-offset-9 col-3">
+                            <strong>GST:</strong>₹ @Model.FirstOrDefault().GST
+                        </div>
+                        <div class="col-9">This is a system generated invoice. No signature required</div>
+                        <div class="col-md-offset-9 col-3"><strong>Shipping Price : </strong>₹ @Model.FirstOrDefault().ShippingCharge</div>
+                        <div class="col-9"></div>
+                        <div class="col-md-offset-9 col-3"><strong>Discount : </strong>₹ @Model.FirstOrDefault().Discount</div>
+                        <div class="col-9"></div>
+                        <div class="col-md-offset-9 col-3">
+                            <strong>Total Amount: ₹ <span style="font-size:25px;">@Model.FirstOrDefault().PurchasePrice</span></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

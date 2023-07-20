@@ -1,0 +1,30 @@
+{
+    "TotalRecords": 4,
+    "Values": [
+        {
+            "Id": 4,
+            "Name": "China"
+        },
+        {
+            "Id": 1,
+            "Name": "India"
+        },
+        {
+            "Id": 2,
+            "Name": "UK"
+        },
+        {
+            "Id": 3,
+            "Name": "USA"
+        }
+    ],
+    "Offset": 0,
+    "Limit": 50,
+    "IsOffsetProvided": true,
+    "Page": 1,
+    "PageSize": 50,
+    "SortBy": "desc",
+    "TotalCount": 0,
+    "SortDirection": null,
+    "IsPageProvided": false
+}

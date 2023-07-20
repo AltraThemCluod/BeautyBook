@@ -1,0 +1,213 @@
+﻿@{
+    ViewBag.Title = "Manage Product";
+}
+<link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(BeautyBook_Vendor.Resources.Languages.Edit_Profile)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(BeautyBook_Vendor.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(BeautyBook_Vendor.Resources.Languages.Product_Manager)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-header">
+            <form class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 row-cols-xxl-5 align-items-center align-items-xl-end mb-5">
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="productName" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Product_Name)</label>
+                            <input type="text" class="form-control" id="productName" placeholder="@(BeautyBook_Vendor.Resources.Languages.Product_Name)">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="productType" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Product_Type)</label>
+                            <select class="selectpicker form-control" id="productType" title="@(BeautyBook_Vendor.Resources.Languages.Product_Type)" data-live-search="true" data-size="5">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="productBrand" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Brand)</label>
+                            <select class="selectpicker form-control" id="productBrand" title="@(BeautyBook_Vendor.Resources.Languages.Select_a_option)" data-live-search="true" data-size="5">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="productStatus" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Status)</label>
+                            <select class="selectpicker form-control" id="productStatus" title="@(BeautyBook_Vendor.Resources.Languages.Select_a_option)" data-size="5">
+                                <option value="13">@(BeautyBook_Vendor.Resources.Languages.In_Stock)</option>
+                                <option value="14">@(BeautyBook_Vendor.Resources.Languages.Out_of_Stock)</option>
+                                <option value="15">@(BeautyBook_Vendor.Resources.Languages.Discontinued)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-wide" id="searchProductbtn" onclick="seachProduct();">@(BeautyBook_Vendor.Resources.Languages.Search)</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="searchProductbtnloading" style="display:none;" disabled>
+                            @(BeautyBook_Vendor.Resources.Languages.Search)<i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="resetProductbtn" onclick="resetProduct();">@(BeautyBook_Vendor.Resources.Languages.Reset)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="resetProductbtnloading" style="display:none;" disabled>
+                            @(BeautyBook_Vendor.Resources.Languages.Reset) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <!--<div class="row justify-content-between mb-3">
+                    <div class="col-md-4 mb-3">-->
+                        @*<a href="@Url.Action("ProductDetails","VendorProduct")" class="btn btn-primary">Add New Product</a>*@
+                    <!--</div>
+                </div>-->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive table-hover fs-14">
+                            <div class="">
+                                <div id="manageProductdiv">
+                                    <table id="productList" class="table table-card" style="width:100%; display:inherit;">
+                                        <!-- Ajax Color Table Body -->
+                                    </table>
+                                    <div id="productListloader" style="display: none;" class="text-center mb-2 mt-2">
+                                       <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- UPDATE STATUS MODAL -->
+<div class="modal fade" id="changeProductStatusModal" tabindex="-1" aria-labelledby="changeProductStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeProductStatusModalLabel">@(BeautyBook_Vendor.Resources.Languages.Update_Status)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group" id="updateStatusgrp">
+                            <label for="updateStatus" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Status)</label>
+                            <select class="selectpicker form-control" id="updateStatus" title="@(BeautyBook_Vendor.Resources.Languages.Update_Status)" data-size="5">
+                                <option value="13">@(BeautyBook_Vendor.Resources.Languages.In_Stock)</option>
+                                <option value="14">@(BeautyBook_Vendor.Resources.Languages.Out_of_Stock)</option>
+                                <option value="15">@(BeautyBook_Vendor.Resources.Languages.Discontinued)</option>
+                            </select>
+                        </div>
+                        <div id="updateStatusgrploader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal" onclick="location.reload();">@(BeautyBook_Vendor.Resources.Languages.Cancel)</button>
+                <button type="button" id="Changestatus" onclick="productChangestatus();" class="btn btn-primary font-weight-medium">@(BeautyBook_Vendor.Resources.Languages.Update)</button>
+                <button type="button" id="Changestatusloading" class="btn btn-primary font-weight-medium" disabled style="display:none;">
+                    @(BeautyBook_Vendor.Resources.Languages.Update) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Update QTY Modal -->
+<div class="modal fade" id="updateQtyModal" tabindex="-1" aria-labelledby="updateQtyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateQtyModalLabel">@(BeautyBook_Vendor.Resources.Languages.Update_Quantity)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label for="productQty" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Qty)</label>
+                            <div class="col-sm-7">
+                                <input id="productQty" class="subtract-quantity" type="text" value="0" name="productQty">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal" onclick="location.reload();">@(BeautyBook_Vendor.Resources.Languages.Close)</button>
+                <button type="button" class="btn btn-primary font-weight-medium" id="saveQtybtn" onclick="updateQtyfun();">@(BeautyBook_Vendor.Resources.Languages.Save)</button>
+                <button type="button" id="saveQtybtnloading" class="btn btn-primary font-weight-medium" disabled style="display:none;">
+                    @(BeautyBook_Vendor.Resources.Languages.Save) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+
+<script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorProductAPI/ManageProduct/ManageProduct.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorProductAPI/ProductDetails/ProductDetails.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorProductAPI/ManageProduct/ProductDelete.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorProductAPI/ManageProduct/ChangeProductStatus.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorProductAPI/ManageProduct/UpdateProductQty.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //productList api function call
+        productList.init();
+
+        //masterProductBrand drp api function call
+        masterProductBrand();
+
+        //masterProductType drp api function call
+        masterProductType();
+    });
+</script>
+

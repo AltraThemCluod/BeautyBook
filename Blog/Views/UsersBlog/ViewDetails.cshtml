@@ -1,0 +1,95 @@
+﻿@using BeautyBook.Entities.Contract
+@using BeautyBook.Entities.V1
+@using BeautyBook.Common
+@using System.Text.RegularExpressions
+@model UsersBlog
+@{
+    ViewBag.Title = "Blog View Details";
+}
+@Html.AntiForgeryToken()
+
+
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Blog View Details</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Blog View Details</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-md-3">
+                                    <img class="card-img img-fluid" src="@Configurations.BaseUrl@ViewBag.model.Item.ThumbnailDataUrl" style="box-shadow: 0px 0px 13px #00000017; border-radius: 5px;" alt="Card image">
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@ViewBag.model.Item.Title</h5>
+                                        <p class="card-text">@ViewBag.model.Item.Description</p>
+                                        <p class="card-text"><small class="text-muted">@ViewBag.model.Item.CategoryName</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mt-4" id="blog_content">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- container-fluid -->
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            BlogContentDataGet();
+        })
+
+
+        ///Blog content data get////////////////////////////////////////////////////
+        function BlogContentDataGet() {
+            $.ajax({
+                url: '@Url.Action("BlogContentData", "UsersBlog")',
+                data: {
+                    Id: "@ViewBag.riid",
+                },
+                type: 'GET',
+                async:false,
+                datatype: 'json',
+                success: function (response) {
+                    debugger;
+                    if (response.length > 0) {
+                        for (var i = 0; i < response.length; i++) {
+                            countDetails = i + 1;
+                            $("#blog_content").append(`<div class="mb-5">
+                                <h2>${countDetails}. ${response[i].Heading}</h2>
+                                <div>${decodeURIComponent(response[i].Content)}</div>
+                            </div>`)
+                        }
+                    }
+                },
+                error: function () { }
+            });
+        }
+    </script>    
+}

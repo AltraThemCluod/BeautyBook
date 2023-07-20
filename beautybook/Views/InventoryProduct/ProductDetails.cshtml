@@ -1,0 +1,452 @@
+﻿@{
+    ViewBag.Title = "Product Details";
+}
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <!-- Page Title -->
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageInventory", "InventoryProduct")"><i class="bb-arrow-left mr-3"></i></a>
+
+                            @if (ViewBag.InventoryPrdId > 0)
+                            {
+                                <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">Edit Product</h6>
+                            }
+                            else
+                            {
+                                <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">Add Product</h6>
+                            }
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageInventory","InventoryProduct")">@(beautybook.Resources.Languages.Inventory)</a></li>
+                                    @if (ViewBag.InventoryPrdId > 0)
+                                    {
+                                        <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
+                                    }
+                                    else
+                                    {
+                                        <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                                    }
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div id="inventoryformloader" style="display: none;" class="text-center mb-4">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9">
+                        <div id="inventoryformloader" style="display: none;" class="text-center mb-4">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                        <form class="card card-lg" name="inventoryform" id="inventoryform" style="display:none;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <input type="hidden" id="productInventoryId" name="productInventoryId" value="0" />
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="BillNumber" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Bill_No)</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="BillNumber" name="BillNumber" placeholder="Bill no">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="OfflineVendor" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Vendor_Name)</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="OfflineVendor" name="OfflineVendor" title="Select a Vendor" data-live-search="true" data-size="5">
+                                                </select>
+                                                <div class="text-right">
+                                                    <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none" data-toggle="modal" data-target="#CreateNewOfflineVendor">@(beautybook.Resources.Languages.Create_Vendor)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="productName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Product_Name)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="productName" name="productName" placeholder="Facewash">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="productType" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Product_Type)</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="productType" name="productType" title="Select a product type" data-live-search="true" data-size="5">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="productBrand" class="col-sm-4 col-form-label text-sm-right">Product Brand</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="productBrand" name="productBrand" title="Select a option" data-live-search="true" data-size="5">
+                                                </select>
+                                                <div class="w-100">
+                                                    <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none float-left" data-toggle="modal" data-target="#viewBrandModal">@(beautybook.Resources.Languages.View_Brand)</a>
+                                                    <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none float-right" data-toggle="modal" data-target="#newBrandModal">@(beautybook.Resources.Languages.New_Brand)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="vendorName" class="col-sm-4 col-form-label text-sm-right">Vendor</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="BeautyBook">
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="purchaseDate" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Purchase_Date)</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="datepicker singledatepicker form-control w-100" name="purchaseDate" tabindex="1" id="purchaseDate">
+                                                    <div class="input-group-append input-box-label">
+                                                        <span class="input-group-text text-muted">
+                                                            <i class="bb-calendar fs-19"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="productQty" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Product_Qty)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="productQty" name="productQty" placeholder="100">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="purchasePrice" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Price)</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control w-100" tabindex="1" name="purchasePrice" id="purchasePrice" placeholder="120">
+                                                    <div class="input-group-append input-box-label">
+                                                        <span class="input-group-text text-muted">SAR</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="productWeight" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Weight)</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control w-100" tabindex="1" id="productWeight" name="productWeight" placeholder="250">
+                                                    <div class="input-group-append input-box-label">
+                                                        <select class="form-control selectpicker rounded-left-0" id="productWeightType" data-width="fit">
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="employeePhoto" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Product_Image)</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" onchange="productImageUpload();" tabindex="9" id="productImage">
+                                                    <label class="custom-file-label" for="employeePhoto">Choose file</label>
+                                                </div>
+                                                <span class="mb-0 text-muted fs-13" id="uploadImagename"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="IsExpiryDate" class="col-sm-4 col-form-label text-sm-right">Is Expiry Date</label>
+
+                                            <div class="col-sm-7 d-flex align-items-center" style="margin-bottom:5px;">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" id="IsExpiryDate" onchange="IsExpiryDateCheck(this);" class="custom-control-input checkbox selectall serviceclass">
+                                                    <label class="custom-control-label" for="30"></label>
+                                                </div>     
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6" style="display:none;" id="IsExpiryDate_Div">
+                                        <div class="form-group row">
+                                            <label for="expiryDate" class="col-sm-4 col-form-label text-sm-right">Expiry Date</label>
+
+                                            <div class="col-sm-7">
+
+                                                <input type="text" class="form-control datepicker previousdatepickerAppoinment" name="ExpiryDate" id="ExpiryDate" placeholder="mm/dd/yyyy">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="qtyAlert" class="col-sm-4 col-form-label text-sm-right">Low Qty Alert</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" name="qtyAlert" id="qtyAlert" placeholder="10">
+                                            </div>
+                                        </div>
+                                    </div>*@
+
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-center">
+                                <button type="submit" name="submit" id="saveBtn" class="btn btn-primary font-weight-medium btn-wide">@(beautybook.Resources.Languages.Add_Product_to_Inventory)</button>
+                                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="saveBtnloading" style="display:none;" disabled>
+                                    <span id="saveSalonsdetailsbtntext">Saving Product to Invenotory</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                </button>
+                                <a href="@Url.Action("ManageInventory","InventoryProduct")" class="btn btn-link btn-wide">@(beautybook.Resources.Languages.Cancel)</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Add New Service Modal -->
+<div class="modal fade" id="CreateNewOfflineVendor" tabindex="-1" aria-labelledby="CreateNewOfflineVendor" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CreateNewOfflineVendor">Add New Vendor</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="newProductName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Vendor_Name)</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="VendorName" name="VendorName" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="PhoneNumber" class="col-sm-4 col-form-label text-sm-right">Phone Number</label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="PhoneNumber" name="PhoneNumber" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Email" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Email)</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="Email" name="Email" placeholder="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                <button type="button" onclick="CreateOfflineVendor();" id="CreateVendor" class="btn btn-primary font-weight-medium">Save</button>
+                <button type="button" id="CreateVendorLoading" class="btn btn-primary font-weight-medium" style="display:none;" disabled>
+                    Saving <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add New Product Brand Modal -->
+<div class="modal fade" id="newBrandModal" tabindex="-1" aria-labelledby="newBrandModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newBrandModalLabel">Add New Brand</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="newProductName" class="col-sm-4 col-form-label text-sm-right">Brand Name</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="CustomBrand" name="CustomBrand" placeholder="Skin care">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                <button type="button" name="button" id="AddCustomBrand" class="btn btn-primary font-weight-medium" onclick="customBrandadd();">Add new Brand</button>
+                <button type="button" id="AddCustomBrandLoading" class="btn btn-primary font-weight-medium btn-wide" style="display:none;" disabled>
+                    <span id="saveSalonsdetailsbtntext">Adding new Brand</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- View Product Brand Modal -->
+<div class="modal fade" id="viewBrandModal" tabindex="-1" aria-labelledby="viewBrandModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewBrandModalLabel">@(beautybook.Resources.Languages.View_Brand)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" id="viewProductBrandArea">
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/InventoryAPI/ProductDetails/ProductDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/InventoryAPI/ProductDetails/ProductDetailsEdit.js"></script>
+
+<script>
+
+    function IsExpiryDateCheck(checkbox)
+    {
+        if (checkbox.checked == true) {
+            $("#IsExpiryDate_Div").show();
+        }
+        else {
+            $("#ExpiryDate").val("");
+            $("#IsExpiryDate_Div").hide();
+        }
+    }
+
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //masterProductBrand drp api function call
+        masterProductBrand();
+
+        //masterProductType drp api function call
+        masterProductType();
+
+        //masterProductWeight drp api function call
+        masterProductWeight();
+
+        //editInventory api function call
+        editInventory();
+
+        //OfflineVendor api function call
+        OfflineVendor();
+
+        //View Product brand in this salon P brand
+        viewProductBrand();
+    })
+
+    $(function () {
+        $("form[name='inventoryform']").validate({
+            rules: {
+                productName: {
+                    required: true
+                },
+                purchaseDate: {
+                    required: true
+                },
+                productQty: {
+                    required: true,
+                    number: true
+                },
+                purchasePrice: {
+                    required: true,
+                    number: true
+                },
+                productWeight: {
+                    required: true,
+                    number: true
+                },
+                //qtyAlert: {
+                //    required: true,
+                //    number: true
+                //},
+                producttax: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                productName: "Product Name is required",
+                purchaseDate: "Purchase Date is required",
+
+                productQty: {
+                    required: "Product Qty is required"
+                },
+                purchasePrice: {
+                    required: "Purchase Price is required"
+                },
+                productWeight: {
+                    required: "Product Weight is required"
+                },
+                //qtyAlert: {
+                //    required: "Qty Alert is required"
+                //},
+                producttax: {
+                    required: "Product Tax is required"
+                },
+            },
+            submitHandler: function () {
+                saveInventory();
+            }
+        });
+    });
+
+</script>
+
+

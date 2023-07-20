@@ -1,0 +1,76 @@
+﻿<!--<img src="https://uandiworld.com/Content/images/logo/newlogo2.png" style="width:100px" alt="">-->
+<h2 align="center">Invoice</h2><br />
+<table align="center" border="1">
+    <tr>
+        <th><strong>Seller Details</strong></th>
+        <th><strong>Invoice Information</strong></th>
+        <th><strong>Shipping Address</strong></th>
+    </tr>
+    <tr>
+        <td>
+            <strong>#SellerName#</strong><br />
+            #SellerAddress#<br />
+            <strong>GST Number :</strong><br />
+            #GSTNumber#
+        </td>
+        <td>
+            <strong>Invoice Number</strong> #InvoiceNumber#<br />
+            <strong>Invoice Date</strong> #OrderDate#<br />
+        </td>
+        <td>
+            <strong>#ConsigneeName# #LastName#</strong><br />
+            #Address#
+        </td>
+    </tr>
+</table><br>
+<h2 align="center">Order Summary</h2><br />
+<table align="center" border="1">
+    <tr>
+        <th align="center"><strong>Description</strong></th>
+        <th align="center"><strong>Quantity</strong></th>
+        <th align="center"><strong>Unit Cost</strong></th>
+        <th align="center"><strong>Total Amount</strong></th>
+    </tr>
+    #SubHtml#
+    <tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td align="center"><strong>SGST</strong></td>
+        <td align="center">#SGST#</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td align="center"><strong>CGST</strong></td>
+        <td align="center">#CGST#</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td align="center"><strong>IGST</strong></td>
+        <td align="center">#IGST#</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <strong>Payment type: #PaymentType#</strong>
+            <br />
+            Subject to Ahmedabad jurisdiction<br />
+            This is a system generated invoice. No signature required.
+        </td>
+        <td align="center">
+            <strong>Subtotal</strong>
+            <br /><strong>Shipping Price</strong>
+            <br /><strong>Discount</strong>
+            <br /><strong>GST</strong>
+            <br /><strong>Total Amount</strong>
+        </td>
+        <td align="center">
+            ₹ #OriginalPrice#
+            <br />₹ #ShippingCharge#
+            <br />₹ #Discount#
+            <br />₹ #GST#
+            <br />₹#PurchasePrice#
+        </td>
+    </tr>
+</table>

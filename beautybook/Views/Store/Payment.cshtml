@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Payment";
+}
+
+<style>
+    .credit-card{
+        width:20%;
+    }
+
+    @@media(max-width:425px){
+        .credit-card {
+            width: inherit !important;
+        }
+    }
+</style>
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Payment_Details)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="./index.html">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Payment_Details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="accordion" id="paymentCollapse">
+                           
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="sticky-panel-top">
+                            <div class="card">
+                                <div class="card-body product-amount-details">
+
+                                    <div class="row align-items-center mb-2">
+                                        <span class="col-6 fs-14">@(beautybook.Resources.Languages.Subtotal):</span>
+                                        <h4 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0" id="subTotal"></h4>
+                                        <input type="hidden" name="name" id="subTotalInp" value="" />
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <span class="col-6 fs-14">@(beautybook.Resources.Languages.Delivery):</span>
+                                        <h4 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0">@(beautybook.Resources.Languages.Free)</h4>
+                                    </div>
+                                    <hr class="my-3">
+                                    <div class="row align-items-center">
+                                        <span class="col-6 fs-14">@(beautybook.Resources.Languages.VAT_included):</span>
+                                        <h4 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0" id="VATIncluded"></h4>
+                                        <input type="hidden" id="VATIncludedInp" name="name" value="" />
+                                    </div>
+                                    <hr class="my-3">
+                                    <div class="row align-items-center">
+                                        <span class="col-6 fs-14 text-dark font-weight-bold">@(beautybook.Resources.Languages.Total_to_pay):</span>
+                                        <h3 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0" id="TotaltoPay"></h3>
+                                        <input type="hidden" id="TotaltoPayInp" name="name" value="" />
+                                    </div>
+
+                                    <a href="javascript:;" onclick="CompleteOrder();" class="btn btn-primary btn-wide btn-lg font-weight-medium btn-block mt-5"><span id="p_button_text">@(beautybook.Resources.Languages.Complet_Order)</span> <img id="p_button_loader" style="width:50px;display:none;" src="../Content/assets/images/loading.gif"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Payment/Payment.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Cart/ProceedOrder.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        PaymentMethodList();
+    });
+</script>

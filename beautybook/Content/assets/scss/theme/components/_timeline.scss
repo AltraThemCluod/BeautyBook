@@ -1,0 +1,41 @@
+
+.timeline-item {
+	padding: 0 1rem 1em;
+	position: relative;
+	color: rgba(black, .7);
+	border-left: 2px solid $border-color;
+    
+    &.done{
+        border-color: $primary;
+
+        &::after{
+            border-color: $primary;
+            background-color: $primary;
+        }
+    }
+	
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: block;
+	}
+
+	&::after {
+		width: 10px;
+		height: 10px;
+		display: block;
+		top: 0px;
+		position: absolute;
+		left: -6px;
+		border-radius: 10px;
+		content: '';
+		border: 2px solid $border-color;
+		background: white;
+	}
+
+	&:last-child {
+		border-color: transparent;
+	}
+}

@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Technical Support Manager";
+}
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Manage_Technical_Support</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Manage_Technical_Support</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="grid-view" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div id="TechnicalSupportListdiv">
+                                        <table id="TechnicalSupportList"  class="table table-card" style="width:100%; display:inherit;">
+                                        </table>
+
+                                        <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul id="pagin" class="pagination mt-2 float-right">
+                                    @*pagination tabbing dynmaic bind*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*List*@
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/TechnicalSupportAPI/ManageTechnicalSupport/ManageTechnicalSupport.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //CustomerList api funcation call
+        TechnicalSupportList.init();
+    });
+</script>

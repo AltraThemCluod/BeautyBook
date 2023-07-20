@@ -1,0 +1,650 @@
+.company-logo{
+	width: 200px;
+}
+/*font-family: 'Oswald', sans-serif;*/
+html {
+	scroll-behavior: smooth;
+}
+body{
+	background: #fff !important;
+	font-family: 'Inter', sans-serif !important;
+}
+.error {
+	color: red;
+	font-size: 13px;
+}
+header {
+	background: transparent;
+}
+body.fixed header {
+	background: #ffffff;
+}
+.navbar-toggler {
+	background-color: #00515B !important;
+	border: 1px solid #00515B !important;
+}
+.shrink {
+	box-shadow: 0px 4px 13px #00000017;
+}
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+.menubar .navbar-nav .nav-item .nav-link{
+	position: relative;
+}
+.menubar .navbar-nav .nav-item .nav-link:before{
+	position: absolute;
+    content: "";
+    width: 0%;
+    height: 2px;
+    background: #0C3146;
+    bottom: -40%;
+    left: 0;
+    right: 0;
+    margin: auto 25%;
+    transition: 0.5s ease-out 100ms;
+}
+.menubar .navbar-nav .nav-item .nav-link:hover::before{
+	width: 50% !important;
+}
+.header-menu .navbar-nav .nav-item .nav-link , .auth-area .nav-link{
+	color: #0C3146;
+	font-weight: 500;
+	font-size: 13px;
+	line-height: 21px;
+}
+.navbar-expand-lg .navbar-nav .nav-link{
+	padding-right: 35px !important;
+    padding-left: 35px !important;
+}
+.auth-them-button {
+	font-weight: 500 !important;
+	font-size: 13px !important;
+	line-height: 21px !important;
+	background: #00515B !important;
+	border-color: #00515B !important;
+	border-radius: 0px !important;
+	width: 100px;
+	height: 45px;
+}
+
+
+
+/* -----------------------------------  banner section css ----------------------------------- */
+.them-button{
+	font-weight: 500 !important;
+	font-size: 13px !important;
+	line-height: 21px !important;
+	background: #00515B !important;
+	border-color: #00515B !important;
+	border-radius: 0px !important;
+	padding: 10px 20px !important;
+}
+.them-border-button{
+	font-weight: 500 !important;
+	font-size: 13px !important;
+	line-height: 21px !important;
+	background: transparent !important;
+	border-color: #00515B !important;
+	color: #00515B !important;
+	border-radius: 0px !important;
+	padding: 10px 20px !important;
+}
+.banner-section{
+	position: relative;
+	padding: 180px 0px;
+	/*overflow: hidden;*/
+	background: #DEF4E3;
+}
+/*.banner-section:before{
+	position: absolute;
+	right: -26%;
+    bottom: -295px;
+	content: url(../images/BannerEllipse.png);
+}*/
+.banner-image-section{
+	bottom: -5%;
+    position: absolute;
+    width: 45%;
+    right: 0;
+}
+.banner-content h2{
+    font-weight: bold;
+    
+    font-size: 45px;
+	color: #0C3146;
+}
+.banner-content p{
+	font-weight: 400;
+    font-size: 14px;
+    line-height: 23px;
+    color: #3B495E;
+}
+.banner-image{
+	width: 100%;
+}
+
+/*counter section css*/
+.counter-section{
+	padding: 60px 0;
+}
+.count-part{
+	background: #D8EBDC;
+	padding: 40px 0;
+}
+.count-part p{
+	margin-bottom: 0;
+	font-weight: 400;
+	font-size: 16px;
+	color: #0C3146;
+}
+.count-part h4{
+	font-weight: bold;
+	
+    font-size: 40px;
+    line-height: 60px;
+    color: #0C3146;
+}
+.counter-center{
+	border-left: 1px solid #8DADB1;
+	border-right: 1px solid #8DADB1;
+}
+
+/* ----------------------------------- about section css ----------------------------------- */
+.aboutus-section{
+	padding-bottom:60px ;
+}
+.aboutus-content h4{
+	
+	font-weight: bold;
+	font-size: 40px;
+	color: #0C3146;
+}
+.aboutus-content p{
+	font-weight: 400;
+    font-size: 14px;
+    line-height: 23px;
+    color: #3B495E;
+}
+.aboutus-list li{
+	font-weight: 500;
+    font-size: 15px;
+    line-height: 23px;
+    color: #0C3146;
+}
+
+/* --------------------------------- schedule section css ---------------------------------*/
+.schedule-section{
+	padding: 60px 0;
+	background: #F9F4E3;
+}
+.schedule-text h4{
+	font-weight: bold;
+    font-size: 40px;
+    color: #0C3146;
+    
+}
+.schedule-text p{
+	color: #3B495E;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 24px;
+}
+.schedule-input-label{
+	color: #0C3146;
+	
+	font-weight: 500;
+	font-size: 18px;
+}
+.schedule-form .form-group .form-control{
+	border: 2px solid #0C3146;
+	background: transparent;
+	border-radius: 0;
+	height: 50px;
+	color: #0C3146;
+	font-size: 14px !important;
+	font-weight: 500;
+}
+.schedule-form .form-group .form-control:focus{
+	box-shadow:none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/*---------------------------------ourbestsell-section css---------------------------------*/
+.ourbestsell-section{
+	padding: 60px 0;
+}
+.fs-20{
+	font-size: 20px !important;
+}
+
+/*Our customer says section*/
+.client-review p{
+	font-style: italic;
+	font-weight: 600;
+	line-height: 25px;
+}
+.client-username p{
+	color: #3B495E;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+}
+.client-username h5{
+	font-weight: bold;
+    font-size: 20px;
+    color: #0C3146;
+    
+}
+.prev-arrow{
+	position: absolute;
+	bottom: 10%;
+	cursor: pointer;
+	right: 10%;
+	z-index: 9;
+}
+.next-arrow{
+	position: absolute;
+	bottom: 10%;
+	cursor: pointer;
+	right: 0%;
+}
+/*---------------------------------footer section---------------------------------*/
+.footer-link.pt-40 li {
+    list-style: none;
+}
+.footer-link.pt-40.about ul {
+    padding: 0;
+}
+.footer-title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    line-height: 34px;
+    font-weight: 500;
+    color: #08293C;
+}
+
+.footer-about.pt-40 a {
+    margin-bottom: 20px;
+    display: block;
+}
+.footer-link a, p.text {
+    color: #4A525E;
+    font-size: 14px;
+    line-height: 36px;
+}
+p.text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+button.btn.btn-lg.btn-custom.mt-2 {
+    width: 100%;
+    background: #00515B;
+    color: #ffffff;
+}
+ul.social.mt-40 {
+    padding: 0;
+}
+
+ul.social.mt-40 li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 5px;
+}
+.footer-copyright.text-center {
+    padding: 20px 0px;
+    border-top: 1px solid #D5D8E8;
+}
+.f-header{
+	
+    font-weight: bold;
+    font-size: 20px;
+    color: #0C3146;
+}
+footer {
+	padding-top: 60px;
+	background: #ffffff;
+}
+.textdecoration-none{
+	text-decoration: none !important;
+}
+
+/* ------------------------------------- ourproduct-section css ------------------------------------- */
+.product-details .pname-rating h4{
+	font-weight: bold;
+    font-size: 24px;
+    color: #0C3146;
+    
+}
+.rating-start span{
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 30px;
+	color: #0C3146;
+}
+.supplier-price p{
+	font-weight: 400;
+	font-size: 14px;
+	color: #0C3146;
+}
+.supplier-price h6{
+	font-weight: 600;
+	font-size: 16px;
+	text-align: right;
+	color: #0C3146;
+}
+.ourproduct-section .card{
+	border-radius: 0;
+	border: none;
+	box-shadow: 0px 0px 3px 0px #00000030;
+	cursor: pointer;
+	transition:0.5s ease-out 100ms;
+}
+.ourproduct-section .card:hover{
+	box-shadow: 0px 10px 20px 1px #00000021;
+}
+.search-icon{
+	position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    margin: auto 0;
+}
+.product-carousel .slick-dots li button:before{
+ 	font-size: 12px !important;
+ 	color: #353535 !important;
+}
+.product-carousel .slick-dots li.slick-active button:before{
+	font-size: 20px !important;
+ 	color: #00515B !important;
+}
+
+.product-prev-arrow{
+	position: absolute;
+	top: -3.5%;
+	cursor: pointer;
+	right: 10%;
+	z-index: 9;
+}
+.product-next-arrow{
+	position: absolute;
+	top: -3.5%;
+	cursor: pointer;
+	right: 20px;
+}
+
+
+/*=========================================================*/
+
+.spinner-border {
+	width: 1.1rem !important;
+	height: 1.1rem !important;
+}
+
+#startProduct .modal-content {
+	border-radius: 20px;
+}
+#startProduct .modal-body {
+	padding: 70px 50px;
+}
+
+.product-cards .card{
+
+}
+
+
+
+
+
+.product-cards .card h4 {
+		font-weight: 500;
+		font-size: 26px;
+		color: #08293B;
+		margin-bottom: 30px;
+	}
+.product-cards .card {
+	background: #F8F8F8;
+	border: none;
+	padding: 40px;
+	border-radius: 0;
+}
+.product-cards .card .list-details p span {
+		font-weight: 400;
+		font-size: 13px;
+		color: #4A525D;
+	}
+.product-cards .card .btn-outline-primary {
+		border: 2px solid #00515B !important;
+		background: transparent;
+		transition: 0.5s ease-out 100ms;
+	}
+
+.signin-link a{
+	font-size: 14px;
+	color: #343a40;
+	margin-top: 10px;
+	text-decoration:none;
+}
+.product-cards .card .btn-outline-primary {
+	border: 2px solid #00515B !important;
+	background: transparent;
+	transition: 0.5s ease-out 100ms;
+	color: #00515b;
+	margin-bottom: 10px;
+}
+
+@media(max-width:988px) {
+	.banner-section {
+		padding: 70px 0px;
+	}
+}
+
+@media(max-width:767px) {
+	.counter-center {
+		border-left: none;
+		border-right: none;
+		padding: 20px;
+	}
+}
+@media (max-width:500px)
+{
+    .navbar-nav {
+        /*background-color: #000;*/
+        border-top: 3px solid #00515b;
+        /*color: #fff;*/
+        /*z-index: 1;*/
+        margin-top: 5px;
+    }
+	.menubar .navbar-nav .nav-item .nav-link:hover::before {
+		width:0px !important;
+	}
+	#startProduct .modal-body {
+		padding: 70px 5px;
+	}
+	.product-cards .salon-owner, .product-cards .salon-vendor {
+		padding: 40px 10px;
+	}
+}
+
+@media(max-width:425px) {
+	.product-prev-arrow {
+		/*top: -2.7%;*/
+		/*right: 18%;*/
+		display: none !important;
+	}
+	.product-next-arrow {
+		/*top: -2.7%;*/
+		display:none !important;
+	}
+	.client-review{
+		margin-top:30px;
+	}
+	.aboutus-content{
+		margin-bottom:30px;
+	}
+	.prev-arrow {
+		bottom: -10%;
+		right: 20%;
+	}
+	.next-arrow {
+		bottom: -10%;
+	}
+	.banner-image-section {
+		width:100%;
+		position:inherit;
+	}
+}
+
+
+/*09-11-2022*/
+.ourproduct-section .card > img {
+	height: 450px;
+	text-align: center;
+	margin: 0 auto;
+	max-width: 100%;
+	/* min-height: 450px; */
+}
+.ourproduct-section .card {
+	min-height: 350px;
+}
+.product-details .pname-rating h4 {
+	font-weight: 600;
+	font-size: 24px;
+	color: #0C3146;
+}
+
+.banner-image-section {
+	bottom: -7%;
+	position: absolute;
+	width: 45%;
+	right: 0;
+}
+.count-part h4 {
+	font-weight: bold;
+	font-family: 'Inter', sans-serif !important;
+	font-size: 60px;
+	line-height: 70px;
+	color: #0C3146;
+}
+.count-part {
+	background: #EAF2F3;
+	padding: 7rem 0;
+	margin-top: 4rem;
+}
+	.count-part p {
+		font-family: 'Inter', sans-serif !important;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 36px;
+		line-height: 60px;
+		color: #0C3146;
+	}
+.aboutus-content h4 {
+	font-family: 'inter', sans-serif !important;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 50px;
+	line-height: 60px;
+	color: #0C3146;
+}
+.aboutus-content p {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 28px;
+	color: #3B495E;
+}
+.aboutus-list li {
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 28px;
+	color: #0C3146;
+}
+ul.aboutus-list li.nav-link span {
+	display: inline-block;
+	width: calc(100% - 40px);
+	vertical-align: top;
+	margin-left: 10px;
+}
+
+
+
+ul.aboutus-list li.nav-link img {
+	display: inline-block;
+}
+.schedule-text h4 {
+	line-height: 60px;
+}
+.schedule-text p {
+	color: #3B495E;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 30px;
+	max-width: 1080px;
+	margin: 25px auto;
+}
+.ourproduct-section .card {
+	border-radius: 0;
+	border: none;
+	box-shadow: 0px 0px 3px 0px #00000030;
+	cursor: pointer;
+	transition: 0.5s ease-out 100ms;
+	background: #F8F8F8;
+}
+	.ourproduct-section .card:hover {
+		color: #0C3146;
+		scale: 1.05;
+		background: #FFFFFF;
+		box-shadow: 30px 35px 80px 20px rgb(163 165 191 / 25%);
+	}
+.schedule-input-label {
+	color: #0C3146;
+	font-weight: 700;
+	font-size: 18px;
+}
+.product-prev-arrow, .product-next-arrow	 {
+	top: -1.5%;
+}
+
+
+
+/*//////*/
+.bootstrap-select {
+	width: 65px !important;
+	margin-right: 10px;
+}
+
+.dropdown-toggle {
+	background: #00515b;
+	color: #fff;
+}
+
+	.dropdown-toggle:hover {
+		background: #00515b;
+		color: #fff;
+	}
+
+.bootstrap-select .dropdown-toggle:focus, .bootstrap-select > select.mobile-device:focus + .dropdown-toggle {
+	outline: 0px auto -webkit-focus-ring-color !important;
+}
+
+.btn-light:not(:disabled):not(.disabled).active:focus, .btn-light:not(:disabled):not(.disabled):active:focus, .show > .btn-light.dropdown-toggle:focus {
+	box-shadow: none !important;
+}
+
+.dropdown-menu {
+	padding: 0px !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+	background-color: #00515b;
+	border-radius: 0;
+}

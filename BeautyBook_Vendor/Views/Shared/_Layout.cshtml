@@ -1,0 +1,660 @@
+﻿@{ /**/
+
+    var curController = Convert.ToString(ViewContext.RouteData.Values["Controller"]);
+    var curAction = Convert.ToString(ViewContext.RouteData.Values["Action"]); 
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Zaan Vendor</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon.png">
+    @*<link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">*@
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <link href="~/Content/assets/css/arabic.css" rel=stylesheet>
+
+    <style>
+        .pac-container {
+            z-index: 10000 !important;
+        }
+
+        :root {
+            --star-size: 25px;
+            --star-color: #ccc;
+            --star-background: #f3bf28;
+        }
+
+        .Stars {
+            --percent: calc(var(--rating) / 5 * 100%);
+            display: inline-block;
+            font-size: var(--star-size);
+            font-family: Times;
+            line-height: 0;
+            font-size: 23px;
+        }
+
+            .Stars::before {
+                content: '★★★★★';
+                letter-spacing: 0px;
+                background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+        .rating_num {
+            font-size: 14px;
+        }
+
+        .active-light {
+            color: #11151e !important;
+            text-decoration: none !important;
+            background-color: #f8f9fa !important;
+        }
+
+        .table-card thead tr th {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            font-size: 12px;
+            line-height: 1.2;
+            letter-spacing: 0.1em;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .languages-drp .dropdown-menu {
+            padding: 0 !important;
+        }
+
+        .side-drp .form-control {
+            background-color: transparent !important;
+        }
+
+        .side-drp .btn-white {
+            background-color: transparent !important;
+            border: none !important;
+            color: #fff;
+        }
+
+            .side-drp .btn-white:hover {
+                background-color: transparent !important;
+                border: none !important;
+                color: #fff !important;
+            }
+
+        h6[aria-expanded="true"] > .bb-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .brrt-rb {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        .brlt-lb {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+
+        .contact-number {
+            flex-wrap: inherit;
+        }
+
+            .contact-number input {
+                width: 100% !important;
+            }
+
+        .custom-control-input {
+            z-index: 1 !important;
+        }
+        .contact-number label.error {
+            position: absolute;
+            bottom: -28px;
+            left: 0;
+        }
+
+        /*//////////////////////////////////////////*/
+        /*.overlay {
+            display: none;
+        }*/
+
+        .overlay-loader {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            background: rgb(255 255 255 / 97%) center no-repeat;
+        }
+        /* Turn off scrollbar when body element has the loading class */
+        body.loading {
+            overflow: hidden;
+        }
+        /* Make spinner image visible when body element has the loading class */
+        /* body.loading .overlay {
+            display: block;
+        }*/
+
+
+        /*Invoice address formate css*/
+        #address_formate table, #address_formate th, #address_formate td {
+            border: 1px solid #dee2e6;
+            border-collapse: collapse;
+        }
+
+        .border-none {
+            border: none !important;
+        }
+
+        .border-bottom-left-none {
+            border-bottom: none !important;
+            border-left: none !important;
+        }
+
+        .border-right-none {
+            border-right: none !important;
+        }
+
+        .border-left-none {
+            border-left: none !important;
+        }
+        .contact-number label.error {
+            position: absolute;
+            bottom: -28px;
+            left: 0;
+        }
+        .cart-count {
+            background: #dc3545;
+            font-size: 10px;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            top: -5px;
+            right: -5px;
+            color: #fff;
+            text-align: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay row m-0">
+        <div class="overlay-loader">
+            <img src='~/Content/assets/images/ajax-loader.gif' width='32' height='32'> <p class="mb-0 ml-2">Loading...</p>
+        </div>
+    </div>
+    <div class="app-root">
+        <div class="app-wrapper">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark-primary w-100">
+                    <div class="container-fluid">
+                        <a class="h5 font-weight-medium d-flex align-items-center pr-3 mb-0 beauty-book-logo" href="@Url.Action("Index","Home")">
+                            <img src="~/Content/assets/images/logo-white.png" alt="" class="mr-3" height="40">
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                            <div id="beautyBookmenu">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="dashboardId" href="@Url.Action("Index","Home")">@BeautyBook_Vendor.Resources.Languages.Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="ProductsId" href="@Url.Action("ManageProduct", "VendorProduct")">@BeautyBook_Vendor.Resources.Languages.Products</a>
+                                    </li>
+                                    <li class="nav-item" style="position:relative;">
+                                        <a class="nav-link" id="OrdersId" href="@Url.Action("Index","ManageVendorOrders")">@BeautyBook_Vendor.Resources.Languages.Orders</a>
+                                        <span class="rounded-pill cart-count" id="VendorNewOrder">0</span>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="PromotionId" href="@Url.Action("ManagePromotion", "Promotion")">@BeautyBook_Vendor.Resources.Languages.Promotion</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" id="TaxInvoiceId" href="@Url.Action("TaxInvoice", "Invoices")">@BeautyBook_Vendor.Resources.Languages.Tax_Invoice</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="technicalSupport" href="@Url.Action("ManageTechnicalSupport", "TechnicalSupport")">@BeautyBook_Vendor.Resources.Languages.Technical_Support</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="d-flex align-items-center ml-auto side-drp">
+                                <div class="ml-auto rtl-drop mr-2">
+                                    <div class="dropdown">
+                                        <div class="d-flex align-items-center " data-toggle="dropdown" role="button" id="userProfilebox">
+
+                                        </div>
+
+
+                                        <div class="dropdown-menu text-left-to-right dropdown-menu-right navbar-drp p-0">
+                                            <div class="bg-primary rounded-top p-3" id="UsernameBox">
+
+                                            </div>
+                                            <a class="dropdown-item" id="profileId" href="@Url.Action("EditProfile","MyProfile")">@BeautyBook_Vendor.Resources.Languages.Profile</a>
+                                            <a class="dropdown-item" href="@Url.Action("ChangePassword","Authentication")" id="settingsId">@BeautyBook_Vendor.Resources.Languages.Settings</a>
+                                            <a class="dropdown-item" onclick="userLogout();" href="javascript:void(0)">@BeautyBook_Vendor.Resources.Languages.Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <select class="selectpicker form-control ml-auto languages-drp LanSelect" id="LanSelect" onchange="LanguageSelect();">
+                                    <option value="en" id="en" selected>EN</option>
+                                    <option value="ar" id="ar">AR</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            @RenderBody()
+
+        </div>
+    </div>
+
+
+    <script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+    <script src="~/Content/BeautyBook_VendorAPI/Comon/Layout.js"></script>
+    <script src="~/Content/BeautyBook_VendorAPI/Dashboard/VendorNewOrder.js"></script>
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/assets/js/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Content/assets/js/jquery-repeater/jquery.repeater.js"></script>
+    <script src="~/Content/assets/js/jquery-repeater/jquery.repeater.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script>var plugin_path = '/Content/assets/js/';</script>
+
+    <script src="~/Content/assets/js/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Content/assets/js/daterangepicker/daterangepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/Content/assets/js/main.js"></script>
+    <script src="~/Content/BeautyBook_VendorAPI/Pagination.js"></script>
+    <script src="~/Content/assets/js/summernote/summernote.js"></script>
+    <script src="~/Content/assets/js/summernote/summernote.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/sl-1.3.0/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+    <script>
+        $(document).on({
+            //ajaxStart: function () {
+            //    //$("body").addClass("loading");
+            //},
+            ajaxStop: function () {
+                $(".overlay").hide();
+            }
+        });
+
+        //getCookie
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+
+        }
+
+        $('select').selectpicker();
+        checkAuthenticationApi();
+
+        //show pagination row drp function
+        showRownofun();
+
+        var Language = getCookie("Languages");
+
+        $(document).ready(function () {
+            GetVendorNewOrderCount();
+
+            $('#summernote').summernote();
+
+            $('#LanSelect').val(Language == "" ? 'en' : Language);
+            if (Language == "en") {
+                $('html').attr('dir', 'ltl');
+                $('html').attr('lang', 'en');
+            } else if (Language == "ar") {
+                $('html').attr('dir', 'rtl');
+                $('html').attr('lang', 'ar');
+                $('body').addClass('arabic-lan');
+            }
+
+            $(document).on('keyup', 'input[type="number"]', function () {
+                if ($(this).val() > Number($(this).attr("max"))) {
+                    val = $(this).val().slice(0, $(this).attr("max").length);
+                    $(this).val(val);
+                }
+            });
+
+            ArbicLanguage();
+
+        });
+
+        var Langaugestore = {};
+        function ArbicLanguage() {
+            Langaugestore = {
+                addNewSalon: "@BeautyBook_Vendor.Resources.Languages.Add_New_Salon",
+                BackToDashboard: "@BeautyBook_Vendor.Resources.Languages.Back_to_Dashboard",
+                BackToSalonDetails: "@BeautyBook_Vendor.Resources.Languages.Back_to_salon_details",
+                ServiceName: "@BeautyBook_Vendor.Resources.Languages.Service_Name",
+                ServiceCategory: "@BeautyBook_Vendor.Resources.Languages.Service_Category",
+                Duration: "@BeautyBook_Vendor.Resources.Languages.Duration",
+                Price: "@BeautyBook_Vendor.Resources.Languages.Price",
+                Status: "@BeautyBook_Vendor.Resources.Languages.Status",
+                Actions: "@BeautyBook_Vendor.Resources.Languages.Actions",
+                NoRecordsFound: "@BeautyBook_Vendor.Resources.Languages.No_Records_Found",
+                TOTALDURATION: "@BeautyBook_Vendor.Resources.Languages.TOTAL_DURATION",
+                SERVICELIST: "@BeautyBook_Vendor.Resources.Languages.SERVICE_LIST",
+                PACKAGENAME: "@BeautyBook_Vendor.Resources.Languages.PACKAGE_NAME",
+                Print : "@BeautyBook_Vendor.Resources.Languages.Print",
+                ExporttoExcel: "@BeautyBook_Vendor.Resources.Languages.Export_to_Excel",
+                EmployeeName: "@BeautyBook_Vendor.Resources.Languages.Employee_Name",
+                Gender: "@BeautyBook_Vendor.Resources.Languages.Gender",
+                Type: "@BeautyBook_Vendor.Resources.Languages.Type",
+                Role: "@BeautyBook_Vendor.Resources.Languages.Role",
+                PHONE: "@BeautyBook_Vendor.Resources.Languages.PHONE",
+                Email: "@BeautyBook_Vendor.Resources.Languages.Email",
+                LeaveType: "@BeautyBook_Vendor.Resources.Languages.Leave_Type",
+                CustomerName: "@BeautyBook_Vendor.Resources.Languages.Customer_Name",
+                Gender: "@BeautyBook_Vendor.Resources.Languages.Gender",
+                Email: "@BeautyBook_Vendor.Resources.Languages.Email",
+                PHONE: "@BeautyBook_Vendor.Resources.Languages.PHONE",
+                Appointments: "@BeautyBook_Vendor.Resources.Languages.Appointments",
+                SALES: "@BeautyBook_Vendor.Resources.Languages.SALES",
+                LastVisit: "@BeautyBook_Vendor.Resources.Languages.Last_Visit",
+                Actions: "@BeautyBook_Vendor.Resources.Languages.Actions",
+                NoofDays: "@BeautyBook_Vendor.Resources.Languages.No__of_Days",
+                ProductName: "@BeautyBook_Vendor.Resources.Languages.Product_Name",
+                ProductType: "@BeautyBook_Vendor.Resources.Languages.Product_Type",
+                Brand: "@BeautyBook_Vendor.Resources.Languages.Brand",
+                Weight: "@BeautyBook_Vendor.Resources.Languages.Weight",
+                InStock: "@BeautyBook_Vendor.Resources.Languages.In_Stock",
+                LowQtyAlert: "@BeautyBook_Vendor.Resources.Languages.Low_Qty_Alert",
+                Date: "@BeautyBook_Vendor.Resources.Languages.Date",
+                Services: "@BeautyBook_Vendor.Resources.Languages.Services",
+                NoPackageSelected: "@BeautyBook_Vendor.Resources.Languages.No_Package_Selected",
+                FreePlan: "@BeautyBook_Vendor.Resources.Languages.Free_Plan",
+                SmallPackage: "@BeautyBook_Vendor.Resources.Languages.Small_Package",
+                MediumPackage: "@BeautyBook_Vendor.Resources.Languages.Medium_Package",
+                LargePackage: "@BeautyBook_Vendor.Resources.Languages.Large_Package",
+                UnlimitedPackage: "@BeautyBook_Vendor.Resources.Languages.Unlimited_Package",
+                Messages: "@BeautyBook_Vendor.Resources.Languages.Messages",
+                Day: "@BeautyBook_Vendor.Resources.Languages.Day",
+                SelectPlan: "@BeautyBook_Vendor.Resources.Languages.Select_Plan",
+                TextMessages: "@BeautyBook_Vendor.Resources.Languages.Text_Messages",
+                SUBJECT: "@BeautyBook_Vendor.Resources.Languages.SUBJECT",
+                CREATEDBY: "@BeautyBook_Vendor.Resources.Languages.CREATED_BY",
+                EDIT: "@BeautyBook_Vendor.Resources.Languages.EDIT",
+                OfferName: "@BeautyBook_Vendor.Resources.Languages.Offer_Name",
+
+                SERVICEPACKAGENAME: "@BeautyBook_Vendor.Resources.Languages.SERVICE___PACKAGE_NAME",
+                OFFERDATE: "@BeautyBook_Vendor.Resources.Languages.OFFER_DATE",
+                START_TIME: "@BeautyBook_Vendor.Resources.Languages.START_TIME",
+                END_TIME: "@BeautyBook_Vendor.Resources.Languages.END_TIME",
+                Original_Price: "@BeautyBook_Vendor.Resources.Languages.Original_Price",
+                Offer_Price: "@BeautyBook_Vendor.Resources.Languages.Offer_Price",
+                Manage_Daily_Deals: "@BeautyBook_Vendor.Resources.Languages.Manage_Daily_Deals",
+
+                Add_New_Daily_Deals: "@BeautyBook_Vendor.Resources.Languages.Add_New_Daily_Deals",
+                Offer_Price_for_Service_Packages: "@BeautyBook_Vendor.Resources.Languages.Offer_Price_for_Service_Packages",
+                Manage_Daily_Deals: "@BeautyBook_Vendor.Resources.Languages.Manage_Daily_Deals",
+                Service_Name: "@BeautyBook_Vendor.Resources.Languages.Service_Name",
+
+                IN_TIME: "@BeautyBook_Vendor.Resources.Languages.IN_TIME",
+                OUT_TIME: "@BeautyBook_Vendor.Resources.Languages.OUT_TIME",
+                BREAK: "@BeautyBook_Vendor.Resources.Languages.BREAK",
+                SHORT_LEAVE: "@BeautyBook_Vendor.Resources.Languages.SHORT_LEAVE",
+                PRODUCTIVE: "@BeautyBook_Vendor.Resources.Languages.PRODUCTIVE",
+                Actions: "@BeautyBook_Vendor.Resources.Languages.Actions",
+                Primary_Phone: "@BeautyBook_Vendor.Resources.Languages.Primary_Phone",
+                Alternate_Phone: "@BeautyBook_Vendor.Resources.Languages.Alternate_Phone",
+                Customer_Since: "@BeautyBook_Vendor.Resources.Languages.Customer_Since",
+                SALES: "@BeautyBook_Vendor.Resources.Languages.SALES",
+                Add_New_Product: "@BeautyBook_Vendor.Resources.Languages.Add_New_Prouduct",
+                Start_Date: "@BeautyBook_Vendor.Resources.Languages.Start_Date",
+                End_Date: "@BeautyBook_Vendor.Resources.Languages.End_Date",
+                Add_New_Promotion: "@BeautyBook_Vendor.Resources.Languages.Add_New_Promotion",
+                Order_Id: "@BeautyBook_Vendor.Resources.Languages.Order_Id",
+                Order_Date: "@BeautyBook_Vendor.Resources.Languages.Order_Date",
+                Customer: "@BeautyBook_Vendor.Resources.Languages.Customer",
+                Total_Amount: "@BeautyBook_Vendor.Resources.Languages.Total_Amount",
+                Payment: "@BeautyBook_Vendor.Resources.Languages.Payment",
+                Order_Status: "@BeautyBook_Vendor.Resources.Languages.Order_Status",
+                Last_Updated: "@BeautyBook_Vendor.Resources.Languages.Last_Updated",
+                Delete: "@BeautyBook_Vendor.Resources.Languages.Delete",
+                Reject: "@BeautyBook_Vendor.Resources.Languages.Reject",
+                View: "@BeautyBook_Vendor.Resources.Languages.View",
+                ShipmentTo: "@BeautyBook_Vendor.Resources.Languages.Shipment_to",
+                SubTotal: "@BeautyBook_Vendor.Resources.Languages.Sub_Total",
+                Tax: "@BeautyBook_Vendor.Resources.Languages.Tax",
+                Total: "@BeautyBook_Vendor.Resources.Languages.Total",
+                RATE: "@BeautyBook_Vendor.Resources.Languages.RATE",
+                QTY: "@BeautyBook_Vendor.Resources.Languages.QTY",
+                Amount: "@BeautyBook_Vendor.Resources.Languages.Amount",
+                Name: "@BeautyBook_Vendor.Resources.Languages.Name",
+                Address: "@BeautyBook_Vendor.Resources.Languages.Address",
+                TotalOrders: "@BeautyBook_Vendor.Resources.Languages.Total_Orders",
+                LastOrder: "@BeautyBook_Vendor.Resources.Languages.Last_Order",
+                Update_Status: "@BeautyBook_Vendor.Resources.Languages.Update_Status",
+                Are_you_sure_you_want_to_reject_this_order: "@BeautyBook_Vendor.Resources.Languages.Are_you_sure_you_want_to_reject_this_order__",
+                Enter_discription: "@BeautyBook_Vendor.Resources.Languages.Enter_discription",
+                Update_QTY: "@BeautyBook_Vendor.Resources.Languages.Update_QTY",
+                VerificationCode: "@BeautyBook_Vendor.Resources.Languages.Verification_code_sent_successfully__",
+                ID: "@BeautyBook_Vendor.Resources.Languages.ID",
+                Product_Qty_updated_successfully: "@BeautyBook_Vendor.Resources.Languages.Product_Qty_updated_successfully",
+                Are_you_sure_you_want_to_delete_this_product__: "@BeautyBook_Vendor.Resources.Languages.Are_you_sure_you_want_to_delete_this_product__",
+                New: "@BeautyBook_Vendor.Resources.Languages.New",
+                COD: "@BeautyBook_Vendor.Resources.Languages.COD",
+                Confirmed: "@BeautyBook_Vendor.Resources.Languages.Confirmed",
+                Total_Payment: "@BeautyBook_Vendor.Resources.Languages.Total_Payment",
+                Order_Details: "@BeautyBook_Vendor.Resources.Languages.Order_Details",
+                of_customers_recommend_this_vendor: "@BeautyBook_Vendor.Resources.Languages.of_customers_recommend_this_vendor",
+                Ratings: "@BeautyBook_Vendor.Resources.Languages.Ratings",
+                Reviews: "@BeautyBook_Vendor.Resources.Languages.Reviews",
+                Orders: "@BeautyBook_Vendor.Resources.Languages.Orders",
+
+
+                Tax_Invoice: "@BeautyBook_Vendor.Resources.Languages.Tax_Invoice",
+                Invoice: "@BeautyBook_Vendor.Resources.Languages.Invoice",
+                Printing_Date: "@BeautyBook_Vendor.Resources.Languages.Printing_Date",
+                Invoice_No: "@BeautyBook_Vendor.Resources.Languages.Invoice_No",
+                Buyer: "@BeautyBook_Vendor.Resources.Languages.Buyer",
+                Suppler: "@BeautyBook_Vendor.Resources.Languages.Suppler",
+                UnitePrice: "@BeautyBook_Vendor.Resources.Languages.Unite_Price",
+                TaxAmount: "@BeautyBook_Vendor.Resources.Languages.Tax_Amount",
+                Rate: "@BeautyBook_Vendor.Resources.Languages.RATE",
+                Total__excluding_VAT_: "@BeautyBook_Vendor.Resources.Languages.Total__excluding_VAT_",
+                Discount: "@BeautyBook_Vendor.Resources.Languages.Discount",
+                Total_Taxable_amount__excluding_VAT_: "@BeautyBook_Vendor.Resources.Languages.Total_Taxable_amount__excluding_VAT_",
+                Total_VAT: "@BeautyBook_Vendor.Resources.Languages.Total_VAT",
+                TOTAL_AMOUNT: "@BeautyBook_Vendor.Resources.Languages.Total_Amount",
+                SAR: "@BeautyBook_Vendor.Resources.Languages.SAR",
+                InvoiceNote: "@BeautyBook_Vendor.Resources.Languages.NOTE___This_is_computer_generated_receipt_and_does_not_require_physical_signature_",
+                Invoice_Counter: "@BeautyBook_Vendor.Resources.Languages.Invoice_Counter",
+                Invoice_Number: "@BeautyBook_Vendor.Resources.Languages.Invoice_Number",
+                Invoice_Date: "@BeautyBook_Vendor.Resources.Languages.Invoice_Date",
+                Entered_By: "@BeautyBook_Vendor.Resources.Languages.Entered_By",
+                Action: "@BeautyBook_Vendor.Resources.Languages.Action",
+                View_Invoice: "@BeautyBook_Vendor.Resources.Languages.View_Invoice",
+                Notice_Creditor: "@BeautyBook_Vendor.Resources.Languages.Notice_Creditor",
+                Orginal_invoice_No: "@BeautyBook_Vendor.Resources.Languages.Orginal_invoice_No",
+                Sevice_list_for_invoice_number: "@BeautyBook_Vendor.Resources.Languages.Sevice_list_for_invoice_number",
+                Please_chose_the_services: "@BeautyBook_Vendor.Resources.Languages.Please_chose_the_services_you_want_to_return_from_the_original_invoice",
+                Return_invoice_No: "@BeautyBook_Vendor.Resources.Languages.Return_invoice_No",
+                CreatedDate: "@BeautyBook_Vendor.Resources.Languages.Created_Date",
+                Description: "@BeautyBook_Vendor.Resources.Languages.Description",
+                Create_Support_Ticket: "@BeautyBook_Vendor.Resources.Languages.Create_Support_Ticket",
+
+            };
+        }
+
+
+        //Custom Script
+        function LanguageSelect() {
+
+            var Item = $('#LanSelect').selectpicker('val');
+            window.location.href = `/Home/Change?LanguageAbbrevation=${Item}&con=${"@curController"}&act=${"@curAction"}`
+            $.post("/Language/Change",
+                {
+                    LanguageAbbrevation: Item
+                });
+        }
+
+        //Input time picker 24 ht to convert 12 hr
+        function onTimeChange(timeVal) {
+            var timeSplit = timeVal.split(':'),
+                hours,
+                minutes,
+                meridian;
+            hours = timeSplit[0];
+            minutes = timeSplit[1];
+            if (hours > 12) {
+                meridian = 'PM';
+                hours -= 12;
+            } else if (hours < 12) {
+                meridian = 'AM';
+                if (hours == 0) {
+                    hours = 12;
+                }
+            } else {
+                meridian = 'PM';
+            }
+            return hours + ':' + minutes + ' ' + meridian;
+        }
+
+
+
+        // delete cookie
+        function delete_cookie(name) {
+            document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
+        var UserName = getCookie("UserName");
+        var UserProfile = getCookie("UserProfileUrl");
+        var UserType = getCookie("UserTypeId");
+        var Salon = getCookie("SalonId");
+        var VendorId = getCookie("VendorId");
+        var IsAdminApproved = getCookie("IsAdminApproved");
+
+        //get window path
+        var windowUrlpath = window.location.pathname;
+
+        //userProfilebox append data
+        //userProfilebox append data
+        $('#userProfilebox').append(`
+            <span class="avatar avatar-primary avatar-circle ">
+               <img onerror="this.src='/Content/assets/images/default-avatar.png'" src="${APIEndPoint}/${UserProfile}" class="custome-profile-avatar" alt="User Profile"ActiUrln />
+            </span>
+        `)
+        //UsernameBox append data
+        $('#UsernameBox').append(`
+            <h6 class="lh-1 mb-0 text-white">${UserName}</h6>
+             <span class="text-light fs-12 lh-1">Seller</span>
+        `)
+
+
+        function setActiveclass() {
+            if ("@curController" == "VendorProduct") {
+                $('#ProductsId').addClass('active');
+            } else if ("@curController" == "Home") {
+                $('#dashboardId').addClass('active');
+            } else if ("@curController" == "MyProfile") {
+                $('#profileId').addClass('active-light');
+            } else if ("@curController" == "Authentication") {
+                $('#settingsId').addClass('active-light');
+            } else if ("@curController" == "Promotion") {
+                $('#PromotionId').addClass('active');
+            } else if ("@curController" == "ManageVendorOrders") {
+                $('#OrdersId').addClass('active');
+            } else if ("@curController" == "Invoices") {
+                $('#TaxInvoiceId').addClass('active');
+            } else if ("@curController" == "TechnicalSupport") {
+                $('#technicalSupport').addClass('active');
+            }
+        }
+
+        //User Logout
+        function userLogout() {
+            delete_cookie("SalonsLogoUrl");
+            delete_cookie("SalonName");
+            delete_cookie("Choosesalons");
+            delete_cookie("SalonId");
+            delete_cookie("UserTypeId");
+            delete_cookie("DeviceToken&Type");
+            delete_cookie("UserEmail");
+            delete_cookie("UserName");
+            delete_cookie("UserProfileUrl");
+            delete_cookie("VendorId");
+            window.location = "/Authentication/SignIn";
+        }
+
+        setActiveclass();
+
+        if (VendorId == "" || IsAdminApproved == "false") {
+
+            window.location = "/Authentication/SignIn";
+        }
+
+
+    </script>
+    <script src="~/Content/assets/js/arabic.js"></script>
+
+</body>
+</html>
+
+
+

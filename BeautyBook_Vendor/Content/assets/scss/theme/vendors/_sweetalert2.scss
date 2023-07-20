@@ -1,0 +1,11 @@
+// SweetAlert2
+// github.com/sweetalert2/sweetalert2
+
+@import 'sweetalert/theming';
+@import 'sweetalert/polyfills';
+@import 'sweetalert/animations';
+
+body {
+  @include sweetalert2-body();
+  @include sweetalert2-toasts-body();
+}

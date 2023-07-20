@@ -1,0 +1,7 @@
+Hi ##Name##,
+
+To continue with your email verification, please enter the following code:
+
+The verification code is: ##Code##
+
+© BeautyBook All Rights Reserved.

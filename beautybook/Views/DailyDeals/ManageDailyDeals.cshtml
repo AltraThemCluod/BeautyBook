@@ -1,0 +1,175 @@
+﻿@using BeautyBook.Common;
+@{
+    ViewBag.Title = "Manage Daily Deals";
+}
+
+
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Manage_Daily_Deals</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@beautybook.Resources.Languages.Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Manage_Daily_Deals</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "AddNewDailyDeals").FirstOrDefault().Value == true)
+                        {
+                            <div class="row justify-content-between mb-3">
+                                <div class="col-12 mb-3">
+                                    <a href="@Url.Action("DailyDealsDetails","DailyDeals")" class="btn btn-primary">@beautybook.Resources.Languages.Add_New_Daily_Deals</a>
+                                </div>
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div id="DailyDealsListingdiv">
+                                        <table id="DailyDealsListing" class="table table-card" style="width:100%; display:inherit;">
+                                        </table>
+                                        <div id="DailyDealsListingloader" style="display:none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@*Edit Daily Deals modal*@
+<div class="modal fade" id="EditDailyDealsModal" tabindex="-1" aria-labelledby="EditDailyDealsLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <div style="line-height:1;">
+                    <h5 class="modal-title" id="EditDailyDealsLabel">
+                        @(beautybook.Resources.Languages.Edit_Daily_Deals)
+                    </h5>
+                    <label for="purchaseDate" class="col-form-label text-sm-right p-0"><span id="PackageAndServiceName"></span> - <span id="PackageAndServiceType"></span></label>
+                </div>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" name="DailyDealsId" id="DailyDealsId" value="" />
+
+                    <div class="col-lg-6 d-flex justify-content-center">
+                        <div class="form-group row">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group row">
+                            <label for="purchaseDate" class="col-sm-2 col-form-label text-sm-right">@beautybook.Resources.Languages.OFFER_DATE</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" disabled="" name="offerDate" tabindex="1" id="offerDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="startTime" class="col-sm-4 col-form-label text-sm-right">@beautybook.Resources.Languages.START_TIME</label>
+
+                            <div class="col-sm-7">
+                                <input type="time" class="form-control" id="StartTime" name="StartTime" value="10:00">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="startTime" class="col-sm-4 col-form-label text-sm-right">@beautybook.Resources.Languages.END_TIME</label>
+
+                            <div class="col-sm-7">
+                                <input type="time" class="form-control" id="EndTime" name="EndTime" value="10:00">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="purchasePrice" class="col-sm-4 col-form-label text-sm-right">@beautybook.Resources.Languages.Original_Price</label>
+
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" tabindex="1" id="OriginalPrice" name="OriginalPrice" placeholder="00" disabled>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text text-muted">SAR </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="purchasePrice" class="col-sm-4 col-form-label text-sm-right">@beautybook.Resources.Languages.Price</label>
+
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" tabindex="1" id="OfferPrice" name="OfferPrice" placeholder="00">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text text-muted">SAR </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">@beautybook.Resources.Languages.Close</button>
+                <button type="button" id="DailyDealsUpdate" onclick="updateDataDailyDeals();" class="btn btn-primary font-weight-medium">@beautybook.Resources.Languages.Save</button>
+                <button type="button" id="DailyDealsUpdateloading" class="btn btn-primary font-weight-medium" disabled style="display:none;">
+                    Saving <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<script src="~/Content/BeautyBookAPI/DailyDealsAPI/ManageDailyDeals/ManageManageDailyDeals.js"></script>
+<script src="~/Content/BeautyBookAPI/DailyDealsAPI/ManageDailyDeals/EditDailyDeals.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //SalonServicesList API function call
+        DailyDealsList.init();
+    });
+</script>

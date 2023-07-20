@@ -1,0 +1,632 @@
+.dropdown-item:hover {
+    background-color: #004752;
+    color: #fff;
+}
+
+.navbar-light .navbar-nav .active>.nav-link {
+    color: #00515B;
+}
+
+nav {
+    -webkit-transition: padding-top .3s, padding-bottom .3s;
+    -moz-transition: padding-top .3s, padding-bottom .3s;
+    transition: padding-top .3s, padding-bottom .3s;
+    border: none;
+}
+
+.shrink {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #f1f1f1;
+}
+
+.navbar-dark .navbar-nav .active a.nav-link {
+    color: #004752;
+    position: relative;
+}
+
+.navbar-dark .navbar-nav .active a.nav-link:after {
+    content: "";
+    background: #004752;
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+ul.navbar-nav.ml-auto:nth-child(2) li.nav-item:nth-child(3) a.nav-link {
+    background: #004752;
+}
+
+ul.navbar-nav.ml-auto:nth-child(2) li.nav-item a.nav-link {
+    margin: 0;
+}
+
+select.selectpicker {
+    border: none;
+    width: auto;
+}
+
+@media (max-width:500px) {
+    .navbar-nav {
+        background-color: #000;
+        border-top: 3px solid #fed136;
+        color: #fff;
+        z-index: 1;
+        margin-top: 5px;
+    }
+    .navbar-nav .nav-item .nav-link {
+        padding: 0.7em 1em!important;
+        font-size: 100%;
+        font-weight: 500;
+    }
+}
+
+
+/*Filter*/
+
+h2.heading-title {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.filter_link,
+.filter_link:active {
+    color: #00515B;
+    background: transparent;
+    padding: 10px 0px;
+    border-radius: 0px;
+    margin: 0px 10px 0px 0px;
+    display: inline-block;
+    border: 1px solid #00515B;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize!important;
+    text-decoration: none;
+}
+
+
+.filters.f2 .filter_link, .filters.f2 .filter_lin.f2:active {
+    min-width: 120px;
+    font-size: 14px;
+}
+.filters.f1 .filter_link, .filters.f1 .filter_link:active {
+    min-width: 24%;
+}
+.filter_link:hover,
+.filter_link.active {
+    background: #00515B;
+    color: #fff;
+    text-decoration: none;
+}
+
+.filters.f2 .filter_link,
+.filter_link:active {
+    min-width: 120px;
+}
+
+.filters.f1 {
+    display: flex;
+    /*justify-content: space-between;*/
+}
+.categ,
+.cd-item-info .add-to-cart,
+.cd-trigger {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.cd-item {
+    position: relative;
+    margin: 0 0 1em;
+    border-radius: 20px;
+    max-width: 180px;
+}
+
+.cd-item>img {
+    display: block;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.cd-trigger {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding-top: 40%;
+    font-weight: 500;
+    font-size: 16px;
+    top: 0;
+    left: 0;
+    background: rgb(255 255 255 / 70%);
+    text-align: center;
+    color: #08293C;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.2s, background-color 0.2s;
+    -moz-transition: opacity 0.2s, background-color 0.2s;
+    transition: opacity 0.5s, background-color 0.5s;
+    border-radius: 20px;
+}
+
+.cd-item:hover .cd-trigger {
+    visibility: visible;
+    opacity: 1 !important;
+    background: rgba(0, 81, 91, 0.6);
+    color: #fff;
+}
+
+.no-touch .cd-trigger:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (max-width: 1024px) {
+    .cd-trigger {
+        height: 30%;
+        top: 70%;
+        padding-top: 0;
+        bottom: 0;
+        visibility: visible;
+        opacity: 1;
+    }
+    .cd-slider li img {
+        max-width: 290px !important;
+    }
+    .cd-item-info {
+        padding: 20px 2em !important;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .cd-slider li img {
+        max-width: 215px !important;
+    }
+    .cd-item-info h2 {
+        font-size: 18px;
+        font-size: 1.2rem;
+        line-height: 1.4em;
+    }
+}
+
+.cd-item:hover .cd-trigger {
+    visibility: visible;
+    opacity: 1 !important;
+}
+
+ul.cd-items.cd-container.list-unstyled {
+    /* column-count: 5; */
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.cd-item {
+    position: relative;
+    margin: 0 0 1em;
+    border-radius: 20px;
+    width: 180px;
+    margin-right: 15px;
+}
+/*11-11-2022*/
+
+.image-checkbox {
+    cursor: pointer;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin-bottom: 0;
+    outline: 0;
+    width: 100%;
+}
+
+i.fa.fa-check.hidden {
+    display: none;
+}
+
+.image-checkbox img.checked_ {
+    display: none;
+}
+
+.image-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+
+/* .image-checkbox-checked {
+    border-color: #4783B0;
+} */
+
+.image-checkbox img:not(:first-child) {
+    position: absolute;
+    padding: 10px;
+    top: 0;
+    right: 0;
+}
+
+.image-checkbox-checked img.checked_ {
+    display: block !important;
+}
+
+.image-checkbox-checked img.unchecked {
+    display: none !important;
+}
+
+.image-checkbox img.img-fluid {
+    border-radius: 20px;
+    width: 100%;
+}
+
+.cd-item:hover .cd-trigger,
+.image-checkbox-checked .cd-trigger {
+    visibility: visible;
+    opacity: 1 !important;
+    background: rgba(0, 81, 91, 0.6);
+    color: #fff;
+}
+
+
+/*Pagination*/
+
+.custom_pagination a.page-link:hover,
+.custom_pagination a.page-link.active {
+    background: #00515B;
+    color: #fff;
+    border: 1px solid #00515B;
+}
+
+.custom_pagination a.page-link {
+    background: transparent;
+    border: none;
+    color: #000;
+    border: 1px solid transparent;
+}
+
+.custom_pagination li.page-item:first-child a.page-link,
+.custom_pagination li.page-item:last-child a.page-link {
+    border: 1px solid #00515B;
+    background: transparent;
+}
+
+.custom_pagination li.page-item:first-child a.page-link:hover,
+.custom_pagination li.page-item:last-child a.page-link:hover,
+.custom_pagination li.page-item:first-child a.page-link.active,
+.custom_pagination li.page-item:last-child a.page-link.active {
+    background: #00515B;
+    color: #fff;
+}
+
+
+/*Dropdown*/
+
+.card_box .dropdown {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.card_box .dropdown .dropdown-list {
+    padding: 25px 20px;
+    background: #fff;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    max-height: 223px;
+    overflow-y: auto;
+    background: #fff;
+    display: none;
+    z-index: 10;
+}
+
+.card_box .dropdown .checkbox {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.card_box .dropdown .dropdown-label {
+    display: block;
+    height: 44px;
+    font-size: 16px;
+    line-height: 42px;
+    background: #EFF0F0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0 40px 0 20px;
+    cursor: pointer;
+    position: relative;
+    font-weight: 400;
+    color: #4A525E;
+    white-space: nowrap;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.card_box .dropdown .dropdown-label:before {
+    content: "❭";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.25s;
+    transform-origin: center center;
+}
+
+.card_box .dropdown.open .dropdown-list {
+    display: block;
+}
+
+.card_box .dropdown.open .checkbox {
+    transition: 2s opacity 2s;
+    opacity: 1;
+}
+
+.card_box .dropdown.open .dropdown-label:before {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.card_box .checkbox {
+    margin-bottom: 20px;
+}
+
+.card_box .checkbox:last-child {
+    margin-bottom: 0;
+}
+
+.card_box .checkbox .checkbox-custom {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.card_box .checkbox .checkbox-custom-label {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/*.card_box .checkbox .checkbox-custom+.checkbox-custom-label:before {
+    content: "";
+    background: transparent;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    text-align: center;
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    margin-top: -2px;
+}
+
+.card_box .checkbox .checkbox-custom:checked+.checkbox-custom-label:after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    height: 4px;
+    padding: 2px;
+    transform: rotate(45deg);
+    text-align: center;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+}*/
+
+.card_box .checkbox .checkbox-custom-label {
+    line-height: 16px;
+    font-size: 16px;
+    margin-right: 0;
+    margin-left: 0;
+    color: black;
+    margin-bottom: 0;
+}
+
+span.title {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    line-height: 36px;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ccc;
+    color: #08293C;
+}
+
+.card_box {
+    padding: 50px 30px;
+    background: #fff;
+}
+
+button.btn.cust_btn {
+    width: 100%;
+    background: #00515b;
+    color: #fff;
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 30px;
+    min-height: 60px;
+}
+
+label.drp_lbl {
+    color: #08293C;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.content_box_card {
+    margin-left: 10px;
+}
+
+span.profile_title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    color: #08293C;
+    display: block;
+}
+
+.price {
+    text-align: center;
+    text-transform: uppercase;
+    color: #4A525E;
+    margin: 5px 0px;
+}
+
+.content_box_card .price+a {
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #00515B;
+    position: relative;
+    padding-left: 10px;
+}
+
+.card_box_profile_card.d-flex {
+    background: #F0F4F5;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+a.right_img.position-absolute {
+    right: 20px;
+    top: 45%;
+}
+
+.content_box_card .price+a:before {
+    content: "▼";
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.25s;
+    transform-origin: center center;
+}
+
+.bill_detail span {
+    font-size: 18px;
+    line-height: 27px;
+    color: #4A525E;
+}
+
+.border-dashed {
+    border-bottom: 1px dashed #4A525E;
+}
+
+.total span {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    /* text-align: right; */
+    color: #4A525E;
+    margin-top: 20px;
+}
+
+.form-check.form-check-inline {
+    margin-bottom: 15px;
+}
+
+.card_box .form-check-inline input+label {
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.card_box .form-check-inline input:checked+label {
+    font-size: 18px;
+    line-height: 27px;
+    color: #08293C;
+}
+
+.payment-type-area {
+    /*padding: 10px 20px;*/
+    background: #F0F4F5;
+}
+
+.payment-type-area {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    padding: 15px 10px;
+    text-align: center;
+}
+
+.payment-type-area b {
+    color: #08293C;
+}
+
+h2.heading-title.mt-5 {
+    margin-top: 70px !important;
+}
+
+h2.heading-title {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+@media(max-width: 1440px){
+    .price {
+        font-size: 14px;
+    }
+        .card_box {
+        padding: 30px 15px;
+        background: #fff;
+    }
+    h2.heading-title {
+        font-size: 36px;
+        margin-bottom: 15px;
+    }
+    a.right_img.position-absolute {
+        right: 10px;
+        top: 40%;
+    }
+    .navbar-nav .nav-item .nav-link {
+        padding: 0.5em 0.7em!important;
+        font-size: 16px;
+    }
+        .payment-type-area {
+            font-size: 14px;
+            line-height: 22px;
+            font-weight: 400;
+        }
+    .card_box .form-check-inline input+label {
+        font-size: 16px;
+        line-height: 27px;
+    }
+    .bill_detail span {
+        font-size: 16px;
+    }
+    .total span {
+        font-size: 18px;
+    }
+    span.title {
+        font-size: 24px;
+        line-height: 36px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+    button.btn.cust_btn {
+        font-size: 16px;
+        min-height: 48px;
+    }
+    .image-checkbox img:not(:first-child) {
+        width: 34px;
+    }
+}
+
+
+
+.content_box_card .form-control {
+    height: inherit;
+    padding: 0.1rem 0.4rem;
+}
+
+.order-details-remove {
+    position: absolute;
+    right: 6px;
+    top: 39%;
+    cursor: pointer;
+}

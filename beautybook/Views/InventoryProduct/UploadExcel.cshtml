@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Upload Inventory Excel";
+}
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageInventory","InventoryProduct")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">Upload Excel</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageInventory","InventoryProduct")">Manage Inventory</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Upload Excel</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9">
+                        <div class="card card-lg mb-5">
+                            <div class="card-header">
+                                <div class="row m-0 align-items-center">
+                                    <div class="col-lg-6 p-0">
+                                        <h6 class="mb-1">Upload Excel</h6>
+                                        <p class="mb-0 text-muted fs-13">Before uploading excel you download excel format</p>
+                                    </div>
+                                    <div class="col-lg-6 p-0">
+                                        <a href="@Url.Action("DownloadExcel","InventoryProduct")" class="dt-button btn btn-link float-right"><span><i class="bb-download mr-1"></i> Download Excel</span></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="alert alert-warning" role="alert">
+                                    <i class="bb-info mr-1"></i>
+                                    Please enter the data as per the format of the sheet other wise there may be technical issues
+                                </div>
+                                <form class="row align-items-end">
+                                    <div class="form-group col-lg-4 mb-0">
+                                        <label class="col-form-label mb-0 text-right">Inventory Data Excel</label>
+                                        <div class="custom-file h-auto">
+                                            <input type="file" class="custom-file-input" name="InventoryDataExcel" tabindex="9" id="InventoryDataExcel">
+                                            <label class="custom-file-label mb-0" for="InventoryDataExcel">Choose file</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="button" onclick="ImportInventoryData();" id="Import" class="dt-button btn btn-primary float-left"><span>Import Data</span></button>
+                                        <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="Importing" style="display:none;" disabled>
+                                            <span id="saveSalonsdetailsbtntext">Importing</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                        </button>
+                                        <a href="/InventoryProduct/ManageInventory" class="btn btn-link btn-wide ml-1">Cancel</a>
+                                    </div>
+                                </form>
+                                <label class="error" id="error_label"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/CustomersAPI/CustomerDetails/CustomerDetails.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        ArbicLanguage();
+        getCustomerdata();
+    });
+
+    $(function () {
+        $("form[name='signinform']").validate({
+            rules: {
+                firstName: {
+                    required: true
+                },
+                lastName: {
+                    required: true
+                },
+                //birthDate: {
+                //    required: true
+                //},
+                //emailAddress: {
+                //    required: true,
+                //    email: true
+                //},
+                phoneNumber: {
+                    required: true,
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                alternateNumber: {
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                referredBy: {
+                    email: true
+                },
+            },
+            messages: {
+                firstName: "@beautybook.Resources.Languages.First_Name_is_required",
+                lastName: "@beautybook.Resources.Languages.Last_Name_is_required",
+                @*birthDate: "@beautybook.Resources.Languages.Date_of_Birth_is_required",
+                emailAddress: {
+                    required: "@beautybook.Resources.Languages.Email_is_required"
+                },*@
+                phoneNumber: {
+                    required: "@beautybook.Resources.Languages.Primary_Phone_is_required",
+                    number : "@beautybook.Resources.Languages.Please_enter_a_valid_number"
+                },
+                alternateNumber: {
+                    number : "@beautybook.Resources.Languages.Please_enter_a_valid_number"
+                }
+            },
+            submitHandler: function () {
+                addCustomer();
+            }
+        });
+    });
+
+    //Import Customer Data
+    function ImportInventoryData() {
+
+        $("#Import").hide();
+        $("#Importing").show();
+
+        var formData = new FormData();
+        var excelFileUrl = document.getElementById("InventoryDataExcel").files[0];
+        formData.append("ExcelUrl", excelFileUrl);
+        debugger;
+
+        if (excelFileUrl == undefined) {
+            alert("Select a excel file");
+            $("#Import").show();
+            $("#Importing").hide();
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("ImportInventoryData", "InventoryProduct")",
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+                    debugger;
+
+                    if (response == 200)
+                    {
+                        window.location.href = "/InventoryProduct/ManageInventory";
+
+                        $("#Import").show();
+                        $("#Importing").hide();
+                    }
+                    else if (response.Code == 400)
+                    {
+                        $("#error_label").text(response.Message);
+                        //alert("Something went wrong please check your data");
+
+                        $("#Import").show();
+                        $("#Importing").hide();
+                    }
+                    else if (response == 404) {
+                        $("#error_label").text("Excel sheet data not found please enter a data");
+
+                        $("#Import").show();
+                        $("#Importing").hide();
+                    }
+                },
+                error: function (error) {
+                    $("#Import").show();
+                    $("#Importing").hide();
+                    console.log("Data Add Error");
+                }
+            });
+        }
+    }
+
+</script>

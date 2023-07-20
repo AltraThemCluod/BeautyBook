@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Email Verification";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Zaan</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon.png">
+    @*<link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <link href="~/Content/assets/css/arabic.css" rel=stylesheet>
+
+</head>
+<body>
+
+    <div class="app-root bg-white">
+        <div class="app-wrapper">
+            <main>
+                <div class="position-fixed top-0 right-0 left-0 bg-img-hero overlay-white-60" style="height: 32rem; background-image: url(../Content/assets/images/media/bg-cover-01.jpg);">
+
+                    <!-- SVG Bottom Shape -->
+                    <figure class="position-absolute right-0 bottom-0 left-0">
+                        <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1921 273">
+                            <polygon fill="#fff" points="0,273 1921,273 1921,0 " />
+                        </svg>
+                    </figure>
+                    <!-- End SVG Bottom Shape -->
+                </div>
+
+                <div class="container py-5 py-sm-7">
+                    <a class="d-flex justify-content-center mb-5" href="javascript:void(0)">
+                        <img class="z-index-2" src="~/Content/assets/images/logo.png" alt="" style="width: 4rem;">
+                    </a>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-7 col-lg-5">
+                            <div class="card card-lg mb-5">
+                                <div class="card-body">
+                                    <form id="ResetPasswordEmail" name="ResetPasswordEmail">
+                                        <div class="text-center">
+                                            <div class="mb-5">
+                                                <h3>@(beautybook.Resources.Languages.Forgot_Password_)</h3>
+                                                <p>@(beautybook.Resources.Languages.Enter_the_email_address_you_used_when_you_joined_and_we_ll_send_you_instructions_to_reset_your_password_)</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="input-label" for="resetPasswordEmail">@(beautybook.Resources.Languages.Email)</label>
+                                            <input type="email" class="form-control form-control-lg" name="resetPasswordEmail" id="resetPasswordEmail" tabindex="1" placeholder="Enter your email address" aria-label="Enter your email address">
+                                            <i class="fas fa-check-circle validationicon"></i>
+                                            <i class="fas fa-exclamation-circle validationicon"></i>
+                                            <small></small>
+                                        </div>
+
+                                        <button type="submit" name="submit" id="userSignUpbtn" tabindex="2" class="btn btn-lg btn-block btn-primary">Send Reset Password Link</button>
+                                        <button type="button" id="userSignUpbtnLoading" class="btn btn-lg btn-block btn-primary" style="display:none;" disabled>
+                                            @(beautybook.Resources.Languages.Send_Reset_Password_Link)  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                        </button>
+                                        <div class="text-center mt-3">
+                                            <a class="btn btn-link" tabindex="3" href="@Url.Action("SignIn","Authentication")">
+                                                <i class="bb-chevron-left align-middle"></i> @(beautybook.Resources.Languages.Back_to_Sign_in)
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/sweetalert/sweetalert2.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script>var plugin_path = './js/';</script>
+
+    <script src="~/Content/assets/js/main.js"></script>
+    <script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+    <script src="~/Content/BeautyBookAPI/AuthenticationAPI/ForgotPassword/ForgotPassword.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
+
+    @*custome advance jquery validation*@
+    <script>
+
+        //getCookie
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+
+        }
+
+        $(document).ready(function () {
+            var Language = getCookie("Languages");
+            $('#LanSelect').val(Language == "" ? 'en' : Language);
+            if (Language == "en") {
+                $('html').attr('dir', 'ltl');
+                $('html').attr('lang', 'en');
+            } else if (Language == "ar") {
+                $('html').attr('dir', 'rtl');
+                $('html').attr('lang', 'ar');
+                $('body').addClass('arabic-lan-EmailVerification');
+            }
+        });
+
+        $(function () {
+            $("form[name='ResetPasswordEmail']").validate({
+                rules: {
+                    resetPasswordEmail: {
+                        required: true,
+                        email: true
+                    },
+                },
+                messages: {
+                    resetPasswordEmail: {
+                        required: "Email is required",
+                    },
+                },
+                submitHandler: function () {
+                    forgotpasswordEmail();
+                }
+            });
+        });
+    </script>
+    <script src="~/Content/assets/js/arabic.js"></script>
+
+
+</body>
+</html>
+
+
+

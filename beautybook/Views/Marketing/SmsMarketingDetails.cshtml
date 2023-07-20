@@ -1,0 +1,254 @@
+﻿@{
+    ViewBag.Title = "Add sms Marketing";
+}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<main class="app-content" style="filter: inherit !important; ">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageSmsMarketing","Marketing")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Add_Sms_Marketing)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageSmsMarketing","Marketing")">@(beautybook.Resources.Languages.SMS_Marketing)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Add_Sms_Marketing)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <form action="" name="marketingform" id="marketingform">
+                    <div class="row justify-content-center">
+                        <div id="smsmarketingformloader" style="display: none;" class="text-center mb-4">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                        <div id="Id" value="" style="display:none" name="Id"></div>
+                        <div id="SalonId" value="" style="display:none" name="SalonId"></div>
+                        <div class="col-xxl-8 col-xl-9 mb-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">@(beautybook.Resources.Languages.Sms_Subject)</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="smsSubject" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Sms_Subject)</label>
+
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="smsSubject" id="smsSubject" placeholder="@(beautybook.Resources.Languages.Enter_sms_subject)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xxl-8 col-xl-9 mb-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">@(beautybook.Resources.Languages.SMS_Recipients)</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <fieldset class="form-group row">
+                                                <legend class="col-form-label col-sm-4 float-sm-left text-sm-right pt-0">@(beautybook.Resources.Languages.Gender)</legend>
+                                                <div class="col-sm-7">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" onclick="allCustomers();" type="radio" name="genderdetails" id="genderdetails" value="1">
+                                                        <label class="form-check-label" for="allCustomers">@(beautybook.Resources.Languages.All_Customer)</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" onclick="filteredList();" type="radio" name="genderdetails" id="genderdetails" value="2">
+                                                        <label class="form-check-label" for="filteredList">@(beautybook.Resources.Languages.Filtered_list)</label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body border-top" id="filteredList_area">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label for="customerSince" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Customer_Since)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <input type="text" class="datepicker w-100  CustomerSinceDatePicker form-control" name="customerSince" tabindex="1" id="customerSince">
+                                                        <div class="input-group-append input-box-label">
+                                                            <span class="input-group-text text-muted">
+                                                                <i class="bb-calendar fs-21"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label for="lastVisit" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Last_Visit)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <input type="text" class="datepicker w-100  CustomerSinceDatePicker form-control" name="lastVisit" tabindex="1" id="lastVisit">
+                                                        <div class="input-group-append input-box-label">
+                                                            <span class="input-group-text text-muted">
+                                                                <i class="bb-calendar fs-21"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.No_of_Appoinment_Between)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group align-items-center">
+                                                        <input type="text" name="minappointment" id="minappointment" class="form-control" placeholder="@(beautybook.Resources.Languages.Min_Appointment)">
+                                                        <span class="mx-2">And</span>
+                                                        <input type="text" class="form-control" id="maxappointment" name="maxappointment" placeholder="@(beautybook.Resources.Languages.Max_Appointment)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Age_between)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group align-items-center">
+                                                        <input type="text" name="ageyear" class="form-control" id="minageyear" placeholder="@(beautybook.Resources.Languages.Min_Year)">
+                                                        <span class="mx-2">And</span>
+                                                        <input type="text" class="form-control" name="maxageyear" id="maxageyear" placeholder="@(beautybook.Resources.Languages.Max_Year)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label for="selectServices" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Services)</label>
+
+                                                <div class="col-sm-7">
+                                                    <select class="selectpicker form-control" id="lookupserviceslist" title="@(beautybook.Resources.Languages.Select_a_service)" data-selected-text-format="count" multiple="" data-live-search="true" data-size="5">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-8 col-xl-9 mv-3 mb-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">@(beautybook.Resources.Languages.Sms_Template)</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <textarea class="form-control" name="smsTemplate" id="smsTemplate"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fixed-footer text-center">
+                            <button type="submit" id="addMarketingDetailsbtn" class="btn btn-primary font-weight-medium btn-wide">@(beautybook.Resources.Languages.Send)</button>
+                            <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="addMarketingDetailsbtnloading" style="display:none;" disabled>
+                                <span id="saveSalonsdetailsbtntext">@(beautybook.Resources.Languages.Send)</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                            </button>
+                            <a href="@Url.Action("ManageSmsMarketing","Marketing")" tabindex="12" class="btn btn-link btn-wide text-muted">@(beautybook.Resources.Languages.Cancel)</a>
+                        </div>
+                        @*<div class="fixed-footer text-center">
+                                <button type="button" class="btn btn-primary font-weight-medium btn-wide">Send E-Mail</button>
+                                <button type="button" class="btn btn-link btn-wide" onclick="addSmsMarketingDetails();">Save as draft</button>
+                                <button type="button" class="btn btn-link">Cancel</button>
+                            </div>*@
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<!-- Core Scripts -->
+<script src="~/Content/BeautyBookAPI/MarketingAPI/ManageSmsMarketing/ManageSmsMarketing.js"></script>
+<script src="~/Content/BeautyBookAPI/MarketingAPI/SmsMarketingDetails/SmsMarketingDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/MarketingAPI/ManageSmsMarketing/EditSmsMarketingDetails.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<script>
+
+    function allCustomers() {
+        $('#filteredList_area').hide();
+        $('#customerSince').val('');
+        $('#lastVisit').val('');
+        $('#minappointment').val('');
+        $('#maxappointment').val('');
+        $('#minageyear').val('');
+        $('#maxageyear').val('');
+        $('#smsTemplate').val('');
+        $('#lookupserviceslist').selectpicker('val', null);
+    }
+
+    function filteredList() {
+        $('#filteredList_area').show();
+    }
+
+    $(document).ready(function () {
+        ArbicLanguage();
+        getSmsMarketingdata();
+        lookUpServices();
+    });
+    $(function () {
+        $("form[name='marketingform']").validate({
+            rules: {
+                smsSubject: {
+                    required: true
+                },
+                customerSince: {
+                    required: true
+                },
+                lastVisit: {
+                    required: true
+                },
+                appointment: {
+                    required: true
+                },
+                smsTemplate: {
+                    required:true
+                }
+            },
+            messages: {
+                smsSubject: "Sms Subject is required",
+                customerSince: "Customer Since is required",
+                lastVisit: "Last Visit is required",
+                appointment: "Appointment  is required",
+            },
+            submitHandler: function () {
+                addSmsMarketingDetails();
+            }
+        });
+    });
+</script>

@@ -1,0 +1,289 @@
+﻿@using BeautyBook.Common;
+@using PublicZaanVendor.Pages
+@{
+    ViewBag.Title = "Blog";
+}
+
+<style>
+    .blog-text-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 72px;
+    }
+
+    .blog-text-p-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 69px;
+    }
+</style>
+<div class="blog_page">
+    <!-- banner section -->
+    <div class="banner-section" style="margin-top: 68px;">
+        <div class="container ">
+            <div class="row m-0 ">
+                <div class="col-lg-12 ">
+                    <div id="carouselExampleIndicators" class="carousel slide w-100 " data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            @if (ViewBag.BlogResponse.Values.Count > 0)
+                            {
+                                for (int i = 0; i < ViewBag.BlogResponse.Values.Count; i++)
+                                {
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                                }
+                            }
+                        </ol>
+                        <div class="carousel-inner">
+                            @if (ViewBag.BlogResponse.Values.Count > 0)
+                            {
+                                for (int i = 0; i < ViewBag.BlogResponse.Values.Count; i++)
+                                {
+                                    <div class="carousel-item  @(i == 0 ? "active" : "")">
+                                        <div class="row align-items-center ">
+                                            <div class="col-lg-7 banner-content">
+                                                <div class="banner-text">
+                                                    <div class="banner-heading ">
+                                                        <span class="title_top title_top1">@Resources.Language.TopPosts</span>
+                                                        @*class="w-50"*@
+                                                        <h1>
+                                                            @ViewBag.BlogResponse.Values[i].Title
+                                                        </h1>
+                                                        <p>
+                                                            @ViewBag.BlogResponse.Values[i].Description
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="banner-text">
+                                                    <a href="@Url.Action("BlogInner","Blog")?ri=@ConvertTo.Base64Encode(Convert.ToString(@ViewBag.BlogResponse.Values[i].Id))" class="btn btn-primary them-button text-white">@Resources.Language.ReadMore</a>
+                                                    @*<button class="btn btn-primary them-border-button">Read More</button>*@
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <img src="~/Content/assets/images/curve_arrow.png" class="img-fluid position-absolute curve_arrow curve_arrow1" alt="Alternate Text" />
+                                                <img onerror="this.src='/Content/assets/images/Image_not_available.png'" style="height: 519px; object-fit: contain;" src="@Configurations.BlogBaseUrl@ViewBag.BlogResponse.Values[i].ThumbnailDataUrl" alt="Slider Image" class="img-fluid" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main_content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+
+                    @*<div class="top_blog aboutus-content mt-150">
+                            <h4>Lorem Ipsum is simply dummy <br />text of the printing and.</h4>
+
+                            <div class="blog_info my-5">
+                                <img src="~/Content/assets/images/Ellipse.png" class="img-fluid" alt="User Image" />
+                                <span class="user_detail ml-2">Posted By <span>David Sheward </span>on <span> july 8, 2022</span></span>
+                            </div>
+                            <div class="blog_top_banner_img">
+                                <img src="~/Content/assets/images/blog_top_img.png" />
+                            </div>
+                            <div class="blog_content my-5">
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions.</p>
+                                <br />
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p>
+                            </div>
+
+                            <div class="blog_btns d-flex align-items-center">
+                                <button class="btn btn-primary them-button mr-auto">Get Started</button>
+                                <div class="social_btns align-items-stretch">
+                                    <button class="btn like_btn">
+                                        <i class="fas fa-heart"></i>
+                                        1200
+                                    </button>
+
+                                    <a class="social_btn">
+                                        <img src="~/Content/assets/images/fb_btn.png" class="img-fluid" alt="Social Icon" />
+                                    </a>
+
+                                    <a class="social_btn">
+                                        <img src="~/Content/assets/images/tw_btn.png" class="img-fluid" alt="Social Icon" />
+                                    </a>
+
+                                    <a class="social_btn">
+                                        <img src="~/Content/assets/images/lkdn_btn.png" class="img-fluid" alt="Social Icon" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <div class="all_blog_posts  aboutus-content mt-150">
+                        <h4>@Resources.Language.OurBlogPost</h4>
+                        <div class="filters f1 mt-50">
+                            <a class="filter_link blog-category active" id="blogcategory_0" onclick="GetBlogCategoryId(0)" href="javascript:void(0)" data-filter="all">@Resources.Language.AllServices</a>
+                            @if (ViewBag.BlogCategory.Values.Count > 0)
+                            {
+                                for (int i = 0; i < ViewBag.BlogCategory.Values.Count; i++)
+                                {
+                                    if (@ViewBag.BlogCategory.Values[i].CategoryName == "Salon")
+                                    {
+                                        <a class="filter_link blog-category" id="blogcategory_@ViewBag.BlogCategory.Values[i].Id" onclick="GetBlogCategoryId(@ViewBag.BlogCategory.Values[i].Id)" href="javascript:void(0)" data-filter="@ViewBag.BlogCategory.Values[i].CategoryName">@Resources.Language.Salon</a>
+                                    }
+                                    else if (@ViewBag.BlogCategory.Values[i].CategoryName == "Product")
+                                    {
+                                        <a class="filter_link blog-category" id="blogcategory_@ViewBag.BlogCategory.Values[i].Id" onclick="GetBlogCategoryId(@ViewBag.BlogCategory.Values[i].Id)" href="javascript:void(0)" data-filter="@ViewBag.BlogCategory.Values[i].CategoryName">@Resources.Language.Product</a>
+                                    }
+                                    else if (@ViewBag.BlogCategory.Values[i].CategoryName == "Spa")
+                                    {
+                                        <a class="filter_link blog-category" id="blogcategory_@ViewBag.BlogCategory.Values[i].Id" onclick="GetBlogCategoryId(@ViewBag.BlogCategory.Values[i].Id)" href="javascript:void(0)" data-filter="@ViewBag.BlogCategory.Values[i].CategoryName">@Resources.Language.Spa</a>
+                                    }
+                                }
+                            }
+                        </div>
+
+                        <div class="filter-result">
+
+                            <ul class="cd-items cd-container list-unstyled pt-3 pb-5 blog-content" id="blog_main_details">
+                                <!---------------->
+                            </ul>
+                        </div>
+
+                        <ul class="pagination pagination-lg mt-5 custom_pagination">
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 blog-content">
+                    <div class="top_line_title mt-150">
+                        @Resources.Language.TopArticles
+                    </div>
+
+                    @if (ViewBag.BlogTopArticleResponse.Values.Count > 0)
+                    {
+                        for (int i = 0; i < ViewBag.BlogTopArticleResponse.Values.Count; i++)
+                        {
+                            <div class="artical_blog mt-5">
+                                <img style="background: #cccccc2e; height: 420px; object-fit: contain;" onerror="this.src='/Content/assets/images/Image_not_available.png'" src="@Configurations.BlogBaseUrl@ViewBag.BlogTopArticleResponse.Values[i].ThumbnailDataUrl" class="img-fluid" alt="Artical Image" />
+                                <p class="artical_body mb-3 blog-content">
+                                    <a href="javascript:void(0)" class="text-dark">
+                                        @ViewBag.BlogTopArticleResponse.Values[i].Title
+                                    </a>
+                                </p>
+                                <span class="artical_date mb-3">@ViewBag.BlogTopArticleResponse.Values[i].ArticleCreatedDate</span>
+                            </div>
+                        }
+                    }
+
+                    <div class="follow_us mt-10">
+                        <div class="top_line_title mt-150">
+                            @Resources.Language.FollowUs
+                        </div>
+                        <a href="#!"> <img src="~/Content/assets/images/insta_follow.png" class="img-fluid" alt="Follow Icon" />  <span>Instagram</span>  </a>
+                        <a href="#!"> <img src="~/Content/assets/images/twitt_follow.png" class="img-fluid" alt="Follow Icon" />  <span>Twitter</span>  </a>
+                        <a href="#!"> <img src="~/Content/assets/images/link_follow.png" class="img-fluid" alt="Follow Icon" />  <span>Linkdin</span>  </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            GetBlogCategoryId(0);
+        })
+
+
+        //Pagination
+        var PagelistCount = 0;
+
+        function Pagination() {
+            debugger;
+            var OffsetCount = 0;
+            for (var Pages = 0; Pages < PagelistCount / 10; Pages++) {
+                var pageNum = Pages + 1;
+                $(".custom_pagination").append(`<li id="pageButton_${Pages}" onclick="GetCategoryBlog(${OffsetCount},${Pages});" class="page-item m-1"><a style="border: 1px solid #00515b;" class="page-link" href="javascript:void(0)">${pageNum}</a></li>`)
+                OffsetCount = OffsetCount + 10;
+            }
+            $(`#pageButton_0`).addClass("tab-active");
+            $(`#pageButton_0`).prop('disabled', true);
+        }
+
+        var cDataId = 0;
+        function GetBlogCategoryId(dataId) {
+            debugger;
+            cDataId = dataId;
+            GetCategoryBlog();
+        }
+
+        function GetCategoryBlog(OffsetCount, Pages) {
+            debugger;
+            $(".blog-category").removeClass("active");
+            $("#blogcategory_" + cDataId).addClass("active");
+
+            $("#blog_main_details").html("");
+            $(".custom_pagination").html("");
+
+            $.ajax({
+                type: 'Get',
+                url: "@Url.Action(Actions.GetCategoryBlog, Controllers.Blog)",
+                dataType: 'json',
+                data: ({
+                    CategoryId: cDataId,
+                    Offset: OffsetCount
+                }),
+                success: function (result) {
+                    debugger;
+
+                    if (result.Values.length > 0) {
+
+                        PagelistCount = result.TotalRecords;
+
+                        for (var i = 0; i < result.Values.length; i++) {
+                            $("#blog_main_details").append(`
+                                <li class="cd-item mt-50 d-flex latest align-items-center">
+                                    <img  onerror="this.src='/Content/assets/images/Image_not_available.png'" style="background: #cccccc2e; height: 324px; object-fit: contain; " src="@Configurations.BlogBaseUrl${result.Values[i].ThumbnailDataUrl}" class="img-fluid first" alt="Blog Image" />
+                                    <div class="blog_deatils pl-5 blog-text">
+                                        <span class="date mt-3"><img src="./Content/assets/images/calendar.png"/> ${result.Values[i].ArticleCreatedDate}</span>
+
+                                        <h5 class="blog_title my-5 blog-text-truncate">
+                                           ${result.Values[i].Title}
+                                        </h5>
+
+                                        <p class="blog_content mb-4 blog-text-p-truncate">${result.Values[i].Description}</p>
+
+                                        <a href="@Url.Action("BlogInner","Blog")?ri=${btoa(result.Values[i].Id)}" class="btn btn-primary them-button mr-auto">@Resources.Language.ReadMore</a>
+                                    </div>
+                                </li>
+                            `);
+                        }
+
+                        Pagination();
+
+                        //pagination page active / in-active
+                        $(".custom_pagination li").removeClass("tab-active");
+                        $(".custom_pagination li").prop('disabled', false);
+                        $("#pageButton_" + Undefined(Pages)).addClass("tab-active");
+                        $("#pageButton_" + Undefined(Pages)).prop('disabled', true);
+                    }
+                    else
+                    {
+                        $("#blog_main_details").append(`<div class="text-center">No record found</li>`)
+                    }
+
+                },
+                error: function (error) {
+                    debugger;
+                }
+            });
+        }
+    </script>
+}

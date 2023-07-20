@@ -1,0 +1,481 @@
+﻿@using BeautyBook.Common
+@using BeautyBook.Entities.Contract
+@using BeautyBook.Entities.V1
+@using PublicZaanVendor.Pages
+
+@model BlogSubscribeNewslatter
+@{
+    ViewBag.Title = "Home";
+}
+
+
+
+<style>
+    .blog-inner-profile {
+        object-fit: cover;
+        border-radius: 100%;
+        width: 70px;
+        height: 70px;
+        border: 2px solid #FFFFFF;
+        box-shadow: inset 0px 5.45508px 10.9102px rgb(0 0 0 / 25%);
+        filter: drop-shadow(0px 4.09131px 9.54639px rgba(0, 0, 0, 0.16));
+    }
+
+    .recommended-text-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 40px;
+    }
+
+    .recommended-text-p-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 63px;
+    }
+</style>
+<div class="blog_page inner_blog">
+    <!-- banner section -->
+    <div class="banner-section">
+        <div class="container">
+            <div class="row align-items-center row1">
+                <div class="col-lg-5 banner-content">
+                    <div class="banner-text banner-text1">
+                        <div class="banner-heading">
+                            <div class="blogger_info d-flex align-items-center mb-4">
+                                <div class="user_info">
+                                    <img onerror="this.src='/Content/assets/images/user-default-profile.png'" src="@Configurations.BlogBaseUrl@ViewBag.BlogInnerResponse.Item.CreatedUserProfileUrl" class="blog-inner-profile" alt="@ViewBag.BlogInnerResponse.Item.CreatedUserName" width="70" />
+                                    <span class="ml-2 font">  @ViewBag.BlogInnerResponse.Item.CreatedUserName</span>
+                                </div>
+                                <div class="date_time ml-auto align-items-center d-flex">
+                                    <img src="~/Content/assets/images/calendar.png" class="img-fluid pr-1" alt="Calandr Icon" />
+                                    <span class="date">@ViewBag.BlogInnerResponse.Item.ArticleCreatedDate</span>
+                                </div>
+                            </div>
+                            <h1>
+                                @ViewBag.BlogInnerResponse.Item.Title
+                            </h1>
+                            <p>
+                                @ViewBag.BlogInnerResponse.Item.Description
+                            </p>
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Index","Blog")" class="backIcon d-block">
+                        <i class="fas fa-chevron-left"></i>
+                        @*<button class="btn btn-primary them-border-button">Read More</button>*@
+                    </a>
+                    <div class="follow_top follow_top1">
+                        <span>@Resources.Language.Shareon: </span>
+                        @*<a href="javascript:void(0)" onclick="shareInstagram();"><img src="~/Content/assets/images/insta_follow.png" class="img-fluid" alt="Social Icon Top" /> </a>*@
+                        <a href="javascript:void(0)" onclick="shareLinkdin();"><img src="~/Content/assets/images/link_follow.png" class="img-fluid" alt="Social Icon Top" /> </a>
+                        <a href="javascript:void(0)" onclick="shareTwitter()"><img src="~/Content/assets/images/twitt_follow.png" class="img-fluid" alt="Social Icon Top" /> </a>
+                        <a href="javascript:void(0)" onclick="shareEmail()"><img src="~/Content/assets/images/email.png" class="img-fluid" alt="Social Icon Top" /> </a>
+                        <a href="javascript:void(0)" onclick="shareWhatsApp();"><img src="~/Content/assets/images/ph_whatsapp-logo-fill.png" class="img-fluid" alt="Social Icon Top" /> </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 right_image offset-lg-2">
+                    <img src="~/Content/assets/images/curve_arrow.png" class="img-fluid position-absolute curve_arrow curve_arrow2" alt="Alternate Text" />
+                    <img onerror="this.src='/Content/assets/images/Image_not_available.png'" style="height: 519px; object-fit: contain;" src="@Configurations.BlogBaseUrl@ViewBag.BlogInnerResponse.Item.ThumbnailDataUrl" id="ImageSet" class="img-fluid" alt="Banner Image" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="main_content  mt-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="row">
+                        <div class="col-lg-3 stickey">
+                            <div class="top_line_title">
+                                @Resources.Language.Contents
+                            </div>
+                            <ul class="list-unstyled left_btns" style=" padding-left: 25px;">
+                                @if (ViewBag.BlogInnerResponse.Item.BlogContent.Count > 0)
+                                {
+                                    for (int i = 0; i < ViewBag.BlogInnerResponse.Item.BlogContent.Count; i++)
+                                    {
+                                        <li><a class="active" href="#headind_@i"> <img style="position: absolute; left: 8px;" src="~/Content/assets/images/arrowhead-right.png" class="img-fluid" alt="Icon" />@(i + 1). @ViewBag.BlogInnerResponse.Item.BlogContent[i].Heading </a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-lg-9 banner-content">
+                            <div class="main_content_blog aboutus-content">
+                                <div id="bloginner_content">
+
+                                </div>
+
+                                <div class="social_btns d-flex align-items-stretch mt-50">
+                                    <div id="usersLike">
+
+                                    </div>
+
+                                    <a class="social_btn">
+                                        <img src="/Content/assets/images/instagrame.png" class="img-fluid" alt="Social Icon">
+                                    </a>
+
+                                    <a class="social_btn">
+                                        <img src="/Content/assets/images/tw_btn.png" class="img-fluid" alt="Social Icon">
+                                    </a>
+
+                                    <a class="social_btn">
+                                        <img src="/Content/assets/images/lkdn_btn.png" class="img-fluid" alt="Social Icon">
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-2 stickey">
+                    <div class="follow_us follow_us1 ">
+                        <div class="top_line_title">
+                            @Resources.Language.ShareArticle
+                        </div>
+                        <a href="#!"> <img src="/Content/assets/images/insta_follow.png" class="img-fluid" alt="Follow Icon">  <span>Instagram</span>  </a>
+                        <a href="#!"> <img src="/Content/assets/images/twitt_follow.png" class="img-fluid" alt="Follow Icon">  <span>Twitter</span>  </a>
+                        <a href="#!"> <img src="/Content/assets/images/link_follow.png" class="img-fluid" alt="Follow Icon">  <span>Linkdin</span>  </a>
+                        <a href="javascript:void(0)" onclick="shareEmail()"><img src="~/Content/assets/images/email.png" class="img-fluid" alt="Social Icon Top" /> <span>Email</span> </a>
+                        <a href="javascript:void(0)" onclick="shareWhatsApp();"><img src="~/Content/assets/images/ph_whatsapp-logo-fill.png" class="img-fluid" alt="Social Icon Top" /> <span>Whatsapp</span> </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row blog-text1">
+                <div class="news_letter aboutus-content mt-10 text-center py-70">
+                    <h4 class="mb-4">@Resources.Language.SubscribeNewslatter</h4>
+                    <p class="w-70 mx-auto mb-3">@Resources.Language.Stayinformedonthelatestinsalons</p>
+                    @using (Html.BeginForm("SaveSubscribeNewslatter", "Blog", FormMethod.Post, new { @class = "relative flex items-center my-10", @id = "subscribenewslatter_form", @enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.BlogId, new { @Value = @ViewBag.DecodeId })
+                        <img src="~/Content/assets/images/email1.png" alt="Icon" class="position-absolute" />
+                        @Html.TextBoxFor(m => m.Email, new { @type = "email", @placeholder = "your@email.com", @class = "bg-transparent py-3 border-2 w-70", @name = "email", @id = "email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @style = "position:absolute;left: 0;bottom: -20px;" })
+
+                        @*<input type="email" name="email" id="email" placeholder="your@email.com" class="bg-transparent py-3 border-2 w-70" required />*@
+                        <button type="submit" class="position-absolute text-white py-3 them-button" id="subButton">
+                            @Resources.Language.Subscribe
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="wrapper pt-150" style="overflow:hidden">
+                    <div class="aboutus-content slick_title">
+                        <h4 class="blog_slide">
+                            @Resources.Language.RecommendedBlogs
+                        </h4>
+                    </div>
+                    <div class="product-carousel slick-wrapper">
+
+                        <div id="slick1" class="row">
+                            @if (ViewBag.BlogCategoryresponse.Values.Count > 0)
+                            {
+                                for (int i = 0; i < ViewBag.BlogCategoryresponse.Values.Count; i++)
+                                {
+                                    <div class="slide-item">
+                                        <div class="card">
+                                            @*onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'"*@
+                                            <img style="height: 458.95px; object-fit: contain; background: #cccccc2e; " onerror="this.src='/Content/assets/images/Image_not_available.png'" src="@Configurations.BlogBaseUrl@ViewBag.BlogCategoryresponse.Values[i].ThumbnailDataUrl" class="card-img-top" alt="Image Card" />
+                                            <div class="card-body pr-0 pl-3">
+                                                <div class="top_info">
+                                                    <span class="mr-auto"> By @ViewBag.BlogCategoryresponse.Values[i].UserTypeName </span>
+                                                    <img src="~/Content/assets/images/calendar.png" class="img-fluid pr-1" alt="Calandr Icon" />
+                                                    <span>@ViewBag.BlogCategoryresponse.Values[i].ArticleCreatedDate</span>
+                                                </div>
+                                                <h5 class="card-title recommended-text-truncate mt-2 mb-2" style="font-size: 30px;line-height: 45px;font-family: 'Inter', sans-serif !important;font-weight: 700;">@ViewBag.BlogCategoryresponse.Values[i].Title</h5>
+                                                <p class="card-text mt-0 recommended-text-p-truncate">@ViewBag.BlogCategoryresponse.Values[i].Description</p>
+                                                <a href="@Url.Action("BlogInner","Blog")?ri=@ConvertTo.Base64Encode(Convert.ToString(ViewBag.BlogCategoryresponse.Values[i].Id))" class="btn btn-primary them-button mr-auto">@Resources.Language.ReadMore</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- main_content end -->
+</div>
+<!-- blog_page end -->
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        var LikeArray = [];
+
+        $(document).ready(function () {
+            BlogContentDataGet();
+            getBlogLikeData();
+        })
+
+        //get blog data in cookie and set view side like button
+        function getBlogLikeData() {
+            debugger;
+            var likeGet = getCookie("UserLike");
+
+            if (likeGet != "") {
+                LikeArray = JSON.parse(likeGet);
+            }
+
+            if (LikeArray.length > 0) {
+                for (var i = 0; i < LikeArray.length; i++) {
+                    $("#usersLike").html("");
+                    if (LikeArray[i].BlogId == parseInt(atob("@ViewBag.riid"))) {
+
+                        if (LikeArray[i].IsLike == true) {
+                            $("#usersLike").append(`
+                                <button type="button" onclick="isLikeBlog(false)" class="btn like_btn">
+                                <i class="fa fa-heart"></i>
+                                <span id="blogLikes">@ViewBag.BlogInnerResponse.Item.Like</span>
+                            </button>`)
+                            break;
+                        }
+                    }
+                    $("#usersLike").append(`
+                        <button type="button" onclick="isLikeBlog(true)" class="btn like_btn">
+                        <i class="fa fa-heart-o"></i>
+                        <span id="blogLikes">@ViewBag.BlogInnerResponse.Item.Like</span>
+                    </button>`)
+                }
+            } else {
+                $("#usersLike").append(`
+                    <button type="button" onclick="isLikeBlog(true)" class="btn like_btn">
+                    <i class="fa fa-heart-o"></i>
+                    <span id="blogLikes">@ViewBag.BlogInnerResponse.Item.Like</span>
+                </button>`)
+            }
+
+        }
+
+        //like data add and remove array and cookie ///////////////////////////////////////////////
+        //Add Blog Like ///////////////////////////////////////////////
+        function isLikeBlog(isLike) {
+            debugger;
+            $.ajax({
+                url: '@Url.Action(Actions.AddBlogLike, Controllers.Blog)',
+                data: {
+                    bi: "@ViewBag.riid",
+                    IsLike: isLike
+                },
+                type: 'Post',
+                async:false,
+                datatype: 'json',
+                success: function (response) {
+                    if (response.Code == 200) {
+                        if (isLike == false) {
+                            var objBlogLike = LikeArray.filter((item) => item.BlogId !== parseInt(atob("@ViewBag.riid")));
+                            setCookie("UserLike", JSON.stringify(objBlogLike), 36500);
+                            window.location.reload();
+                        }
+                        else
+                        {
+                            var objBlogLike = {
+                                BlogId: parseInt(atob("@ViewBag.riid")),
+                                IsLike: isLike,
+                            }
+                            LikeArray.push(objBlogLike);
+                            setCookie("UserLike", JSON.stringify(LikeArray), 36500);
+                            window.location.reload();
+                        }
+                    } else {
+                        $.notify(response.Message, "error");
+                    }
+                },
+                error: function () { }
+            });
+        }
+
+        ///Article share in social media////////////////////////////////////////////
+        function shareLinkdin() {
+            debugger;
+            var ArticleUrl = '@(HttpUtility.UrlEncode(Configurations.ShareBlogBaseUrl + "?ri=" + ViewBag.riid))';
+            var Title = "@ViewBag.BlogInnerResponse.Item.Title";
+            var Description = '@(HttpUtility.JavaScriptStringEncode(ViewBag.BlogInnerResponse.Item.Description))';
+            var MessageString = `${Title}%0a%0a${Description}%0a%0a Read More : @(HttpUtility.UrlEncode(Configurations.ShareBlogBaseUrl + "?ri=" + ViewBag.riid))`;
+            let openUrl = "https://www.linkedin.com/share?text=" + MessageString;
+            window.open(openUrl, '_blank');
+            SocialShare(1);
+        }
+
+        function shareTwitter() {
+            var ArticleUrl = "@Configurations.ShareBlogBaseUrl?ri=@ViewBag.riid"
+            var Description = "@ViewBag.BlogInnerResponse.Item.Description";
+            var DescriptionReplace = Description.replace("&#39;", "'");
+            var Title = "@ViewBag.BlogInnerResponse.Item.Title";
+            var MessageString = `${Title}%0a%0a${DescriptionReplace}%0a%0a`
+            let openUrl = "https://twitter.com/intent/tweet?&text=" + MessageString + "&url=" + "Read More : " + ArticleUrl
+            window.open(openUrl, '_blank');
+            SocialShare(2);
+        }
+
+        function shareEmail() {
+            var ArticleUrl = "@Configurations.ShareBlogBaseUrl?ri=@ViewBag.riid"
+            var Title = "@ViewBag.BlogInnerResponse.Item.Title";
+            var Description = "@ViewBag.BlogInnerResponse.Item.Description";
+            var MessageString = `${Description}%0a%0a Read More : @Configurations.ShareBlogBaseUrl?ri=@ViewBag.riid`;
+            let openUrl = "mailto:?subject=" + "&subject=" + Title + "&body=" + MessageString ;
+            window.open(openUrl, '_blank');
+            SocialShare(3);
+        }
+
+        function shareWhatsApp() {
+            var ArticleUrl = "@Configurations.ShareBlogBaseUrl?ri=@ViewBag.riid"
+            var Title = "*@ViewBag.BlogInnerResponse.Item.Title*";
+            var Description = "@ViewBag.BlogInnerResponse.Item.Description";
+            var MessageString = `${ArticleUrl}%0a%0a${Title}%0a%0a${Description}`;
+            let openUrl = "https://api.whatsapp.com/send?text=" + MessageString;
+            window.open(openUrl, '_blank');
+            SocialShare(4);
+        }
+
+        function SocialShare(Type) {
+            debugger;
+            $.ajax({
+                url: '@Url.Action(Actions.AddSocialShare, Controllers.Blog)',
+                data: {
+                    bi: "@ViewBag.riid",
+                    Type: Type
+                },
+                type: 'Post',
+                async:false,
+                datatype: 'json',
+                success: function (response) {
+                    console.log("response", response);
+                },
+                error: function () { }
+            });
+        }
+
+        ///Blog content data get////////////////////////////////////////////////////
+        function BlogContentDataGet() {
+            $.ajax({
+                url: '@Url.Action(Actions.BlogContentData, Controllers.Blog)',
+                data: {
+                    Id: "@ViewBag.riid",
+                },
+                type: 'GET',
+                async:false,
+                datatype: 'json',
+                success: function (response) {
+                    debugger;
+                    if (response.length > 0) {
+                        for (var i = 0; i < response.length; i++) {
+                            countDetails = i + 1;
+                            $("#bloginner_content").append(`<div class="mb-5">
+                                <h1 id="headind_${i}" style="font-size: 30px;line-height: 45px;font-family: 'Inter', sans-serif !important;font-weight: 700;">${countDetails}. ${response[i].Heading}</h1>
+                                <div>${decodeURIComponent(response[i].Content)}</div>
+                            </div>`)
+                        }
+                    }
+                },
+                error: function () { }
+            });
+        }
+
+
+        //Animation
+        AOS.init({
+            duration: 1200,
+        })
+
+        $('.carousel').carousel({
+            interval: 3000
+        });
+
+        //filter products
+        var $mediaElements = $(".cd-item");
+        $(".filter_link").click(function (e) {
+            e.preventDefault();
+
+            var filterVal = $(this).data("filter");
+            if (filterVal == "all") {
+                $mediaElements.slideDown("slow");
+            } else {
+                $mediaElements
+                    .hide("slow")
+                    .filter("." + filterVal)
+                    .slideDown("slow");
+            }
+        });
+
+        $('.slick-slider').slick({
+            arrows: true,
+            prevArrow: "<img class='a-left control-c prev slick-prev' src='YOUR LEFT ARROW IMAGE URL'>",
+            nextArrow: "<img class='a-right control-c next slick-next' src='YOUR RIGHT ARROW IMAGE URL'>"
+        });
+
+
+        $('#slick1').slick({
+            rows: 1,
+            dots: false,
+            arrows: true,
+            speed: 300,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            variableWidth: true,
+            respondTo: 'slider',
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 1008,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        variableWidth: false,
+                    },
+                },
+                {
+                    breakpoint: 800,
+                    settings: {
+                        rows: 1,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        variableWidth: false,
+                    },
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        rows: 1,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        arrows: false,
+                        variableWidth: false,
+                    },
+                },
+            ],
+        });
+
+        $(document).ready(function () {
+            $(".left_btns li a").click(function () {
+                $(".left_btns li a").removeClass("active");
+                $(this).addClass("active");
+                $(".main_content_blog.aboutus-content h4").addClass("intro");
+            });
+        });
+
+    </script>
+}

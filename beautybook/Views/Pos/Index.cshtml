@@ -1,0 +1,550 @@
+﻿@{
+    ViewBag.Title = "Pos";
+}
+<style>
+    .select-package {
+        width: 100%;
+        text-align: center;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .package-price-parent {
+        position: relative;
+    }
+
+    .package-price {
+        position: absolute;
+    }
+
+</style>
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Pos</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Pos</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (ViewBag.ri > 0)
+        {
+            <div class="row m-0">
+                <div class="col-lg-6 col-12 mt-2 arabic-text-left">
+                    <i class="bb-user text-gray-600 fs-16 ml-2"></i>
+                    <a href="javascript:void(0)">@ViewBag.PosAuthEmail</a>
+                </div>
+                <div class="col-lg-6 col-6 mt-2 arabic-text-right">
+                    <a href="javascript:void(0)" class="fs-16" style="text-decoration:underline;" onclick="CloseSession(@ViewBag.ri)">@beautybook.Resources.Languages.Session_close</a>
+                </div>
+            </div>
+        }
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 pos-details-area">
+                        <h4 class="lh-12">@ViewBag.SalonName @beautybook.Resources.Languages.Pos</h4>
+                        <div class="filters f1">
+                            <a class="filter_link cursor-pointer" id="Salonservice" onclick="ViewCategoryNamePOS()" data-filter="Services">@beautybook.Resources.Languages.Services</a>
+                            <a class="filter_link cursor-pointer" id="Salonpackage" onclick="PackagesListPOS()" data-filter="Packages">@beautybook.Resources.Languages.Packages</a>
+                            <a class="filter_link cursor-pointer" id="Salonoffer" disable="true" onclick="OfferListPOS()" data-filter="offers">@beautybook.Resources.Languages.Offers</a>
+                        </div>
+
+                        <h4 class="lh-12 mt-5">@beautybook.Resources.Languages.Categories</h4>
+                        <div class="filters f2" id="SalonCategory"></div>
+                        <div class="filters f2" id="PackagesCategory"></div>
+                        <div class="filters f2" id="OfferCategory"></div>
+
+                        <div class="filter-result service-card">
+                            <h4 class="lh-12 mt-5">@beautybook.Resources.Languages.Our_services_for_you</h4>
+                            <ul class="cd-items cd-container list-unstyled pt-3 pb-5" id="salonServicesList"></ul>
+                            <ul class="cd-items cd-container list-unstyled pt-3 pb-5" id="salonPackagesList">
+                                <li class="select-package text-muted">Please select a package</li>
+                            </ul>
+                            <ul class="cd-items cd-container list-unstyled pt-3 pb-5" id="salonOffersList"></ul>
+                        </div>
+                        @*<ul class="pagination pagination-lg mt-5 custom_pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#!"><i class="fa fa-arrow-left"></i></a></li>
+                                <li class="page-item"><a class="page-link active" href="#!">1</a></li>
+                                <li class="page-item"><a class="page-link " href="#!">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#!">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#!">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#!"><i class="fa fa-arrow-right"></i></a></li>
+                            </ul>*@
+                    </div>
+                    <div class="col-md-3 pl-0">
+                        <div class="card card-lg p-2 mt-3">
+                            <div class="card-header p-2">
+                                <h6 class="mb-1">@beautybook.Resources.Languages.Customer_Info</h6>
+                                <p class="mb-0 text-muted fs-13">@beautybook.Resources.Languages.Select_and_add_new_customer_</p>
+                            </div>
+                            <form action="/" method="post" class="row m-0">
+                                <div class="col-lg-12 p-2">
+                                    <div class="form-group mb-xl-0">
+                                        <label for="customerDatalist" class="custom-label">@beautybook.Resources.Languages.Name</label>
+                                        <select class="form-control selectpicker" id="customerDatalist" title="@beautybook.Resources.Languages.Please_select_a_customer" name="customerDatalist" data-live-search="true" data-size="5">
+                                        </select>
+                                        <div class="text-right" id="newCustomeradd">
+                                            <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none" data-toggle="modal" data-target="#addNewCustomer">@(beautybook.Resources.Languages.New_Customer)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card card-lg p-2 mt-3">
+                            <div class="card-header p-2">
+                                <h6 class="mb-1">@beautybook.Resources.Languages.Order_Details</h6>
+                                <p class="mb-0 text-muted fs-13">Selected services</p>
+                            </div>
+
+                            <div id="posOrderDetails">
+                                <h5 class="mb-0 text-muted text-center p-3">@beautybook.Resources.Languages.Order_details_not_found</h5>
+                            </div>
+
+                        </div>
+
+                        <div class="card card-lg p-2 mt-3">
+                            <div class="card-header p-2">
+                                <h5 class="mb-1 text-center">@beautybook.Resources.Languages.Payment_Details</h5>
+                                @*<p class="mb-0 text-muted fs-13">Payment summary</p>*@
+                            </div>
+
+                            <input type="hidden" id="posSubTotalinp" name="posSubTotalinp" value="0" />
+                            <input type="hidden" id="posSubTotalSalesTaxinp" name="posSubTotalSalesTaxinp" value="0" />
+                            <input type="hidden" id="posTotalinp" name="posTotalinp" value="0" />
+                            <input type="hidden" id="poscashAmount" name="poscashAmount" value="0" />
+                            <input type="hidden" id="poscardAmount" name="poscardAmount" value="0" />
+
+
+                            <div class="bill_detail m-2">
+                                <div class="d-flex justify-content-between mb-3 mt-1">
+                                    <span>
+                                        @beautybook.Resources.Languages.Subtotal
+                                    </span>
+                                    <span>
+                                        <span id="posSubTotal">0</span> SAR
+                                    </span>
+                                </div>
+                                <div class=" d-flex justify-content-between mb-3 align-items-center">
+                                    <span>
+                                        @beautybook.Resources.Languages.Discount_Sales
+                                    </span>
+                                    <span class="d-flex align-items-center">
+                                        <input type="number" id="DiscountSales" class="form-control mr-1 fs-18 p-1" style="width:70px;" value="0" placeholder="0" /> %
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-between pb-3 border-dashed">
+                                    <span>
+                                        @beautybook.Resources.Languages.Total_Sales_Tax
+                                    </span>
+                                    <span>
+                                        <span id="posSubTotalSalesTax">0</span> SAR
+                                    </span>
+                                </div>
+                                <div class=" d-flex justify-content-between mb-4 total">
+                                    <span>
+                                        @beautybook.Resources.Languages.Total
+                                    </span>
+                                    <span>
+                                        <span id="posTotal">0</span> SAR
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-header p-2">
+                                <h5 class="mb-1 text-center">@beautybook.Resources.Languages.Payment_Way</h5>
+                                @*<p class="mb-0 text-muted fs-13">Payment summary</p>*@
+                            </div>
+                            <div class="m-2">
+                                <div class="d-flex mb-3 payment-method-type">
+                                    <div class="custom-control custom-checkbox form-check-inline" style="width:50%;">
+                                        <input type="radio" name="paymentWayType" onclick="PaymentWayType(1)" id="Cash" class="custom-control-input">
+                                        <label class="custom-control-label" for="Cash">@beautybook.Resources.Languages.Cash</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox form-check-inline" style="width:50%;">
+                                        <input type="radio" name="paymentWayType" onclick="PaymentWayType(2)" id="CreditCard" class="custom-control-input">
+                                        <label class="custom-control-label" for="CreditCard">@beautybook.Resources.Languages.Credit_Card</label>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-checkbox form-check-inline payment-method-type">
+                                    <input type="radio" name="paymentWayType" onclick="PaymentWayType(3)" id="CashAndCreditCard" class="custom-control-input">
+                                    <label class="custom-control-label" for="CashAndCreditCard">@beautybook.Resources.Languages.Cash_And_Credit_Card</label>
+                                </div>
+
+                                <div class="row mt-3" id="cashAmountDiv" style="display:none;">
+                                    <div class="col-lg-12 d-flex align-items-center">
+                                        <p class="mb-0" style="font-size: 17px; font-weight: 500; color: #00acc1;">@beautybook.Resources.Languages.Cash_Amount</p>
+                                        <input class="form-control ml-2" style="width:100px;" onkeyup="addCashAmount(this);" type="number" id="cashAmount" placeholder="0" />
+                                        <span class="ml-2">SAR</span>
+                                    </div>
+                                    <span class="error col-lg-12 mt-1" id="amountError"></span>
+                                </div>
+
+                                <div class="result row m-0 justify-content-between mt-3">
+                                    <div class="payment-type-area d-flex justify-content-between p-1" style="width:100%;">
+                                        <span>@beautybook.Resources.Languages.Cash : </span>
+                                        <b><span id="cashAmountArea">0</span> SAR</b>
+                                    </div>
+                                    <div class="payment-type-area mt-2 d-flex justify-content-between p-1" style="width: 100%;">
+                                        <span>@beautybook.Resources.Languages.Card : </span>
+                                        <b><span id="cardAmountArea">0</span> SAR</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-lg-12 p-2">
+                                    <button type="button" class="btn btn-block btn-primary" id="payment" onclick="PosAddOrderDetails(@ViewBag.ri);">@beautybook.Resources.Languages.Pay_Now</button>
+                                    <button type="button" disabled class="btn btn-block btn-primary" id="paymentLoader" style="display:none;">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="spinner-border text-light mr-2" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                            @beautybook.Resources.Languages.Payment_is_Proceed
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            @*<button class="btn cust_btn">Pay Now</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Pos Order Completed -->
+<div class="modal fade p-0" id="PosOrderComplete" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="PosOrderCompleteLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom modal-fullscreen-md-down" style="max-width: 510px;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row m-0">
+                    <div class="col-lg-12 p-0">
+                        <div class="w-100 text-center">
+                            <svg fill="#00515B" height="100px" width="100px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 52 52" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26 S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path> <path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406 l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411 C39.251,14.885,38.62,14.922,38.252,15.336z"></path> </g> </g></svg>
+                            <h5 class="mt-3">@beautybook.Resources.Languages.Sale_Completed_successfully</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 p-0 mt-3" id="posOrderPaymentDetails">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Add New Customer Modal -->
+<div class="modal fade" id="addNewCustomer" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="addNewCustomerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content" id="customerForm" name="customerForm">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewCustomerLabel">@(beautybook.Resources.Languages.Add_New_Customer)</h5>
+                <button type="button" onclick="location.reload();" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-row">
+                    <input type="hidden" name="Id" id="Id" value="0" />
+                    <input type="hidden" name="AppointmentsCustomeradd" id="AppoinmentCustomeradd" value="true" />
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="firstName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.First_Name)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="firstName" id="firstName" placeholder="John">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="lastName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Last_Name)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Doe">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <fieldset class="form-group row">
+                            <legend class="col-form-label col-sm-4 float-sm-left text-sm-right pt-0">@(beautybook.Resources.Languages.Gender)</legend>
+                            <div class="col-sm-7">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Male" checked>
+                                    <label class="form-check-label" for="maleRadio">
+                                        @(beautybook.Resources.Languages.Male)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="Female">
+                                    <label class="form-check-label" for="femaleRadio">
+                                        @(beautybook.Resources.Languages.Female)
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="birthDate" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Birthdate)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="datepicker singledatepicker form-control" tabindex="1" name="birthDate" id="birthDate" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="emailAddress" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Email)</label>
+
+                            <div class="col-sm-7">
+                                <input type="email" class="form-control" name="emailAddress" id="emailAddress" placeholder="johndoe@email.com">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="phoneNumber" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Primary_Phone)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" tabindex="1" placeholder="011 XXX XXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="alternateNumber" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Alternate_Phone)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="alternateNumber" id="alternateNumber" tabindex="1" placeholder="011 XXX XXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="customerPhoto" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Customer_Photo)</label>
+
+                            <div class="col-sm-7">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="customerPhoto" onchange="profileUpload();" id="customerPhoto">
+                                    <label class="custom-file-label" for="customerPhoto">@(beautybook.Resources.Languages.Choose_file)</label>
+                                </div>
+                                <span class="mb-0 text-muted fs-13" id="uploadImagename"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="referredBy" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Referred_By)</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="referredBy" id="referredBy" tabindex="1" placeholder="Jhon Doe">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="customerTags" class="col-sm-4 col-form-label text-sm-right">Tags</label>
+
+                            <div class="col-sm-7">
+                                <input name='customerTags' id="customerTags" class="form-control customer-tags h-auto" placeholder="@(beautybook.Resources.Languages.Add_tags_and_Press_enter)" value=''>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" onclick="location.reload();" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                <button type="submit" name="submit" id="addCustomerbtn" class="btn btn-primary font-weight-medium">@(beautybook.Resources.Languages.Save_Customer_Information)</button>
+                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="addCustomerbtnloading" style="display:none;" disabled>
+                    <span id="saveSalonsdetailsbtntext">Saving Customer Information</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+<br />
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/PosApi/PosDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/CustomersAPI/CustomerDetails/CustomerDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/SalonServiceDetails/SalonServiceDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/PackagesAPI/ManagePackages/ManagePackages.js"></script>
+<script src="~/Content/BeautyBookAPI/OffersAPI/ManageOffer/ManageOffers.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/ManageSalonServices/ManageSalonServices.js"></script>
+<script src="~/Content/BeautyBookAPI/PosApi/PosSession.js"></script>
+<script src="~/Content/BeautyBookAPI/PosApi/PosOrderDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/PosApi/PosPayNow.js"></script>
+
+
+<script>
+    // Add new customer modal validation
+    $(function () {
+        $("form[name='customerForm']").validate({
+            rules: {
+                firstName: {
+                    required: true
+                },
+                lastName: {
+                    required: true
+                },
+                birthDate: {
+                    required: true
+                },
+                emailAddress: {
+                    required: true,
+                    email: true
+                },
+                phoneNumber: {
+                    required: true,
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                alternateNumber: {
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                referredBy: {
+                    email: true
+                },
+            },
+            messages: {
+                firstName: "First Name is required",
+                lastName: "Last Name is required",
+                birthDate: "Birth Of Date is required",
+                emailAddress: {
+                    required: "Email is required"
+                },
+                phoneNumber: {
+                    required: "Primary Phone is required"
+                },
+            },
+            submitHandler: function () {
+                addCustomer();
+            }
+        });
+    });
+
+    //getCookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    //setCookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    $(document).ready(function () {
+        ArbicLanguage();
+        ViewCategoryNamePOS();
+
+        customerData();
+
+        //this function bind pos order details data bind get cookie
+        BindOrderDetails();
+    });
+
+
+
+    var selectedPackageType = 0;
+    //sync the state to the input
+    function serviceCheck(serviceImageUrl, type, checkbox, evId, LookUpServicesName, Price) {
+        if (selectedPackageType == 0 || type == selectedPackageType) {
+            selectedPackageType = type;
+
+            AddPosOrderSession(serviceImageUrl, type, checkbox, evId, LookUpServicesName, Price)
+        }
+        else {
+            if (confirm("Are you sure you want to change POS type ?")) {
+
+                selectedPackageType = type;
+
+                delete_cookie("ServiceDetailsCokkieArray");
+
+                ServiceDetailsArray = [];
+
+                AddPosOrderSession(serviceImageUrl, type, checkbox, evId, LookUpServicesName, Price)
+                
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
+    function AddPosOrderSession(serviceImageUrl, type, checkbox, evId, LookUpServicesName, Price) {
+        if (type == 1) {
+            if (checkbox.checked == true) {
+                $("#salonServiceCheckbox_1_" + evId).addClass("image-checkbox-checked");
+            } else {
+                $("#salonServiceCheckbox_1_" + evId).removeClass('image-checkbox-checked');
+            }
+        }
+        else if (type == 2) {
+            if (checkbox.checked == true) {
+                $("#packageServiceCheckbox_2_" + evId).addClass("image-checkbox-checked");
+            } else {
+                $("#packageServiceCheckbox_2_" + evId).removeClass('image-checkbox-checked');
+            }
+        }
+        else if (type == 3) {
+            if (checkbox.checked == true) {
+                $("#offerServiceCheckbox_3_" + evId).addClass("image-checkbox-checked");
+            } else {
+                $("#offerServiceCheckbox_3_" + evId).removeClass('image-checkbox-checked');
+            }
+        }
+
+        PosOrderSession(serviceImageUrl, type, checkbox, evId, LookUpServicesName, Price);
+    }
+</script>

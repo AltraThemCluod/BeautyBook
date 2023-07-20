@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Invoice";
+}
+<head>
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+</head>
+<div class="app-root">
+    <div class="app-wrapper">
+        <main class="app-content">
+            <div class="app-content-wrapper">
+
+                <div class="app-content-inner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="row m-0 w-100">
+                                <div class="col-lg-12 text-center">
+                                    <h4 class="text-7 mb-0">@(beautybook.Resources.Languages.Tax_Invoice)</h4>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="invoice-header">
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
+                                            <img id="logo" src="~/Content/assets/images/logo.png" title="BeautyBook" alt="BeautyBook" />
+                                        </div>
+                                        <div class="col-sm-5 text-center text-sm-right">
+                                            <a href="/Store/InvoiceDetails?OrderId=@ViewBag.OrdId" class="btn btn-primary btn-wide">Invoice Details</a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+
+                                <div class="invoice-main">
+                                    <div class="row" id="invoicedetails">
+                                    </div>
+                                    <hr>
+                                    <div class="row fs-14 m-0" id="invoiceAddressDetails">
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-body p-0">
+                                            <div class="table-card table-responsive">
+                                                <table class="table fs-14 mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="col-3">@(beautybook.Resources.Languages.Product_Name)</th>
+                                                            <th class="col-2">@(beautybook.Resources.Languages.Unite_Price)</th>
+                                                            <th class="col-2">Tax Rate</th>
+                                                            <th class="col-2">@(beautybook.Resources.Languages.Tax_Amount)</th>
+                                                            <th class="col-2">@(beautybook.Resources.Languages.Rate)</th>
+                                                            <th class="col-1">@(beautybook.Resources.Languages.QTY)</th>
+                                                            <th class="col-2 text-right">@(beautybook.Resources.Languages.Amount)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <div id="orderinvoiceloader" style="display: none;" class="text-center mb-2 mt-2">
+                                                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                                    </div>
+                                                    <tbody class="order-inovice-list" id="orderinvoicelist">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="invoice-footer mt-3 text-center">
+                                    <p class="text-1">@(beautybook.Resources.Languages.NOTE___This_is_computer_generated_receipt_and_does_not_require_physical_signature_)</p>
+                                    <div class="btn-group  d-print-none">
+                                        <a href="javascript:window.print()" class="btn btn-light border">
+                                            <i class="bb-printer fs-14 mr-2"></i> @(beautybook.Resources.Languages.Print)
+                                        </a>
+                                        @*<a href="" class="btn btn-light border">
+                                                <i class="bb-download fs-14 mr-2"></i> Download
+                                            </a>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Invoice/Invoice.js"></script>
+
+
+<script>
+    //OrderInvoice function
+    $(document).ready(function () {
+        ArbicLanguage();
+        OrderInvoice();
+    })
+</script>

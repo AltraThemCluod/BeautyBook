@@ -1,0 +1,124 @@
+
+
+product >>
+-------------------------
+products = المنتجات 
+edit product = تعديل المنتجات
+product manager = مدير المنتجات
+product name = أسم المنتج 
+product type = نوع المنتج 
+select a product type = أختر نوع المنتج 
+brand = الماركة 
+select a option = حدد خيار 
+status = الحالة
+
+add new product = أضف منتج جديد 
+show = أظهر 
+entries = مدخلات 
+product name = أسم المنتج 
+product type = نوع المنتج 
+brand = الماركة 
+weight = الوزن 
+in stock = متوفر بالمخزون
+out of stock = إنتهى من بالمخزون 
+disconitnued = متوقف 
+low QTY alert = تنبية أٌقل كمية 
+actions = الإجرائات 
+update quantity = تحديث الكمية 
+product QTY = كمية المنتج 
+save = حفظ 
+close = إغلاق 
+edit = تعديل 
+
+Product Details = تفاصيل المنتج 
+manage product = إدارة المنتج 
+product brand = ماركة المنتج
+product category = فئة المنتج
+product QTY= كمية المنتج
+product Tax = القيمة الضريبية للمنتج
+
+product top highlights = أهم إضاحات المنتج 
+higlight label = عنوان الإيضاح
+enter label name = أدخل أسم العنوان 
+highlight discription = وصف الإيضاح
+enter discription = أدخل وصف 
+add = إضافة 
+delet= حذف 
+service highlight = إضاحات الخدمة 
+highlight discription = وصف الإيضاح
+enter discription = أدخل وصف 
+specifications = مواصفات 
+
+product information = معلومات المنتج 
+product images = صور المنتج
+drag and drop here to upload product thumbnail screenshot = قم بالسحب والإفلات هنا لتحميل لقطة شاشة مصغرة للمنتج
+or select file = أو أختر ملف 
+
+return policy = سياسة الأسترجاع
+
+save product = حفظ المنتج
+cancel = إلغاء 
+
+orders>>
+-------------------------
+orders = الطلبات
+order id = رقم الطلب 
+select a salone name = أختر أسم الصالون 
+order status = حالة الطلب
+select a ststus = حدد الحالة
+order date = تاريخ الطلب 
+customer = العميل 
+total amount = المجموع الكلي
+payment = الدفع 
+order status = حالة الطلب 
+last updated = أخر تحديث 
+view = مشاهدة 
+update status = تحديث الحالة 
+reject = رفض 
+Are you sure you want to reject this order ?= هل أنت متأكد أنك تريد رفض هذا الطلب؟
+confirm = تأكيد 
+awaiting shipmint = في أنتظار الشحن
+shipped = تم الشحن 
+out for delivery = خارج لتوصيل 
+deliverd = تم التوصيل 
+update = تحديث 
+
+order summary = ملخص الطلب 
+shipment to = الشحن إلى 
+items details = تفاصيل العناصر
+rate = السعر 
+QTY= الكمية 
+amount = الأجمالي 
+sub total = إجمالي المبلغ 
+tax = الضريبة 
+total = المجموع 
+track order = تتبع الطلب 
+
+COD = نقدا
+paid = تم الدفع 
+
+comment = التعليق 
+enter your comment here = أدخل تعليقك هنا 
+
+Customer Details= تفاصيل العميل 
+Name= الأسم 
+address = العنوان 
+last order = أخر طلب 
+total orders = مجموع الطلبات 
+
+
+promotion>>
+-----------------
+promotion = الترويج 
+prmotion manager = مدير الترويج
+add new promotion = إضافة ترويج جديد 
+start date = تاريخ البداية 
+end date = تاريخ النهاية 
+no data available in table = لا يوجد بيانات متاحة في الجدول 
+
+manage promotion = إدارة الترويج 
+Promotion Details= تفاصيل الترويج 
+select a product type = حدد نوع المنتج 
+enter offer amount = أدخل مبلغ العرض 
+save promotion = حفظ الترويج 
+

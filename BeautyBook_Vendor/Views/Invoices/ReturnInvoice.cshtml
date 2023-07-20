@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Return Invoice";
+}
+<style>
+    .them-color {
+        color: #00515b;
+    }
+    .return-invoice-loader{
+        position:relative;
+    }
+    .return-invoice-loader:before {
+        position: absolute;
+        content: "";
+        filter: blur(100px);
+        background: #f0f4f4;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+    }
+</style>
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@BeautyBook_Vendor.Resources.Languages.Create_a_credit_invoice</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(BeautyBook_Vendor.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@BeautyBook_Vendor.Resources.Languages.Return_Invoice_Details</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-12">
+                        <div class="invoice-details card">
+                            <div class="card-header">
+                                <h6 class="mb-1">@BeautyBook_Vendor.Resources.Languages.Return_Invoice_Details</h6>
+                                <p class="mb-0 text-muted fs-13">@BeautyBook_Vendor.Resources.Languages.Save_the_new_invoice.</p>
+                            </div>
+
+                            <div class="card-body" id="returnInvoice">
+                                <div id="returnInvoiceLoader" style="display: none;" class="text-center mb-4">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed-footer text-center" id="editpackagebutton">
+            <button type="button" id="saveButton" class="btn btn-primary font-weight-medium btn-wide" onclick="UpdateReturnInvoiceData();">@BeautyBook_Vendor.Resources.Languages.Save_change</button>
+            <button type="button" class="btn btn-primary" id="saveLoadingButton" style="display:none;" disabled="">
+                <span>Save Package</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+            </button>
+            <a class="btn btn-link btn-wide" href="/Invoices/SiplifedInvoice">@BeautyBook_Vendor.Resources.Languages.Cancel</a>
+        </div>
+    </div>
+</main>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<!-- Custom JS -->
+<script src="~/Content/assets/js/main.js"></script>
+
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/InvoicesAPI/ManageSiplifedInvoice/ManageSiplifedInvoice.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/InvoicesAPI/ReturnInvoice/ReturnInvoice.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        
+        //InvoiceCustomers list
+        returnInvoice();
+
+        $("#saveButton").attr('disabled', 'disabled');
+        $("#saveButton").attr('title', 'Please select a more then 1 item');
+    });
+</script>

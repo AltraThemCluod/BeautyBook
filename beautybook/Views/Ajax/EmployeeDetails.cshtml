@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Employee Details";
+}
+
+<div class="container pt-10">
+    <div id="countryData">
+        <p>
+        </p>
+    </div>
+</div>  
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/Ajax/Index.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        dataLoad();
+    });
+
+</script>

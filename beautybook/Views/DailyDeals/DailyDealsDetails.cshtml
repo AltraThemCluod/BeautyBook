@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Daily Deals Details";
+}
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageDailyDeals","DailyDeals")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Add_New_Daily_Deals</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="./index.html">@beautybook.Resources.Languages.Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageDailyDeals","DailyDeals")">@beautybook.Resources.Languages.Manage_Daily_Deals</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Add_New_Daily_Deals</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9 mb-3">
+                        <div class="card mb-5">
+                            <div class="card-header">
+                                <h6 class="mb-0">@(beautybook.Resources.Languages.Deal_Details)</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="offerDate" class="col-sm-4 col-form-label text-sm-right">@beautybook.Resources.Languages.OFFER_DATE</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="datepicker singledatepicker form-control" disabled name="offerDate" tabindex="1" id="offerDate">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text text-muted">
+                                                            <i class="bb-calendar fs-14"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="startTime" class="col-sm-4 col-form-label text-sm-right">@beautybook.Resources.Languages.START_TIME</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="time" class="form-control" id="startTime" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="endTime" class="col-sm-4 col-form-label text-sm-right">@beautybook.Resources.Languages.END_TIME</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="time" class="form-control" id="endTime" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="card card-lg mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">@(beautybook.Resources.Languages.Offer_Price_for_Single_Service)</h6>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                        <div class="table-responsive table-card">
+                                            <table class="table fs-13" id="salonserviceslist">
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card card-lg mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">@beautybook.Resources.Languages.Offer_Price_for_Service_Packages</h6>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive table-card">
+                                            <table class="table fs-13">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="bg-primary text-white w-lg-60">@beautybook.Resources.Languages.PACKAGES_NAME</th>
+                                                        <th scope="col" class="bg-primary text-white">@beautybook.Resources.Languages.Original_Price</th>
+                                                        <th scope="col" class="bg-primary text-white">@beautybook.Resources.Languages.Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="PackagesGrid">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="fixed-footer text-center">
+                        <button type="button" id="CreateDailyDeals" class="btn btn-primary font-weight-medium btn-wide" onclick="addDailyDealsDetails();">@beautybook.Resources.Languages.Save_Deal</button>
+                        <button type="button" id="CreateDailyDealsloading" class="btn btn-primary font-weight-medium" disabled style="display:none;">
+                            Saving Deal <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link">@(beautybook.Resources.Languages.Cancel)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<script src="~/Content/BeautyBookAPI/DailyDealsAPI/DailyDealsDetails/DailyDealsDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/DailyDealsAPI/DailyDealsDetails/CreateDailyDeals.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //Salon Service list API function call
+        getsalonservicedata();
+
+        //Salon service packages list api function call
+        packageOfferPrice();
+    });
+</script>

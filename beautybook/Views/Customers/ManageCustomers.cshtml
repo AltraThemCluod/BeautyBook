@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "Customer Manager";
+}
+
+<style>
+    .import-customer-data {
+        padding: 5px !important;
+    }
+    .import-customer-data span {
+        font-size: 18px;
+    }
+</style>
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Manage_Customers)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Manage_Customers)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-header">
+            <form class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 row-cols-xxl-5 align-items-center align-items-xl-end mb-5">
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="customerName" class="custom-label">@(beautybook.Resources.Languages.Customer_Name)</label>
+                            <input type="text" class="form-control" tabindex="1" id="customerName" placeholder="@(beautybook.Resources.Languages.Customer_Name)">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="customerPhone" class="custom-label">@(beautybook.Resources.Languages.PHONE)</label>
+                            <input type="text" class="form-control" tabindex="2" id="customerPhone" placeholder="@(beautybook.Resources.Languages.PHONE)">
+                        </div>
+                    </div>
+
+
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="customerGender" class="custom-label">@(beautybook.Resources.Languages.Gender)</label>
+                            <select class="selectpicker form-control" tabindex="3" id="customerGender" title="@(beautybook.Resources.Languages.Select_a_option)">
+                                <option value="">@(beautybook.Resources.Languages.Both)</option>
+                                <option value="Male">@(beautybook.Resources.Languages.Male)</option>
+                                <option value="Female">@(beautybook.Resources.Languages.Female)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-wide" tabindex="4" id="customerSearch" onclick="searchCustomerdata();">@(beautybook.Resources.Languages.Search)</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="customerSearchloading" style="display:none;" disabled>
+                            @(beautybook.Resources.Languages.Search) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" tabindex="5" id="customerReset" onclick="resetCustomerdata()">@(beautybook.Resources.Languages.Reset)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="customerResetloading" style="display:none;" disabled>
+                            @(beautybook.Resources.Languages.Reset) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="grid-view" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div id="customerListdiv">
+                                        <table id="customerList"  class="table table-card" style="width:100%; display:inherit;">
+                                        </table>
+
+                                        <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul id="pagin" class="pagination mt-2 float-right">
+                                    @*pagination tabbing dynmaic bind*@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*List*@
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Customer Profile Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="customerModalLabel">@(beautybook.Resources.Languages.Customer_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <ul class="nav nav-lines" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="customer-tab" data-toggle="tab" href="#customer" role="tab" aria-controls="customer" aria-selected="true"><span class="d-none d-md-inline-block">@(beautybook.Resources.Languages.Customer_Info)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="appoinMents-tab" data-toggle="tab" href="#appoinMents" role="tab" aria-controls="appoinMents" aria-selected="false">@(beautybook.Resources.Languages.Appointments)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="customer" role="tabpanel" aria-labelledby="customer-tab">
+                        <div class="row fs-14" id="customerDetails">
+
+
+                        </div>
+                        <div id="customerDetailsloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="appoinMents" role="tabpanel" aria-labelledby="appoinMents-tab">
+                        <div class="fs-14 mx-3" id="appoinmentListtable">
+                            <h6 class="mb-3">@(beautybook.Resources.Languages.Appointments)</h6>
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.ID)</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Date</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Service_Name</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Service_Provider)</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Price</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userAppointmentslist">
+                                    </tbody>
+                                </table>
+                                <div id="userAppointmentslistloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="customerModalbtn">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/CustomersAPI/ManageCustomers/ManageCustomers.js"></script>
+<script src="~/Content/BeautyBookAPI/CustomersAPI/ManageCustomers/EmployeeProfile.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //CustomerList api funcation call
+        CustomerList.init();
+    });
+</script>

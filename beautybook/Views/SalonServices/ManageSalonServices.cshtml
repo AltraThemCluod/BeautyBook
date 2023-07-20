@@ -1,0 +1,305 @@
+﻿@using BeautyBook.Common;
+@{
+    ViewBag.Title = "Manage Services";
+}
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Manage_Services)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Manage_Services)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="app-content-header text-left-to-right">
+            <form class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 row-cols-xxl-5 align-items-center align-items-xl-end">
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="serviceCategory" class="custom-label">@(beautybook.Resources.Languages.Category)</label>
+                            <select class="selectpicker form-control salon-service-fillter" tabindex="1" id="categoryName" title="@(beautybook.Resources.Languages.Select_a_category)" data-live-search="true" data-size="5">
+                            </select>
+                            @*<div class="text-right">
+                                    <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none" data-toggle="modal" data-target="#newCategoryModal">New Category</a>
+                                </div>*@
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="serviceCategory" class="custom-label">@(beautybook.Resources.Languages.Service_Name)</label>
+                            <select class="selectpicker form-control salon-service-fillter" tabindex="2" id="serviceName" title="@(beautybook.Resources.Languages.Select_a_service)" data-live-search="true" data-size="5" disabled>
+                            </select>
+                            @*<div class="text-right">
+                                    <a href="" class="link fs-13 mt-2 d-inline-block text-decoration-none" data-toggle="modal" data-target="#newCategoryModal">New Category</a>
+                                </div>*@
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="serviceStatus" class="custom-label">@(beautybook.Resources.Languages.Status)</label>
+                            <select class="selectpicker form-control salon-service-fillter" tabindex="3" id="serviceStatus" title="@(beautybook.Resources.Languages.Select_a_status)">
+                                <option value="0">@(beautybook.Resources.Languages.Any)</option>
+                                <option value="1">@(beautybook.Resources.Languages.Active)</option>
+                                <option value="2">@(beautybook.Resources.Languages.In_active)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-wide" tabindex="4" id="Searchbtn" onclick="SalonServicesSearch();">@(beautybook.Resources.Languages.Search)</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="Searchbtnloading" disabled style="display:none;">
+                            @(beautybook.Resources.Languages.Search)  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" tabindex="5" onclick="ResetServiceData();" id="ResetServiceDatabtn">@(beautybook.Resources.Languages.Reset)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="ResetServiceDatabtnloading" disabled style="display:none;">
+                            @(beautybook.Resources.Languages.Reset) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row justify-content-between mb-3">
+                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "AddNewService").FirstOrDefault().Value == true)
+                    {
+                        <div class="col-md-4 mb-4 mb-md-0 text-left-to-right">
+                            <a onclick="BlankSalonService();" class="btn btn-primary btn-wide"><i class="bb-plus fs-16 mr-1"></i>@(beautybook.Resources.Languages.Add_New_Service)</a>
+                        </div>
+                    }
+
+                    @*<div class="col-md-6">
+                            <div class="d-flex align-items-center justify-content-md-end">
+
+                                <ul class="nav nav-custom-pills bg-white ml-2" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link nav-pills-icon" onclick="SalonServicesList.init();" data-toggle="pill" href="#grid-view" role="tab" aria-selected="false">
+                                            <i class="bb-list fs-18"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link nav-pills-icon active" data-toggle="pill" href="#card-view" role="tab" aria-selected="true">
+                                            <i class="bb-grid fs-18"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade  active show" id="grid-view" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div id="salonsServiceListingdiv">
+                                        <table id="salonsServiceListing" class="table table-card" style="width:100%; display:inherit;">
+                                        </table>
+                                        <div id="salonsServiceListingloader" style="display:none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="card-view" role="tabpanel">
+                        <div class="row" id="defualtServiceSelect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="serviceModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="serviceModalLabel">@(beautybook.Resources.Languages.Service_Details)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <from class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="custom-label" for="servicesName">@(beautybook.Resources.Languages.Service_Name)</label>
+                            <input type="email" class="form-control" placeholder="Enter service name" id="servicesName">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="custom-label" for="serviceDescription">@(beautybook.Resources.Languages.Description)</label>
+                            <textarea class="form-control" id="serviceDescription" rows="3" placeholder="Add service description here..."></textarea>
+                        </div>
+                    </div>
+                </from>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+                            <h5 class="mb-3 mb-md-0">Service Cost & Duration</h5>
+
+                            <button class="btn btn-light border font-weight-semibold" data-toggle="collapse" data-target="#addNewEmployee"><i class="bb-plus align-middle fs-14 mr-2"></i>@(beautybook.Resources.Languages.Add_Employee_and_Charges)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse" id="addNewEmployee">
+
+                    <form class="row align-items-end mt-4">
+                        <div class="col-lg-4 mb-3 mb-lg-0">
+                            <label class="fs-13 font-weight-medium">@(beautybook.Resources.Languages.Employee_Name)</label>
+                            <div class="input-group input-group-merge">
+                                <select class="selectpicker form-control" id="EmployeeName" tabindex="5" name="EmployeeName" title="@(beautybook.Resources.Languages.Select_Employee)" data-live-search="true" data-size="5"></select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-3 mb-lg-0">
+                            <label class="fs-13 font-weight-medium">@(beautybook.Resources.Languages.Price)</label>
+                            <div class="input-group input-group-merge">
+                                <input type="text" class="form-control" placeholder="60">
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-3 mb-lg-0">
+                            <label class="fs-13 font-weight-medium">@(beautybook.Resources.Languages.Duration)</label>
+                            <div class="input-group input-group-merge">
+                                <input type="text" class="form-control" placeholder="60">
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="bb-clock fs-16"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 mb-3 mb-lg-0">
+                            <button type="button" class="btn btn-primary btn-block font-weight-semibold">@(beautybook.Resources.Languages.Add)</button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="table-responsive-lg">
+                            <table class="table table-hover border table-service">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">@(beautybook.Resources.Languages.Perform_By)</th>
+                                        <th scope="col">@(beautybook.Resources.Languages.Price)</th>
+                                        <th scope="col">@(beautybook.Resources.Languages.Duration)</th>
+                                        <th scope="col">Can Perform?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <div class="d-flex align-items-center flex-grow-0">
+                                                <span class="avatar avatar-primary avatar-circle ">
+                                                    <span class="avatar-initials">B</span>
+                                                </span>
+                                                <div class="ml-3">
+                                                    <h6 class="mb-0">Bharat Ribadiya</h6>
+                                                    <span class="font-weight-normal fs-13">2 Years</span>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="input-group input-group-merge">
+                                                <input type="text" class="form-control" placeholder="60">
+
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group input-group-merge">
+                                                <input type="text" class="form-control" placeholder="60">
+
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">@(beautybook.Resources.Languages.mins)</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success"
+                                                   data-offstyle="danger">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link text-danger mr-auto">De-active</button>
+
+                <button type="button" class="btn btn-link" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<!-- Custom JS -->
+<script src="~/Content/assets/js/main.js"></script>
+
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/ManageSalonServices/ManageSalonServices.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/SalonServiceDetails/SalonServiceDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/ManageSalonServices/DefualtServices.js"></script>
+<script src="~/Content/BeautyBookAPI/SalonServicesAPI/SalonServiceDetails/EditSalonService.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //CategoryName API function call
+        CategoryName();
+
+        //ServiceName API function call
+        ServiceName();
+
+        //SalonServicesList API function call
+        SalonServicesList.init();
+
+        //Salon defualtServiceSelect api function call
+        defualtServiceSelect();
+
+        //this salon EmployeeName bind drp
+        EmployeeName();
+
+    });
+</script>

@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "SMS Packages :: Beauty Book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-12">
+                        <h4>Text Messaging Packages (SMS)</h4>
+                        <p class="text-muted font-weight-medium">Choose the plan that's right for you.</p>
+                    </div>
+                </div>
+                <div id="SMSPackagesLoader" style="display: none;" class="text-center mb-2 mt-2">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+                <div class="row row-cols-xl-5 justify-content-center text-center mt-3" id="plansdetails">
+                    @*<div class="col mb-3">
+                            <div class="card">
+                                <h6 class="card-header">Free Plan</h6>
+                                <div class="card-body">
+                                    <h2 class="text-primary mb-0">Free</h2>
+                                    <p class="text-muted">per month</p>
+                                    <p class="my-5">100 Text Messages</p>
+                                    <a href="#!" class="btn btn-outline-primary font-weight-semibold">Try for free</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <div class="card">
+                                <h6 class="card-header">Small Package</h6>
+                                <div class="card-body">
+                                    <h2 class="text-primary mb-0">40 ﷼‎</h2>
+                                    <p class="text-muted">per month</p>
+                                    <p class="my-5">500 Text Messages</p>
+                                    <a href="#!" class="btn btn-outline-primary font-weight-semibold">Select Plan</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <div class="card">
+                                <h6 class="card-header">Medium Package</h6>
+                                <div class="card-body">
+                                    <h2 class="text-primary mb-0">75 ﷼‎</h2>
+                                    <p class="text-muted">per month</p>
+                                    <p class="my-5">1000 Text Messages</p>
+                                    <a href="#!" class="btn btn-outline-primary font-weight-semibold">Select Plan</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <div class="card">
+                                <h6 class="card-header">Large Package</h6>
+                                <div class="card-body">
+                                    <h2 class="text-primary mb-0">120 ﷼‎</h2>
+                                    <p class="text-muted">per month</p>
+                                    <p class="my-5">1500 Text Messages</p>
+                                    <a href="#!" class="btn btn-outline-primary font-weight-semibold">Select Plan</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <div class="card">
+                                <h6 class="card-header">Unlimited Package</h6>
+                                <div class="card-body">
+                                    <h2 class="text-primary mb-0">279 ﷼‎</h2>
+                                    <p class="text-muted">per month</p>
+                                    <p class="my-5">Unlimited Text Messages</p>
+                                    <a href="#!" class="btn btn-primary font-weight-semibold">Selected</a>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/PackagesAPI/SmsPakages/SmsPakages.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //CustomerList api funcation call
+        //CustomerList.init();
+    });
+</script>

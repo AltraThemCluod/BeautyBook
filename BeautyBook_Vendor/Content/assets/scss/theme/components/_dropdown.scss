@@ -1,0 +1,16 @@
+.dropdown-menu{
+    padding: $spacer / 1.5;
+    font-size: $font-size-sm;
+}
+
+.dropdown-item{
+    font-weight: $font-weight-medium;
+    border-radius: $border-radius;
+    
+    &:active,
+    &:focus{
+        i{
+            color: $white !important;
+        }
+    }
+}

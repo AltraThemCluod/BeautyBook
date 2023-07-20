@@ -1,0 +1,1302 @@
+﻿@{
+    ViewBag.Title = "Employee Details";
+}
+<style>
+    .main_card {
+        /* transform: scale(0.9); */
+        /* width: 649px; */
+        /* height: 716px; */
+        border-radius: 10px;
+        /* border: 1px solid #EAEAEA; */
+        /* box-shadow: 0 25px 30px -20px #00000010; */
+        /* box-shadow: 0px 25px 30px -20px rgba(0, 0, 0, 0.0959934); */
+        /* background: #fff; */
+        margin-left: 50px;
+    }
+
+        .main_card h3 {
+            /* padding-top: 115px; */
+            /* margin-left: 90px; */
+            font-family: Mulish;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 22px;
+            line-height: 28px;
+            /* identical to box height */
+            color: #1A1B38;
+        }
+
+        .main_card .select-cards {
+            /* width: 469px; */
+            height: auto;
+            /* margin-left: 90px; */
+            /* margin-top: 30px; */
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .main_card .select-cards .select {
+                /* width: 100%; */
+                height: 75px;
+                background: #FFFFFF;
+                border: 1px solid #EAEAEA;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                transition: 0.3s;
+                justify-content: center;
+                padding-right: 15px;
+            }
+
+                .main_card .select-cards .select .titles {
+                    margin-left: 15px;
+                }
+
+                    .main_card .select-cards .select .titles h4 {
+                        font-family: Mulish;
+                        font-style: normal;
+                        font-weight: bold;
+                        font-size: 16px;
+                        line-height: 20px;
+                        /* identical to box height */
+                        color: #1A1B38;
+                    }
+
+                    .main_card .select-cards .select .titles h5 {
+                        font-family: Mulish;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 16px;
+                        line-height: 20px;
+                        /* identical to box height */
+                        color: #1A1B38;
+                        margin-top: 1px;
+                    }
+
+                .main_card .select-cards .select .check-box {
+                    width: 33px;
+                    height: 33px;
+                    background: #FFFFFF;
+                    border: 2px solid #BCBCBC;
+                    border-radius: 50%;
+                    margin-left: 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: 0.3s;
+                }
+
+                    .main_card .select-cards .select .check-box .check-dot {
+                        width: 15px;
+                        height: 15px;
+                        background: #fff;
+                        border-radius: 50%;
+                        transition: 0.3s;
+                        transform: scale(0);
+                    }
+
+                .main_card .select-cards .select[data-selected=true] {
+                    border-color: #000000;
+                }
+
+                    .main_card .select-cards .select[data-selected=true] .check-box {
+                        background: #000000;
+                        border-color: #000;
+                        background: #1d3cc6;
+                        border-color: #1d3cc6;
+                    }
+
+                        .main_card .select-cards .select[data-selected=true] .check-box .check-dot {
+                            width: 15px;
+                            height: 15px;
+                            transform: scale(1);
+                        }
+
+        .main_card .select-btn {
+            width: 469px;
+            height: 95px;
+            background: #1d3cc6;
+            border-radius: 5px;
+            margin-left: 90px;
+            margin-top: 22px;
+            font-family: Mulish;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 23px;
+            cursor: pointer;
+            /* identical to box height */
+            text-align: center;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+    .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        background: #00000020;
+        mix-blend-mode: normal;
+        backdrop-filter: blur(10px);
+        display: none;
+    }
+
+        .container .donate-modal {
+            width: 444px;
+            height: 601px;
+            background: #FFFFFF;
+            border-radius: 10px;
+            transform: scale(0.9);
+            border: 1px solid #EAEAEA;
+        }
+
+            .container .donate-modal .header {
+                width: 100%;
+                height: 80px;
+            }
+
+                .container .donate-modal .header .exit-btn {
+                    float: right;
+                    width: 50px;
+                    height: 50px;
+                    background: #F1F1F1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    margin-top: 20px;
+                    margin-right: 20px;
+                    margin-bottom: 10px;
+                    cursor: pointer;
+                }
+
+            .container .donate-modal h3 {
+                text-align: center;
+                font-family: Mulish;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 22px;
+                line-height: 28px;
+                /* identical to box height */
+                color: #1A1B38;
+            }
+
+            .container .donate-modal h4 {
+                text-align: center;
+                font-family: Mulish;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 20px;
+                /* identical to box height */
+                color: #1A1B38;
+                margin-top: 15px;
+            }
+
+            .container .donate-modal .card_box {
+                background: #FFFFFF;
+                border: 1px solid #EAEAEA;
+                border-radius: 5px;
+                width: 354px;
+                height: 108px;
+                margin-left: 45px;
+                margin-top: 35px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+                .container .donate-modal .card_box .left svg {
+                    margin-left: 20px;
+                    margin-top: 10px;
+                }
+
+                .container .donate-modal .card_box .left .number {
+                    display: block;
+                    margin-left: 25px;
+                }
+
+                .container .donate-modal .card_box .right .date {
+                    font-family: Mulish;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 18px;
+                    line-height: 23px;
+                    /* identical to box height */
+                    color: #1A1B38;
+                    margin-top: 60px;
+                    margin-right: 26px;
+                    display: block;
+                }
+
+            .container .donate-modal .new-card {
+                font-family: Mulish;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 20px;
+                /* identical to box height */
+                text-decoration-line: underline;
+                display: block;
+                color: #1A1B38;
+                margin-left: 48px;
+                margin-top: 15px;
+            }
+
+            .container .donate-modal .submit-btn {
+                width: 354px;
+                height: 95px;
+                background: #1d3cc6;
+                border-radius: 5px;
+                margin-left: 45px;
+                margin-top: 22px;
+                font-family: Mulish;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 23px;
+                cursor: pointer;
+                /* identical to box height */
+                text-align: center;
+                color: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 44px;
+            }
+
+            .container .donate-modal p {
+                text-align: center;
+                width: 284px;
+                margin-left: 90px;
+                margin-top: 25px;
+                font-family: Mulish;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 14px;
+                line-height: 18px;
+                text-align: center;
+                color: #000000;
+            }
+
+                .container .donate-modal p a {
+                    text-decoration: underline;
+                    cursor: pointer;
+                    color: #1d3cc6;
+                }
+</style>
+<main class="app-content mb-5">
+    <div class="app-content-wrapper">
+        <!-- Page Title -->
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageEmployee","Employee")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Employee_Details)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageEmployee","Employee")">@(beautybook.Resources.Languages.Manage_Employee)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Employee_Details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="employeeFormloader" style="display: none;" class="text-center mb-2 mt-2">
+            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+        </div>
+        <form class="app-content-inner" id="employeeForm" name="employeeForm" style="display:none;">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9">
+                        <div class="card card-lg mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-1">@(beautybook.Resources.Languages.Employee_Info)</h6>
+                                @*<p class="mb-0 text-muted fs-13">Tell us all about your <span id="employeeinfoEdit">new</span> employee.</p>*@
+                                <p class="mb-0 text-muted fs-13">@(beautybook.Resources.Languages.Tell_us_all_about_your_new_employee)</p>
+                            </div>
+
+                            <div class="card-body pb-0">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        <input type="hidden" name="employeedetailsId" id="employeedetailsId" value="0" />
+                                        <div class="form-group row">
+                                            <label for="firstName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.First_Name)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" name="employeeFirstname" tabindex="1" id="employeeFirstname" placeholder="@(beautybook.Resources.Languages.First_Name)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="lastName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Last_Name)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" name="employeeLastname" tabindex="2" id="employeeLastname" placeholder="@(beautybook.Resources.Languages.Last_Name)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <fieldset class="form-group row">
+                                            <legend class="col-form-label col-sm-4 float-sm-left text-sm-right pt-0">@(beautybook.Resources.Languages.Gender)</legend>
+                                            <div class="col-sm-7">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="employeeGender" tabindex="3" id="employeeMale" value="Male" checked>
+                                                    <label class="form-check-label" for="employeeMale">
+                                                        @(beautybook.Resources.Languages.Male)
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="employeeGender" tabindex="4" id="employeeFemale" value="Female">
+                                                    <label class="form-check-label" for="employeeFemale">
+                                                        @(beautybook.Resources.Languages.Female)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="birthDate" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Birthdate)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="datepicker singledatepicker form-control" tabindex="5" id="employeeDob" name="employeeDob" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="emailAddress" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Email)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="email" class="form-control" id="employeeEmail" tabindex="6" name="employeeEmail" placeholder="@(beautybook.Resources.Languages.Email)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="phoneNumber" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Primary_Phone)</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group contact-number">
+                                                    <div>
+                                                        <span class="input-group-text text-muted brrt-rb">+966</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="employeePrimaryphone" tabindex="7" name="employeePrimaryphone" placeholder="011 XXX XXXX" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="alternateNumber" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Alternate_Phone)</label>
+                                            <div class="col-sm-7">
+                                                <div class="input-group contact-number">
+                                                    <div>
+                                                        <span class="input-group-text text-muted brrt-rb">+966</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="employeeAlternatephone" tabindex="8" name="employeeAlternatephone" placeholder="011 XXX XXXX" style="border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="employeePhoto" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Employee_Photo)</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" onchange="profileUpload();" tabindex="9" id="employeePhoto">
+                                                    <label class="custom-file-label" for="employeePhoto">@(beautybook.Resources.Languages.Choose_file)</label>
+                                                </div>
+                                                <span class="mb-0 text-muted fs-13" id="uploadImagename"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="joiningDate" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Joining_Date)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="datepicker singledatepicker form-control" tabindex="10" id="employeeJoiningdate" name="employeeJoiningdate" data-drops="up" tabindex="1" value="" placeholder="mm/dd/yyyy" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="employeeRole" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Role)</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="employeeRole" tabindex="11" name="employeeRole" title="@(beautybook.Resources.Languages.Select_a_role)" data-live-search="true" data-size="6">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="employeeType" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Type)</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="employeeType" tabindex="12" name="employeeType" title="@(beautybook.Resources.Languages.Select_a_type)">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="employeeType" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Type)</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="employeeType" tabindex="12" name="employeeType" title="@(beautybook.Resources.Languages.Select_a_type)">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-lg-12" style="margin-left:50px">
+                                        <div class="form-group row">
+                                            <div class="main_card">
+
+                                                <h6><font style="vertical-align: inherit;">Which permission you give to this employee</h6>
+
+                                                <div class="select-cards">
+
+                                                    <div class="select" data-selected="true">
+
+                                                        <div class="check-box"><div class="check-dot"></div></div>
+
+                                                        <div class="titles">
+
+                                                            <h4>>Full Access</h4>
+                                                            <h5>>Employee has permissions to Full Access</h5>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="select" data-selected="false">
+                                                        <div class="check-box"><div class="check-dot"></div></div>
+                                                        <div class="titles">
+                                                            <h4>>Modify</h4>
+                                                            <h5>>Employee has permissions to modify</h5>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="select" data-selected="false">
+                                                        <div class="check-box"><div class="check-dot"></div></div>
+                                                        <div class="titles">
+
+                                                            <h4>>ReadOnly</h4>
+                                                            <h5>>Employee has permissions to Read Only</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>*@
+
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="card-body pb-0">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="selectCountry" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Country)</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="employeeCountry" tabindex="13" name="employeeCountry" title="@(beautybook.Resources.Languages.Select_a_Country)" data-live-search="true" data-size="6"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="selectState" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.State)</label>
+
+                                            <div class="col-sm-7">
+                                                <select class="selectpicker form-control" id="employeeState" tabindex="14" name="employeeState" title="@(beautybook.Resources.Languages.Select_a_State)" data-live-search="true" data-size="6" disabled></select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="selectCity" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.City)</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="employeeCity" name="employeeCity" tabindex="15" placeholder="@(beautybook.Resources.Languages.Enter_your_city)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="addressLine1" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Address_line_1)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="employeeAddressLine1" name="employeeAddressLine1" tabindex="16" placeholder="Box No. 65438, Mishui Avenue">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" class="form-control" id="VisitorLatitude" name="VisitorLatitude" autocomplete="off" />
+                                    <input type="hidden" class="form-control" id="VisitorLongitude" name="VisitorLongitude" autocomplete="off" />
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="addressLine2" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Address_line_2)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="employeeAddressLine2" name="employeeAddressLine2" tabindex="17" placeholder="@(beautybook.Resources.Languages.Gaomi_City)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group row">
+                                            <label for="zipCode" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Zip_Code)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="employeeZipcode" name="employeeZipcode" tabindex="18" placeholder="@(beautybook.Resources.Languages.Enter_your_zipcode)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-lg mb-3" id="workingHourse" style="display:none;">
+                            <div class="card-header">
+                                <h6 class="mb-1">@(beautybook.Resources.Languages.Working_Hours)</h6>
+                                <p class="mb-0 text-muted fs-13">@(beautybook.Resources.Languages.Tell_us_all_about_your_new_employee)</p>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <div class="table-responsive table-card">
+                                            <table class="table table-sm fs-14 table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="font-weight-semibold" scope="col">@(beautybook.Resources.Languages.Day)</th>
+                                                        <th class="font-weight-semibold" scope="col">@(beautybook.Resources.Languages.START_AT)</th>
+                                                        <th class="font-weight-semibold" scope="col">End at</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="userWorkinghourslist">
+                                                    @*User working hours list bind*@
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card card-lg mb-3" id="srvPrcconfiguration" style="display:none;">
+                            <div class="card-header">
+                                <h6 class="mb-1">Service & Pricing Configuration</h6>
+                                <p class="mb-0 text-muted fs-13">@(beautybook.Resources.Languages.Tell_us_all_about_your_new_employee)</p>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive table-card">
+                                            <table class="table fs-13">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="bg-primary text-white w-lg-60">@(beautybook.Resources.Languages.HEALTH_CARE)</th>
+                                                        <th scope="col" class="bg-primary text-white">@(beautybook.Resources.Languages.Duration)</th>
+                                                        <th scope="col" class="bg-primary text-white">@(beautybook.Resources.Languages.Price)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- New Category -->
+                                                    <tr>
+                                                        <th scope="row" class="bg-gray-100" colspan="3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input selectall" id="hairSalon" data-group="1">
+                                                                <label class="custom-control-label" for="hairSalon">@(beautybook.Resources.Languages.Hair_Salon)</label>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="cutBlowHair" data-group="1">
+                                                                <label class="custom-control-label" for="cutBlowHair">@(beautybook.Resources.Languages.Cut___Blow_Dry_Hair)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="hairDye" data-group="1">
+                                                                <label class="custom-control-label" for="hairDye">@(beautybook.Resources.Languages.Hair_Dye)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="hairStyling" data-group="1">
+                                                                <label class="custom-control-label" for="hairStyling">@(beautybook.Resources.Languages.Hair_Styling)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="hairTreatment" data-group="1">
+                                                                <label class="custom-control-label" for="hairTreatment">@(beautybook.Resources.Languages.Hair_Treatment)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="taTtos" data-group="1">
+                                                                <label class="custom-control-label" for="taTtos">@(beautybook.Resources.Languages.Tattoos)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- New Category -->
+                                                    <tr>
+                                                        <th scope="row" class="bg-gray-100" colspan="3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input selectall" id="faceTreatments" data-group="2">
+                                                                <label class="custom-control-label" for="faceTreatments">Face treatments</label>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="Facial" data-group="2">
+                                                                <label class="custom-control-label" for="Facial">Facial</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="Eyelashes" data-group="2">
+                                                                <label class="custom-control-label" for="Eyelashes">Eyelashes</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="Eyebrows" data-group="2">
+                                                                <label class="custom-control-label" for="Eyebrows">Eyebrows</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- New Category -->
+                                                    <tr>
+                                                        <th scope="row" class="bg-gray-100" colspan="3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input selectall" id="hairRemoval" data-group="3">
+                                                                <label class="custom-control-label" for="hairRemoval">@(beautybook.Resources.Languages.Hair_Removal)</label>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="Manicure" data-group="3">
+                                                                <label class="custom-control-label" for="Manicure">@(beautybook.Resources.Languages.Manicure)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="Pedicure" data-group="3">
+                                                                <label class="custom-control-label" for="Pedicure">@(beautybook.Resources.Languages.Pedicure)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="waxingHairRemoval" data-group="3">
+                                                                <label class="custom-control-label" for="waxingHairRemoval">Waxing & Hair Removal</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                    <!-- New Category -->
+                                                    <tr>
+                                                        <th scope="row" class="bg-gray-100" colspan="3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input selectall" id="makUp" data-group="4">
+                                                                <label class="custom-control-label" for="makUp">Makeup</label>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="makupService" data-group="4">
+                                                                <label class="custom-control-label" for="makupService">Makeup</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="bridalMakup" data-group="4">
+                                                                <label class="custom-control-label" for="bridalMakup">Bridal Makeup</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!-- New Category -->
+                                                    <tr>
+                                                        <th scope="row" class="bg-gray-100" colspan="3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input selectall" id="medSpa" data-group="5">
+                                                                <label class="custom-control-label" for="medSpa">Med spa</label>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="massage" data-group="5">
+                                                                <label class="custom-control-label" for="massage">@(beautybook.Resources.Languages.Messages)</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="moroccanBath" data-group="5">
+                                                                <label class="custom-control-label" for="moroccanBath">Moroccan Bath</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <!-- New Category -->
+                                                    <tr>
+                                                        <th scope="row" class="bg-gray-100" colspan="3">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input selectall" id="nails" data-group="6">
+                                                                <label class="custom-control-label" for="nails">@(beautybook.Resources.Languages.Nails)</label>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+
+                                                    <!-- Service Name -->
+                                                    <tr>
+                                                        <th scope="row" class="font-weight-normal">
+                                                            <div class="custom-control custom-checkbox ml-5">
+                                                                <input type="checkbox" class="custom-control-input child" id="cuticleTreatment" data-group="6">
+                                                                <label class="custom-control-label" for="cuticleTreatment">Cuticle Treatment</label>
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">@(beautybook.Resources.Languages.Min)</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="00">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text text-muted bg-gray-100">$</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="fixed-footer text-center">
+                            <button type="submit" name="submit" tabindex="19" class="btn btn-primary font-weight-medium btn-wide" onclick="addEmployee(false)" id="addEmployeebtn"> <span>@(beautybook.Resources.Languages.Save_Change)</span> </button>
+                            <button type="submit" class="btn btn-primary font-weight-medium btn-wide" tabindex="4" id="addSalonservicesbtnFalse" onclick="addEmployee(true);">@(beautybook.Resources.Languages.Save_in_create_new_Employee)</button>
+
+                            <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="addEmployeebtnloading" style="display:none;">
+                                <span id="employeeBtntextloading">@(beautybook.Resources.Languages.Save_Change)</span>  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                            </button>
+                            <a href="@Url.Action("ManageEmployee","Employee")" tabindex="20" class="btn btn-link btn-wide">@(beautybook.Resources.Languages.Cancel)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+@*Google map api key*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABofRnRkpT_4m344ZOsyRnT90uSGF5H6A&amp;libraries=places"></script>
+<script src="~/Content/assets/js/AutoLocation.js"></script>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/EmployeeDetails/EmployeeDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/ManageEmployee/EditManageEmployee.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
+
+<script>
+
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //Address autocompleteField
+        googleAutocomplete.autocompleteField("employeeAddressLine1");
+
+        //SalonsCountry API function call
+        SalonsCountry();
+
+        //SalonsState API function call
+        //SalonsState();
+
+        //employeeTypedrp API function call
+        employeeTypedrp();
+
+        //employeeRolesdrp API function call
+        employeeRolesdrp();
+
+        //editEmployeemanagerdata API function call
+        editEmployeemanagerdata();
+    });
+
+    //jquery validation
+
+
+    function addEmployee(Createnewemployee) {
+
+        $("form[name='employeeForm']").validate({
+            rules: {
+                employeeFirstname: {
+                    required: true
+                },
+                employeeLastname: {
+                    required: true
+                },
+                employeeDob: {
+                    required: true
+                },
+                employeeEmail: {
+                    required: true,
+                    email: true
+                },
+                employeePrimaryphone: {
+                    required: true,
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                employeeAlternatephone: {
+                    number: true,
+                    maxlength: 9,
+                    minlength: 9
+                },
+                employeeJoiningdate: {
+                    required: true
+                },
+                employeeCity: {
+                    required: true
+                },
+                employeeAddressLine1: {
+                    required: true
+                },
+                employeeZipcode: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                employeeFirstname: "@beautybook.Resources.Languages.First_Name_is_required",
+                employeeLastname: "@beautybook.Resources.Languages.Last_Name_is_required",
+                employeeDob: "@beautybook.Resources.Languages.Date_of_Birth_is_required",
+                employeeEmail: {
+                    required: "@beautybook.Resources.Languages.Email_is_required",
+                },
+                employeePrimaryphone: {
+                    required: "@beautybook.Resources.Languages.Primary_Phone_is_required",
+                    number : "@beautybook.Resources.Languages.Please_enter_a_valid_number"
+                },
+                employeeAlternatephone: {
+                    number : "@beautybook.Resources.Languages.Please_enter_a_valid_number"
+                },
+                employeeJoiningdate: "@beautybook.Resources.Languages.Joining_date_is_required",
+                employeeCity: "@beautybook.Resources.Languages.City_is_required",
+                employeeAddressLine1: "@beautybook.Resources.Languages.Address_Line1_is_required",
+                employeeZipcode: {
+                    required : "@beautybook.Resources.Languages.Zipcode_is_required",
+                },
+            },
+            submitHandler: function () {
+                addEmployees(Createnewemployee);
+            }
+        });
+    }
+
+    var select_card = document.querySelectorAll(".select");
+
+    var title = document.getElementById("title");
+    var price = document.getElementById("price");
+
+    var selected = 2;
+
+
+
+    var reset = () => {
+
+        select_card.forEach((k) => {
+
+            k.setAttribute("data-selected", "false");
+        })
+    }
+
+    select_card.forEach((a, i) => {
+
+        a.addEventListener("click", (e) => {
+            reset();
+            a.setAttribute("data-selected", "true")
+            selected = i + 1;
+
+
+
+
+        })
+    })
+
+
+</script>

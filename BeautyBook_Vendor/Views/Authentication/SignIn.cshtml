@@ -1,0 +1,321 @@
+﻿@{
+    ViewBag.Title = "SignIn";
+    Layout = null;
+}
+@using BeautyBook.Common;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Zaan Vendor</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon.png">
+    @*<link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">*@
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <link href="~/Content/assets/css/arabic.css" rel=stylesheet>
+
+
+    <style>
+        label,
+        input,
+        button {
+            border: 0;
+            margin-bottom: 3px;
+            display: block;
+            width: 100%;
+        }
+
+        .common_box_body {
+            padding: 15px;
+            border: 12px solid #28BAA2;
+            border-color: #28BAA2;
+            border-radius: 15px;
+            margin-top: 10px;
+            background: #d4edda;
+        }
+
+        .bg-white {
+            background: url('../Content/assets/images/signinbackground.svg') !important;
+        }
+
+        .google-btn {
+            background: #EFF6F7 !important;
+            border-radius: 8px !important;
+            border-color: transparent !important;
+        }
+
+        .account-backside {
+            background: #F3F6FB !important;
+            border-radius: 10px 0px 0px 10px !important;
+            width: 100%;
+            height: 100%;
+        }
+
+        .auth-images {
+            padding-right: 0px;
+        }
+
+        .logo-content p {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: center;
+            color: #4A525E;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-root bg-white">
+        <div class="app-wrapper">
+            <main>
+                <div class="position-fixed top-0 right-0 left-0 bg-img-hero " style="height: 32rem;">
+                    <figure class="">
+                        <svg width="100%" height="100vh" viewBox="0 0 100% 100vh" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="1000" fill="url(#paint0_linear_0_1)" />
+                            <g filter="url(#filter0_f_0_1)">
+                                <circle cx="375" cy="280" r="120" fill="#43CF7B" />
+                            </g>
+                            <g filter="url(#filter1_f_0_1)">
+                                <circle cx="1498.5" cy="789.5" r="196.5" fill="#C9CDF0" />
+                            </g>
+                            <path d="M109 1001C109 987.736 111.612 974.603 116.688 962.349C121.764 950.095 129.203 938.961 138.582 929.582C147.961 920.203 159.095 912.764 171.349 907.688C183.603 902.612 196.737 900 210 900C223.264 900 236.397 902.612 248.651 907.688C260.905 912.764 272.039 920.204 281.418 929.582C290.797 938.961 298.236 950.095 303.312 962.349C308.388 974.603 311 987.737 311 1001L233.674 1001C233.674 997.891 233.062 994.813 231.872 991.94C230.682 989.068 228.938 986.458 226.74 984.26C224.542 982.062 221.932 980.318 219.06 979.128C216.187 977.938 213.109 977.326 210 977.326C206.891 977.326 203.813 977.938 200.94 979.128C198.068 980.318 195.458 982.062 193.26 984.26C191.062 986.458 189.318 989.068 188.128 991.94C186.938 994.813 186.326 997.891 186.326 1001L109 1001Z" fill="#D5DBE7" />
+                            <path d="M1920 292C1912.51 292 1905.1 290.526 1898.19 287.661C1891.27 284.797 1884.99 280.598 1879.69 275.305C1874.4 270.012 1870.2 263.729 1867.34 256.813C1864.47 249.897 1863 242.485 1863 235C1863 227.515 1864.47 220.103 1867.34 213.187C1870.2 206.271 1874.4 199.988 1879.69 194.695C1884.99 189.402 1891.27 185.203 1898.19 182.339C1905.1 179.474 1912.51 178 1920 178L1920 221.054C1918.17 221.054 1916.36 221.415 1914.66 222.116C1912.97 222.817 1911.43 223.844 1910.14 225.139C1908.84 226.434 1907.82 227.971 1907.12 229.663C1906.42 231.355 1906.05 233.169 1906.05 235C1906.05 236.831 1906.42 238.645 1907.12 240.337C1907.82 242.029 1908.84 243.566 1910.14 244.861C1911.43 246.156 1912.97 247.183 1914.66 247.884C1916.36 248.585 1918.17 248.946 1920 248.946L1920 292Z" fill="#D5E4E6" />
+                            <defs>
+                                <filter id="filter0_f_0_1" x="-45" y="-140" width="840" height="840" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1" />
+                                </filter>
+                                <filter id="filter1_f_0_1" x="1002" y="293" width="993" height="993" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1" />
+                                </filter>
+                                <linearGradient id="paint0_linear_0_1" x1="0" y1="0" x2="1920" y2="1000" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#E1EAEB" />
+                                    <stop offset="0.515625" stop-color="#E9ECF7" />
+                                    <stop offset="1" stop-color="white" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                    </figure>
+                </div>
+
+                <div class="container py-5 py-sm-7">
+                    @*<a class="d-flex justify-content-center mb-2" href="javascript:void(0)">
+                        <img class="z-index-2" src="~/Content/assets/images/favicons/safari-pinned-tab.svg" alt="" style="width: 4rem;">
+                    </a>
+                    <a class="d-flex justify-content-center mb-5" href="javascript:void(0)">
+                        <img class="z-index-2" src="~/Content/assets/images/favicons/logo.png" alt="" style="width: 150px;">
+                    </a>*@
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-10 col-lg-10">
+                            <div class="card card-lg mb-5">
+                                <div class="row">
+                                    <div class="col-lg-5 auth-images">
+                                        <div class="w-100 h-100">
+                                            <div class="account-backside p-2">
+                                                <img src="~/Content/assets/images/accountback.png" class="w-100" />
+                                                <div class="logo-content text-center">
+                                                    <img src="~/Content/assets/images/logo.png" class="w-40 mt-5" />
+                                                    <p class="mb-0 mt-4">
+                                                        Achieve double sales now - enter the world of
+                                                        e-commerce and achieve your success in supply.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <div class="mb-5 text-left">
+                                                    <h3>@(BeautyBook_Vendor.Resources.Languages.Sign_in)</h3>
+                                                    <p>@(BeautyBook_Vendor.Resources.Languages.Donthaveanaccountyet)<a href="@Url.Action("SignUp","Authentication")">@(BeautyBook_Vendor.Resources.Languages.Sign_up_here)</a></p>
+                                                </div>
+
+                                                <a class="btn btn-lg btn-block btn-white mb-4 google-btn" href="https://accounts.google.com/o/oauth2/auth?client_id=@Configurations.GoogleClientId&response_type=code&scope=openid%20email%20profile&redirect_uri=@Configurations.GoogleRedirectUrl&state=abcdef">
+                                                    <span class="d-flex justify-content-center align-items-center">
+                                                        <img class="avatar avatar-xss mr-2" src="~/Content/assets/images/svg-icons/google.svg" alt="">
+                                                        @(BeautyBook_Vendor.Resources.Languages.Sign_in_with_Google)
+                                                    </span>
+                                                </a>
+
+                                                <span class="divider text-muted mb-4">@(BeautyBook_Vendor.Resources.Languages.OR)</span>
+                                            </div>
+
+                                            <form action="" name="signinform">
+                                                <div class="form-group">
+                                                    <label class="input-label" for="signinSrEmail">@(BeautyBook_Vendor.Resources.Languages.Email)</label>
+                                                    <input type="text" class="form-control form-control-lg" tabindex="1" name="signInEmail" id="signInEmail" tabindex="1" placeholder="email@address.com" aria-label="email@address.com">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="input-label" for="signinSrEmail">
+                                                        @(BeautyBook_Vendor.Resources.Languages.Password)
+                                                        <a class="input-label-secondary float-right" href="@Url.Action("EmailVerification","Authentication")">@(BeautyBook_Vendor.Resources.Languages.Forgot_Password_)</a>
+                                                    </label>
+                                                    <input type="password" tabindex="2" class="js-toggle-password form-control form-control-lg" name="signInPassword" id="signInPassword" placeholder="@(BeautyBook_Vendor.Resources.Languages._8__characters_required)" aria-label="8+ characters required" autocomplete="off">
+                                                </div>
+
+                                                @*show password input box*@
+                                                <div class="form-group d-inline-block">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input terms-conditions" tabindex="6" id="passwordCheckbox" name="passwordCheckbox">
+                                                        <label class="custom-control-label text-muted cursor-pointer mb-0" for="passwordCheckbox">@(BeautyBook_Vendor.Resources.Languages.Show_Password)</label>
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit" tabindex="3" role="button" id="userSignInbtn" class="btn btn-lg btn-block btn-primary" value="Submit">@(BeautyBook_Vendor.Resources.Languages.Sign_in)</button>
+                                                <button type="button" class="btn btn-lg btn-block btn-primary" id="userSignInbtnLoading" style="display:none;" disabled>
+                                                    @(BeautyBook_Vendor.Resources.Languages.Signing_your_account) <i class="fa fa-circle-o-notch mr-2 fa-spin" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script src="~/Content/assets/js/main.js"></script>
+    @*This Js Call API in SignIn*@
+    <script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+    <script src="~/Content/BeautyBook_VendorAPI/AuthenticationAPI/SignIn/SignIn.js"></script>
+    <script src="~/Content/assets/js/sweetalert/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+</body>
+</html>
+<script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+
+    }
+
+     $(document).ready(function () {
+        if ("@ViewBag.SignInErrorMsg" != "" && "@ViewBag.SignInErrorMsg" != null) {
+            alert("@ViewBag.SignInErrorMsg");
+        }
+
+
+        if ("@ViewBag.UserEmail" != "" && "@ViewBag.UserEmail" != null && "@ViewBag.UserPassword" != "" && "@ViewBag.UserPassword" != null) {
+            $('#signInEmail').val("@ViewBag.UserEmail");
+            $('#signInPassword').val(atob("@ViewBag.UserPassword"));
+            userSignIn();
+         }
+
+
+         if (Language != 'en') {
+             setCookie("Languages", "ar", 30);
+
+         }
+
+         var Language = getCookie("Languages");
+         var isValids = getCookie("isValid");
+
+         debugger;
+
+         if (isValids == "") {
+             setCookie("isValid", "true", 30);
+         }
+
+         var isValidsCross = getCookie("isValid");
+
+         $('#LanSelect').val(Language == "" ? 'en' : Language);
+
+         debugger;
+
+         if (Language == "en") {
+             $('html').attr('dir', 'ltl');
+             $('html').attr('lang', 'en');
+         } else if (Language == "ar") {
+             $('html').attr('dir', 'rtl');
+             $('html').attr('lang', 'ar');
+             $('body').addClass('arabic-lan-signin');
+
+             if (isValidsCross == "true") {
+                 setCookie("isValid", "false", 30);
+                 window.location.reload();
+             }
+
+         }
+
+    })
+
+    $(function () {
+        $("form[name='signinform']").validate({
+            rules: {
+                signInEmail: {
+                    required: true,
+                    email: true
+                },
+
+                signInPassword: {
+                    required: true,
+                    minlength: 8
+                }
+            },
+            messages: {
+                signInEmail: {
+                    required: "Email is required",
+                },
+                signInPassword: {
+                    required: "Password is required",
+                },
+            },
+            submitHandler: function () {
+                userSignIn();
+            }
+        });
+    });
+</script>
+<script src="~/Content/assets/js/arabic.js"></script>
+
+
+
+

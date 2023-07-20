@@ -1,0 +1,566 @@
+﻿@using BeautyBook.Common;
+@using BeautyBookAdmin.Pages;
+@using BeautyBookAdmin.Infrastructure;
+
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "Manage Customers";
+}
+
+
+<style>
+    .checkbox2 {
+        width: 25px;
+        height: 25px;
+    }
+
+    thead {
+        background: #0069D9;
+        color: white;
+    }
+
+    .row {
+        margin: 0 !important;
+    }
+
+    .activ {
+        background: linear-gradient(to right, #0069D9, #0069D9);
+        color: white;
+    }
+
+    .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .form-control-feedback, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+        color: #e73d4a
+    }
+
+    .has-error .form-control {
+        border-color: #e73d4a;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    }
+
+        .has-error .form-control:focus {
+            border-color: #d71b29;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f
+        }
+
+    .has-error .input-group-addon {
+        color: #e73d4a;
+        border-color: #e73d4a;
+        background-color: #fbe1e3
+    }
+
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        z-index: 99;
+        top: 40px;
+        left: 0;
+        right: 0;
+        box-shadow: 0 39px 70px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+        .autocomplete-items > div {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .autocomplete-items > div:hover {
+                background: #fbfbfb;
+            }
+
+    .addDelete {
+        color: black !important;
+        background: #e9e9e9 !important;
+    }
+
+    .hideDelete {
+        display: none !important;
+    }
+</style>
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Manage Customers</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active"><a href="@Url.Action(Actions.Index,Controllers.SalonOwner,new { Area=""})">Manage Salon Owners</a></li>
+                <li class="breadcrumb-item active"><a href="@Url.Action(Actions.Salons,Controllers.SalonOwner,new { Area=""})?SalonOwnerId=@ViewBag.salonOwnerId">Manage Salons</a></li>
+                <li class="breadcrumb-item active">Manage Customers</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="header">
+            </div>
+            <div class="body">
+                <div class="portlet-body table-responsive" id="divUsersTable">
+                    <table class="table table-striped table-bordered table-hover" id="UsersTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fadeIn" id="CustomersFilterPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">Customers Filters</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix">
+                    <div class="col-sm-12">
+                        <label>Customer Name</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="customerName" id="customerName" value="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Phone</label>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="customerPhone" id="customerPhone" value="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Gender</label>
+                        <div class="form-group">
+                            <select class="form-control" id="CustomerGender" name="CustomerGender">
+                                <option value="">Select Status</option>
+                                <option value="">Both</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSearch" type="button" class="btn btn-primary saveBtn" onclick="SearchReset(false);">Search</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary closeBtn">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Customer details modal*@
+<div class="modal fadeIn" id="CustomerDetails" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">Customer Details</h6>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link show active" data-toggle="tab" href="#customer_withicon"><i class="icon-user"></i> Customer Info</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#appointments_withicon"><i class="fa fa-calendar"></i> Appointments</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane show active" id="customer_withicon">
+                        <div class="row" id="customer_details_data">
+                            @*Customer details bind*@
+                        </div>
+                        <div id="customer_details_data_loader" style="display: none;" class="text-center mb-4">
+                            <img src="~/assets/ajax-loader.gif" width='32px' height='32px' />
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="appointments_withicon">
+                        <div class="table-responsive scrollbar-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Date</th>
+                                        <th>Service Name</th>
+                                        <th>Service Provider</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appointments_grid">
+                                </tbody>
+                            </table>
+                            <div id="appointments_grid_loader" style="display: none;" class="text-center mb-4">
+                                <img src="~/assets/ajax-loader.gif" width='32px' height='32px' />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-secondary closeBtn">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section dashboardscripts{
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/datatable.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/datatables.bootstrap.js"></script>
+}
+
+@section Scripts {
+    <script>
+
+        $(document).ready(() => {
+            UsersDataTable.init();
+        });
+             var UsersDataTable = function () {
+
+                let initTable1 = function () {
+                    let table = $('#UsersTable');
+
+                    let oTable = table.dataTable({
+                        "stateSave": true,
+                        "autoWidth": false,
+                        "paging": true,
+                        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                        "language": {
+                            "aria": {
+                                "sortAscending": ": activate to sort column ascending",
+                                "sortDescending": ": activate to sort column descending"
+                            },
+                            "emptyTable": "No data available in table",
+                            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                            "infoEmpty": "No entries found",
+                            "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                            "lengthMenu": "_MENU_ entries",
+                            "search": "Search:",
+                            "zeroRecords": "No matching records found"
+                        },
+                        "pageLength": 10,
+                        "processing": true,
+                        "serverSide": true,
+                        "ajax": {
+                            async: true,
+                            url: '@Url.Action(Actions.ViewAllDataCustomer, Controllers.SalonsData)',
+                            type: "post",
+                            data: BuildSearchCriteria(),
+                    },
+                    "columns": [
+                        {
+                            "title": "Customer Name", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                if (row["ProfileUrl"] == "" || row["ProfileUrl"] == null) {
+                                    htmlData = `<img onerror="DefaultImage(this);" class="rounded-circle round-img-table profile-size" src="${'@Configurations.ApiUrl' + row["ProfileUrl"]}">`;
+                                } else {
+                                    htmlData = `<a href="${'@Configurations.ApiUrl' + row["ProfileUrl"]}" target="_blank"><img onerror="DefaultImage(this);" class="rounded-circle round-img-table profile-size" src="${'@Configurations.ApiUrl' + row["ProfileUrl"]}"></a>`;
+                                }
+                                htmlData += `<a class="c-text-primary" onclick="CustomerDetails(${row["Id"]});" href="javascript:void(0)"><p class="mb-0">${row["UserName"]}</p></a>`;
+
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Gender", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["Gender"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Email", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0"><a class="c-text-primary" href="mailto:${row["Email"]}">${row["Email"]}</a></p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Phone", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0"><a class="c-text-primary" href="tel:${row["PrimaryPhone"]}">${row["PrimaryPhone"]}</a></p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Appointments", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["AppointmentsCount"] == "" || row["AppointmentsCount"] == null ? '-' : row["AppointmentsCount"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Sales", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["TotalSales"] == "" || row["TotalSales"] == null ? '-' : 'SAR ' +''+ row["TotalSales"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Last Visit", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["UserAppoinmentLastVisitStr"] == "" || row["UserAppoinmentLastVisitStr"] == null ? '-' : row["UserAppoinmentLastVisitStr"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                    ],
+                    // setup buttons extentension: http://datatables.net/extensions/buttons/
+                        "buttons": [
+                            {
+                                text: 'Filters',
+                                className: 'addData them-btn',
+                                action: function (e, dt, node, config) {
+                                    OpenSalonsFiltersPopup();
+                                }
+                            },
+                            {
+                                text: 'Reset',
+                                className: 'them-reset-btn',
+                                action: function () {
+                                    SearchReset(true)
+                                }
+                            }
+                            //{ extend: 'excel', className: 'them-btn' }
+                        ],
+
+                        // setup responsive extension: http://datatables.net/extensions/responsive/
+                        responsive: true,
+
+                        "lengthMenu": [
+                            [5, 10, 15, 20, 1000],
+                            [5, 10, 15, 20, 1000] // change per page values here
+                        ],
+                        // set the initial value
+
+                        "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+                        // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                        // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+                        // So when dropdowns used the scrollable div should be removed.
+                        //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+                    });
+                }
+
+                return {
+                    //main function to initiate the module
+                    init: function () {
+                        if ($.fn.DataTable.isDataTable("#UsersTable")) {
+                            $('#UsersTable').dataTable().fnDestroy();
+                            $('#divUsersTable').html('<table class="table table-striped" width="100%" id="UsersTable"></table>');
+                        }
+                        initTable1();
+                    }
+                };
+        }();
+
+        //Data fillter function
+        function BuildSearchCriteria() {
+            try {
+                 
+                var param = {};
+                param["SalonId"] = @ViewBag.salonId;
+                param["Name"] = $('#customerName').val();
+                param["PrimaryPhone"] = $('#customerPhone').val();
+                param["Gender"] = $('#CustomerGender').val();
+                return addRequestVerificationToken(param);
+            } catch (e) { }
+        }
+
+        function addRequestVerificationToken(data) {
+            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+            return data;
+        }
+
+        //Fillter modal open function
+        const OpenSalonsFiltersPopup = () => {
+            $("#CustomersFilterPopup").modal("show");
+        }
+
+        //Fillter date reset function
+        const SearchReset = (isReset = false) => {
+            if (isReset == true) {
+                 
+                $("#customerName").val('');
+                $("#customerPhone").val('');
+                $("#CustomerGender").val('');
+            }
+            UsersDataTable.init();
+            $("#CustomersFilterPopup").modal("hide");
+        }
+
+         //Customer Details function
+        function CustomerDetails(customerDetailsId) {
+
+            $('#customer_details_data').html(``);
+            $('#appointments_grid').html(``);
+
+            $('#CustomerDetails').modal('show');
+
+            $('#customer_details_data_loader').show();
+            $('#appointments_grid_loader').show();
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.ViewDataCustomerDetails, Controllers.SalonsData)',
+                data: { Id: customerDetailsId},
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+
+                    $('#customer_details_data').append(`
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Full Name
+                            </div>
+                            <label>
+                                ${response.Item.FirstName == "" || response.Item.FirstName == null ? '-' : response.Item.FirstName}
+                                ${response.Item.SecondName == "" || response.Item.SecondName == null ? '-' : response.Item.SecondName}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Gender
+                            </div>
+                            <label>
+                                ${response.Item.Gender == "" || response.Item.Gender == null ? '-' : response.Item.Gender}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>Email</div>
+                            <label>
+                                ${response.Item.Email == "" || response.Item.Email == null ? '-' : `<a class="c-text-primary" href="mailto:${response.Item.Email}">${response.Item.Email}</a>`}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>Primary Phone</div>
+                            <label>
+                                ${response.Item.PrimaryPhone == "" || response.Item.PrimaryPhone == null ? '-' : `<a class="c-text-primary" href="tel:${response.Item.PrimaryPhone}">${response.Item.PrimaryPhone}</a>`}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Alternate Phone
+                            </div>
+                            <label>
+                                ${response.Item.AlternatePhone == "" || response.Item.AlternatePhone == null ? '-' : `<a class="c-text-primary" href="tel:${response.Item.AlternatePhone}">${response.Item.AlternatePhone}</a>`}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Customer Since
+                            </div>
+                            <label>
+                                ${response.Item.CreatedVisitDate == "" || response.Item.CreatedVisitDate == null ? '-' : response.Item.CreatedVisitDate}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Referred By
+                            </div>
+                            <label>
+                                ${response.Item.ReferedByEmail == "" || response.Item.ReferedByEmail == null ? '-' : response.Item.ReferedByEmail}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Appointments
+                            </div>
+                            <label>
+                                ${response.Item.AppointmentsCount == "" || response.Item.AppointmentsCount == null ? '-' : response.Item.AppointmentsCount}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Last Visit
+                            </div>
+                            <label>
+                                ${response.Item.UserAppoinmentLastVisitStr == "" || response.Item.UserAppoinmentLastVisitStr == null ? '-' : response.Item.UserAppoinmentLastVisitStr}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Sales
+                            </div>
+                            <label>
+                                SAR ${response.Item.TotalSales == "" || response.Item.TotalSales == null ? '0' : response.Item.TotalSales}
+                            </label>
+                        </div>
+                    `);
+
+
+
+                    // Appoinment list data append
+                    if (response.Item.UserAppointments.length <= 0) {
+                        $('#appointments_grid').html(`
+                        <tr>
+                            <td colspan="100" class="text-center" style="font-size:18px;font-weight:500;">No records found</td>
+                        </tr>
+                    `)
+                    } else {
+                        $("#appointments_grid").html(``);
+                    }
+
+                    for (i = 0; i < response.Item.UserAppointments.length; i++) {
+                        $('#appointments_grid').append(`
+                            <tr>
+                                <th>${response.Item.UserAppointments[i].Id}</th>
+                                <td>
+                                    ${response.Item.UserAppointments[i].AppointmentDate == "" || response.Item.UserAppointments[i].AppointmentDate == null ? '-' : response.Item.UserAppointments[i].AppointmentDate}
+                                    ${response.Item.UserAppointments[i].AppointmentTime == "" || response.Item.UserAppointments[i].AppointmentTime == null ? '-' : onTimeChange(response.Item.UserAppointments[i].AppointmentTime)}
+                                </td>
+                                <td>${response.Item.UserAppointments[i].ServicesIdsName == "" || response.Item.UserAppointments[i].ServicesIdsName == null ? '-' : response.Item.UserAppointments[i].ServicesIdsName}</td>
+                                <td>${response.Item.UserAppointments[i].AssignedToUsername == "" || response.Item.UserAppointments[i].AssignedToUsername == null ? '-' : response.Item.UserAppointments[i].AssignedToUsername}</td>
+                                <td>SAR ${response.Item.UserAppointments[i].Price == "" || response.Item.UserAppointments[i].Price == null ? '-' : response.Item.UserAppointments[i].Price}</td>
+                                <td>
+                                    ${response.Item.UserAppointments[i].LookUpStatusId == 6 ? `<button class="badge badge-warning">${response.Item.UserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.UserAppointments[i].LookUpStatusId == 7 ? `<button class="badge badge-danger">${response.Item.UserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.UserAppointments[i].LookUpStatusId == 8 ? `<button class="badge badge-warning">${response.Item.UserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.UserAppointments[i].LookUpStatusId == 9 ? `<button class="badge badge-success">${response.Item.UserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.UserAppointments[i].LookUpStatusId == 10 ? `<button class="badge badge-success">${response.Item.UserAppointments[i].LookUpStatusName}</button>` : ''}
+                                </td>
+                            </tr>
+                        `);
+                    }
+
+                    $('#customer_details_data_loader').hide();
+                    $('#appointments_grid_loader').hide();
+
+                },
+                error: function (error) {
+                    $('#customer_details_data_loader').hide();
+                    $('#appointments_grid_loader').hide();
+                }
+            });
+        }
+
+    </script>
+    <script src="~/assets/validation/js/jquery-ui.min.js"></script>
+    <script src="~/assets/validation/js/app.min.js"></script>
+    <script src="~/assets/validation/js/ui-modals.min.js"></script>
+    <script src="~/assets/validation/js/jquery.validate.min.js"></script>
+    <script src="~/assets/validation/js/additional-methods.min.js"></script>
+    <script src="~/assets/validation/js/toastr.min.js"></script>
+    <script src="~/assets/validation/js/ui-toastr.min.js"></script>
+    <script src="~/assets/vendor/dropify/js/dropify.min.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script> <!-- SweetAlert Plugin Js -->
+    <script src="~/assets/js/pages/forms/dropify.js"></script>
+    <script src="~/assets/js/pages/ui/dialogs.js"></script>
+}

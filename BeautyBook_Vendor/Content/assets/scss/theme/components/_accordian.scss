@@ -1,0 +1,88 @@
+.accordion {
+
+    .card {
+        .card-header {
+            cursor: pointer;
+            // padding: 0;
+            background-color: transparent;
+            .payment-title{
+                position: relative;
+            }
+            .card-title {
+                // padding: $card-spacer-y $card-spacer-x;
+                margin-bottom: 0;
+                font-weight: $font-weight-medium;
+                display: flex;
+                align-items: center;
+
+                i {
+                    margin-right: 1rem;
+                }
+
+                @include media-breakpoint-up(sm){
+                    padding: 1.125rem 2.5rem 1.125rem 1.125rem;
+                }
+            }
+        }
+
+        p{
+            line-height: 1.7;
+        }
+    }
+   
+    &.accordion-ungrouped {
+        .card {
+            margin-bottom: 1rem;
+            border-radius: $border-radius;
+            border: 1px solid $border-color;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &:not(:first-of-type):not(:last-of-type) {
+                border: 1px solid $border-color;
+            }
+        }
+    }
+
+    &.accordion-arrow-toggler {
+
+        .card-title {
+
+            &::after {
+                content: "";
+                display: inline-block;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E %3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7' /%3E %3C/svg%3E");                position: absolute;
+                right: 1rem;
+                font-size: 1.125rem;
+                height: 1rem;
+                width: 1rem;
+                transition: all 0.3s ease-in;
+                transform: rotate(180deg);
+            }
+
+            &.collapsed {
+                &::after {
+                    content: "";
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+
+}
+
+
+
+.accordion {
+    .list-group-item {
+
+        border-width: 0 0 1px 0;
+
+        &:last-of-type {
+            border: 0;
+            border-bottom: 1px;
+        }
+    }
+}

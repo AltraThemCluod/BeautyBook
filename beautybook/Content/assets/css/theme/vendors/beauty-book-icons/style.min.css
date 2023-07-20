@@ -1,0 +1,869 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "beauty-book-icons";
+  src: url("fonts/beauty-book-icons.eot?mlxyzm");
+  src: url("fonts/beauty-book-icons.eot?mlxyzm#iefix") format("embedded-opentype"), url("fonts/beauty-book-icons.ttf?mlxyzm") format("truetype"), url("fonts/beauty-book-icons.woff?mlxyzm") format("woff"), url("fonts/beauty-book-icons.svg?mlxyzm#beauty-book-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block; }
+
+[class^="bb-"], [class*=" bb-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "beauty-book-icons" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.bb-activity:before {
+  content: ""; }
+
+.bb-airplay:before {
+  content: ""; }
+
+.bb-alert-circle:before {
+  content: ""; }
+
+.bb-alert-octagon:before {
+  content: ""; }
+
+.bb-alert-triangle:before {
+  content: ""; }
+
+.bb-align-center:before {
+  content: ""; }
+
+.bb-align-justify:before {
+  content: ""; }
+
+.bb-align-left:before {
+  content: ""; }
+
+.bb-align-right:before {
+  content: ""; }
+
+.bb-anchor:before {
+  content: ""; }
+
+.bb-aperture:before {
+  content: ""; }
+
+.bb-archive:before {
+  content: ""; }
+
+.bb-arrow-down:before {
+  content: ""; }
+
+.bb-arrow-down-circle:before {
+  content: ""; }
+
+.bb-arrow-down-left:before {
+  content: ""; }
+
+.bb-arrow-down-right:before {
+  content: ""; }
+
+.bb-arrow-left:before {
+  content: ""; }
+
+.bb-arrow-left-circle:before {
+  content: ""; }
+
+.bb-arrow-right:before {
+  content: ""; }
+
+.bb-arrow-right-circle:before {
+  content: ""; }
+
+.bb-arrow-up:before {
+  content: ""; }
+
+.bb-arrow-up-circle:before {
+  content: ""; }
+
+.bb-arrow-up-left:before {
+  content: ""; }
+
+.bb-arrow-up-right:before {
+  content: ""; }
+
+.bb-at-sign:before {
+  content: ""; }
+
+.bb-award:before {
+  content: ""; }
+
+.bb-bar-chart:before {
+  content: ""; }
+
+.bb-bar-chart-2:before {
+  content: ""; }
+
+.bb-battery:before {
+  content: ""; }
+
+.bb-battery-charging:before {
+  content: ""; }
+
+.bb-bell:before {
+  content: ""; }
+
+.bb-bell-off:before {
+  content: ""; }
+
+.bb-bluetooth:before {
+  content: ""; }
+
+.bb-bold:before {
+  content: ""; }
+
+.bb-book:before {
+  content: ""; }
+
+.bb-book-open:before {
+  content: ""; }
+
+.bb-bookmark:before {
+  content: ""; }
+
+.bb-box:before {
+  content: ""; }
+
+.bb-briefcase:before {
+  content: ""; }
+
+.bb-calendar:before {
+  content: ""; }
+
+.bb-camera:before {
+  content: ""; }
+
+.bb-camera-off:before {
+  content: ""; }
+
+.bb-cast:before {
+  content: ""; }
+
+.bb-check:before {
+  content: ""; }
+
+.bb-check-circle:before {
+  content: ""; }
+
+.bb-check-square:before {
+  content: ""; }
+
+.bb-chevron-down:before {
+  content: ""; }
+
+.bb-chevron-left:before {
+  content: ""; }
+
+.bb-chevron-right:before {
+  content: ""; }
+
+.bb-chevron-up:before {
+  content: ""; }
+
+.bb-chevrons-down:before {
+  content: ""; }
+
+.bb-chevrons-left:before {
+  content: ""; }
+
+.bb-chevrons-right:before {
+  content: ""; }
+
+.bb-chevrons-up:before {
+  content: ""; }
+
+.bb-chrome:before {
+  content: ""; }
+
+.bb-circle:before {
+  content: ""; }
+
+.bb-clipboard:before {
+  content: ""; }
+
+.bb-clock:before {
+  content: ""; }
+
+.bb-cloud:before {
+  content: ""; }
+
+.bb-cloud-drizzle:before {
+  content: ""; }
+
+.bb-cloud-lightning:before {
+  content: ""; }
+
+.bb-cloud-off:before {
+  content: ""; }
+
+.bb-cloud-rain:before {
+  content: ""; }
+
+.bb-cloud-snow:before {
+  content: ""; }
+
+.bb-code:before {
+  content: ""; }
+
+.bb-codepen:before {
+  content: ""; }
+
+.bb-codesandbox:before {
+  content: ""; }
+
+.bb-coffee:before {
+  content: ""; }
+
+.bb-columns:before {
+  content: ""; }
+
+.bb-command:before {
+  content: ""; }
+
+.bb-compass:before {
+  content: ""; }
+
+.bb-copy:before {
+  content: ""; }
+
+.bb-corner-down-left:before {
+  content: ""; }
+
+.bb-corner-down-right:before {
+  content: ""; }
+
+.bb-corner-left-down:before {
+  content: ""; }
+
+.bb-corner-left-up:before {
+  content: ""; }
+
+.bb-corner-right-down:before {
+  content: ""; }
+
+.bb-corner-right-up:before {
+  content: ""; }
+
+.bb-corner-up-left:before {
+  content: ""; }
+
+.bb-corner-up-right:before {
+  content: ""; }
+
+.bb-cpu:before {
+  content: ""; }
+
+.bb-credit-card:before {
+  content: ""; }
+
+.bb-crop:before {
+  content: ""; }
+
+.bb-crosshair:before {
+  content: ""; }
+
+.bb-database:before {
+  content: ""; }
+
+.bb-delete:before {
+  content: ""; }
+
+.bb-disc:before {
+  content: ""; }
+
+.bb-dollar-sign:before {
+  content: ""; }
+
+.bb-download:before {
+  content: ""; }
+
+.bb-download-cloud:before {
+  content: ""; }
+
+.bb-droplet:before {
+  content: ""; }
+
+.bb-edit:before {
+  content: ""; }
+
+.bb-edit-2:before {
+  content: ""; }
+
+.bb-edit-3:before {
+  content: ""; }
+
+.bb-external-link:before {
+  content: ""; }
+
+.bb-eye:before {
+  content: ""; }
+
+.bb-eye-off:before {
+  content: ""; }
+
+.bb-facebook:before {
+  content: ""; }
+
+.bb-fast-forward:before {
+  content: ""; }
+
+.bb-feather:before {
+  content: ""; }
+
+.bb-figma:before {
+  content: ""; }
+
+.bb-file:before {
+  content: ""; }
+
+.bb-file-minus:before {
+  content: ""; }
+
+.bb-file-plus:before {
+  content: ""; }
+
+.bb-file-text:before {
+  content: ""; }
+
+.bb-film:before {
+  content: ""; }
+
+.bb-filter:before {
+  content: ""; }
+
+.bb-flag:before {
+  content: ""; }
+
+.bb-folder:before {
+  content: ""; }
+
+.bb-folder-minus:before {
+  content: ""; }
+
+.bb-folder-plus:before {
+  content: ""; }
+
+.bb-framer:before {
+  content: ""; }
+
+.bb-frown:before {
+  content: ""; }
+
+.bb-gift:before {
+  content: ""; }
+
+.bb-git-branch:before {
+  content: ""; }
+
+.bb-git-commit:before {
+  content: ""; }
+
+.bb-git-merge:before {
+  content: ""; }
+
+.bb-git-pull-request:before {
+  content: ""; }
+
+.bb-github:before {
+  content: ""; }
+
+.bb-gitlab:before {
+  content: ""; }
+
+.bb-globe:before {
+  content: ""; }
+
+.bb-grid:before {
+  content: ""; }
+
+.bb-hard-drive:before {
+  content: ""; }
+
+.bb-hash:before {
+  content: ""; }
+
+.bb-headphones:before {
+  content: ""; }
+
+.bb-heart:before {
+  content: ""; }
+
+.bb-help-circle:before {
+  content: ""; }
+
+.bb-hexagon:before {
+  content: ""; }
+
+.bb-home:before {
+  content: ""; }
+
+.bb-image:before {
+  content: ""; }
+
+.bb-inbox:before {
+  content: ""; }
+
+.bb-info:before {
+  content: ""; }
+
+.bb-instagram:before {
+  content: ""; }
+
+.bb-italic:before {
+  content: ""; }
+
+.bb-key:before {
+  content: ""; }
+
+.bb-layers:before {
+  content: ""; }
+
+.bb-layout:before {
+  content: ""; }
+
+.bb-life-buoy:before {
+  content: ""; }
+
+.bb-link:before {
+  content: ""; }
+
+.bb-link-2:before {
+  content: ""; }
+
+.bb-linkedin:before {
+  content: ""; }
+
+.bb-list:before {
+  content: ""; }
+
+.bb-loader:before {
+  content: ""; }
+
+.bb-lock:before {
+  content: ""; }
+
+.bb-log-in:before {
+  content: ""; }
+
+.bb-log-out:before {
+  content: ""; }
+
+.bb-mail:before {
+  content: ""; }
+
+.bb-map:before {
+  content: ""; }
+
+.bb-map-pin:before {
+  content: ""; }
+
+.bb-maximize:before {
+  content: ""; }
+
+.bb-maximize-2:before {
+  content: ""; }
+
+.bb-meh:before {
+  content: ""; }
+
+.bb-menu:before {
+  content: ""; }
+
+.bb-message-circle:before {
+  content: ""; }
+
+.bb-message-square:before {
+  content: ""; }
+
+.bb-mic:before {
+  content: ""; }
+
+.bb-mic-off:before {
+  content: ""; }
+
+.bb-minimize:before {
+  content: ""; }
+
+.bb-minimize-2:before {
+  content: ""; }
+
+.bb-minus:before {
+  content: ""; }
+
+.bb-minus-circle:before {
+  content: ""; }
+
+.bb-minus-square:before {
+  content: ""; }
+
+.bb-monitor:before {
+  content: ""; }
+
+.bb-moon:before {
+  content: ""; }
+
+.bb-more-horizontal:before {
+  content: ""; }
+
+.bb-more-vertical:before {
+  content: ""; }
+
+.bb-mouse-pointer:before {
+  content: ""; }
+
+.bb-move:before {
+  content: ""; }
+
+.bb-music:before {
+  content: ""; }
+
+.bb-navigation:before {
+  content: ""; }
+
+.bb-navigation-2:before {
+  content: ""; }
+
+.bb-octagon:before {
+  content: ""; }
+
+.bb-package:before {
+  content: ""; }
+
+.bb-paperclip:before {
+  content: ""; }
+
+.bb-pause:before {
+  content: ""; }
+
+.bb-pause-circle:before {
+  content: ""; }
+
+.bb-pen-tool:before {
+  content: ""; }
+
+.bb-percent:before {
+  content: ""; }
+
+.bb-phone:before {
+  content: ""; }
+
+.bb-phone-call:before {
+  content: ""; }
+
+.bb-phone-forwarded:before {
+  content: ""; }
+
+.bb-phone-incoming:before {
+  content: ""; }
+
+.bb-phone-missed:before {
+  content: ""; }
+
+.bb-phone-off:before {
+  content: ""; }
+
+.bb-phone-outgoing:before {
+  content: ""; }
+
+.bb-pie-chart:before {
+  content: ""; }
+
+.bb-play:before {
+  content: ""; }
+
+.bb-play-circle:before {
+  content: ""; }
+
+.bb-plus:before {
+  content: ""; }
+
+.bb-plus-circle:before {
+  content: ""; }
+
+.bb-plus-square:before {
+  content: ""; }
+
+.bb-pocket:before {
+  content: ""; }
+
+.bb-power:before {
+  content: ""; }
+
+.bb-printer:before {
+  content: ""; }
+
+.bb-radio:before {
+  content: ""; }
+
+.bb-refresh-ccw:before {
+  content: ""; }
+
+.bb-refresh-cw:before {
+  content: ""; }
+
+.bb-repeat:before {
+  content: ""; }
+
+.bb-rewind:before {
+  content: ""; }
+
+.bb-rotate-ccw:before {
+  content: ""; }
+
+.bb-rotate-cw:before {
+  content: ""; }
+
+.bb-rss:before {
+  content: ""; }
+
+.bb-save:before {
+  content: ""; }
+
+.bb-scissors:before {
+  content: ""; }
+
+.bb-search:before {
+  content: ""; }
+
+.bb-send:before {
+  content: ""; }
+
+.bb-server:before {
+  content: ""; }
+
+.bb-settings:before {
+  content: ""; }
+
+.bb-share:before {
+  content: ""; }
+
+.bb-share-2:before {
+  content: ""; }
+
+.bb-shield:before {
+  content: ""; }
+
+.bb-shield-off:before {
+  content: ""; }
+
+.bb-shopping-bag:before {
+  content: ""; }
+
+.bb-shopping-cart:before {
+  content: ""; }
+
+.bb-shuffle:before {
+  content: ""; }
+
+.bb-sidebar:before {
+  content: ""; }
+
+.bb-skip-back:before {
+  content: ""; }
+
+.bb-skip-forward:before {
+  content: ""; }
+
+.bb-slack:before {
+  content: ""; }
+
+.bb-slash:before {
+  content: ""; }
+
+.bb-sliders:before {
+  content: ""; }
+
+.bb-smartphone:before {
+  content: ""; }
+
+.bb-smile:before {
+  content: ""; }
+
+.bb-speaker:before {
+  content: ""; }
+
+.bb-square:before {
+  content: ""; }
+
+.bb-star:before {
+  content: ""; }
+
+.bb-stop-circle:before {
+  content: ""; }
+
+.bb-sun:before {
+  content: ""; }
+
+.bb-sunrise:before {
+  content: ""; }
+
+.bb-sunset:before {
+  content: ""; }
+
+.bb-tablet:before {
+  content: ""; }
+
+.bb-tag:before {
+  content: ""; }
+
+.bb-target:before {
+  content: ""; }
+
+.bb-terminal:before {
+  content: ""; }
+
+.bb-thermometer:before {
+  content: ""; }
+
+.bb-thumbs-down:before {
+  content: ""; }
+
+.bb-thumbs-up:before {
+  content: ""; }
+
+.bb-toggle-left:before {
+  content: ""; }
+
+.bb-toggle-right:before {
+  content: ""; }
+
+.bb-tool:before {
+  content: ""; }
+
+.bb-trash:before {
+  content: ""; }
+
+.bb-trash-2:before {
+  content: ""; }
+
+.bb-trello:before {
+  content: ""; }
+
+.bb-trending-down:before {
+  content: ""; }
+
+.bb-trending-up:before {
+  content: ""; }
+
+.bb-triangle:before {
+  content: ""; }
+
+.bb-truck:before {
+  content: ""; }
+
+.bb-tv:before {
+  content: ""; }
+
+.bb-twitch:before {
+  content: ""; }
+
+.bb-twitter:before {
+  content: ""; }
+
+.bb-type:before {
+  content: ""; }
+
+.bb-umbrella:before {
+  content: ""; }
+
+.bb-underline:before {
+  content: ""; }
+
+.bb-unlock:before {
+  content: ""; }
+
+.bb-upload:before {
+  content: ""; }
+
+.bb-upload-cloud:before {
+  content: ""; }
+
+.bb-user:before {
+  content: ""; }
+
+.bb-user-check:before {
+  content: ""; }
+
+.bb-user-minus:before {
+  content: ""; }
+
+.bb-user-plus:before {
+  content: ""; }
+
+.bb-user-x:before {
+  content: ""; }
+
+.bb-users:before {
+  content: ""; }
+
+.bb-video:before {
+  content: ""; }
+
+.bb-video-off:before {
+  content: ""; }
+
+.bb-voicemail:before {
+  content: ""; }
+
+.bb-volume:before {
+  content: ""; }
+
+.bb-volume-1:before {
+  content: ""; }
+
+.bb-volume-2:before {
+  content: ""; }
+
+.bb-volume-x:before {
+  content: ""; }
+
+.bb-watch:before {
+  content: ""; }
+
+.bb-wifi:before {
+  content: ""; }
+
+.bb-wifi-off:before {
+  content: ""; }
+
+.bb-wind:before {
+  content: ""; }
+
+.bb-x:before {
+  content: ""; }
+
+.bb-x-circle:before {
+  content: ""; }
+
+.bb-x-octagon:before {
+  content: ""; }
+
+.bb-x-square:before {
+  content: ""; }
+
+.bb-youtube:before {
+  content: ""; }
+
+.bb-zap:before {
+  content: ""; }
+
+.bb-zap-off:before {
+  content: ""; }
+
+.bb-zoom-in:before {
+  content: ""; }
+
+.bb-zoom-out:before {
+  content: ""; }
+
+/*# sourceMappingURL=style.min.css.map */

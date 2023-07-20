@@ -1,0 +1,126 @@
+th {
+    font-weight: $font-weight-bold;
+    color: $headings-color;
+}
+
+.table-dark {
+    th {
+        color: $white;
+    }
+}
+
+.table {
+    thead {
+        th {
+            border-bottom-width: $border-width;
+        }
+    }
+}
+
+.table-service{
+    font-size: $font-size-sm;
+
+    .input-group{
+        width: min-content;
+        min-width: 7.5rem;
+
+        // @include media-breakpoint-up(lg) {
+        //     min-width: 7.5rem;
+        // }
+    }
+}
+
+
+
+.table-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: $white;
+    background-clip: border-box;
+    border-radius: 4px;
+    border: 1px solid $border-color;
+    box-shadow: $box-shadow-2;
+
+    .table-bordered{
+        border: 0;
+    }
+
+    .table{
+        margin-bottom: 0;
+
+        tr:first-child th {
+            border-top: none;
+    
+            &:first-child {
+                border-top-left-radius: 4px;
+            }
+        }
+
+        tr:first-child td {
+            border-top: none;
+        }
+
+        th,td{
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        thead{
+            th{
+                background-color: $gray-100;
+                border-color: $gray-300;
+                font-size: 12px;
+                line-height: 1.2;
+                letter-spacing: 0.1em;
+                color: $gray-600;
+                text-transform: uppercase;
+                font-weight: 700;
+
+                .bootstrap-select{
+                    padding: 0;
+                }
+
+                .dropdown-menu{
+                    letter-spacing: 0;
+                    font-size: $font-size-sm;
+                    text-transform: initial;
+                }
+            }
+
+            
+        }
+
+        .item-description{
+            overflow: hidden!important;
+            display: -webkit-box!important;
+            -webkit-line-clamp: 3!important;
+            -webkit-box-orient: vertical;
+            font-weight: 400;
+            font-size: 0.75rem;
+            color: $gray-600;
+            margin-top: 5px;
+            max-width: 18rem;
+        }
+    }
+}
+
+
+.table-responsive {
+    
+
+    @include media-breakpoint-up(md){
+        overflow: inherit;
+
+       
+    }
+    @include media-breakpoint-down(md){
+        .dropdown-menu{
+            position: static !important;
+        }
+       
+    }
+
+}

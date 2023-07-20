@@ -1,0 +1,267 @@
+﻿@{
+    ViewBag.Title = "Checkout Details";
+}
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Checkout_Details)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="./index.html">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Checkout_Details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-header font-weight-semibold">@(beautybook.Resources.Languages.Shipping_address)</div>
+                            <div class="card-body">
+                                <div id="addressloader" style="display: none;" class="text-center mb-4">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                                <div class="row" id="shippingaddresslist">
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <button class="btn btn-primary add-new-address" type="button" onclick="AddNewAddress();">@(beautybook.Resources.Languages.Add_New_Address)</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header font-weight-semibold">@(beautybook.Resources.Languages.Billing_address)</div>
+                            <div class="card-body billing-address">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="shippingAddress" checked>
+                                    <label class="custom-control-label" id="shippingAddress" for="shippingAddress">@(beautybook.Resources.Languages.Same_as_shipping_address)</label>
+                                </div>
+                                <div id="billingaddressdiv" class="mt-2">
+                                    <div class="row" id="Billingaddresslist">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="sticky-panel-top product-amount-details">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row align-items-center mb-2">
+                                        <span class="col-6 fs-14">@(beautybook.Resources.Languages.Subtotal):</span>
+                                        <h4 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0" id="subTotal"></h4>
+                                        <input type="hidden" name="name" id="subTotalInp" value="" />
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <span class="col-6 fs-14">@(beautybook.Resources.Languages.Delivery):</span>
+                                        <h4 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0">Free</h4>
+                                    </div>
+                                    <hr class="my-3">
+                                    <div class="row align-items-center">
+                                        <span class="col-6 fs-14">@(beautybook.Resources.Languages.VAT_included):</span>
+                                        <h4 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0" id="VATIncluded"></h4>
+                                        <input type="hidden" id="VATIncludedInp" name="name" value="" />
+                                    </div>
+                                    <hr class="my-3">
+                                    <div class="row align-items-center">
+                                        <span class="col-6 fs-14 text-dark font-weight-bold">@(beautybook.Resources.Languages.Total_to_pay):</span>
+                                        <h3 class="col-6 font-weight-medium fs-16 text-right text-dark mb-0" id="TotaltoPay"></h3>
+                                        <input type="hidden" id="TotaltoPayInp" name="name" value="" />
+                                    </div>
+
+                                    <a href="javascript:;" onclick="ProceedToPayment();" class="btn btn-primary btn-wide btn-lg font-weight-medium btn-block mt-5"><span id="p_button_text">@(beautybook.Resources.Languages.Proceed_to_Payment)</span> <img id="p_button_loader" style="width:50px;display:none;" src="../Content/assets/images/loading.gif"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Add New Address Modal -->
+<div class="modal fade" id="newAddressModal" tabindex="-1" aria-labelledby="newAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
+
+        <form class="modal-content" id="addressform" name="addressform">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newAddressModalLabel">@(beautybook.Resources.Languages.Add_a_New_Address)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <input type="hidden" name="addressId" id="addressId" value="0" />
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="salonName">@(beautybook.Resources.Languages.Salon_Name)</label>
+                                    <select class="selectpicker form-control" id="salonName" tabindex="13" name="salonName" title="@(beautybook.Resources.Languages.Enter_salon_name)" data-live-search="true" data-size="6"></select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="addressArea">@(beautybook.Resources.Languages.Address)</label>
+                                    <input class="form-control" id="checkoutaddress" name="checkoutaddress" placeholder="@(beautybook.Resources.Languages.Enter_your_address_here)"/>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="countryName">@(beautybook.Resources.Languages.Country)</label>
+                                    <select class="selectpicker form-control" id="countryName" tabindex="13" name="countryName" title="@(beautybook.Resources.Languages.Select_a_Country)" data-live-search="true" data-size="6"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="stateName">@(beautybook.Resources.Languages.State)</label>
+                                    <select class="selectpicker form-control" id="stateName" tabindex="13" name="stateName" title="@(beautybook.Resources.Languages.Select_a_State)" data-live-search="true" data-size="6"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="primaryNumber">@(beautybook.Resources.Languages.City)</label>
+                                    <input type="text" class="form-control" placeholder="@(beautybook.Resources.Languages.Enter_city_name)" name="cityName" id="cityName">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="zipCode">@(beautybook.Resources.Languages.Zip_Code)</label>
+                                    <input type="text" class="form-control" placeholder="@(beautybook.Resources.Languages.Enter_zip_code)" name="zipCode" id="zipCode">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="primaryNumber">@(beautybook.Resources.Languages.Primary_Phone)</label>
+                                    <input type="text" class="form-control" placeholder="@(beautybook.Resources.Languages.Enter_primary_number)" name="primaryNumber" id="primaryNumber">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="alternateNumber">@(beautybook.Resources.Languages.Alternate_Phone)</label>
+                                    <input type="text" class="form-control" placeholder="@(beautybook.Resources.Languages.Enter_phone_number)" name="alternateNumber" id="alternateNumber">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="makeDefaultAddress" name="makeDefaultAddress">
+                                    <label class="custom-control-label" for="makeDefaultAddress">@(beautybook.Resources.Languages.Make_this_address_to_default)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal">@(beautybook.Resources.Languages.Close)</button>
+                <button type="submit" name="submit" class="btn btn-primary font-weight-medium" id="saveAddressbtn">
+                    @(beautybook.Resources.Languages.Add_Address)
+                </button>
+                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="saveAddressbtnloading" style="display:none;">
+                    @(beautybook.Resources.Languages.Adding_Address)
+                    <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*Google map api key*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABofRnRkpT_4m344ZOsyRnT90uSGF5H6A&amp;libraries=places"></script>
+<script src="~/Content/assets/js/AutoLocation.js"></script>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/CheckoutDetails/ManageCheckoutDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Cart/ProceedOrder.js"></script>
+
+<script>
+    //jquery validation
+    $(function () {
+        $("form[name='addressform']").validate({
+            rules: {
+                checkoutaddress: {
+                    required: true
+                },
+                cityName: {
+                    required: true
+                },
+                zipCode: {
+                    required: true,
+                    number: true,
+                },
+                primaryNumber: {
+                    required: true,
+                    number: true,
+                    maxlength: 10,
+                    minlength: 10
+                },
+            },
+            messages: {
+                checkoutaddress: "Address is required",
+                cityName: "City is required",
+                zipCode: {
+                    required: "Zipcode is required",
+                },
+                primaryNumber: {
+                    required: "Primary Phone is required"
+                },
+            },
+            submitHandler: function () {
+                saveAddressdetails();
+            }
+        });
+    });
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //Address autocompleteField
+        googleAutocomplete.autocompleteField("checkoutaddress");
+
+        //address List api function call
+        addressList();
+        //SelectCountry API function call
+        SelectCountry();
+
+        //SelectState API function call
+        SelectState();
+
+        salonName();
+    });
+    $('#billingaddressdiv').hide();
+    $(function () {
+        $("#shippingAddress").click(function () {
+            if ($(this).is(":checked")) {
+                $('#billingaddressdiv').hide();
+            } else {
+                $('#billingaddressdiv').show();
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,363 @@
+﻿@using BeautyBook.Common;
+
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 May 2022 15:37:33 GMT -->
+<head>
+
+    <meta charset="utf-8" />
+    <title>Blog - @ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/Content/assets/images/small-logo.png">
+
+    <!-- DataTables -->
+    <link href="~/Content/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/Content/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- plugin css -->
+    <link href="~/Content/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+
+    <!-- preloader css -->
+    <link rel="stylesheet" href="~/Content/assets/css/preloader.min.css" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="~/Content/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/Content/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/Content/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/cropper.css" rel="stylesheet" type="text/css" />
+    <style>
+        .pace {
+            display: none !important;
+        }
+
+        .navbar-brand-box {
+            padding: 0 1rem !important;
+        }
+
+        .header-profile-user {
+            height: 45px;
+            width: 45px;
+            object-fit: cover;
+            background-color: var(--bs-gray-600);
+            padding: 0px;
+        }
+
+        .btn-primary {
+            box-shadow: none;
+            background: #18515b;
+            border-color: #18515b;
+        }
+
+            .btn-primary.disabled, .btn-primary:disabled {
+                background: #18515b;
+                border-color: #18515b;
+            }
+
+            .btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+                background: #154048;
+                border-color: #18515b;
+            }
+
+            .btn-primary:hover {
+                background: #154048;
+                border-color: #18515b;
+            }
+
+        .spinner-border {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 0.2em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+        }
+
+        .notifyjs-bootstrap-base {
+            font-weight: 500 !important;
+        }
+
+        .field-validation-error span {
+            color: red;
+            font-size: 11px;
+        }
+        .dt-buttons{
+            display:none;
+        }
+        .cur-pointer-icon {
+            cursor: pointer;
+            font-size:17px;
+        }
+        .object-fit-cover {
+            object-fit: cover;
+        }
+        .page-item.active .page-link {
+            background-color: #18515b;
+            border-color: #18515b;
+        }
+        .text-decoration-underline {
+            text-decoration: underline;
+        }
+        .line-bar {
+            background: #18515b;
+            height: 3px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .error {
+            border-color: red !important;
+        }
+        .instagram-color {
+            color: transparent;
+            background: -webkit-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background: -o-radial-gradient(30% 107%, circle, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+    </style>
+</head>
+
+<body class="pace-running sidebar-enable" data-sidebar-size="lg">
+
+    <!-- <body data-layout="horizontal"> -->
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a href="@Url.Action("Index","Home")" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="~/Content/assets/images/small-logo.png" alt="" height="35">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="~/Content/assets/images/logo.png" alt="" height="35">
+                            </span>
+                        </a>
+
+                        <a href="@Url.Action("Index","Home")" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="~/Content/assets/images/small-logo.png" alt="" height="35">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="~/Content/assets/images/logo.png" alt="" height="35">
+                            </span>
+                        </a>
+                    </div>
+
+                    <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="d-flex">
+
+                    <div class="dropdown d-inline-block d-lg-none ms-2">
+                        <button type="button" class="btn header-item" id="page-header-search-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i data-feather="search" class="icon-lg"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                             aria-labelledby="page-header-search-dropdown">
+
+                            <form class="p-3">
+                                <div class="form-group m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Search Result">
+
+                                        <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    @*<div class="dropdown d-none d-sm-inline-block">
+                            <button type="button" class="btn header-item" id="mode-setting-btn">
+                                <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
+                                <i data-feather="sun" class="icon-lg layout-mode-light"></i>
+                            </button>
+                        </div>*@
+
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle header-profile-user" src="../@ProjectSession.AdminProfile"
+                                 alt="Header Avatar">
+                            <span class="d-none d-xl-inline-block ms-1 fw-medium">@ProjectSession.AdminName</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a class="dropdown-item" href="@Url.Action("Index","Profile")"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
+                            <a class="dropdown-item" href="@Url.Action("ChangePassword","Profile")"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Change Password</a>
+                            <a class="dropdown-item" href="@Url.Action("Signout","Authentication")"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="vertical-menu">
+
+            <div data-simplebar class="h-100">
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                    <ul class="metismenu list-unstyled" id="side-menu">
+                        <li class="menu-title" data-key="t-menu">Menu</li>
+
+                        @if (@ProjectSession.UserTypeId == 1 || @ProjectSession.UserTypeId == 2)
+                         {
+                            <li>
+                                <a href="@Url.Action("Index","Home")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                    <span data-key="t-dashboard">Dashboard</span>
+                                </a>
+                            </li>
+                         }
+
+                        @if (@ProjectSession.UserTypeId == 1)
+                         {
+                            <li>
+                                <a href="@Url.Action("Index","Category")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                    <span data-key="t-category">Manage Category</span>
+                                </a>
+                            </li>
+                         }
+
+                        @if (@ProjectSession.UserTypeId == 1)
+                         {
+                            <li>
+                                <a href="@Url.Action("Index","SubscribeNewslatter")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                    <span data-key="t-subscribe-email">Subscribe Email</span>
+                                </a>
+                            </li>
+                         }
+
+                        @if (@ProjectSession.UserTypeId == 1)
+                         {
+                            <li>
+                                <a href="@Url.Action("Index","BlogUsers")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                    <span data-key="t-user">Manage Users</span>
+                                </a>
+                            </li>
+                         }
+
+                        @if (@ProjectSession.UserTypeId == 1 || @ProjectSession.UserTypeId == 2)
+                         {
+                            <li>
+                                <a href="@Url.Action("Index","UsersBlog")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                                    <span data-key="t-blog">Manage Blog</span>
+                                </a>
+                            </li>
+                         }
+
+                        @if (@ProjectSession.UserTypeId == 1 || @ProjectSession.UserTypeId == 2)
+                         {
+                            <li>
+                                <a href="@Url.Action("ImageGallery","UsersBlog")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                    <span data-key="t-image-gallery">Image Gallery</span>
+                                </a>
+                            </li>
+                         }
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+
+            @RenderBody()
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © Zaan.
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+
+    </div>
+
+    <div class="rightbar-overlay"></div>
+    <!-- JAVASCRIPT -->
+    <script src="~/Content/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/Content/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/Content/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/Content/assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/Content/assets/libs/feather-icons/feather.min.js"></script>
+    <!-- pace js -->
+    <script src="~/Content/assets/libs/pace-js/pace.min.js"></script>
+
+    <!-- apexcharts -->
+    <script src="~/Content/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Plugins js-->
+    <script src="~/Content/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Content/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- dashboard init -->
+    <script src="~/Content/assets/js/pages/dashboard.init.js"></script>
+    <script src="~/Content/jquery-validate/jquery.validate.js"></script>
+    <script src="~/Content/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Content/assets/js/app.js"></script>
+    <script src="~/Content/assets/js/cropper.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="~/Content/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/libs/jszip/jszip.min.js"></script>
+    <script src="~/Content/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/Content/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="~/Content/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/Content/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/Content/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+    <!-- Responsive examples -->
+    <script src="~/Content/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Content/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Datatable init js -->
+    <script src="~/Content/assets/js/pages/datatables.init.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+    @RenderSection("scripts", required: false)
+    @Html.Raw(ViewBag.openPopup)
+</body>
+<!-- Mirrored from themesbrand.com/minia/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 15 May 2022 15:37:33 GMT -->
+</html>

@@ -1,0 +1,601 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<style>
+    .top-product-card {
+        padding: 10px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0px 0px 4px 1px #00000014;
+    }
+    .filter-active {
+        background: #00acc1;
+        color: #fff !important;
+    }
+</style>
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column breadcrumb mb-0 pl-0 flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0  order-2 order-sm-1 mr-auto">@BeautyBook_Vendor.Resources.Languages.Dashboard</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-header">
+            <form class="container-fluid ">
+                <div class="row align-items-center align-items-xl-end">
+
+                    <div class="col-lg-2">
+                        <div class="col-sm-12 p-0">
+                            <div class="input-group">
+                                <input type="text" class="datepicker w-100 singledatepicker form-control" placeholder="From Date" name="DashboardFromdate" tabindex="3" id="DashboardFromdate">
+                                <div class="input-group-append input-box-label">
+                                    <span class="input-group-text text-muted">
+                                        <i class="bb-calendar fs-21"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-sm-12 p-0">
+                            <div class="input-group">
+                                <input type="text" class="datepicker w-100 singledatepicker form-control" placeholder="To Date" name="DashboardTodate" tabindex="3" id="DashboardTodate">
+                                <div class="input-group-append input-box-label">
+                                    <span class="input-group-text text-muted">
+                                        <i class="bb-calendar fs-21"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary btn-wide" onclick="AnalyticsDatafillter(true)"><i class="tio-filter-outlined"></i> @BeautyBook_Vendor.Resources.Languages.Filters</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" onclick="AnalyticsDatafillter(false)">@BeautyBook_Vendor.Resources.Languages.Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="row w-100 m-0 justify-content-center">
+                        <div class="col-lg-3 p-2">
+                            <div class="card-body card bg-primary text-center">
+                                <h4 class="mb-0 text-white">
+                                    @BeautyBook_Vendor.Resources.Languages.SAR <span id="incomeAmmount">0</span>
+                                </h4>
+                                <p class="mb-0 text-white">@BeautyBook_Vendor.Resources.Languages.Total_Sales</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 p-2">
+                            <div class="card-body card bg-primary text-center">
+                                <h4 class="mb-0 text-white">
+                                    <span class="align-middle" id="vendorAveRatting">0</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                </h4>
+                                <p class="mb-0 text-white">@BeautyBook_Vendor.Resources.Languages.Total_Rating_In_Store</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12 p-2">
+                        <div class="card card-lg">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h6 class="mb-0">@BeautyBook_Vendor.Resources.Languages.Sales_Rate <span class="ml-2 text-muted" id="noDataFoundSales"></span></h6>
+                                <div class="filter-button">
+                                    <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="filterButton_2" onclick="SalonIncomeFunctionSet(2)">@BeautyBook_Vendor.Resources.Languages.Monthly</button>
+                                    <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="filterButton_3" onclick="SalonIncomeFunctionSet(3)">@BeautyBook_Vendor.Resources.Languages.Daily</button>
+                                    <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="filterButton_4" onclick="SalonIncomeFunctionSet(4)">@BeautyBook_Vendor.Resources.Languages.Yearly</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div id="vendorIncome"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 p-2">
+                        <div class="card card-lg">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h6 class="mb-0 pt-2 pb-2">@BeautyBook_Vendor.Resources.Languages.Customers_Rate <span class="ml-2 text-muted" id="noDataFound"></span></h6>
+                            </div>
+                            <div class="col-lg-12">
+                                <div id="TopCustomerChart"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-5 p-2">
+                        <div class="card card-lg" style="height:395px;">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h6 class="mb-0 pt-2 pb-2">@BeautyBook_Vendor.Resources.Languages.Top_Customers</h6>
+                            </div>
+                            <div class="col-lg-12 pt-3 pb-3 table-service">
+                                <table class="w-100" id="VendorTopCustomerData">
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12 p-2">
+                        <div class="card card-lg">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <h6 class="mb-0 pt-2 pb-2">@BeautyBook_Vendor.Resources.Languages.Top_Product</h6>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="card-body p-0 pt-3 pb-3 row m-0" id="VendorTopProduct">
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-2 w-100" id="CustomerComments">
+                        <div class="col-lg-8 order-2 order-lg-1">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center justify-content-between">
+                                    <h6 class="mb-0 pt-2 pb-2">@BeautyBook_Vendor.Resources.Languages.Comment</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="feedBack_list"></div>
+                                    <div id="feedBack_listloader" style="display: none;" class="text-center mb-2 mt-2">
+                                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                    </div>
+                                    <div class="d-sm-flex justify-content-sm-end">
+                                        <a class="btn btn-link w-100 w-sm-auto px-5 mb-2 mr-sm-3" id="viewMorebtn" onclick="viewMore();" href="javascript:void(0)">@(BeautyBook_Vendor.Resources.Languages.View_More)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 mb-5 mb-lg-0 order-1 order-lg-2" id="customerOverview">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+<br />
+<br />
+<br />
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/assets/apexcharts/dist/apexcharts.min.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/Dashboard/IncomeRating.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/Dashboard/VendorDetails/VendorFeedBack.js"></script>
+
+<script>
+
+    //getCookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    //setCookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    $(document).ready(function () {
+        ArbicLanguage();
+        var duratiuonType = getCookie("VendorDuratiuonType");
+        $('#DashboardFromdate').val("@ViewBag.FromDate");
+        $('#DashboardTodate').val("@ViewBag.ToDate");
+        VendorSalesAndRating();
+        VendorTopSalons();
+        VendorTopProduct();
+        feedBacklist();
+        VendorTopSalonsChart();
+        VendorIncomeChart(duratiuonType == "" ? 2 : duratiuonType);
+    })
+
+
+    function AnalyticsDatafillter(IsReset) {
+        var FromDate = $('#DashboardFromdate').val();
+        var ToDate = $('#DashboardTodate').val();
+        if (IsReset == true) {
+            window.location.href = `/Home/Index?FromDate=${FromDate}&ToDate=${ToDate}`
+        } else if (IsReset === false) {
+
+            $('#FromDate').val(null);
+            $('#ToDate').val(null);
+            window.location.href = `/Home/Index`
+        }
+    }
+
+    function SalonIncomeFunctionSet(IncomeDuration) {
+        
+        setCookie("VendorDuratiuonType", IncomeDuration, 30);
+        window.location.reload();
+    }
+
+    var VendorTopSalonsArr = [];
+    var VendorTopSalonsMonthName = [];
+    function VendorTopSalonsChart() {
+        
+        let vendorTopSalons = new Object();
+        vendorTopSalons.IsPageProvided = true;
+
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonVendorDashboard/VendorTopCustomer_All?VendorId=${atob(vendorId)}&FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate&Type=2`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(vendorTopSalons),
+            crossDomain: true,
+            async: false,
+            success: function (result) {
+                
+                console.log('result', result);
+                if (result.Values.length > 0) {
+                    for (i = 0; i < result.Values.length; i++) {
+                        VendorTopSalonsArr.push(result.Values[i].CustomerCount);
+                        VendorTopSalonsMonthName.push(result.Values[i].Month + ' ' + result.Values[i].Year);
+                    }
+                } else {
+                    $('#noDataFound').text('No Data Found - Display Static Data')
+                    VendorTopSalonsArr.push(600, 800, 400, 2e3, 500, 900, 2500, 1800, 3800);
+                    VendorTopSalonsMonthName.push("01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan", "08 Jan", "09 Jan", "10 Jan", "11 Jan", "12 Jan");
+                }
+                TopCustomerchart();
+            }, error: function (error) {
+                //Error Function
+            }
+        });
+        return false;
+    }
+
+    var VendorIncomeArr = [];
+    var VendorIncomeMonthName = [];
+    function VendorIncomeChart(IncomeDuration) {
+        
+        $(`#filterButton_${IncomeDuration}`).addClass('filter-active');
+
+        let vendorTopSalons = new Object();
+        vendorTopSalons.IsPageProvided = true;
+
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonVendorDashboard/VendorTopProduct_All?VendorId=${atob(vendorId)}&FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate&Type=${IncomeDuration}`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(vendorTopSalons),
+            crossDomain: true,
+            async: false,
+            success: function (result) {
+                if (result.Values.length > 0) {
+                    for (i = 0; i < result.Values.length; i++) {
+                        VendorIncomeArr.push(result.Values[i].TotalAmount);
+                        if (IncomeDuration == 2) {
+                            VendorIncomeMonthName.push(result.Values[i].Month + ' ' + result.Values[i].Year);
+                        } else if (IncomeDuration == 3) {
+                            VendorIncomeMonthName.push(result.Values[i].Date.split(" ")[0]);
+                        } else if (IncomeDuration == 4) {
+                            VendorIncomeMonthName.push(result.Values[i].Year);
+                        }
+                    }
+                } else {
+                    $('#noDataFoundSales').text('No Data Found - Display Static Data')
+                    VendorIncomeArr.push(600, 800, 400, 2e3, 500, 900, 2500, 1800, 3800);
+                    VendorIncomeMonthName.push("01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan", "08 Jan", "09 Jan", "10 Jan", "11 Jan", "12 Jan");
+                }
+                VendorIncome();
+            }, error: function (error) {
+                //Error Function
+            }
+        });
+        return false;
+    }
+
+    //vendorIncome --------------------------------------------------------
+    function VendorIncome(){
+        if ($("#vendorIncome").length) {
+            e = {
+                series: [{
+                    name: "Amount SAR",
+                    data: VendorIncomeArr,
+                    colors: ["#754ffe"]
+                }],
+                chart: {
+                    toolbar: {
+                        show: true
+                    },
+                    height: 320,
+                    type: "line",
+                    zoom: {
+                        enabled: !1
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    width: [3, 3, 3, 3],
+                    curve: "smooth",
+                    dashArray: [0, 0, 0, 0]
+                },
+                // legend: {
+                //     show: !1
+                // },
+                colors: ["#00515b"],
+                markers: {
+                    size: 0,
+                    hover: {
+                        sizeOffset: 6
+                    }
+                },
+                xaxis: {
+                    categories: VendorIncomeMonthName,
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                        offsetX: -12,
+                        offsetY: 0
+                    }
+                },
+                tooltip: {
+                    y: [{
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }]
+                },
+                grid: {
+                    borderColor: "#f1f1f1"
+                }
+            };
+            new ApexCharts(document.querySelector("#vendorIncome"), e).render()
+
+        }
+    }
+
+    //TopCustomerChart --------------------------------------------------------
+    function TopCustomerchart() {
+        if ($("#TopCustomerChart").length) {
+            e = {
+                series: [{
+                    name: "Customers",
+                    data: VendorTopSalonsArr,
+                    colors: ["#754ffe"]
+                }],
+                chart: {
+                    toolbar: {
+                        show: true
+                    },
+                    height: 320,
+                    type: "line",
+                    zoom: {
+                        enabled: !1
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    width: [3, 3, 3, 3],
+                    curve: "smooth",
+                    dashArray: [0, 0, 0, 0]
+                },
+                // legend: {
+                //     show: !1
+                // },
+                colors: ["#00515b"],
+                markers: {
+                    size: 0,
+                    hover: {
+                        sizeOffset: 6
+                    }
+                },
+                xaxis: {
+                    categories: VendorTopSalonsMonthName,
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                        offsetX: -12,
+                        offsetY: 0
+                    }
+                },
+                tooltip: {
+                    y: [{
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }]
+                },
+                grid: {
+                    borderColor: "#f1f1f1"
+                }
+            };
+            new ApexCharts(document.querySelector("#TopCustomerChart"), e).render()
+
+        }
+    }
+
+    //TopProductChart --------------------------------------------------------
+    if ($("#TopProductChart").length) {
+        e = {
+            series: [{
+                name: "Free Plan",
+                data: [600, 800, 400, 2e3, 500, 900, 2500, 1800, 3800],
+                colors: ["#754ffe"]
+            }],
+            chart: {
+                toolbar: {
+                    show: true
+                },
+                height: 320,
+                type: "line",
+                zoom: {
+                    enabled: !1
+                }
+            },
+            dataLabels: {
+                enabled: !1
+            },
+            stroke: {
+                width: [3, 3, 3, 3],
+                curve: "smooth",
+                dashArray: [0, 0, 0, 0]
+            },
+            // legend: {
+            //     show: !1
+            // },
+            colors: ["#00515b"],
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: ["01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan", "08 Jan", "09 Jan", "10 Jan", "11 Jan", "12 Jan"],
+                labels: {
+                    style: {
+                        colors: ["#5c5776"],
+                        fontSize: "12px",
+                        fontFamily: "Inter",
+                        cssClass: "apexcharts-xaxis-label"
+                    },
+                }
+            },
+            yaxis: {
+                labels: {
+                    style: {
+                        colors: ["#5c5776"],
+                        fontSize: "12px",
+                        fontFamily: "Inter",
+                        cssClass: "apexcharts-xaxis-label"
+                    },
+                    offsetX: -12,
+                    offsetY: 0
+                }
+            },
+            tooltip: {
+                y: [{
+                    title: {
+                        formatter: function (e) {
+                            return e
+                        }
+                    }
+                }, {
+                    title: {
+                        formatter: function (e) {
+                            return e
+                        }
+                    }
+                }, {
+                    title: {
+                        formatter: function (e) {
+                            return e
+                        }
+                    }
+                }, {
+                    title: {
+                        formatter: function (e) {
+                            return e
+                        }
+                    }
+                }]
+            },
+            grid: {
+                borderColor: "#f1f1f1"
+            }
+        };
+        new ApexCharts(document.querySelector("#TopProductChart"), e).render()
+
+    }
+
+</script>

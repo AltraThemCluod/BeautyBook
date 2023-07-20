@@ -1,0 +1,471 @@
+﻿@{
+    ViewBag.Title = "Product Details";
+}
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <!-- Page Title -->
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageProduct","VendorProduct")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@BeautyBook_Vendor.Resources.Languages.Product_Details</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@BeautyBook_Vendor.Resources.Languages.Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageProduct","VendorProduct")">@BeautyBook_Vendor.Resources.Languages.Manage_Product</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@BeautyBook_Vendor.Resources.Languages.Product_Details</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div id="productformloader" style="display: none;" class="text-center mb-4">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+                <form class="card-lg" action="" name="productform" id="productform" style="display:none;">
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-12">
+                            <div class="card rounded-sm border card-lg">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">@BeautyBook_Vendor.Resources.Languages.Product_Details</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <input type="hidden" id="productId" name="productId" value="0" />
+                                        <input type="hidden" id="productImageId" name="productImageId" value="" />
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="productName" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Product_Name</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="productName" name="productName" placeholder="@BeautyBook_Vendor.Resources.Languages.Product_Name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="productBrand" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Product_Brand</label>
+
+                                                <div class="col-sm-7">
+                                                    <select class="selectpicker form-control" id="productBrand" name="productBrand" title="@BeautyBook_Vendor.Resources.Languages.Select_a_option" data-live-search="true" data-size="5">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="productType" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Type</label>
+
+                                                <div class="col-sm-7">
+                                                    <select class="selectpicker form-control" id="productType" name="productType" title="@BeautyBook_Vendor.Resources.Languages.Select_a_type" data-live-search="true" data-size="5">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="productType" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Product_Category</label>
+
+                                                <div class="col-sm-7">
+                                                    <select class="selectpicker form-control" id="productCategory" name="productCategory" title="@BeautyBook_Vendor.Resources.Languages.Select_a_type;" data-live-search="true" data-size="5" disabled>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="productQty" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Product_Qty</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="productQty" name="productQty" placeholder="100">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="purchasePrice" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Price</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control w-100" tabindex="1" id="purchasePrice" name="purchasePrice" placeholder="120">
+                                                        <div class="input-group-append input-box-label">
+                                                            <span class="input-group-text text-muted">SAR</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="productWeight" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Weight</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control w-100" tabindex="1" id="productWeight" name="productWeight" placeholder="250">
+                                                        <div class="input-group-append input-box-label">
+                                                            <select class="form-control selectpicker rounded-left-0" id="productWeightType" data-width="fit">
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="qtyAlert" class="col-sm-4 col-form-label text-sm-right">@BeautyBook_Vendor.Resources.Languages.Low_Qty_Alert</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="qtyAlert" name="qtyAlert" placeholder="10">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="producttax" class="col-sm-4 col-form-label text-sm-right">VAT</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control w-100" tabindex="1" id="producttax" name="producttax" placeholder="10" value="15" disabled>
+                                                        <div class="input-group-append input-box-label">
+                                                            <span class="input-group-text text-muted">%</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="IsExpiryDate" class="col-sm-4 col-form-label text-sm-right">Is Expiry Date</label>
+
+                                                <div class="col-sm-7 d-flex align-items-center" style="margin-bottom:5px;">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" id="IsExpiryDate" onchange="IsExpiryDateCheck(this);" class="custom-control-input checkbox selectall serviceclass">
+                                                        <label class="custom-control-label" for="30"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6" style="display:none;" id="IsExpiryDate_Div">
+                                            <div class="form-group row">
+                                                <label for="qtyAlert" class="col-sm-4 col-form-label text-sm-right">Expiry Date</label>
+
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control datepicker previousdatepickerAppoinment" id="ExpiryDate" name="ExpiryDate" placeholder="mm/dd/yyyy">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card rounded-sm border card-lg mt-3">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">@BeautyBook_Vendor.Resources.Languages.Product_Top_Highlights</h6>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <div class="repeater top-highlights-repeater">
+                                        <div data-repeater-list="top-highlights" id="Product_Top_Highlights">
+                                            <div data-repeater-item>
+                                                <div class="row align-items-end">
+                                                    <div class="col-xl-4 col-lg-5 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="custom-label">@BeautyBook_Vendor.Resources.Languages.Highlight_label</label>
+                                                            <input class="form-control" value="" id="HighlightLabel" name="HighlightLabel[]" type="text" placeholder="@BeautyBook_Vendor.Resources.Languages.Enter_label_name" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 col-lg-5 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="custom-label">@BeautyBook_Vendor.Resources.Languages.Highlight_discription</label>
+                                                            <input class="form-control" value="" id="HighlightDiscription" name="HighlightDiscription[]" type="text" placeholder="@BeautyBook_Vendor.Resources.Languages.Enter_discription" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-1 col-lg-2 col-md-6">
+                                                        <div class="form-group">
+                                                            <input class="btn btn-danger" data-repeater-delete type="button" value="@BeautyBook_Vendor.Resources.Languages.Delete"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                            </div>
+                                        </div>
+
+                                        <input data-repeater-create class="btn btn-primary" type="button" value="@BeautyBook_Vendor.Resources.Languages.Add" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card rounded-sm border card-lg mt-3">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">@BeautyBook_Vendor.Resources.Languages.Service_Highlights</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="repeater service-highlight-repeater">
+                                        <div data-repeater-list="service-highlight" id="Service_Highlights">
+                                            <div data-repeater-item>
+                                                <div class="row align-items-end">
+                                                    <div class="col-xl-4 col-lg-5 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="custom-label">@BeautyBook_Vendor.Resources.Languages.Highlight_discription</label>
+                                                            <input class="form-control" id="ServiceHighlightDiscription" name="ServiceHighlightDiscription[]" type="text" placeholder="@BeautyBook_Vendor.Resources.Languages.Enter_discription" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-1 col-lg-2 col-md-6">
+                                                        <div class="form-group">
+                                                            <input class="btn btn-danger" data-repeater-delete type="button" value="@BeautyBook_Vendor.Resources.Languages.Delete" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        </div>
+
+                                        <input data-repeater-create class="btn btn-primary" type="button" value="@BeautyBook_Vendor.Resources.Languages.Add" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card rounded-sm border card-lg mt-3">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">@BeautyBook_Vendor.Resources.Languages.Specifications</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="repeater specification-group-repeater">
+                                        <div data-repeater-list="specification-group" id="Product_Specifications">
+                                            <div data-repeater-item>
+                                                <div class="row align-items-end">
+                                                    <div class="col-xl-4 col-lg-5 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="custom-label">@BeautyBook_Vendor.Resources.Languages.Highlight_label</label>
+                                                            <input class="form-control" id="SpecificationsHighlightLabel" name="SpecificationsHighlightLabel[]" type="text" placeholder="@BeautyBook_Vendor.Resources.Languages.Enter_label_name" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 col-lg-5 col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="custom-label">@BeautyBook_Vendor.Resources.Languages.Highlight_discription</label>
+                                                            <input class="form-control" id="SpecificationsHighlightDiscription" name="SpecificationsHighlightDiscription[]" type="text" placeholder="@BeautyBook_Vendor.Resources.Languages.Enter_discription" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-1 col-lg-2 col-md-6">
+                                                        <div class="form-group">
+                                                            <input class="btn btn-danger" data-repeater-delete type="button" value="@BeautyBook_Vendor.Resources.Languages.Delete" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                            </div>
+                                        </div>
+
+                                        <input data-repeater-create class="btn btn-primary" type="button" value="@BeautyBook_Vendor.Resources.Languages.Add" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card rounded-sm border card-lg mt-3">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">@BeautyBook_Vendor.Resources.Languages.Product_Information</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <textarea id="productInformation">Hello Summernote</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card rounded-sm border  mt-3">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">@BeautyBook_Vendor.Resources.Languages.Product_Images</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-md-6 col-12">
+                                            <div id="ProductImageDiv1" class="file-drop-area mb-3">
+                                                <div class="file-drop-icon bb-upload-cloud"></div>
+                                                <span class="file-drop-message">@BeautyBook_Vendor.Resources.Languages.Drag_and_drop_here_to_upload_product_thumbnail_screenshot</span>
+                                                <input class="file-drop-input" id="productImagesUrl1" name="productImagesUrl1" type="file" onchange="RemovecustomImageRender(this,'#ProductImageDiv1');">
+                                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">@BeautyBook_Vendor.Resources.Languages.Or_select_file</button>
+                                                @*<div class="form-text">518 x 484px ideal size</div>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-md-6 col-12">
+                                            <div id="ProductImageDiv2" class="file-drop-area mb-3">
+                                                <div class="file-drop-icon bb-upload-cloud"></div>
+                                                <span class="file-drop-message">@BeautyBook_Vendor.Resources.Languages.Drag_and_drop_here_to_upload_product_thumbnail_screenshot</span>
+                                                <input class="file-drop-input" id="productImagesUrl2" name="productImagesUrl2" type="file" onchange="RemovecustomImageRender(this,'#ProductImageDiv2');">
+                                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">@BeautyBook_Vendor.Resources.Languages.Or_select_file</button>
+                                                @*<div class="form-text">518 x 484px ideal size</div>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-md-6 col-12">
+                                            <div id="ProductImageDiv3" class="file-drop-area mb-3">
+                                                <div class="file-drop-icon bb-upload-cloud"></div>
+                                                <span class="file-drop-message">@BeautyBook_Vendor.Resources.Languages.Drag_and_drop_here_to_upload_product_thumbnail_screenshot</span>
+                                                <input class="file-drop-input" id="productImagesUrl3" name="productImagesUrl3" type="file" onchange="RemovecustomImageRender(this,'#ProductImageDiv3');">
+                                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">@BeautyBook_Vendor.Resources.Languages.Or_select_file</button>
+                                                @*<div class="form-text">518 x 484px ideal size</div>*@
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-md-6 col-12">
+                                            <div id="ProductImageDiv4" class="file-drop-area mb-3">
+                                                <div class="file-drop-icon bb-upload-cloud"></div>
+                                                <span class="file-drop-message">@BeautyBook_Vendor.Resources.Languages.Drag_and_drop_here_to_upload_product_thumbnail_screenshot</span>
+                                                <input class="file-drop-input" id="productImagesUrl4" name="productImagesUrl4" type="file" onchange="RemovecustomImageRender(this,'#ProductImageDiv4');">
+                                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">@BeautyBook_Vendor.Resources.Languages.Or_select_file</button>
+                                                @*<div class="form-text">518 x 484px ideal size</div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card rounded-sm border card-lg mt-3">
+                                <div class="card-header">
+                                    <h6 class="card-title mb-0">@BeautyBook_Vendor.Resources.Languages.Return_Policy</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <textarea id="returnPolicy">Hello Summernote</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fixed-footer text-center">
+                                
+                    <button type="submit" name="submit" id="saveBtn" class="btn btn-primary font-weight-medium btn-wide">@BeautyBook_Vendor.Resources.Languages.Save_Product</button>
+                        <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="saveBtnloading" style="display:none;" disabled>
+                            <span id="saveSalonsdetailsbtntext">@BeautyBook_Vendor.Resources.Languages.Save_Product</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <a href="@Url.Action("ManageProduct","VendorProduct")" class="btn btn-link btn-wide">@BeautyBook_Vendor.Resources.Languages.Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+
+<script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorProductAPI/ProductDetails/ProductDetails.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorProductAPI/ProductDetails/ProductDetailsEdit.js"></script>
+<script src="~/Content/assets/js/summernote-ext-rtl.js"></script>
+<script>
+    function IsExpiryDateCheck(checkbox) {
+        if (checkbox.checked == true) {
+            $("#IsExpiryDate_Div").show();
+        }
+        else {
+            $("#ExpiryDate").val("");
+            $("#IsExpiryDate_Div").hide();
+        }
+    }
+
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //masterProductBrand drp api function call
+        masterProductBrand();
+
+        //masterProductType drp api function call
+        masterProductType();
+
+        //masterProductCategory drp api function call
+        masterProductCategory();
+
+        //masterProductWeight drp api function call
+        masterProductWeight();
+
+        //productDetailsedit api function call
+        productDetailsedit();
+    })
+
+
+
+    $(function () {
+        $("form[name='productform']").validate({
+            rules: {
+                productName: {
+                    required: true
+                },
+                productQty: {
+                    required: true,
+                    number: true
+                },
+                purchasePrice: {
+                    required: true,
+                    number: true
+                },
+                productWeight: {
+                    required: true,
+                    number: true
+                },
+                qtyAlert: {
+                    required: true,
+                    number: true
+                },
+                producttax: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                productName: "@BeautyBook_Vendor.Resources.Languages.Product_name_is_required",
+                productQty: {
+                    required: "@BeautyBook_Vendor.Resources.Languages.Product_Qty_is_required"
+                },
+                purchasePrice: {
+                    required: "@BeautyBook_Vendor.Resources.Languages.Purchase_price_is_required"
+                },
+                productWeight: {
+                    required: "@BeautyBook_Vendor.Resources.Languages.Product_weight_is_required"
+                },
+                qtyAlert: {
+                    required: "@BeautyBook_Vendor.Resources.Languages.Qty_alert_is_required"
+                },
+                producttax: {
+                    required: "@BeautyBook_Vendor.Resources.Languages.Qty_alert_is_required"
+                },
+            },
+            submitHandler: function () {
+                saveProduct();
+            }
+        });
+    });
+</script>

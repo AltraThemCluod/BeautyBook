@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Invoice Details";
+}
+<head>
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <style>
+
+        .print:last-child {
+            page-break-after: avoid;
+            page-break-inside: avoid;
+            margin-bottom: 0px;
+        }
+        @@media screen {
+          #printSection {
+              display: none;
+          }
+        }
+
+        @@media print {
+          body * {
+            visibility:hidden;
+          }
+          #printSection, #printSection * {
+            visibility:visible;
+          }
+          #printSection {
+            position:absolute;
+            width:100%;
+            left:0;
+            top:0;
+          }
+        }
+    </style>
+</head>
+<div class="app-root">
+    <div class="app-wrapper">
+        <main class="app-content">
+            <div class="app-content-wrapper">
+
+                <div class="app-content-inner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 mt-3" id="VendorTypeInvoiceDetails">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Invoice/InvoiceDetails.js"></script>
+
+
+<script>
+    //OrderInvoice function
+    $(document).ready(function () {
+        ArbicLanguage();
+        VendorTypeInvoiceDetails();
+    })
+</script>

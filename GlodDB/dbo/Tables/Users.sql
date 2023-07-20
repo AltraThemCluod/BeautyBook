@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[Users] (
+    [Id]             INT           IDENTITY (1, 1) NOT NULL,
+    [FirstName]      NVARCHAR (50) NULL,
+    [LastName]       NVARCHAR (50) NULL,
+    [Email]          VARCHAR (250) NULL,
+    [Password]       VARCHAR (200) NULL,
+    [Salt]           VARCHAR (200) NULL,
+    [UserType]       INT           NULL,
+    [RoleId]         INT           NULL,
+    [Mobile]         VARCHAR (50)  NULL,
+    [Gender]         INT           NULL,
+    [Dob]            VARCHAR (50)  NULL,
+    [AvtarPhotoCopy] VARCHAR (500) NULL,
+    [Latitude]       VARCHAR (50)  NULL,
+    [Longitude]      VARCHAR (50)  NULL,
+    [Status]         BIT           CONSTRAINT [DF_Users_Status] DEFAULT ((1)) NULL,
+    [DeviceToken]    VARCHAR (MAX) NULL,
+    [ImeiNumber]     VARCHAR (100) NULL,
+    [LastLogin]      VARCHAR (50)  NULL,
+    [CreatedBy]      INT           NULL,
+    [CreatedDate]    VARCHAR (50)  NULL,
+    [ModifiedBy]     INT           NULL,
+    [ModifiedDate]   VARCHAR (50)  NULL,
+    [DeletedBy]      INT           NULL,
+    [DeletedDate]    VARCHAR (50)  NULL,
+    CONSTRAINT [PK_dbo.Users] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

@@ -1,0 +1,211 @@
+﻿@{
+    ViewBag.Title = "Add New Offer";
+}
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageOffers","Offers")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Add_New_Offer)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageOffers","Offers")">@(beautybook.Resources.Languages.Offers)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Add_New_Offer)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9 mb-3">
+                        <div class="card mb-5">
+                            <div class="card-header">
+                                <h6 class="mb-0">@(beautybook.Resources.Languages.Offer_Details)</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div id="Id" name="Id" value="" style="display:none;"></div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="offerName" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Offer_Name)</label>
+
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="offerName" name="offerName" placeholder="@(beautybook.Resources.Languages.Enter_Offer_Name)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <fieldset class="form-group row">
+                                            <legend class="col-form-label col-sm-4 float-sm-left text-sm-right pt-0">@(beautybook.Resources.Languages.Apply_On)</legend>
+                                            <div class="col-sm-7">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="applyOn" id="applyon" value="Both">
+                                                    <label class="form-check-label" for="bothCustomer">@(beautybook.Resources.Languages.Both)</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="applyOn" id="applyon" value="Male">
+                                                    <label class="form-check-label" for="maleCustomer">@(beautybook.Resources.Languages.Male)</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="applyOn" id="applyon" value="Female">
+                                                    <label class="form-check-label" for="femaleCustomer">@(beautybook.Resources.Languages.Female)</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="customerSince" class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Offer_Period)</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="datepicker w-100  previousdatepicker form-control" name="offerPeriod" tabindex="1" id="offerPeriod">
+                                                    <div class="input-group-append input-box-label">
+                                                        <span class="input-group-text text-muted">
+                                                            <i class="bb-calendar fs-21"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label text-sm-right">@(beautybook.Resources.Languages.Age_between)</label>
+
+                                            <div class="col-sm-7">
+                                                <div class="input-group align-items-center">
+                                                    <input type="text" class="form-control" id="minageyear" name="minageyear" placeholder="@(beautybook.Resources.Languages.Min_Year)">
+                                                    <span class="mx-2">And</span>
+                                                    <input type="text" class="form-control" id="maxageyear" name="maxageyear" placeholder="@(beautybook.Resources.Languages.Max_Year)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="offerpricevalidation" class="alert alert-danger" style="display:none;">Offer Price No More Than Original Price ............!</div>
+                        <div id="emptyofferpricevalidation" class="alert alert-danger" style="display:none;">Please Fill Service Offer Price Before Saving ....... !</div>
+                        <div class="card card-lg mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-1">@(beautybook.Resources.Languages.Offer_Price)</h6>
+                                <p class="mb-0 text-muted fs-13">@(beautybook.Resources.Languages.Tell_us_all_about_your_new_employee)</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                        <div class="table-responsive table-card">
+                                            <table class="table fs-13" id="salonserviceslist">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-lg mb-5">
+                            <div class="card-header">
+                                <h6 class="mb-0">@(beautybook.Resources.Languages.Offer_Price_for_Service_Packages)</h6>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive table-card">
+                                            <table class="table fs-13">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="bg-primary text-white w-lg-60">@(beautybook.Resources.Languages.Service_Name)</th>
+                                                        <th scope="col" class="bg-primary text-white">@(beautybook.Resources.Languages.Original_Price)</th>
+                                                        <th scope="col" class="bg-primary text-white">@(beautybook.Resources.Languages.Price)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="PackagesGrid">
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="fixed-footer text-center">
+                        <button type="button" class="btn btn-primary font-weight-medium btn-wide" onclick="addOfferDetails();">@(beautybook.Resources.Languages.Save_Offer)</button>
+                        <a href="@Url.Action("ManageOffers","Offers")" type="button" class="btn btn-link">@(beautybook.Resources.Languages.Cancel)</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<!-- Core Scripts -->
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/OffersAPI/OfferDetails/OfferDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/OffersAPI/ManageOffer/ManageOffers.js"></script>
+<script src="~/Content/BeautyBookAPI/OffersAPI/ManageOffer/EditOfferDetails.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //getOfferdata();
+        getsalonservicedata(getOfferdata);
+
+        //packageOfferPrice api function
+        packageOfferPrice();
+
+    });
+    $(function () {
+        $("form[name='marketingform']").validate({
+            rules: {
+                emailSubject: {
+                    required: true
+                },
+                customerSince: {
+                    required: true
+                },
+                lastVisit: {
+                    required: true
+                },
+                appointment: {
+                    required: true
+                },
+            },
+            messages: {
+                emailSubject: "Email Subject is required",
+                customerSince: "Customer Since is required",
+                lastVisit: "Last Visit is required",
+                appointment: "Appointment  is required",
+            },
+            submitHandler: function () {
+                addEmailMarketingDetals();
+            }
+        });
+    });
+</script>

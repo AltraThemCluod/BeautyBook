@@ -1,0 +1,176 @@
+.avatar {
+    position: relative;
+    display: inline-block;
+    min-width: 2.625rem;
+    width: 2.625rem;
+    height: 2.625rem;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 0.3125rem;
+
+    &.avatar-4by3 {
+        width: 3.5rem;
+    }
+}
+
+.avatar-circle {
+    .avatar-img,
+    .avatar-initials{
+        border-radius: 50%;
+    } 
+}
+
+.avatar-sm {
+    min-width: 2.1875rem;
+    width: 2.1875rem;
+    height: 2.1875rem;
+
+    &.avatar-4by3 {
+        width: 2.91667rem;
+    }
+}
+
+.avatar-xss {
+    min-width: 1rem;
+    width: 1rem;
+    height: 1rem;
+
+    &.avatar-4by3 {
+        width: 1.33333rem;
+    }
+}
+
+.avatar-xl {
+    min-width: 5rem;
+    width: 5rem;
+    height: 5rem;
+
+    &.avatar-4by3 {
+        width: 10.5rem;
+    }
+}
+
+.avatar-xxl {
+    min-width: 7.875rem;
+    width: 7.875rem;
+    height: 7.875rem;
+
+    &.avatar-4by3 {
+        width: 10.5rem;
+    }
+}
+
+.avatar-img {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 0.3125rem;
+}
+
+.avatar-status-primary {
+    color: #fff;
+    background-color: #377dff;
+}
+
+.avatar-status-secondary {
+    color: #fff;
+    background-color: #71869d;
+}
+
+.avatar-status-success {
+    color: #fff;
+    background-color: #00c9a7;
+}
+
+.avatar-status-info {
+    color: #fff;
+    background-color: #00c9db;
+}
+
+.avatar-status-warning {
+    color: #1e2022;
+    background-color: #f5ca99;
+}
+
+.avatar-status-danger {
+    color: #fff;
+    background-color: #ed4c78;
+}
+
+.avatar-status-light {
+    color: #1e2022;
+    background-color: #f9fafc;
+}
+
+.avatar-status-dark {
+    color: #fff;
+    background-color: #132144;
+}
+
+.avatar-initials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.09375rem;
+    font-weight: 600;
+    pointer-events: none;
+    text-transform: uppercase;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 0.3125rem;
+}
+
+.avatar-primary .avatar-initials {
+    color: #fff;
+    background-color: #377dff;
+}
+
+.avatar-secondary .avatar-initials {
+    color: #fff;
+    background-color: #71869d;
+}
+
+.avatar-success .avatar-initials {
+    color: #fff;
+    background-color: #00c9a7;
+}
+
+.avatar-info .avatar-initials {
+    color: #fff;
+    background-color: #00c9db;
+}
+
+.avatar-warning .avatar-initials {
+    color: #1e2022;
+    background-color: #f5ca99;
+}
+
+.avatar-danger .avatar-initials {
+    color: #fff;
+    background-color: #ed4c78;
+}
+
+.avatar-light .avatar-initials {
+    color: #1e2022;
+    background-color: #f9fafc;
+}
+
+.avatar-dark .avatar-initials {
+    color: #fff;
+    background-color: #132144;
+}
+
+.avatar-xs.avatar-4by3 {
+    width: 2.04167rem;
+}
+
+.avatar-lg.avatar-4by3 {
+    width: 4.49167rem;
+}
+
+.avatar-xl.avatar-4by3 {
+    width: 6.5625rem;
+}

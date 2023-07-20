@@ -1,0 +1,95 @@
+﻿@using BeautyBook.Entities.Contract
+@using BeautyBook.Entities.V1
+@model BlogUsers
+@{
+    ViewBag.Title = "Users Details";
+}
+@Html.AntiForgeryToken()
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Users Details</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Users Details</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header p-2 d-flex align-items-center justify-content-between">
+                        <div>
+                            <h4 class="card-title">Users Details</h4>
+                            <p class="card-title-desc">
+                                You can create and update users details
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="row">
+                            @using (Html.BeginForm("SaveUserProfile", "BlogUsers", FormMethod.Post, new { @class = "row", @id = "profile_form", @enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(m => m.Id)
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">User Type</label>
+                                    @Html.DropDownListFor(m => m.UserTypeId, (IEnumerable<SelectListItem>)ViewBag.MasterUserType, "Select a user type", new { @Id = "UserTypeId", @name = "UserTypeId", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserTypeId, "")
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">First Name</label>
+                                    @Html.TextBoxFor(m => m.FirstName, new { @type = "text", @class = "form-control", @name = "FirstName", @id = "FirstName" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "")
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">Last Name</label>
+                                    @Html.TextBoxFor(m => m.LastName, new { @type = "text", @class = "form-control", @name = "LastName", @id = "LastName" })
+                                    @Html.ValidationMessageFor(m => m.LastName, "")
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">Email</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "form-control", @name = "Email", @id = "Email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "")
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">Password</label>
+                                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @class = "form-control", @name = "Password", @id = "Password" })
+                                    @Html.ValidationMessageFor(m => m.Password, "")
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">Contact Number</label>
+                                    @Html.TextBoxFor(m => m.ContactNumber, new { @type = "number", @class = "form-control", @name = "ContactNumber", @id = "ContactNumber" })
+                                    @Html.ValidationMessageFor(m => m.ContactNumber, "")
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">Gender</label>
+                                    @Html.DropDownListFor(m => m.Gender, (IEnumerable<SelectListItem>)ViewBag.MasterGender, "Select a gender", new { @Id = "Gender", @name = "Gender", @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Gender, "")
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label class="form-label">Profile</label>
+                                    @Html.TextBoxFor(m => m.ProfileUrl, new { @type = "file", @class = "form-control", @name = "ProfileUrl", @id = "ProfileUrl" })
+                                    @Html.ValidationMessageFor(m => m.ProfileUrl, "")
+                                </div>
+                                <div class="col-lg-12 text-end mt-3">
+                                    <button class="btn btn-primary waves-effect waves-light button w-md" type="submit">Save Details</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- container-fluid -->
+</div>

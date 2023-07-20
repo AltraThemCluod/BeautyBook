@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DF9D430D-B917-4AA9-96E3-D01FFC3F368E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>beautybook.Data</RootNamespace>
+    <AssemblyName>beautybook.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA|AnyCPU'">
+    <OutputPath>bin\QA\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperParameters, Version=2018.12.7.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dapper.ParameterExtensions.2018.12.7.1\lib\net46\DapperParameters.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractBaseDao.cs" />
+    <Compile Include="Contract\AbstractEmployeePermissionDao.cs" />
+    <Compile Include="Contract\AbstractPrivacyPolicyDao.cs" />
+    <Compile Include="Contract\AbstractTechnicalSupportDao.cs" />
+    <Compile Include="Contract\AbstractAddToCartDao.cs" />
+    <Compile Include="Contract\AbstractSalonVendorDashboardDao.cs" />
+    <Compile Include="Contract\AbstractSalonOwnerDashboardDao.cs" />
+    <Compile Include="Contract\AbstractDashboardDataDao.cs" />
+    <Compile Include="Contract\AbstractSelectPlan_EmailPackagesDao.cs" />
+    <Compile Include="Contract\AbstractSelectPlan_SMSPackagesDao.cs" />
+    <Compile Include="Contract\AbstractSendSmsMarketingTemplatesDao.cs" />
+    <Compile Include="Contract\AbstractSendEmailMarketingTemplatesDao.cs" />
+    <Compile Include="Contract\AbstractEmailMarketingTemplatesDao.cs" />
+    <Compile Include="Contract\AbstractDailyDealsDao.cs" />
+    <Compile Include="Contract\AbstractCreate_EmailMsg_PackagesDao.cs" />
+    <Compile Include="Contract\AbstractCreate_SMS_PackagesDao.cs" />
+    <Compile Include="Contract\AbstractEmailMarketingDao.cs" />
+    <Compile Include="Contract\AbstractInventoryProductDao.cs" />
+    <Compile Include="Contract\AbstractLookUpDurationDao.cs" />
+    <Compile Include="Contract\AbstractMasterProductCategoryDao.cs" />
+    <Compile Include="Contract\AbstractLookUpCountryDao.cs" />
+    <Compile Include="Contract\AbstractLookUpEmployeeRolesDao.cs" />
+    <Compile Include="Contract\AbstractLookUpEmployeeTypeDao.cs" />
+    <Compile Include="Contract\AbstractLookUpLeaveTypeDao.cs" />
+    <Compile Include="Contract\AbstractLookUpPaymentMethodDao.cs" />
+    <Compile Include="Contract\AbstractLookUpStateDao.cs" />
+    <Compile Include="Contract\AbstractLookUpStatusDao.cs" />
+    <Compile Include="Contract\AbstractLookUpUserTypeDao.cs" />
+    <Compile Include="Contract\AbstractOfferDao.cs" />
+    <Compile Include="Contract\AbstractPackageCustomPriceDao.cs" />
+    <Compile Include="Contract\AbstractOfflineVendorDao.cs" />
+    <Compile Include="Contract\AbstractMasterServicePackageDao.cs" />
+    <Compile Include="Contract\AbstractOrderStatusTrackingDao.cs" />
+    <Compile Include="Contract\AbstractProductWishlistDao.cs" />
+    <Compile Include="Contract\AbstractPromotionDao.cs" />
+    <Compile Include="Contract\AbstractServicePackageDao.cs" />
+    <Compile Include="Contract\AbstractShippingAddressDao.cs" />
+    <Compile Include="Contract\AbstractSmsMarketingDao.cs" />
+    <Compile Include="Contract\AbstractTermsAndConditionsDao.cs" />
+    <Compile Include="Contract\AbstractUserSalonsDao.cs" />
+    <Compile Include="Contract\AbstractVendorApprovelDao.cs" />
+    <Compile Include="Contract\AbstractWriteaReviewDao.cs" />
+    <Compile Include="Contract\AbstractMasterOrderStatusDao.cs" />
+    <Compile Include="Contract\AbstractMasterProductBrandDao.cs" />
+    <Compile Include="Contract\AbstractMasterProductTypeDao.cs" />
+    <Compile Include="Contract\AbstractMasterProductWeightDao.cs" />
+    <Compile Include="Contract\AbstractOrdersDao.cs" />
+    <Compile Include="Contract\AbstractProductImageDao.cs" />
+    <Compile Include="Contract\AbstractUserAppointmentsDao.cs" />
+    <Compile Include="Contract\AbstractUserLeaveDao.cs" />
+    <Compile Include="Contract\AbstractAdminDao.cs" />
+    <Compile Include="Contract\AbstractProductDao.cs" />
+    <Compile Include="Contract\AbstractOrderProductsDao.cs" />
+    <Compile Include="Contract\AbstractUserWorkingHoursDao.cs" />
+    <Compile Include="Contract\AbstractSalonServicesDao.cs" />
+    <Compile Include="Contract\AbstractSalonsDao.cs" />
+    <Compile Include="Contract\AbstractLookUpServicesDao.cs" />
+    <Compile Include="Contract\AbstractSellerProductsFeedbackDao.cs" />
+    <Compile Include="Contract\AbstractUsersDao.cs" />
+    <Compile Include="Contract\AbstractUserServicesDao.cs" />
+    <Compile Include="Contract\AbstractUserWorkSheetDao.cs" />
+    <Compile Include="Contract\Blog\AbstractBlogCategoryDao.cs" />
+    <Compile Include="Contract\Blog\AbstractBlogContentDao.cs" />
+    <Compile Include="Contract\Blog\AbstractBlogDao.cs" />
+    <Compile Include="Contract\Blog\AbstractBlogSubscribeNewslatterDao.cs" />
+    <Compile Include="Contract\Blog\AbstractBlogUsersDao.cs" />
+    <Compile Include="Contract\POS\AbstractMasterPOSCoinsBillsDao.cs" />
+    <Compile Include="Contract\POS\AbstractMasterPOSPaymentTypeDao.cs" />
+    <Compile Include="Contract\POS\AbstractPOSDetailsDao.cs" />
+    <Compile Include="Contract\POS\AbstractPOSOpeningCashDao.cs" />
+    <Compile Include="Contract\POS\AbstractPOSOrderDetailsDao.cs" />
+    <Compile Include="Contract\POS\AbstractPOSPaymentDao.cs" />
+    <Compile Include="Contract\POS\AbstractPOSSessionDao.cs" />
+    <Compile Include="DataModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLConfig.cs" />
+    <Compile Include="V1\EmployeePermissionDao.cs" />
+    <Compile Include="V1\PrivacyPolicyDao.cs" />
+    <Compile Include="V1\Blog\BlogSubscribeNewslatterDao.cs" />
+    <Compile Include="V1\Blog\BlogContentDao.cs" />
+    <Compile Include="V1\Blog\BlogDao.cs" />
+    <Compile Include="V1\Blog\BlogUsersDao.cs" />
+    <Compile Include="V1\Blog\BlogCategoryDao.cs" />
+    <Compile Include="V1\POS\MasterPOSCoinsBillsDao.cs" />
+    <Compile Include="V1\POS\MasterPOSPaymentTypeDao.cs" />
+    <Compile Include="V1\POS\POSDetailsDao.cs" />
+    <Compile Include="V1\POS\POSOpeningCashDao.cs" />
+    <Compile Include="V1\POS\POSOrderDetailsDao.cs" />
+    <Compile Include="V1\POS\POSPaymentDao.cs" />
+    <Compile Include="V1\POS\POSSessionDao.cs" />
+    <Compile Include="V1\TechnicalSupportDao.cs" />
+    <Compile Include="V1\AddToCartDao.cs" />
+    <Compile Include="V1\SalonVendorDashboardDao.cs" />
+    <Compile Include="V1\SalonOwnerDashboardDao.cs" />
+    <Compile Include="V1\DashboardDataDao.cs" />
+    <Compile Include="V1\SelectPlan_EmailPackagesDao.cs" />
+    <Compile Include="V1\SelectPlan_SMSPackagesDao.cs" />
+    <Compile Include="V1\SendSmsMarketingTemplatesDao.cs" />
+    <Compile Include="V1\SendEmailMarketingTemplatesDao.cs" />
+    <Compile Include="V1\EmailMarketingTemplatesDao.cs" />
+    <Compile Include="V1\DailyDealsDao.cs" />
+    <Compile Include="V1\Create_EmailMsg_PackagesDao.cs" />
+    <Compile Include="V1\Create_SMS_PackagesDao.cs" />
+    <Compile Include="V1\EmailMarketingDao.cs" />
+    <Compile Include="V1\InventoryProductDao.cs" />
+    <Compile Include="V1\LookUpCountryDao.cs" />
+    <Compile Include="V1\LookUpDurationDao.cs" />
+    <Compile Include="V1\LookUpEmployeeRolesDao.cs" />
+    <Compile Include="V1\LookUpEmployeeTypeDao.cs" />
+    <Compile Include="V1\LookUpLeaveTypeDao.cs" />
+    <Compile Include="V1\LookUpPaymentMethodDao.cs" />
+    <Compile Include="V1\LookUpStateDao.cs" />
+    <Compile Include="V1\LookUpStatusDao.cs" />
+    <Compile Include="V1\LookUpUserTypeDao.cs" />
+    <Compile Include="V1\MasterProductCategoryDao.cs" />
+    <Compile Include="V1\OfferDao.cs" />
+    <Compile Include="V1\PackageCustomPriceDao.cs" />
+    <Compile Include="V1\OfflineVendorDao.cs" />
+    <Compile Include="V1\MasterServicePackageDao.cs" />
+    <Compile Include="V1\OrderStatusTrackingDao.cs" />
+    <Compile Include="V1\ProductWishlistDao.cs" />
+    <Compile Include="V1\PromotionDao.cs" />
+    <Compile Include="V1\ServicePackageDao.cs" />
+    <Compile Include="V1\ShippingAddressDao.cs" />
+    <Compile Include="V1\SmsMarketingDao.cs" />
+    <Compile Include="V1\TermsAndConditionsDao.cs" />
+    <Compile Include="V1\UserSalonsDao.cs" />
+    <Compile Include="V1\VendorApprovelDao.cs" />
+    <Compile Include="V1\WriteaReviewDao.cs" />
+    <Compile Include="V1\MasterOrderStatusDao.cs" />
+    <Compile Include="V1\MasterProductBrandDao.cs" />
+    <Compile Include="V1\MasterProductTypeDao.cs" />
+    <Compile Include="V1\MasterProductWeightDao.cs" />
+    <Compile Include="V1\OrdersDao.cs" />
+    <Compile Include="V1\ProductImageDao.cs" />
+    <Compile Include="V1\UserLeaveDao.cs" />
+    <Compile Include="V1\UserAppointmentsDao.cs" />
+    <Compile Include="V1\SalonServicesDao.cs" />
+    <Compile Include="V1\SalonsDao.cs" />
+    <Compile Include="V1\LookUpServicesDao.cs" />
+    <Compile Include="V1\SellerProductsFeedbackDao.cs" />
+    <Compile Include="V1\AdminDao.cs" />
+    <Compile Include="V1\ProductDao.cs" />
+    <Compile Include="V1\OrderProductsDao.cs" />
+    <Compile Include="V1\UsersDao.cs" />
+    <Compile Include="V1\UsersDao_Token.cs" />
+    <Compile Include="V1\UserWorkingHoursDao.cs" />
+    <Compile Include="V1\UserServicesDao.cs" />
+    <Compile Include="V1\UserWorkSheetDao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\beautybook.Common\BeautyBook.Common.csproj">
+      <Project>{8529a692-f045-4cbf-860f-6e006ded5ca7}</Project>
+      <Name>BeautyBook.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\beautybook.Entities\BeautyBook.Entities.csproj">
+      <Project>{04e7e08d-16ed-4223-b428-d52666d3dbc4}</Project>
+      <Name>BeautyBook.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataContext\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

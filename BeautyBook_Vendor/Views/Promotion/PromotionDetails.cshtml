@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Add Promotion";
+}
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManagePromotion","Promotion")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(BeautyBook_Vendor.Resources.Languages.Promotion_Details)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(BeautyBook_Vendor.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManagePromotion","Promotion")">@(BeautyBook_Vendor.Resources.Languages.Manage_Promotion)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(BeautyBook_Vendor.Resources.Languages.Promotion_Details)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div id="productformloader" style="display: none;" class="text-center mb-4">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+                <form class="card-lg" action="" name="promotionform" id="promotionform" style="display:none;">
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-8 col-xl-9 mb-3">
+                            <div class="card mb-5">
+                                <div class="card-header">
+                                    <h6 class="mb-0">@(BeautyBook_Vendor.Resources.Languages.Promotion_Details)</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <input type="hidden" id="promotionId" name="promotionId" value="0" />
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label for="productNames" id="productNames" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Product_Name)</label>
+
+                                                <div class="col-sm-7">
+                                                    <select class="selectpicker form-control" id="productName" name="productName" title="@(BeautyBook_Vendor.Resources.Languages.Select_a_product_type)" data-live-search="true" data-size="5" onchange="getProductPrice();">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label for="customerSince" class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Offer_Period)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group">
+                                                        <input type="text" class="datepicker w-100  previousdatepicker form-control " name="offerperiod" tabindex="1" id="offerperiod" autocomplete="off">
+                                                        <div class="input-group-append input-box-label">
+                                                            <span class="input-group-text text-muted">
+                                                                <i class="bb-calendar fs-21"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Original_Price)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group align-items-center">
+                                                        <input type="text" class="form-control" id="originalprice" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label text-sm-right">@(BeautyBook_Vendor.Resources.Languages.Offer_Price)</label>
+
+                                                <div class="col-sm-7">
+                                                    <div class="input-group align-items-center">
+                                                        <input type="text" id="offerprice" name="offerprice" class="form-control w-100" placeholder="@(BeautyBook_Vendor.Resources.Languages.Enter_offer_amount)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fixed-footer text-center">
+                            <button type="submit" name="submit" id="saveBtn" class="btn btn-primary font-weight-medium btn-wide">@(BeautyBook_Vendor.Resources.Languages.Save_Promotion)</button>
+                            <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="saveBtnloading" style="display:none;" disabled>
+                                <span id="saveSalonsdetailsbtntext">@(BeautyBook_Vendor.Resources.Languages.Save_Promotion)</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                            </button>
+                            <a href="@Url.Action("ManagePromotion","Promotion")" class="btn btn-link btn-wide">@(BeautyBook_Vendor.Resources.Languages.Cancel)</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+
+<script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/PromotionAPI/PromotionDetails/PromotionDetails.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/PromotionAPI/PromotionDetails/PromotionDetailsEdit.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //masterProductName drp api function call
+        masterProductName();
+        //masterProductName drp api function call
+        promotionDetailsedit();
+    });
+
+    $(function () {
+        $("form[name='promotionform']").validate({
+            rules: {
+                offerperiod: {
+                    required: true,
+                },
+                offerprice: {
+                    required: true,
+                    number: true
+                },
+            },
+            messages: {
+                offerperiod: {
+                    required: "@BeautyBook_Vendor.Resources.Languages.Offer_Period_is_required"
+                },
+                offerprice: {
+                    required: "@BeautyBook_Vendor.Resources.Languages.Offer_Price_is_required"
+                },
+            },
+            submitHandler: function () {
+                savePromotion();
+            }
+        });
+    });
+</script>
+
+

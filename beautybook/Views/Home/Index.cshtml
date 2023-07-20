@@ -1,0 +1,954 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<style>
+    .border-top-left-right-0 {
+        border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .filter-active {
+        background: #00acc1;
+        color: #fff !important;
+    }
+
+    .tecnical-support-card {
+        height: 540px;
+    }
+</style>
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column breadcrumb mb-0 pl-0 flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0  order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Dashboard)</h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="app-content-header">
+            <form class="container-fluid ">
+                <div class="row align-items-center align-items-xl-end">
+
+                    <div class="col-lg-2">
+                        <div class="col-sm-12 p-0">
+                            <div class="input-group">
+                                <input type="text" class="datepicker w-100 singledatepicker form-control" placeholder="From Date" name="DashboardFromdate" tabindex="3" id="DashboardFromdate">
+                                <div class="input-group-append input-box-label">
+                                    <span class="input-group-text text-muted">
+                                        <i class="bb-calendar fs-21"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="col-sm-12 p-0">
+                            <div class="input-group">
+                                <input type="text" class="datepicker w-100 singledatepicker form-control" placeholder="To Date" name="DashboardTodate" tabindex="3" id="DashboardTodate">
+                                <div class="input-group-append input-box-label">
+                                    <span class="input-group-text text-muted">
+                                        <i class="bb-calendar fs-21"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-2">
+                        @*<button type="button" class="btn btn-primary btn-wide" onclick="customerAnalyticsDatafillter(true)">Search</button>*@
+                        @*<button type="button" class="btn btn-link btn-sm fs-13 text-muted" onclick="customerAnalyticsDatafillter(false)">Reset</button>*@
+                        <button type="button" class="btn btn-primary btn-wide" onclick="AnalyticsDatafillter(true)"><i class="tio-filter-outlined"></i> @(beautybook.Resources.Languages.Filter)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" onclick="AnalyticsDatafillter(false)">@(beautybook.Resources.Languages.Reset)</button>
+                    </div>
+
+                    @*<a href="@Url.Action("GetQrCode" , "Appointments")">Get QR code</a>*@
+                </div>
+            </form>
+        </div>
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="row m-0 w-100 justify-content-center align-items-center">
+                        <div class="col-lg-8 p-2">
+                            <div class="row w-100 m-0 justify-content-center">
+                                @*Email Packages -----------------------------------------*@
+                                <div class="col-lg-6 p-2">
+                                    <div class="card-body card bg-primary text-left">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-4">
+                                                <img class="img-fluid w-100" src="~/Content/assets/images/icons/email-marketing.png" alt="">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <p class="mb-0 text-white">
+                                                    <span class="font-weight-medium cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Complate Messages" id="EmailcompleteMessage">0</span> / <span class="text-light cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Total Messages" id="EmailUncompleteMessage">0</span>
+                                                </p>
+                                                <p class="mb-0 text-white">@(beautybook.Resources.Languages.Email_Messages)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*SMS Packages -----------------------------------------*@
+                                <div class="col-lg-6 p-2">
+                                    <div class="card-body card bg-primary text-left">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-4">
+                                                <img class="img-fluid w-100" src="~/Content/assets/images/icons/sms-marketing.png" alt="">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <p class="mb-0 text-white">
+                                                    <span class="font-weight-medium cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Complate Messages" id="SmscompleteMessage">0</span> / <span class="text-light cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Total Messages" id="SmsUncompleteMessage">0</span>
+                                                </p>
+                                                <p class="mb-0 text-white">@(beautybook.Resources.Languages.SMS_Messages)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Salon's Income Packages -----------------------------------------*@
+                            <div class="col-lg-12 pl-0 pr-0 pt-2 pb-2">
+                                <div class="card card-lg">
+                                    <div class="card-header d-flex align-items-center justify-content-between">
+                                        <h6 class="mb-0">@(beautybook.Resources.Languages.Salon_Income) <span class="ml-2 text-muted" id="noDataFoundIncome"></span></h6>
+                                        <div class="filter-button">
+                                            <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="filterButton_1" onclick="SalonIncomeFunctionSet(1)">@(beautybook.Resources.Languages.Monthly)</button>
+                                            <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="filterButton_3" onclick="SalonIncomeFunctionSet(3)">@(beautybook.Resources.Languages.Daily)</button>
+                                            <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="filterButton_2" onclick="SalonIncomeFunctionSet(2)">@(beautybook.Resources.Languages.Yearly)</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div id="salonIncome"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 p-2" id="tecnicalSupportCard">
+
+                        </div>
+                    </div>
+                    @*Top Requested Services Packages -----------------------------------------*@
+                    <div class="col-lg-12 p-2">
+                        <div class="card card-lg">
+                            <div class="card-header row m-0 w-100 align-items-center justify-content-between">
+                                <div class="col-l-5">
+                                    <h6 class="mb-0">@(beautybook.Resources.Languages.Top_Requested_Services) <span class="ml-2 text-muted" id="noDataFoundServices"></span></h6>
+                                </div>
+                                <div class="col-lg-7">
+                                    <form class="container-fluid">
+                                        <div class="row align-items-center justify-content-end align-items-xl-end">
+                                            <div class="col-lg-4">
+                                                <select class="selectpicker form-control salon-service-fillter" tabindex="1" id="serviceName" multiple title="Select a services" data-live-search="true" data-size="5">
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <button type="button" class="btn btn-primary btn-wide" onclick="TopRequestedServicesFilter(true)"><i class="tio-filter-outlined"></i>@(beautybook.Resources.Languages.Apply)</button>
+                                                <button type="button" class="btn btn-link btn-sm fs-13 text-muted" onclick="TopRequestedServicesFilter(false)">@(beautybook.Resources.Languages.Reset)</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row m-0 align-items-center">
+                                <div class="col-lg-8">
+                                    <div id="requestedServices"></div>
+                                </div>
+                                <div class="col-lg-4 p-2">
+                                    <div class="row m-0" id="TopServicesList">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*New Customers Packages -----------------------------------------*@
+                    <div class="col-lg-6 p-2">
+                        <div class="card card-lg">
+                            <div class="card-header">
+                                <h6 class="mb-0">@(beautybook.Resources.Languages.New_Customers) <span class="ml-2 text-muted" id="noDataFoundCustomer"></span></h6>
+                            </div>
+                            <div class="col-lg-12">
+                                <div id="newCustomers"></div>
+                            </div>
+                            <div class="col-lg-12 p-2">
+                                <div class="row m-0 mb-3" id="TopNewCustomers">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*The most requested employee Packages -----------------------------------------*@
+                    <div class="col-lg-6 p-2">
+                        <div class="card card-lg">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    @(beautybook.Resources.Languages.The_most_requested_employee) <span class="ml-2 text-muted" id="noDataFoundEmployee"></span>
+                                </h6>
+                            </div>
+                            <div class="col-lg-12">
+                                <div id="requestedEmployee"></div>
+                            </div>
+                            <div class="col-lg-12 p-2">
+                                <div class="row m-0 mb-3" id="MostRequestedEmployee">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<br />
+<br />
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/assets/apexcharts/dist/apexcharts.min.js"></script>
+<script src="~/Content/BeautyBookAPI/Dashboard/Packages.js"></script>
+
+<script>
+    //getCookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    //setCookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    $(document).ready(function () {
+        debugger;
+       var duratiuonType = getCookie("DuratiuonType");
+        $('#DashboardFromdate').val("@ViewBag.FromDate");
+        $('#DashboardTodate').val("@ViewBag.ToDate");
+        tecnicalSupport();
+        ServiceName();
+        CompletedUnCompletedPackages();
+        SalonIncomeFunction(duratiuonType == "" ? 1 : duratiuonType);
+        NewCustomerChart();
+        TopNewCustomer();
+        MostPopularEmployee();
+        TopNewMostPopularEmployee();
+        TopRequestedServices(2);
+        TopRequestedServicesName();
+    })
+
+    function AnalyticsDatafillter(IsReset) {
+
+        var FromDate = $('#DashboardFromdate').val();
+        var ToDate = $('#DashboardTodate').val();
+        if (IsReset == true) {
+            window.location.href = `/Home/Index?FromDate=${FromDate}&ToDate=${ToDate}`
+        } else if (IsReset === false) {
+
+            $('#FromDate').val(null);
+            $('#ToDate').val(null);
+            window.location.href = `/Home/Index`
+        }
+    }
+
+    function TopRequestedServicesFilter(IsReset) {
+        var ServiceIdStr = $('#serviceName').val().toString();
+        if (IsReset == true) {
+            window.location.href = `/Home/Index?FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate&Type=3&ServiceType=${ServiceIdStr}`
+        } else if (IsReset === false) {
+
+            window.location.href = `/Home/Index?FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate`
+        }
+    }
+
+    var salonId = getCookie("SalonId");
+    var DeviceTokenNumber = getCookie("DeviceToken&Type");
+
+    function SalonIncomeFunctionSet(IncomeDuration) {
+        debugger;
+        setCookie("DuratiuonType", IncomeDuration, 30);
+        window.location.reload();
+    }
+
+    //Salon Income Chart Data Function
+    var SalonIncomeArr = [];
+    var MonthName = [];
+    function SalonIncomeFunction(IncomeDuration) {
+        debugger;
+
+        $(`#filterButton_${IncomeDuration}`).addClass('filter-active');
+
+        if (IncomeDuration > 0) {
+            SalonIncomeArr = [];
+        }
+
+        let completedUnCompletedPackages = new Object();
+        completedUnCompletedPackages.IsPageProvided = true;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonOwnerDashboard/SalonOwnerDashboard_All?SalonId=${atob(salonId)}&FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate&Type=${IncomeDuration}`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(completedUnCompletedPackages),
+            crossDomain: true,
+            success: function (result) {
+                debugger;
+
+                if (result.Values.length > 0) {
+                    for (i = 0; i < result.Values.length; i++) {
+                        SalonIncomeArr.push(result.Values[i].Price);
+                        if (IncomeDuration == 3) {
+                            MonthName.push(result.Values[i].Date.split(" ")[0]);
+                        } else {
+                            MonthName.push(result.Values[i].Month == "" || result.Values[i].Month == null ? result.Values[i].Year : result.Values[i].Month + ' ' + result.Values[i].Year);
+                        }
+                    }
+                } else {
+                    $('#noDataFoundIncome').text('No Data Found - Displaying Static Data')
+                    SalonIncomeArr.push(600, 800, 400, 2e3, 500, 900, 2500, 1800, 3800);
+                    MonthName.push("01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan", "08 Jan", "09 Jan", "10 Jan", "11 Jan", "12 Jan");
+                }
+
+                salonIncome();
+            }, error: function (error) {
+                //Error function
+            }
+
+        });
+    }
+
+    //NewCustomers Chart Data Function
+    var CustomerCountArr = [];
+    var CustomerMonthName = [];
+    function NewCustomerChart() {
+        let newCustomerChart = new Object();
+        newCustomerChart.IsPageProvided = true;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonOwnerDashboard/SalonOwnerNewCustomer_All?SalonId=${atob(salonId)}&FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate&Type=2`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(newCustomerChart),
+            crossDomain: true,
+            success: function (result) {
+
+                if (result.Values.length > 0) {
+                    for (i = 0; i < result.Values.length; i++) {
+                        CustomerCountArr.push(result.Values[i].UserCount);
+                        CustomerMonthName.push(result.Values[i].Month + ' ' + result.Values[i].Year);
+                    }
+                } else {
+                    $('#noDataFoundCustomer').text('No Data Found - Displaying Static Data')
+                    CustomerCountArr.push(600, 800, 400, 2e3, 500, 900, 2500, 1800, 3800);
+                    CustomerMonthName.push("01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan", "08 Jan", "09 Jan", "10 Jan", "11 Jan", "12 Jan");
+                }
+
+                newCustomerData();
+            }, error: function (error) {
+                //Error function
+            }
+        });
+    }
+
+    //TopNewCustomer Chart Data Function
+    function TopNewCustomer() {
+        $('#TopNewCustomers').html(``);
+        let newCustomer = new Object();
+        newCustomer.IsPageProvided = true;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonOwnerDashboard/SalonOwnerNewCustomer_All?SalonId=${atob(salonId)}&FromDate=&ToDate=&Type=1`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(newCustomer),
+            crossDomain: true,
+            success: function (result) {
+                for (i = 0; i < result.Values.length; i++) {
+                    $('#TopNewCustomers').append(`
+                        <div class="col-lg-6 p-2">
+                            <div class="card mt-2 p-2 shadow-1 hover-border-primary rounded-sm h-100" data-toggle="modal" data-target="#serviceModal" role="button">
+                                <div class="d-flex align-items-center flex-grow-0">
+                                    <span class="avatar avatar-primary avatar-circle ">
+                                        <span class="avatar-initials">${result.Values[i].FirstName == "" || result.Values[i].FirstName == null ? "" : result.Values[i].FirstName.charAt(0)}</span>
+                                    </span>
+                                    <div class="ml-2 chart-users-name">
+                                        <h6 class="mb-0">${result.Values[i].FirstName} ${result.Values[i].SecondName}</h6>
+                                        <span class="font-weight-normal fs-13">Customer</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+            }, error: function (error) {
+                //Error function
+            }
+
+        });
+    }
+
+
+    //MostPopularEmployee Chart Data Function
+    var EmployeeCountArr = [];
+    var EmployeeMonthName = [];
+    function MostPopularEmployee() {
+        let mostPopularEmployee = new Object();
+        mostPopularEmployee .IsPageProvided = true;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonOwnerDashboard/SalonOwnerMostRequestedEmployee_All?SalonId=${atob(salonId)}&FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate&Type=2`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(mostPopularEmployee),
+            crossDomain: true,
+            success: function (result) {
+                if (result.Values.length > 0) {
+                    for (i = 0; i < result.Values.length; i++) {
+                        EmployeeCountArr.push(result.Values[i].UserCount);
+                        EmployeeMonthName.push(result.Values[i].Month + ' ' + result.Values[i].Year);
+                    }
+                } else {
+                    $('#noDataFoundEmployee').text('No Data Found - Displaying Static Data')
+                    EmployeeCountArr.push(600, 800, 400, 2e3, 500, 900, 2500, 1800, 3800);
+                    EmployeeMonthName.push("01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan", "08 Jan", "09 Jan", "10 Jan", "11 Jan", "12 Jan");
+                }
+                MostPopularEmployeeChart();
+            }, error: function (error) {
+                //Error function
+            }
+
+        });
+    }
+
+    //TopNewCustomer Chart Data Function
+    function TopNewMostPopularEmployee() {
+
+        $('#MostRequestedEmployee').html(``);
+        let topNewMostPopularEmployee = new Object();
+        topNewMostPopularEmployee.IsPageProvided = true;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonOwnerDashboard/SalonOwnerMostRequestedEmployee_All?SalonId=${atob(salonId)}&FromDate=&ToDate=&Type=1`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(topNewMostPopularEmployee),
+            crossDomain: true,
+            success: function (result) {
+
+                for (i = 0; i < result.Values.length; i++) {
+                    $('#MostRequestedEmployee').append(`
+                        <div class="col-lg-6 p-2">
+                            <div class="card mt-2 p-2 shadow-1 hover-border-primary rounded-sm h-100" data-toggle="modal" data-target="#serviceModal" role="button">
+                                <div class="d-flex align-items-center flex-grow-0">
+                                    <span class="avatar avatar-primary avatar-circle ">
+                                        <span class="avatar-initials">${result.Values[i].FirstName == "" || result.Values[i].FirstName == null ? "N" : result.Values[i].FirstName.charAt(0)}</span>
+                                    </span>
+                                    <div class="ml-2 chart-users-name">
+                                        <h6 class="mb-0">${result.Values[i].FirstName} ${result.Values[i].SecondName}</h6>
+                                        <span class="font-weight-normal fs-13">${result.Values[i].Country == "" || result.Values[i].Country == null ? '' : result.Values[i].Country}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+            }, error: function (error) {
+                //Error function
+            }
+
+        });
+    }
+
+    //salonIncome Chart Data
+    function salonIncome(ChartType) {
+
+        if ($("#salonIncome").length) {
+            e = {
+                series: [{
+                    name: "SAR",
+                    data: SalonIncomeArr,
+                    colors: ["#754ffe"]
+                }],
+                chart: {
+                    toolbar: {
+                        show: true
+                    },
+                    height: 320,
+                    type: "line",
+                    zoom: {
+                        enabled: !1
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    width: [3, 3, 3, 3],
+                    curve: "smooth",
+                    dashArray: [0, 0, 0, 0]
+                },
+                // legend: {
+                //     show: !1
+                // },
+                colors: ["#00515b"],
+                markers: {
+                    size: 0,
+                    hover: {
+                        sizeOffset: 6
+                    }
+                },
+                xaxis: {
+                    categories: MonthName,
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                        offsetX: -12,
+                        offsetY: 0
+                    }
+                },
+                tooltip: {
+                    y: [{
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }]
+                },
+                grid: {
+                    borderColor: "#f1f1f1"
+                }
+            };
+            new ApexCharts(document.querySelector("#salonIncome"), e).render()
+
+        }
+    }
+
+    //newCustomers Chart Data
+    function newCustomerData() {
+        if ($("#newCustomers").length) {
+            e = {
+                series: [{
+                    name: "Customer",
+                    data: CustomerCountArr,
+                    colors: ["#754ffe"]
+                }],
+                chart: {
+                    toolbar: {
+                        show: true
+                    },
+                    height: 320,
+                    type: "line",
+                    zoom: {
+                        enabled: !1
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    width: [3, 3, 3, 3],
+                    curve: "smooth",
+                    dashArray: [0, 0, 0, 0]
+                },
+                // legend: {
+                //     show: !1
+                // },
+                colors: ["#00515b"],
+                markers: {
+                    size: 0,
+                    hover: {
+                        sizeOffset: 6
+                    }
+                },
+                xaxis: {
+                    categories: CustomerMonthName,
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                        offsetX: -12,
+                        offsetY: 0
+                    }
+                },
+                tooltip: {
+                    y: [{
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }]
+                },
+                grid: {
+                    borderColor: "#f1f1f1"
+                }
+            };
+            new ApexCharts(document.querySelector("#newCustomers"), e).render()
+        }
+    }
+
+    //requestedEmployee Chart Data
+    function MostPopularEmployeeChart() {
+        if ($("#requestedEmployee").length) {
+            e = {
+                series: [{
+                    name: "Employee",
+                    data: EmployeeCountArr,
+                    colors: ["#754ffe"]
+                }],
+                chart: {
+                    toolbar: {
+                        show: true
+                    },
+                    height: 320,
+                    type: "line",
+                    zoom: {
+                        enabled: !1
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    width: [3, 3, 3, 3],
+                    curve: "smooth",
+                    dashArray: [0, 0, 0, 0]
+                },
+                // legend: {
+                //     show: !1
+                // },
+                colors: ["#00515b"],
+                markers: {
+                    size: 0,
+                    hover: {
+                        sizeOffset: 6
+                    }
+                },
+                xaxis: {
+                    categories: EmployeeMonthName,
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                        offsetX: -12,
+                        offsetY: 0
+                    }
+                },
+                tooltip: {
+                    y: [{
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }]
+                },
+                grid: {
+                    borderColor: "#f1f1f1"
+                }
+            };
+            new ApexCharts(document.querySelector("#requestedEmployee"), e).render()
+        }
+    }
+
+
+
+    //MostPopularEmployee Chart Data Function
+    var TopRequestedServicesCountArr = [];
+    var ServicesCountArr = [];
+    var TopRequestedServicesMonthName = [];
+    function TopRequestedServices() {
+
+
+        var ServiceCount = [];
+
+        let topRequestedServices = new Object();
+        topRequestedServices.IsPageProvided = true;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonOwnerDashboard/SalonOwnerTopRequestedServices_All?SalonId=${atob(salonId)}&ServiceIds=@ViewBag.ServiceType&FromDate=@ViewBag.FromDate&ToDate=@ViewBag.ToDate&Type=@ViewBag.Type`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(topRequestedServices),
+            crossDomain: true,
+            success: function (result) {
+
+                if (result.Values.length > 0) {
+                    console.log('Mostresult', result);
+
+                    const key = 'Services';
+
+                    const UniqServiceList = [...new Map(result.Values.map(item =>
+                        [item[key], item])).values()];
+
+                    for (uniRow = 0; uniRow < UniqServiceList.length; uniRow++) {
+                        var serviceList = result.Values.filter(x => x.Services == UniqServiceList[uniRow].Services);
+
+                        ServicesCountArr = [];
+                        for (i = 0; i < serviceList.length; i++) {
+                            ServicesCountArr.push(serviceList[i].ServiceCount);
+                            TopRequestedServicesMonthName.push(serviceList[i].Month + ' ' + serviceList[i].Year);
+                        }
+                        TopRequestedServicesCountArr.push({ name: `${serviceList[0].Name}`, data: ServicesCountArr, colors: ["#754ffe"] });
+                    }
+                } else {
+                    $('#noDataFoundServices').text('No Data Found - Displaying Static Data')
+
+                    ServicesCountArr.push(600, 800, 400, 2e3, 500, 900, 2500, 1800, 3800);
+                    TopRequestedServicesCountArr.push({ name: "service", data: ServicesCountArr, colors: ["#754ffe"] });
+                    TopRequestedServicesMonthName.push("01 Jan", "02 Jan", "03 Jan", "04 Jan", "05 Jan", "06 Jan", "07 Jan", "08 Jan", "09 Jan", "10 Jan", "11 Jan", "12 Jan");
+                }
+
+                TopRequestedServicesChart();
+            }, error: function (error) {
+                //Error function
+            }
+
+        });
+    }
+
+    //TopNewCustomer Chart Data Function
+    function TopRequestedServicesName() {
+        $('#TopNewCustomers').html(``);
+        let newCustomer = new Object();
+        newCustomer.IsPageProvided = true;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/salonOwnerDashboard/SalonOwnerTopRequestedServices_All?SalonId=${atob(salonId)}&FromDate=&ToDate=&Type=1`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(newCustomer),
+            crossDomain: true,
+            success: function (result) {
+                for (i = 0; i < result.Values.length; i++) {
+                    $('#TopServicesList').append(`
+                        <div class="col-lg-6 p-2">
+                            <div class="card mt-1 p-2 shadow-1 hover-border-primary rounded-sm h-100" data-toggle="modal" data-target="#serviceModal" role="button">
+                                <div class="d-flex align-items-center flex-grow-0">
+                                    <div class="ml-2">
+                                        <h6 class="mb-0">
+                                            ${result.Values[i].Name}
+                                        </h6>
+                                        <span class="font-weight-normal fs-13">Services</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+            }, error: function (error) {
+                //Error function
+            }
+
+        });
+    }
+
+    //requestedServices Chart Data
+    function TopRequestedServicesChart() {
+
+        if ($("#requestedServices").length) {
+            e = {
+                series: TopRequestedServicesCountArr,
+                chart: {
+                    toolbar: {
+                        show: true
+                    },
+                    height: 320,
+                    type: "line",
+                    zoom: {
+                        enabled: !1
+                    }
+                },
+                dataLabels: {
+                    enabled: !1
+                },
+                stroke: {
+                    width: [3, 3, 3, 3],
+                    curve: "smooth",
+                    dashArray: [0, 0, 0, 0]
+                },
+                // legend: {
+                //     show: !1
+                // },
+                colors: ["#754ffe", "#19cb98", "#ffaa46", "#00515b"],
+                markers: {
+                    size: 0,
+                    hover: {
+                        sizeOffset: 6
+                    }
+                },
+                xaxis: {
+                    categories: TopRequestedServicesMonthName,
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: ["#5c5776"],
+                            fontSize: "12px",
+                            fontFamily: "Inter",
+                            cssClass: "apexcharts-xaxis-label"
+                        },
+                        offsetX: -12,
+                        offsetY: 0
+                    }
+                },
+                tooltip: {
+                    y: [{
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }, {
+                        title: {
+                            formatter: function (e) {
+                                return e
+                            }
+                        }
+                    }]
+                },
+                grid: {
+                    borderColor: "#f1f1f1"
+                }
+            };
+            new ApexCharts(document.querySelector("#requestedServices"), e).render()
+        }
+    }
+
+</script>

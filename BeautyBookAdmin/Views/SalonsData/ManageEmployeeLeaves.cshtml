@@ -1,0 +1,830 @@
+﻿@using BeautyBook.Common;
+@using BeautyBookAdmin.Pages;
+@using BeautyBookAdmin.Infrastructure;
+
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "Manage Employee Leaves";
+}
+
+
+<style>
+    .checkbox2 {
+        width: 25px;
+        height: 25px;
+    }
+
+    thead {
+        background: #0069D9;
+        color: white;
+    }
+
+    .row {
+        margin: 0 !important;
+    }
+
+    .activ {
+        background: linear-gradient(to right, #0069D9, #0069D9);
+        color: white;
+    }
+
+    .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .form-control-feedback, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+        color: #e73d4a
+    }
+
+    .has-error .form-control {
+        border-color: #e73d4a;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    }
+
+        .has-error .form-control:focus {
+            border-color: #d71b29;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f
+        }
+
+    .has-error .input-group-addon {
+        color: #e73d4a;
+        border-color: #e73d4a;
+        background-color: #fbe1e3
+    }
+
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        z-index: 99;
+        top: 40px;
+        left: 0;
+        right: 0;
+        box-shadow: 0 39px 70px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+        .autocomplete-items > div {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .autocomplete-items > div:hover {
+                background: #fbfbfb;
+            }
+
+    .addDelete {
+        color: black !important;
+        background: #e9e9e9 !important;
+    }
+
+    .hideDelete {
+        display: none !important;
+    }
+</style>
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Manage Employee Leaves</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active"><a href="@Url.Action(Actions.Index,Controllers.SalonOwner,new { Area=""})">Manage Salon Owners</a></li>
+                <li class="breadcrumb-item active"><a href="@Url.Action(Actions.Salons,Controllers.SalonOwner,new { Area=""})?SalonOwnerId=@ViewBag.salonOwnerId">Manage Salons</a></li>
+                <li class="breadcrumb-item active">Manage Employee Leaves</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="header">
+            </div>
+            <div class="body">
+                <div class="portlet-body table-responsive" id="divUsersTable">
+                    <table class="table table-striped table-bordered table-hover" id="UsersTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fadeIn" id="CustomersFilterPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">Employee Leaves Filters</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix">
+                    <div class="col-sm-4">
+                        <label>Employee Name</label>
+                        <div class="form-group">
+                            @Html.Raw(Html.DropDownList("EmployeeNameId", (IEnumerable<SelectListItem>)ViewBag.EmployeeList, "Select Employee Name", new { @Id = "EmployeeNameId", @class = "form-control" }))
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Role</label>
+                        <div class="form-group">
+                            @Html.Raw(Html.DropDownList("EmployeeRoles", (IEnumerable<SelectListItem>)ViewBag.EmployeeRoles, "Select Roles", new { @Id = "EmployeeRoles", @class = "form-control" }))
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Leave Type</label>
+                        <div class="form-group">
+                            @Html.Raw(Html.DropDownList("EmployeeLeaveType", (IEnumerable<SelectListItem>)ViewBag.EmployeeLeaveType, "Select Leave Type", new { @Id = "EmployeeLeaveType", @class = "form-control" }))
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Status</label>
+                        <div class="form-group">
+                            <select class="form-control" id="EmployeeStatus" name="EmployeeStatus">
+                                <option value="">Select Status</option>
+                                <option value="0">Any</option>
+                                <option value="3">Approved</option>
+                                <option value="4">Rejected</option>
+                                <option value="5">Approval Pending</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>From Date</label>
+                        <div class="form-group">
+                            <input class="form-control singledatepicker" type="text" name="EmployeeLeaveFromDate" id="EmployeeLeaveFromDate" value="" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>To Date</label>
+                        <div class="form-group">
+                            <input class="form-control singledatepicker" type="text" name="EmployeeLeaveToDate" id="EmployeeLeaveToDate" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSearch" type="button" class="btn btn-primary saveBtn" onclick="SearchReset(false);">Search</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary closeBtn">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Employee details modal*@
+<div class="modal fadeIn" id="EmployeeDetails" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">
+                    Employee Details
+                </h6>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link show active" data-toggle="tab" href="#employee_withicon"><i class="icon-user"></i> Basic Info</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#services_withicon"><i class="icon-settings"></i> Services</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#workinghours_withicon"><i class="fa fa-file-word-o" aria-hidden="true"></i> Working Hours</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#leave_withicon"><i class="icon-user-unfollow" aria-hidden="true"></i> @(beautybook.Resources.Languages.Leave)</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#AssignToAppointments_withicon"><i class="fa fa-calendar" aria-hidden="true"></i> @(beautybook.Resources.Languages.Appointments)</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane show active" id="employee_withicon">
+                        <div class="row" id="employee_details_data">
+                            @*employee details data bind*@
+                        </div>
+                        <div id="employee_details_data_loader" style="display: none;" class="text-center mb-4">
+                            <img src="~/assets/ajax-loader.gif" width='32px' height='32px' />
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="services_withicon">
+                        <div class="table-responsive scrollbar-table">
+                            <div id="services_grid">
+
+                            </div>
+                            <div id="services_grid_loader" style="display: none;" class="text-center mb-4">
+                                <img src="~/assets/ajax-loader.gif" width='32px' height='32px' />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="workinghours_withicon">
+                        <div class="table-responsive scrollbar-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="workinghours_grid">
+                                </tbody>
+                            </table>
+                            <div id="workinghours_grid_loader" style="display: none;" class="text-center mb-4">
+                                <img src="~/assets/ajax-loader.gif" width='32px' height='32px' />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="leave_withicon">
+                        <div class="row clearfix w_social3" id="leave_details_data">
+
+                        </div>
+                        <div id="leave_details_data_loader" style="display: none;" class="text-center mb-4">
+                            <img src="~/assets/ajax-loader.gif" width='32px' height='32px' />
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="AssignToAppointments_withicon">
+                        <div class="table-responsive scrollbar-table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Date</th>
+                                        <th>Service Name</th>
+                                        <th>Customer Name</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="AssignToAppointments_grid">
+                                </tbody>
+                            </table>
+                            <div id="AssignToAppointments_grid_loader" style="display: none;" class="text-center mb-4">
+                                <img src="~/assets/ajax-loader.gif" width='32px' height='32px' />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-secondary closeBtn">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section dashboardscripts{
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/datatable.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/datatables.bootstrap.js"></script>
+}
+
+@section Scripts {
+    <script>
+
+        $(document).ready(() => {
+            UsersDataTable.init();
+        });
+             var UsersDataTable = function () {
+
+                let initTable1 = function () {
+                    let table = $('#UsersTable');
+
+                    let oTable = table.dataTable({
+                        "stateSave": true,
+                        "autoWidth": false,
+                        "paging": true,
+                        // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                        "language": {
+                            "aria": {
+                                "sortAscending": ": activate to sort column ascending",
+                                "sortDescending": ": activate to sort column descending"
+                            },
+                            "emptyTable": "No data available in table",
+                            "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                            "infoEmpty": "No entries found",
+                            "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                            "lengthMenu": "_MENU_ entries",
+                            "search": "Search:",
+                            "zeroRecords": "No matching records found"
+                        },
+                        "pageLength": 10,
+                        "processing": true,
+                        "serverSide": true,
+                        "ajax": {
+                            async: true,
+                            url: '@Url.Action(Actions.ViewAllDataEmployeeLeaves, Controllers.SalonsData)',
+                            type: "post",
+                            data: BuildSearchCriteria(),
+                    },
+                    "columns": [
+                        {
+                            "title": "Employee Name", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                if (row["ProfileUrl"] == "" || row["ProfileUrl"] == null) {
+                                    htmlData = `<img onerror="DefaultImage(this);" class="rounded-circle round-img-table profile-size" src="${'@Configurations.ApiUrl' + row["ProfileUrl"]}">`;
+                                } else {
+                                    htmlData = `<a href="${'@Configurations.ApiUrl' + row["ProfileUrl"]}" target="_blank"><img onerror="DefaultImage(this);" class="rounded-circle round-img-table profile-size" src="${'@Configurations.ApiUrl' + row["ProfileUrl"]}"></a>`;
+                                }
+                                htmlData += `<a class="c-text-primary" onclick="EmployeeDetails(${row["UserId"]});" href="javascript:void(0)"><p class="mb-0">${row["FullName"]}</p></a>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Role", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["LookUpEmployeeRoles"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Leave Type", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["LeaveType"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "From Date", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["FromDate"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "To Date", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["ToDate"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "No Of Days", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-0">${row["NoOfDays"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Reason", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                if (row["Reason"] == "") {
+                                    htmlData += `<p class="mb-0">-</p>`;
+                                } else {
+                                    htmlData += `<p class="mb-0">${row["Reason"]}</p>`;
+                                }
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                        {
+                            "title": "Status", "data": "",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                if (row["LookUpStatusId"] == 3) {
+                                    htmlData += `<button class="badge badge-success">Approved</button>`;
+                                } else if(row["LookUpStatusId"] == 4) {
+                                    htmlData += `<button class="badge badge-danger">Rejected</button>`;
+                                } else if (row["LookUpStatusId"] == 5) {
+                                    htmlData += `<button class="badge badge-success">Approval Pending</button>`;
+                                }
+
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "3%"
+                        },
+                    ],
+                    // setup buttons extentension: http://datatables.net/extensions/buttons/
+                        "buttons": [
+                            {
+                                text: 'Filters',
+                                className: 'addData them-btn',
+                                action: function (e, dt, node, config) {
+                                    OpenSalonsFiltersPopup();
+                                }
+                            },
+                            {
+                                text: 'Reset',
+                                className: 'them-reset-btn',
+                                action: function () {
+                                    SearchReset(true)
+                                }
+                            }
+                            //{ extend: 'excel', className: 'them-btn' }
+                        ],
+
+                        // setup responsive extension: http://datatables.net/extensions/responsive/
+                        responsive: true,
+
+                        "lengthMenu": [
+                            [5, 10, 15, 20, 1000],
+                            [5, 10, 15, 20, 1000] // change per page values here
+                        ],
+                        // set the initial value
+
+                        "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+                        // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                        // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+                        // So when dropdowns used the scrollable div should be removed.
+                        //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+                    });
+                }
+
+                return {
+                    //main function to initiate the module
+                    init: function () {
+                        if ($.fn.DataTable.isDataTable("#UsersTable")) {
+                            $('#UsersTable').dataTable().fnDestroy();
+                            $('#divUsersTable').html('<table class="table table-striped" width="100%" id="UsersTable"></table>');
+                        }
+                        initTable1();
+                    }
+                };
+        }();
+
+        //Data fillter function
+        function BuildSearchCriteria() {
+            try {
+                 
+                var param = {};
+                param["SalonId"] = @ViewBag.EmployeesSalonId;
+                param["LookUpStatusId"] = $('#EmployeeStatus').val();
+                param["UserId"] = $('#EmployeeNameId').val();
+                param["LookUpLeaveTypeId"] = $('#EmployeeLeaveType').val();
+                param["LookUpEmployeeRolesId"] = $('#EmployeeRoles').val();
+                param["FromDate"] = $('#EmployeeLeaveFromDate').val();
+                param["ToDate"] = $('#EmployeeLeaveToDate').val();
+                return addRequestVerificationToken(param);
+            } catch (e) { }
+        }
+
+        function addRequestVerificationToken(data) {
+            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+            return data;
+        }
+
+        //Fillter modal open function
+        const OpenSalonsFiltersPopup = () => {
+            $("#CustomersFilterPopup").modal("show");
+        }
+
+        //Fillter date reset function
+        const SearchReset = (isReset = false) => {
+            if (isReset == true) {
+                 
+                $("#EmployeeStatus").val(null);
+                $("#EmployeeNameId").val('');
+                $("#EmployeeLeaveType").val(null);
+                $("#EmployeeRoles").val(null);
+                $("#EmployeeLeaveFromDate").val(null);
+                $("#EmployeeLeaveToDate").val(null);
+            }
+            UsersDataTable.init();
+            $("#CustomersFilterPopup").modal("hide");
+        }
+
+
+        //Employee Details function
+        function EmployeeDetails(EmployeeDetailsId) {
+
+
+            $('#employee_details_data').html(``);
+            $('#services_grid').html(``);
+            $('#workinghours_grid').html(``);
+            $('#AssignToAppointments_grid').html(``);
+
+            $('#EmployeeDetails').modal('show');
+
+            $('#employee_details_data_loader').show();
+            $('#leave_details_data_loader').show();
+            $('#AssignToAppointments_grid_loader').show();
+            $('#services_grid_loader').show();
+            $('#workinghours_grid_loader').show();
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.ViewDataCustomerDetails, Controllers.SalonsData)',
+                data: { Id: EmployeeDetailsId},
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+
+
+                    $('#employee_details_data').append(`
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Full Name
+                            </div>
+                            <label>
+                                ${response.Item.FirstName == "" || response.Item.FirstName == null ? '-' : response.Item.FirstName}
+                                ${response.Item.SecondName == "" || response.Item.SecondName == null ? '-' : response.Item.SecondName}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Gender
+                            </div>
+                            <label>
+                               ${response.Item.Gender == "" || response.Item.Gender == null ? '-' : response.Item.Gender}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>Email</div>
+                            <label>
+                                ${response.Item.Email == "" || response.Item.Email == null ? '-' : `<a class="c-text-primary" href="mailto:${response.Item.Email}">${response.Item.Email}</a>`}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>Primary Phone</div>
+                            <label>
+                                ${response.Item.PrimaryPhone == "" || response.Item.PrimaryPhone == null ? '-' : `<a class="c-text-primary" href="tel:${response.Item.PrimaryPhone}">${response.Item.PrimaryPhone}</a>`}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Alternate Phone
+                            </div>
+                            <label>
+                                ${response.Item.AlternatePhone == "" || response.Item.AlternatePhone == null ? '-' : `<a class="c-text-primary" href="tel:${response.Item.AlternatePhone}">${response.Item.AlternatePhone}</a>`}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Joining Date
+                            </div>
+                            <label>
+                               ${response.Item.JoiningDate == "" || response.Item.JoiningDate == null ? '-' : response.Item.JoiningDate}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Role
+                            </div>
+                            <label>
+                                ${response.Item.LookUpEmployeeRolesName == "" || response.Item.LookUpEmployeeRolesName == null ? '-' : response.Item.LookUpEmployeeRolesName}
+                            </label>
+                        </div>
+                        <div class="col-lg-4 mt-2">
+                            <div>
+                                Type
+                            </div>
+                            <label>
+                                ${response.Item.LookUpEmployeeTypeName == "" || response.Item.LookUpEmployeeTypeName == null ? '-' : response.Item.LookUpEmployeeTypeName}
+                            </label>
+                        </div>
+                        <div class="col-lg-12 mt-2">
+                            <div>
+                                Address
+                            </div>
+                            <label>
+                               ${response.Item.AddressLine1 == "" || response.Item.AddressLine1 == null || response.Item.AddressLine2 == "" || response.Item.AddressLine2 == null ? '-' : `${response.Item.AddressLine1} < br /> ${response.Item.AddressLine2}`}
+                            </label>
+                            <br/>
+                            <label>${response.Item.LookUpCountry == "" || response.Item.LookUpCountry == null ? '-' : response.Item.LookUpCountry}</label>
+                            <label>${response.Item.LookUpState == "" || response.Item.LookUpState == null ? '-' : response.Item.LookUpState}</label>
+                            <label>${response.Item.City == "" || response.Item.City == null ? '-' : response.Item.City}</label>
+                            <label>${response.Item.ZipCode == "" || response.Item.ZipCode == null ? '-' : response.Item.ZipCode}</label>
+                        </div>
+                    `);
+
+                    var categoryIds = [];
+
+                    //ServiceIds
+                    var serviceIds = [];
+
+                    if (response.Item.UserServices.length > 0) {
+                        for (i = 0; i < response.Item.UserServices.length; i++) {
+                            var categoryId = response.Item.UserServices[i].LookUpCategoryId;
+                            var serviceName = '';
+                            if (!categoryIds.includes(categoryId)) {
+
+                                for (j = 0; j < response.Item.UserServices.length; j++) {
+                                    if (categoryId == response.Item.UserServices[j].LookUpCategoryId) {
+
+                                        var serviceId = response.Item.UserServices[j].LookUpServicesId;
+
+                                        if (!serviceIds.includes(serviceId) && serviceId > 0) {
+                                            serviceIds.push(serviceId);
+
+                                            serviceName += `
+                                                <tr>
+                                                    <th>
+                                                        ${response.Item.UserServices[j].LookUpServicesName}
+                                                        ${response.Item.UserServices[j].LookUpStatusSalonServiceId == 2 ?
+                                                    `<span class="badge bg-soft-danger text-danger border p-1" style="cursor:pointer;">In-Active</span>` : ''
+                                                }
+                                                    </th>
+                                                    <td>${response.Item.UserServices[j].Duration} Min</td>
+                                                    <td>SAR ${response.Item.UserServices[j].Price}</td>
+                                                </tr>
+                                            `;
+                                        }
+
+                                    }
+                                }
+
+                                categoryIds.push(categoryId);
+                                $('#services_grid').append(`
+                                    <div class="table-responsive table-card mb-3">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        ${response.Item.UserServices[i].LookUpCategoryName}
+                                                        ${response.Item.UserServices[i].LookUpServicesId == 0 ?
+                                                            `${response.Item.UserServices[i].LookUpStatusSalonServiceId == 2 ?
+                                                                `<span class="badge bg-soft-danger text-danger border p-1" style="cursor:pointer;">In-Active</span>` : ''
+                                                            }` : ''
+                                                        }
+                                                    </th>
+                                                    <th>
+                                                        ${response.Item.UserServices[i].LookUpServicesId == 0 ?
+                                                            `${response.Item.UserServices[i].Duration} Min` : `Duration`
+                                                        }
+                                                    </th>
+                                                    <th>
+                                                        ${response.Item.UserServices[i].LookUpServicesId == 0 ?
+                                                            `SAR ${response.Item.UserServices[i].Price}` : `Price`
+                                                        }
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${serviceName}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                `);
+                            }
+
+                        }
+                    }
+                    else {
+                        $('#services_grid').append(`
+                            <div class="card">
+                                <p class="text-center mb-3 mt-3" style="font-size:18px;">No records found</p>
+                            </div>
+                        `);
+                    }
+
+
+                    //workinghours_grid data
+                    if (response.Item.UserWorkingHours.length <= 0) {
+                        $('#workinghours_grid').html(`
+                        <tr>
+                            <td colspan="100" class="text-center" style="font-size:18px;font-weight:500;">No records found</td>
+                        </tr>
+                    `)
+                    } else {
+                        $("#workinghours_grid").html(``);
+                    }
+
+                    for (i = 0; i < response.Item.UserWorkingHours.length; i++) {
+                        $('#workinghours_grid').append(`
+                            <tr>
+                                <th>${response.Item.UserWorkingHours[i].Day}</th>
+                                <td>
+                                    ${response.Item.UserWorkingHours[i].IsAvailable == false ? '-' :
+                                        `${response.Item.UserWorkingHours[i].StartTime == "" || response.Item.UserWorkingHours[i].StartTime == 0 || response.Item.UserWorkingHours[i].StartTime == null ?
+                                            '-'
+                                            :
+                                            onTimeChange(response.Item.UserWorkingHours[i].StartTime)
+                                        }`
+                                    }
+                                </td>
+                                <td>
+                                    ${response.Item.UserWorkingHours[i].IsAvailable == false ? '-' :
+                                        `${response.Item.UserWorkingHours[i].EndTime == "" || response.Item.UserWorkingHours[i].EndTime == 0 || response.Item.UserWorkingHours[i].EndTime == null ?
+                                            '-'
+                                            :
+                                            onTimeChange(response.Item.UserWorkingHours[i].EndTime)
+                                        }`
+                                    }
+                                </td>
+                            </tr>
+                        `);
+                    }
+
+                    //AssignToAppointments_grid Data bind
+                    if (response.Item.AssignToUserAppointments.length <= 0) {
+                        $('#AssignToAppointments_grid').html(`
+                        <tr>
+                            <td colspan="100" class="text-center" style="font-size:18px;font-weight:500;">No records found</td>
+                        </tr>
+                    `)
+                    } else {
+                        $("#AssignToAppointments_grid").html(``);
+                    }
+
+                    for (i = 0; i < response.Item.AssignToUserAppointments.length; i++) {
+                        $('#AssignToAppointments_grid').append(`
+                            <tr>
+                                <th>${response.Item.AssignToUserAppointments[i].Id}</th>
+                                <td>
+                                    ${response.Item.AssignToUserAppointments[i].AppointmentDate == "" || response.Item.AssignToUserAppointments[i].AppointmentDate == null ? '-' : response.Item.AssignToUserAppointments[i].AppointmentDate}
+                                    ${response.Item.AssignToUserAppointments[i].AppointmentTime == "" || response.Item.AssignToUserAppointments[i].AppointmentTime == null ? '-' : onTimeChange(response.Item.AssignToUserAppointments[i].AppointmentTime)}
+                                </td>
+                                <td>${response.Item.AssignToUserAppointments[i].ServicesIdsName == "" || response.Item.AssignToUserAppointments[i].ServicesIdsName == null ? '-' : response.Item.AssignToUserAppointments[i].ServicesIdsName}</td>
+                                <td>${response.Item.AssignToUserAppointments[i].CustomerUsername == "" || response.Item.AssignToUserAppointments[i].CustomerUsername == null ? '-' : response.Item.AssignToUserAppointments[i].CustomerUsername}</td>
+                                <td>SAR ${response.Item.AssignToUserAppointments[i].Price == "" || response.Item.AssignToUserAppointments[i].Price == null ? '-' : response.Item.AssignToUserAppointments[i].Price}</td>
+                                <td>
+                                    ${response.Item.AssignToUserAppointments[i].LookUpStatusId == 6 ? `<button class="badge badge-warning">${response.Item.AssignToUserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.AssignToUserAppointments[i].LookUpStatusId == 7 ? `<button class="badge badge-danger">${response.Item.AssignToUserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.AssignToUserAppointments[i].LookUpStatusId == 8 ? `<button class="badge badge-warning">${response.Item.AssignToUserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.AssignToUserAppointments[i].LookUpStatusId == 9 ? `<button class="badge badge-success">${response.Item.AssignToUserAppointments[i].LookUpStatusName}</button>` : ''}
+                                    ${response.Item.AssignToUserAppointments[i].LookUpStatusId == 10 ? `<button class="badge badge-success">${response.Item.AssignToUserAppointments[i].LookUpStatusName}</button>` : ''}
+                                </td>
+                            </tr>
+                        `);
+                    }
+
+
+                    $('#employee_details_data_loader').hide();
+                    $('#AssignToAppointments_grid_loader').hide();
+                    $('#services_grid_loader').hide();
+                    $('#workinghours_grid_loader').hide();
+
+                },
+                error: function (error) {
+                    $('#employee_details_data_loader').hide();
+                    $('#AssignToAppointments_grid_loader').hide();
+                    $('#services_grid_loader').hide();
+                    $('#workinghours_grid_loader').hide();
+                }
+            });
+
+
+            //Employee leave count get
+             
+
+            $('#leave_details_data').html(``);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.ViewAllDataEmployeeLeavecount, Controllers.SalonsData)',
+                data: { UserId: EmployeeDetailsId, SalonId:@ViewBag.EmployeesSalonId},
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    if (response.Values.length <= 0) {
+                        $('#leave_details_data').append(`
+                            <div class="col-lg-12">
+                                <div class="card facebook-widget">
+                                    <div class="content">
+                                        <label class="mb-0" style="font-size:19px;">No records found</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    } else {
+                        $('#leave_details_data').html(``);
+                    }
+
+                    for (i = 0; i < response.Values.length; i++) {
+                        $('#leave_details_data').append(`
+                            <div class="col-lg-3">
+                                <div class="card facebook-widget">
+                                    <div class="content">
+                                        <label style="font-size:19px;">${response.Values[i].LeaveTypeCount}</label>
+                                        <div class="text">${response.Values[i].LookUpLeaveType}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    }
+
+                    $('#leave_details_data_loader').hide();
+
+                },
+                error: function (error) {
+                    $('#leave_details_data_loader').hide();
+                }
+            });
+
+        }
+
+    </script>
+    <script src="~/assets/validation/js/jquery-ui.min.js"></script>
+    <script src="~/assets/validation/js/app.min.js"></script>
+    <script src="~/assets/validation/js/ui-modals.min.js"></script>
+    <script src="~/assets/validation/js/jquery.validate.min.js"></script>
+    <script src="~/assets/validation/js/additional-methods.min.js"></script>
+    <script src="~/assets/validation/js/toastr.min.js"></script>
+    <script src="~/assets/validation/js/ui-toastr.min.js"></script>
+    <script src="~/assets/vendor/dropify/js/dropify.min.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script> <!-- SweetAlert Plugin Js -->
+    <script src="~/assets/js/pages/forms/dropify.js"></script>
+    <script src="~/assets/js/pages/ui/dialogs.js"></script>
+}

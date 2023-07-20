@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "Pos Orders";
+}
+<style>
+    .coin-cash::-webkit-inner-spin-button,
+    .coin-cash::-webkit-outer-spin-button {
+        opacity: 1 !important;
+    }
+
+    .coin-cash {
+        border: none;
+        border-bottom: 3px solid #7e7e7e;
+        border-radius: 0;
+    }
+</style>
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">Pos Orders</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageSession","Pos")">Manage Session</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Pos Orders</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="grid-view" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div class="posOrderDatalistdiv">
+                                        <table id="posOrderDatalist" class="table table-card" style="width:100%; display:inherit;">
+                                        </table>
+                                        <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<br />
+<br />
+
+<!-- Pos Order Modal -->
+<div class="modal fade" id="posOrderDetailsModal" tabindex="-1" aria-labelledby="posOrderDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="posOrderDetailsLabel">Pos Order Services</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row fs-14 m-0" id="posOrderDetails">
+                    
+                </div>
+                <div id="posOrderDetailsloader" style="display: none;" class="text-center mb-2 mt-2">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script>
+    var SessionId = @ViewBag.SessionId;
+</script>
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/PosApi/ManageOrders/ManageOrders.js"></script>
+
+<script>
+    
+    //getCookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    //setCookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    $(document).ready(function () {
+        ArbicLanguage();
+
+
+        PosOrderList.init();
+
+    })
+</script>

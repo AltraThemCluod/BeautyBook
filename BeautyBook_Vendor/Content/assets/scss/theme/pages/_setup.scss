@@ -1,0 +1,153 @@
+.add-salon-card {
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease-in;
+
+    }
+
+    &:hover {
+        transition: all 0.2s ease-in;
+        box-shadow: $box-shadow-lg;
+    }
+
+    img {
+        height: 100%;
+        min-height: 80px;
+        max-height: 80px;
+        width: auto;
+    }
+}
+
+.services-layout {
+    display: flex;
+    flex-direction: column;
+
+    @include media-breakpoint-up(lg) {
+       flex-direction: row;
+    }
+
+}
+
+.services-group {
+
+    padding: 1rem;
+
+    @include media-breakpoint-up(lg) {
+        height: calc(100vh - 135px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: $white;
+        padding: 0;
+        border-right: 1px solid $border-color;
+        flex-wrap: nowrap;
+    }
+
+    @include media-breakpoint-up(xl) {
+        width: 14rem;
+    }
+
+    @include media-breakpoint-up(xxl) {
+        width: 10rem;
+    }
+
+
+    .card {
+        &.active {
+            background-color: $gray-900;
+
+            h6 {
+                color: $white;
+            }
+
+            svg {
+                fill: $gray-200;
+            }
+        }
+    }
+}
+
+.sub-services-group {
+    padding: 1rem;
+
+   
+    @include media-breakpoint-up(lg) {
+        height: calc(100vh - 135px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0;
+        border-right: 1px solid $border-color;
+        background-color: $light;
+        flex-grow: 0;
+    }
+
+
+    @include media-breakpoint-up(xl) {
+        width: 26rem;
+    }
+
+    @include media-breakpoint-up(xxl) {
+        width: 25rem;
+    }
+    
+
+
+    .simplebar-content {
+        margin: 0.625rem;
+    }
+}
+
+.sub-services-details {
+    // height: calc(100vh - 135px);
+    // overflow-y: auto;
+    // overflow-x: hidden;
+    // display: flex;
+    // flex-direction: column;
+    // flex: 1 1 auto;
+    // position: relative;
+
+    @include media-breakpoint-up(lg) {
+        height: calc(100vh - 135px);
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        // overflow: hidden;
+    }
+
+    .sub-services-details-inner {
+
+        // @include media-breakpoint-up(lg){
+        display: flex;
+        width: 100%;
+        min-width: 0;
+        flex-direction: column;
+        // }
+    }
+
+}
+
+
+
+
+.service-manager{
+    display: flex;
+
+
+    .service-categories{
+        border-right: 1px solid $border-color;
+        background-color: $white;
+
+    }
+
+
+    .service-subcategories{
+
+    }
+
+    .service-details{
+
+    }
+}

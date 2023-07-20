@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="AboutUsCheckContent1" xml:space="preserve">
+    <value>We help suppliers, importers and wholesalers showcase their products to buyers who are looking for great deals on wholesale beauty products.</value>
+  </data>
+  <data name="AboutUsCheckContent2" xml:space="preserve">
+    <value>Our sellers are ready to ship out their items directly to you. Plus we help you clean up with our quick and painless selling services.</value>
+  </data>
+  <data name="AboutUsCheckContent3" xml:space="preserve">
+    <value>Our network has been designed to help you find suppliers efficiently and to keep up to date with the latest developments in the industry.</value>
+  </data>
+  <data name="AboutUsCheckContent4" xml:space="preserve">
+    <value>We make finding suppliers a pleasant experience so you can spend more time improving your business.</value>
+  </data>
+  <data name="AboutUsContent1" xml:space="preserve">
+    <value>Zaan Marketplace is a one-stop shop for salon and spa supplies. Our goal is to make your life easier by helping you find what you need, giving you great advice on how to use it, then
+shipping it to you quickly and efficiently. We are a young company, built by like-minded
+professionals who love what they do, and we're excited to help our customers find the
+products they need in one convenient place.</value>
+  </data>
+  <data name="AboutUsContent2" xml:space="preserve">
+    <value>We strive to be the best online platform for beauty industry suppliers by committing
+ourselves to provide a selected, qualified and high quality set of suppliers to our customers
+in a trusted environment.</value>
+  </data>
+  <data name="AllInOne" xml:space="preserve">
+    <value>All-IN-ONE software management to manage and grow your salon and spa business .</value>
+  </data>
+  <data name="AllServices" xml:space="preserve">
+    <value>All Services</value>
+  </data>
+  <data name="Alreadyhaveanaccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="Alwaysfocus" xml:space="preserve">
+    <value>Always focus on your growth, and let the innovation for us.</value>
+  </data>
+  <data name="Anytime" xml:space="preserve">
+    <value>Any time</value>
+  </data>
+  <data name="Appointments" xml:space="preserve">
+    <value>Appointments</value>
+  </data>
+  <data name="AppointmentsContent" xml:space="preserve">
+    <value>A fast and easy-to-use appointment book for front desk staff is just the start of our omnichannel booking experiences. Provide your guests (and staff) with the ease and convenience they expect.</value>
+  </data>
+  <data name="Ar" xml:space="preserve">
+    <value>Ar</value>
+  </data>
+  <data name="BeautySalon" xml:space="preserve">
+    <value>Beauty Salon</value>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="Branchesmanagement" xml:space="preserve">
+    <value>Branches Management</value>
+  </data>
+  <data name="BranchesmanagementContent" xml:space="preserve">
+    <value>Open an unlimited number of branches for your business and follow them all from one place</value>
+  </data>
+  <data name="BuyNow" xml:space="preserve">
+    <value>Buy Now</value>
+  </data>
+  <data name="Conditioner" xml:space="preserve">
+    <value>Conditioner</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Contents" xml:space="preserve">
+    <value>Contents</value>
+  </data>
+  <data name="CopyrightZaan" xml:space="preserve">
+    <value>©Copyright Zaan 2022. All rights reserved.</value>
+  </data>
+  <data name="Customermanagement" xml:space="preserve">
+    <value>Customer Management</value>
+  </data>
+  <data name="CustomermanagementContent" xml:space="preserve">
+    <value>With Zaan you can manage your customers' records in a wonderful way, as you can track their last visit and know some of the details that interest you about them with simple tools.</value>
+  </data>
+  <data name="CustomerTestimonialBy1" xml:space="preserve">
+    <value>Zahra Ahmad</value>
+  </data>
+  <data name="CustomerTestimonialBy2" xml:space="preserve">
+    <value>Mashael Algahtani</value>
+  </data>
+  <data name="CustomerTestimonialBy3" xml:space="preserve">
+    <value>Murad Alinezi</value>
+  </data>
+  <data name="CustomerTestimonialBy4" xml:space="preserve">
+    <value>Murad Alinezi</value>
+  </data>
+  <data name="CustomerTestimonialContent1" xml:space="preserve">
+    <value>I am so glad I found Zaan Marketplace before I wasted my time and money on other
+marketplaces.</value>
+  </data>
+  <data name="CustomerTestimonialContent2" xml:space="preserve">
+    <value>Hi there, Zaan has helped me reach out to a larger audience, I get a lot of views and
+sales here. It took some time to figure out how to use the tools but they are very
+helpful. So far so good!</value>
+  </data>
+  <data name="CustomerTestimonialContent3" xml:space="preserve">
+    <value>We're a very small company with a lot of private branded products. Zaan has helped
+us to sell our products in a bigger scale than before.</value>
+  </data>
+  <data name="CustomerTestimonialContent4" xml:space="preserve">
+    <value>We're a very small company with a lot of private branded products. Zaan has helped
+us to sell our products in a bigger scale than before.</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="DashboardContent1" xml:space="preserve">
+    <value>Pull data from every aspect of your business, including sales, operations, marketing, staff performance and customer behavior.</value>
+  </data>
+  <data name="DashboardContent2" xml:space="preserve">
+    <value>You'll always have access to dashboard that are up-to-date and accurate, without the manual effort to collate your data outside of the system.</value>
+  </data>
+  <data name="DREOXHAIRDRYER" xml:space="preserve">
+    <value>DREOX HAIR DRYER, 2000W AC</value>
+  </data>
+  <data name="Duringtheday" xml:space="preserve">
+    <value>During the day</value>
+  </data>
+  <data name="DuringtheNight" xml:space="preserve">
+    <value>During the Night</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Emailisrequired" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="EmailValidationMessage" xml:space="preserve">
+    <value>Please enter your email</value>
+  </data>
+  <data name="FacialSteamer" xml:space="preserve">
+    <value>Facial Steamer</value>
+  </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>Follow Us</value>
+  </data>
+  <data name="footerContent" xml:space="preserve">
+    <value>Zaan salon software delivers everything you need for your salon and spa to optimize scheduling appointments, employee management, customer management, marketing, inventory, and much more..</value>
+  </data>
+  <data name="FreeConsultation" xml:space="preserve">
+    <value>Free Consultation</value>
+  </data>
+  <data name="GetAConsultant" xml:space="preserve">
+    <value>Get A Consultant</value>
+  </data>
+  <data name="GetAnInvoice" xml:space="preserve">
+    <value>Get An Invoice</value>
+  </data>
+  <data name="GetMoreUpdate" xml:space="preserve">
+    <value>Get More Update</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Get Started</value>
+  </data>
+  <data name="Gloves" xml:space="preserve">
+    <value>Gloves</value>
+  </data>
+  <data name="HeatProtectingSmoothingSpray" xml:space="preserve">
+    <value>Heat Protecting Smoothing Spray</value>
+  </data>
+  <data name="HeatProtectionSpray" xml:space="preserve">
+    <value>Heat Protection Spray</value>
+  </data>
+  <data name="HighlightBrush" xml:space="preserve">
+    <value>Highlight Brush</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventory</value>
+  </data>
+  <data name="InventoryContent1" xml:space="preserve">
+    <value>A program that helps you control your inventory.</value>
+  </data>
+  <data name="InventoryContent2" xml:space="preserve">
+    <value>Streamline processes to manage inventory more efficiently. It's easy to withdraw and add to your products.</value>
+  </data>
+  <data name="InventoryContent3" xml:space="preserve">
+    <value>Know when to reorder</value>
+  </data>
+  <data name="InventoryContent4" xml:space="preserve">
+    <value>alerts warn you when stock is running low.</value>
+  </data>
+  <data name="InventoryContent5" xml:space="preserve">
+    <value>Find product suppliers that are intelligently integrated within the inventory, Keep track of your inventory products and lists of suppliers.</value>
+  </data>
+  <data name="InvoiceContent" xml:space="preserve">
+    <value>Zaan allows you to issue E- invoices in accordance with the requirements of the General Authority of Zakat and Income for the electronic invoice system, where you can issue your invoices with approved forms of tax invoice or simplified invoice, in addition to the program support for applicable taxes such as value-added tax and automatically included in the issued invoices, to Along with the required basic information such as the tax number of the customer, and the tax information of the institution.</value>
+  </data>
+  <data name="InvoiceTitle" xml:space="preserve">
+    <value>Start E- invoicing with the Zaan system approved by ZATCA</value>
+  </data>
+  <data name="Iwantto" xml:space="preserve">
+    <value>I want to start as a...</value>
+  </data>
+  <data name="IwanttoContent" xml:space="preserve">
+    <value>Zaan salon software delivers everything you need for your salon and spa to optimize  scheduling appointments, employee management.</value>
+  </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>Jobs</value>
+  </data>
+  <data name="KnowMore" xml:space="preserve">
+    <value>Know More</value>
+  </data>
+  <data name="Marketing" xml:space="preserve">
+    <value>Marketing</value>
+  </data>
+  <data name="MarketingContent1" xml:space="preserve">
+    <value>Zaan's marketing automation software is tailor-made for the salon and spa business. Our solution reduces the time and expense to plan and execute marketing programs. Most importantly, we help you grow revenue with lasting results.</value>
+  </data>
+  <data name="MarketingContent2" xml:space="preserve">
+    <value>We provide your salon with multiple options to do marketing and carefully select customers to target. From emails, text messages, offers and daily deals.
+Always be prepared to jump your salon sales!</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameValidationMessage" xml:space="preserve">
+    <value>Please enter your name</value>
+  </data>
+  <data name="Nosetup" xml:space="preserve">
+    <value>No setup costs or contract</value>
+  </data>
+  <data name="Onestopshop" xml:space="preserve">
+    <value>One stop shop</value>
+  </data>
+  <data name="OnestopshopContent1" xml:space="preserve">
+    <value>Shop your salon and spa products from different suppliers from one place, compare prices, see reviews, leave your comments, Track your purchases, various payment options and more from inside Zaan's store.</value>
+  </data>
+  <data name="OnestopshopContent2" xml:space="preserve">
+    <value>Are you a supplier? Do you have your own products for beauty salons and spas?</value>
+  </data>
+  <data name="OnestopshopContent3" xml:space="preserve">
+    <value>Register now as a supplier and reach more customers</value>
+  </data>
+  <data name="OurBestSell" xml:space="preserve">
+    <value>Our Best Sell Product In This Week!</value>
+  </data>
+  <data name="OurBlogPost" xml:space="preserve">
+    <value>Our Blog Post</value>
+  </data>
+  <data name="OurCustomerSays" xml:space="preserve">
+    <value>Our
+Customer Says</value>
+  </data>
+  <data name="OurCustomerSaysContent" xml:space="preserve">
+    <value>Our customers are the basis of our success, and they are the first motivation for us to
+develop and excel. We are always looking for their satisfaction and providing the best
+services that help them develop their business.</value>
+  </data>
+  <data name="OurProduct" xml:space="preserve">
+    <value>Our Product</value>
+  </data>
+  <data name="OurProductContent" xml:space="preserve">
+    <value>Just one click and you have access to thousands of top-quality products. We do all
+the hard work for you by negotiating with suppliers so you can find exactly what you
+need, quickly and simply.</value>
+  </data>
+  <data name="OurSupplier" xml:space="preserve">
+    <value>Our Supplier</value>
+  </data>
+  <data name="OurSupplierContent" xml:space="preserve">
+    <value>A business is only as great as its suppliers. With the proper tools, you can make better
+decisions easily.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="PhoneNumberValidation" xml:space="preserve">
+    <value>Please enter your phonenumber</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="ProductSupplier" xml:space="preserve">
+    <value>Product Supplier</value>
+  </data>
+  <data name="ProductsupplierContent1" xml:space="preserve">
+    <value>Create a new market here for you and your customers</value>
+  </data>
+  <data name="ProductsupplierContent2" xml:space="preserve">
+    <value>Make your products reach the hands of your customers in a modern and innovative style</value>
+  </data>
+  <data name="QuickLinks" xml:space="preserve">
+    <value>Quick Links</value>
+  </data>
+  <data name="ReachOutTime" xml:space="preserve">
+    <value>Reach Out Time</value>
+  </data>
+  <data name="ReachOutTimeLabel" xml:space="preserve">
+    <value>Select a reach out time</value>
+  </data>
+  <data name="ReachOutTimeValidation" xml:space="preserve">
+    <value>Please enter your reach out time</value>
+  </data>
+  <data name="ReadLess" xml:space="preserve">
+    <value>Read Less</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Read More</value>
+  </data>
+  <data name="RecommendedBlogs" xml:space="preserve">
+    <value>Recommended Blogs</value>
+  </data>
+  <data name="RegularUser" xml:space="preserve">
+    <value>Regular User</value>
+  </data>
+  <data name="RequestACall" xml:space="preserve">
+    <value>Request A Call</value>
+  </data>
+  <data name="Salon" xml:space="preserve">
+    <value>Salon</value>
+  </data>
+  <data name="SalonOwner" xml:space="preserve">
+    <value>Salon Owner</value>
+  </data>
+  <data name="SalonOwnerContent1" xml:space="preserve">
+    <value>Get the best management system to manage all aspects of your salon</value>
+  </data>
+  <data name="SalonOwnerContent2" xml:space="preserve">
+    <value>Make your business grow with Zan experts who are interested in providing everything needed to develop your business</value>
+  </data>
+  <data name="scheduleacall" xml:space="preserve">
+    <value>Schedule A Call</value>
+  </data>
+  <data name="scheduleacallContent" xml:space="preserve">
+    <value>Check out Zaan's unique business model which allows small to medium-sized
+businesses to reach Thousands of consumers across Many countries through one
+platform.</value>
+  </data>
+  <data name="SearchHere" xml:space="preserve">
+    <value>Search Here</value>
+  </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>See All</value>
+  </data>
+  <data name="SellProductPrice" xml:space="preserve">
+    <value>Price: $100</value>
+  </data>
+  <data name="ServiceManagement" xml:space="preserve">
+    <value>Service Management</value>
+  </data>
+  <data name="ServiceManagementContent" xml:space="preserve">
+    <value>Flexible system to list all services and any services provided by your salon. You can manage them by assigning them to employees, setting their prices and duration, as well as set them as packages and much more.</value>
+  </data>
+  <data name="ShareArticle" xml:space="preserve">
+    <value>Share Article</value>
+  </data>
+  <data name="Shareon" xml:space="preserve">
+    <value>Share On</value>
+  </data>
+  <data name="Signinhere" xml:space="preserve">
+    <value>Sign in here</value>
+  </data>
+  <data name="Spa" xml:space="preserve">
+    <value>Spa</value>
+  </data>
+  <data name="Staffmanagement" xml:space="preserve">
+    <value>Staff Management</value>
+  </data>
+  <data name="StaffmanagementContent" xml:space="preserve">
+    <value>Manage employee roll, performance, leave and attendance with our all-in-one spa and salon staff management software.</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Startmanaging" xml:space="preserve">
+    <value>Start managing your beauty salon in just few minutes</value>
+  </data>
+  <data name="Stayinformedonthelatestinsalons" xml:space="preserve">
+    <value>Stay informed on the latest in salons and beauty products. Subscribe to our newsletter for expert tips, industry insights, new product reviews and more. Never miss a trend again, sign up now.</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="StoreBannerContent1" xml:space="preserve">
+    <value>Zaan Marketplace is a platform that provides the best solution for connecting Beauty salon
+products manufacturers, distributors, wholesalers and service providers under one roof.
+With thousands of options, Zaan has every product you need to create the salon
+experience every customer deserves.</value>
+  </data>
+  <data name="StoreBannerContent2" xml:space="preserve">
+    <value>Join Zaan Marketplace as a seller and experience the beauty of ease, no hassle, simple yet
+organized</value>
+  </data>
+  <data name="StoreBannerHeading" xml:space="preserve">
+    <value>Beauty industry's one stop solution to grow your salon &amp; spa business</value>
+  </data>
+  <data name="StylingChair" xml:space="preserve">
+    <value>Styling Chair</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="SubjectValidationMessage" xml:space="preserve">
+    <value>Please enter your Subject</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="SubscribeNewslatter" xml:space="preserve">
+    <value>Subscribe Newslatter</value>
+  </data>
+  <data name="TermsAndContitions" xml:space="preserve">
+    <value>Terms &amp; Contitions</value>
+  </data>
+  <data name="TopArticles" xml:space="preserve">
+    <value>Top Articles</value>
+  </data>
+  <data name="TopPosts" xml:space="preserve">
+    <value>Top Posts</value>
+  </data>
+  <data name="Wedesigned" xml:space="preserve">
+    <value>We design Zaan System to cover all your salon needs, to help you work beautifully</value>
+  </data>
+  <data name="YourName" xml:space="preserve">
+    <value>Your Name</value>
+  </data>
+  <data name="YourNameValidation" xml:space="preserve">
+    <value>Please enter your fullname</value>
+  </data>
+  <data name="ZaanSalonSoftware" xml:space="preserve">
+    <value>Zaan salon software delivers everything you need for your salon and spa to optimize scheduling
+appointments, employee management, customer management, marketing, inventory, and much
+more..</value>
+  </data>
+  <data name="Zaansalonsoftwaredelivers" xml:space="preserve">
+    <value>Zaan salon software delivers everything you need for your salon and spa to optimize scheduling appointments, employee management, customer management, marketing, inventory, and much more..</value>
+  </data>
+</root>

@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Invoice";
+}
+<head>
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <style>
+        .thermal-size {
+            width: 80mm !important;
+            background: #fff;
+            padding: 10px;
+            border-radius: 7px;
+        }
+
+        .font-small {
+            font-size: small;
+        }
+        #qrcode{
+            display:flex;
+            justify-content:center;
+            margin-bottom:15px;
+        }
+        #qrcode img {
+            width: 100% !important;
+        }
+    </style>
+</head>
+<div class="app-root">
+
+    <div class="app-wrapper">
+        <main class="app-content">
+            <div class="app-content-wrapper">
+                <div class="app-content-inner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-center">
+                                    <div class="thermal-size">
+                                        <div id="orderinvoiceloader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                        <div id="InvoiceHeader">
+
+                                        </div>
+
+                                        <div class="invoice-main"  >
+                                            <div class="row" id="invoiceDateNo" dir="ltr">
+
+                                            </div>
+                                            <hr>
+                                            <div class="row fs-14" id="invoiceAddressDetails" dir="ltr">
+
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-body p-0">
+                                                    <div class="table-card table-responsive">
+                                                        <table class="table fs-14 mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="col-3">@(beautybook.Resources.Languages.Service_Name)</th>
+                                                                    <th class="col-2 text-right">@(beautybook.Resources.Languages.Amount)</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="serviceListRow">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="invoice-footer mt-3 text-center">
+                                            <p class="text-1 font-small">@(beautybook.Resources.Languages.NOTE___This_is_computer_generated_receipt_and_does_not_require_physical_signature_)</p>
+                                           <div class="d-flex justify-content-center">
+                                                @*<div id="qrcode" class="w-50"></div>*@
+                                               <img id="qrcodeUrl" src=""/>
+                                           </div>
+                                            <div class="btn-group  d-print-none">
+                                                <a href="javascript:window.print()" class="btn btn-light border">
+                                                    <i class="bb-printer fs-14 mr-2"></i> @(beautybook.Resources.Languages.Print)
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/Invoice/Invoice.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //AppoinmentInvoice function
+        AppoinmentInvoice();
+    });
+</script>

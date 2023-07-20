@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Cart";
+}
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Your_Cart)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="./index.html">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Cart)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner cart-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 cart-div-area">
+                        <div class="card">
+                            <div class="card-body" id="productCart">
+                                <div id="productCartloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="@Url.Action("StoreInside","Store")" class="btn btn-primary btn-wide float-right mt-2">@(beautybook.Resources.Languages.Continue_Shopping)</a>
+                    </div>
+
+                    <div class="col-lg-4" id="priceTotalSidebar">
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Cart/Cart.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Cart/UpdateCartValue.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Cart/ProceedOrder.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        CartProduct();
+    });
+    
+    function touchSpin() {
+        $('#productCart > .hr-line').last().css('display', 'none');
+        $(".subtract-quantity").TouchSpin({
+            min: 0,
+            max: 1000000000,
+            step: 1,
+            boostat: 5,
+            maxboostedstep: 10,
+        });
+    }
+</script>

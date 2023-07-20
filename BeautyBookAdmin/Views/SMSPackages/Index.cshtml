@@ -1,0 +1,674 @@
+﻿@using BeautyBook.Common;
+@using BeautyBookAdmin.Pages;
+@using BeautyBookAdmin.Infrastructure;
+
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "Manage SMS Packages";
+}
+
+<style>
+    .checkbox2 {
+        width: 25px;
+        height: 25px;
+    }
+
+    thead {
+        background: #0069D9;
+        color: white;
+    }
+
+    .row {
+        margin: 0 !important;
+    }
+
+    .activ {
+        background: linear-gradient(to right, #0069D9, #0069D9);
+        color: white;
+    }
+
+    .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .form-control-feedback, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+        color: #e73d4a
+    }
+
+    .has-error .form-control {
+        border-color: #e73d4a;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    }
+
+        .has-error .form-control:focus {
+            border-color: #d71b29;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f
+        }
+
+    .has-error .input-group-addon {
+        color: #e73d4a;
+        border-color: #e73d4a;
+        background-color: #fbe1e3
+    }
+
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        z-index: 99;
+        top: 40px;
+        left: 0;
+        right: 0;
+        box-shadow: 0 39px 70px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+        .autocomplete-items > div {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .autocomplete-items > div:hover {
+                background: #fbfbfb;
+            }
+
+    .addDelete {
+        color: black !important;
+        background: #e9e9e9 !important;
+    }
+
+    .hideDelete {
+        display: none !important;
+    }
+</style>
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Manage SMS Packages</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active">Manage SMS Packages</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="header">
+            </div>
+            <div class="body">
+                <div class="portlet-body table-responsive" id="divSMSPackages">
+                    <table class="table table-striped table-bordered table-hover" id="SMSPackages"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fadeIn" id="AddNewSMSPackagesPopup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">
+                    Add New SMS Package
+                </h6>
+            </div>
+            <form method="post" id="frmSMSPackageId">
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <input type="hidden" id="SMSPackageId" name="SMSPackageId" />
+                        <div class="col-sm-6">
+                            <label>Package Name</label>
+                            <div class="form-group">
+                                <input type="text" id="PackageName" name="PackageName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Package Duration</label>
+                            <div class="input-group">
+                                <input type="text" id="PackageDuration" name="PackageDuration" class="form-control" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Day</span>
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                 @Html.Raw(Html.DropDownList("PackageDuration", (IEnumerable<SelectListItem>)ViewBag.LookUpDuration, "Select Package Duration", new { @Id = "PackageDuration", @class = "form-control" }))
+                            </div>*@
+                        </div>
+                        <div class="col-sm-6">
+                            <label>No Of Text Message</label>
+                            <div class="form-group NoOfTextMessageDiv">
+                                <input type="text" id="NoOfTextMessage" name="NoOfTextMessage" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="NoOfTextMessageFlag" name="NoOfTextMessageFlag" onchange="NoOfTextMessageChange();" /> <label for="NoOfTextMessageFlag">Unlimited</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <label>SMS Package Price</label>
+                            <div class="form-group SMSPackagePriceDiv">
+                                <input type="text" id="SMSPackagePrice" name="SMSPackagePrice" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="SMSPackagePriceFlag" name="SMSPackagePriceFlag" onchange="SMSPackagePriceChange();" /> <label for="SMSPackagePriceFlag">Free</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input id="SMSPackagesButton" type="submit" class="btn btn-primary saveBtn" value="Save" />
+                    <button class="btn btn-primary loading" type="button" disabled style="display:none;float:right;">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Saving...
+                    </button>
+                    <button type="button" class="btn btn-secondary closeBtn" onclick="closeModal();">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section dashboardscripts{
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/datatable.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/datatables.bootstrap.js"></script>
+}
+
+@section Scripts {
+    <script>
+
+        $(document).ready(() => {
+            SMSPackagesDataTable.init();
+            FormClientValidation.init();
+        });
+
+        function NoOfTextMessageChange() {
+             
+            if ($('#NoOfTextMessageFlag').is(":checked")) {
+                $("#NoOfTextMessage").prop('disabled', true);
+                $("#NoOfTextMessage").val('Unlimited')
+            }
+            else {
+                $(".NoOfTextMessageDiv").show();
+                $("#NoOfTextMessage").prop('disabled', false);
+                $("#NoOfTextMessage").val('')
+            }
+        }
+
+        function SMSPackagePriceChange() {
+             
+            if ($('#SMSPackagePriceFlag').is(":checked")) {
+                $("#SMSPackagePrice").prop('disabled', true);
+                $("#SMSPackagePrice").val('Free')
+            }
+            else {
+                $("#SMSPackagePrice").prop('disabled', false);
+                $("#SMSPackagePrice").val('')
+            }
+        }
+
+        var FormClientValidation = function () {
+
+            // basic validation
+            var handleValidation = function () {
+
+                var form1 = $('#frmSMSPackageId');
+                var error1 = $('.alert-danger', form1);
+
+                form1.validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    ignore: "",  // validate all fields including form hidden input
+                    rules: {
+                        PackageName: {
+                            required: true,
+                        },
+                        PackageDuration: {
+                            required: true,
+                            number: true
+                        },
+                        NoOfTextMessage: {
+                            required: true,
+                            number: true
+                        },
+                        SMSPackagePrice:{
+                            required: true,
+                            number: true
+                        }
+                    },
+
+                    messages: {
+                        PackageName: {
+                            required: "Package Name is required",
+                        },
+                        PackageDuration: {
+                            required: "Package Duration is required",
+                        },
+                        NoOfTextMessage: {
+                            required: "NoOfTextMessage is required",
+                        },
+                        SMSPackagePrice: {
+                            required: "SMSPackagePrice is required",
+                        },
+                    },
+
+                    invalidHandler: function (event, validator) { //display error alert on form submit
+                        //success1.hide();
+                        error1.show();
+                        App.scrollTo(error1, -200);
+                    },
+
+                    errorPlacement: function (error, element) { // render error placement for each input type
+                        var cont = $(element).parent('.input-group');
+                        if (cont.size() > 0) {
+                            cont.after(error);
+                        } else {
+                            element.after(error);
+                        }
+                    },
+
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                            .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+
+                    unhighlight: function (element) { // revert the change done by hightlight
+                        $(element)
+                            .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    },
+
+                    success: function (label) {
+                        label
+                            .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    },
+
+                    submitHandler: function (form) {
+                        AddSMSPackages();
+                    }
+                });
+            }
+            return {
+                //main function to initiate the module
+                init: function () {
+                    handleValidation();
+                }
+            };
+        }();
+
+        var SMSPackagesDataTable = function () {
+            let initTable1 = function () {
+                let table = $('#SMSPackages');
+
+                let oTable = table.dataTable({
+                    "stateSave": true,
+                    "autoWidth": false,
+                    "paging": true,
+                    // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "No data available in table",
+                        "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                        "infoEmpty": "No entries found",
+                        "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                        "lengthMenu": "_MENU_ entries",
+                        "search": "Search:",
+                        "zeroRecords": "No matching records found"
+                    },
+                    "pageLength": 10,
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        async: true,
+                        url: '@Url.Action(Actions.ViewAllSMSPackages, Controllers.SMSPackages)',
+                        type: "post",
+                        data: BuildSearchCriteria(),
+                },
+                "columns": [
+                    {
+                        "title": "Package Name", "data": "",
+                        "render": function (data, type, row) {
+                            let htmlData = "";
+                            htmlData = `${row["SMSPackagesName"] == "" || row["SMSPackagesName"] == null ? '-' : row["SMSPackagesName"]}`;
+                            return htmlData;
+                        }
+                        , "orderable": false, "width": "3%"
+                    },
+                    {
+                        "title": "Package Price", "data": "",
+                        "render": function (data, type, row) {
+                            let htmlData = "";
+                            htmlData = `SAR ${row["SMSPackagesPrice"] == "" || row["SMSPackagesPrice"] == null ? '0' : row["SMSPackagesPrice"]}`;
+                            return htmlData;
+                        }
+                        , "orderable": false, "width": "3%"
+                    },
+                    {
+                        "title": "Package Duration", "data": "",
+                        "render": function (data, type, row) {
+                            let htmlData = "";
+                            htmlData = `${row["LookUpDurationId"] == "" || row["LookUpDurationId"] == null ? '-' : row["LookUpDurationId"]}<b> Day</b>`;
+                            return htmlData;
+                        }
+                        , "orderable": false, "width": "3%"
+                    },
+                    {
+                        "title": "No Of Text Message", "data": "",
+                        "render": function (data, type, row) {
+                            let htmlData = "";
+                            htmlData = `${row["NoOfTextMessages"] == "" || row["NoOfTextMessages"] == null ? 'Unlimited' : row["NoOfTextMessages"]}`;
+                            return htmlData;
+                        }
+                        , "orderable": false, "width": "3%"
+                    },
+                    {
+                        "title": "Is Active ?", "data": "",
+                        "render": function (data, type, row) {
+                            let htmlData = "";
+                            if (row["IsActive"] == 1) {
+                                //InactiveMessage
+                                htmlData = `<button onclick="InactiveMessage('${btoa(row["Id"])}',2);" class="badge badge-primary">Active</button>`;
+                            } else if (row["IsActive"] == 0) {
+                                htmlData = `<button onclick="ActiveMessage('${btoa(row["Id"])}',1);" class="badge badge-danger">In-Active</button>`;
+                            }
+                            return htmlData;
+                        }
+                        , "orderable": false, "width": "3%"
+                    },
+                    {
+                        "title": "Action", "data": "",
+                        "render": function (data, type, row) {
+                            let htmlData = "";
+                            htmlData += `<button class="btn btn-sm btn-outline-secondary mr-1" onclick="ConfirmMessageSMSPackagedelete('${btoa(row["Id"])}');"><i class="fa fa-trash-o" aria-hidden="true"></i></button>`;
+                            htmlData += `<button class="btn btn-sm btn-outline-secondary mr-1" onclick="EditSMSPackages('${btoa(row["Id"])}');"><i class="fa fa-edit"></i></button>`;
+                            return htmlData;
+                        }
+                        , "orderable": false, "width": "3%"
+                    },
+                ],
+                // setup buttons extentension: http://datatables.net/extensions/buttons/
+                    "buttons": [
+                        {
+                            text: 'Add New SMS Packages',
+                            className: 'them-btn',
+                            action: function (e, dt, node, config) {
+                                OpenAddNewLookUpServicesPopup();
+                            }
+                        },
+
+                        //{ extend: 'excel', className: 'them-btn' }
+                    ],
+
+                    // setup responsive extension: http://datatables.net/extensions/responsive/
+                    responsive: true,
+
+                    "lengthMenu": [
+                        [5, 10, 15, 20, 1000],
+                        [5, 10, 15, 20, 1000] // change per page values here
+                    ],
+                    // set the initial value
+
+                    "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+
+                    // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                    // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+                    // So when dropdowns used the scrollable div should be removed.
+                    //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+                });
+            }
+
+            return {
+                //main function to initiate the module
+                init: function () {
+                    if ($.fn.DataTable.isDataTable("#SMSPackages")) {
+                        $('#SMSPackages').dataTable().fnDestroy();
+                        $('#divSMSPackages').html('<table class="table table-striped" width="100%" id="SMSPackages"></table>');
+                    }
+                    initTable1();
+                }
+            };
+        }();
+
+        //Data fillter function
+        function BuildSearchCriteria() {
+            try {
+                var param = {};
+
+                return addRequestVerificationToken(param);
+            } catch (e) { }
+        }
+
+        function addRequestVerificationToken(data) {
+            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+            return data;
+        }
+
+        //InactiveMessage swal function
+        function InactiveMessage(Id) {
+            swal({
+                title: "Are you sure ?",
+                text: "You will be in-activating the SMS packages !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Yes, do it !",
+                closeOnConfirm: false
+            }, function () {
+                    ActiveInActive(Id, "inactivate");
+               });
+        }
+
+        //ActiveMessage swal function
+        function ActiveMessage(Id) {
+            swal({
+                title: "Are you sure ?",
+                text: "You will be activating the SMS packages !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Yes, do it !",
+                closeOnConfirm: false
+            }, function () {
+                    ActiveInActive(Id, "activate");
+               });
+        }
+
+        //status ActiveInActive change function
+        function ActiveInActive(rui, type) {
+             
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.ActiveInActiveSMS, Controllers.SMSPackages)',
+                data: { ri: rui},
+                dataType: 'json',
+                success: function (response) {
+                     
+                    SMSPackagesDataTable.init();
+                    if (type == "inactivate") {
+                        swal("In Activated !", response.Message , "success");
+                    } else if (type == "activate") {
+                        swal("Activated !", response.Message , "success");
+                    }
+                },
+                error: function (error) {
+                    if (type == "inactivate") {
+                        swal("Error !", "An error occured while in-activating the user.", "error");
+                    } else if (type == "activate") {
+                        swal("Error !", "An error occured while activating the user.", "error");
+                    }
+
+                }
+            });
+        }
+
+
+        function ConfirmMessageSMSPackagedelete(SMSPackageId) {
+            swal({
+                title: "Are you sure ?",
+                text: "You will be deleting this SMS Packages !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Yes, do it !",
+                closeOnConfirm: false
+            }, function () {
+                SMSPackageDelete(SMSPackageId);
+            });
+        }
+
+        //Product Type delete function
+        function SMSPackageDelete(SMSPackageId) {
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action(Actions.DeleteSMSPackages, Controllers.SMSPackages)",
+                async: false,
+                data: ({ ptId: SMSPackageId }),
+                dataType: 'json',
+                success: function (response) {
+                     
+                    swal("Great!", response, "success");
+                    SMSPackagesDataTable.init();
+                },
+                error: function (response) {
+                    swal("Opps!", "An error occured ! Please try again.", "error");
+                }
+            });
+        }
+
+        //Add new product Type function
+        function OpenAddNewLookUpServicesPopup() {
+            $('#SMSPackageId').val('')
+            $('#PackageDuration').val('')
+            $('#PackageName').val('')
+            $('#NoOfTextMessageFlag').attr('checked', false)
+            $('#NoOfTextMessage').prop('disabled', false)
+            $('#NoOfTextMessage').val('')
+            $('#SMSPackagePriceFlag').attr('checked', false)
+            $('#SMSPackagePrice').prop('disabled', false)
+            $('#SMSPackagePrice').val('')
+            $('#AddNewSMSPackagesPopup').modal('show');
+        }
+
+        function AddSMSPackages() {
+
+            $("#SMSPackagesButton").hide();
+            $(".loading").show();
+            $(".closeBtn").hide();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.SMSPackagesUpsert, Controllers.SMSPackages)',
+                async: false,
+                data: ({
+                    Id: $("#SMSPackageId").val(),
+                    SMSPackagesName: $("#PackageName").val(),
+                    SMSPackagesPrice: $("#SMSPackagePrice").val() == "Free" ? 0 : $("#SMSPackagePrice").val(),
+                    LookUpDurationId: $("#PackageDuration").val(),
+                    NoOfTextMessages: $("#NoOfTextMessage").val() == "Unlimited" ? 0 : $("#NoOfTextMessage").val()
+                }),
+                dataType: 'json',
+                success: function (response) {
+                     
+                    if (response.Code == 200) {
+                        swal("Great!", response.Message , "success");
+                    }
+                    else {
+                        swal("Error !", response.Message , "error");
+                    }
+
+                    $(".loading").hide();
+                    $("#SMSPackagesButton").show();
+                    $(".closeBtn").show();
+
+                    //blank value for input
+                    $('#lookUpServicesId').val(0)
+                    $('#lookUpServicesName').val('')
+                    $('#AddNewSMSPackagesPopup').modal('hide');
+                    SMSPackagesDataTable.init();
+                },
+                error: function (error) {
+                     
+                    swal("Error!", error.Message, "error");
+                    $(".loading").hide();
+                    $('#SMSPackageId').val(0);
+                    $('#AddNewSMSPackagesPopup').modal('hide');
+                    $("#SMSPackagesButton").show();
+                    $(".closeBtn").show();
+                }
+            });
+         }
+
+        function closeModal() {
+            $('#SMSPackageId').val('')
+            $('#PackageDuration').val('')
+            $('#PackageName').val('')
+            $('#NoOfTextMessageFlag').attr('checked', false)
+            $('#NoOfTextMessage').prop('disabled' , false)
+            $('#NoOfTextMessage').val('')
+            $('#SMSPackagePriceFlag').attr('checked', false)
+            $('#SMSPackagePrice').prop('disabled', false)
+            $('#SMSPackagePrice').val('')
+
+            $('#AddNewSMSPackagesPopup').modal('hide');
+        }
+
+        //Edit productbrand data fuction
+        function EditSMSPackages(Id) {
+             
+            $('#AddNewSMSPackagesPopup').modal('show');
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.GetDataSMSPackages, Controllers.SMSPackages)',
+                data: { eptId: Id},
+                dataType: 'json',
+                success: function (response) {
+                     
+                    $('#SMSPackageId').val(response.Item.Id)
+                    $('#PackageDuration').val(response.Item.LookUpDurationId)
+                    $('#PackageName').val(response.Item.SMSPackagesName)
+
+
+                    if (response.Item.NoOfTextMessages == 0) {
+                        $('#NoOfTextMessageFlag').trigger('click')
+                    }
+                    else {
+                        $('#NoOfTextMessage').val(response.Item.NoOfTextMessages)
+                    }
+
+                    if (response.Item.SMSPackagesPrice == 0) {
+                        $('#SMSPackagePriceFlag').trigger('click')
+                    }
+                    else {
+                        $('#SMSPackagePrice').val(response.Item.SMSPackagesPrice)
+                    }
+                    
+
+                },
+                error: function (error) {
+                     
+                }
+            });
+        }
+
+
+    </script>
+    <script src="~/assets/validation/js/jquery-ui.min.js"></script>
+    <script src="~/assets/validation/js/app.min.js"></script>
+    <script src="~/assets/validation/js/ui-modals.min.js"></script>
+    <script src="~/assets/validation/js/jquery.validate.min.js"></script>
+    <script src="~/assets/validation/js/additional-methods.min.js"></script>
+    <script src="~/assets/validation/js/toastr.min.js"></script>
+    <script src="~/assets/validation/js/ui-toastr.min.js"></script>
+    <script src="~/assets/vendor/dropify/js/dropify.min.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script> <!-- SweetAlert Plugin Js -->
+    <script src="~/assets/js/pages/forms/dropify.js"></script>
+    <script src="~/assets/js/pages/ui/dialogs.js"></script>
+}

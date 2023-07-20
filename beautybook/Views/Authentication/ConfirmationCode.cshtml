@@ -1,0 +1,201 @@
+@{
+    ViewBag.Title = "Confirmation Code";
+    Layout = null;
+}
+@using BeautyBook.Common;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Beauty Book</title>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <link href="~/Content/assets/css/arabic.css" rel=stylesheet>
+
+    <style>
+        label,
+        input,
+        button {
+            border: 0;
+            margin-bottom: 3px;
+            display: block;
+            width: 100%;
+        }
+
+        .common_box_body {
+            padding: 15px;
+            border: 12px solid #28BAA2;
+            border-color: #28BAA2;
+            border-radius: 15px;
+            margin-top: 10px;
+            background: #d4edda;
+        }
+       
+        .logo-content p {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: center;
+            color: #4A525E;
+        }
+    </style>
+</head>
+<body >
+    <div class="app-root bg-white">
+        <div class="app-wrapper">
+            <main>
+                <div class="position-fixed top-0 right-0 left-0 bg-img-hero " style="height: 32rem;">
+                    <figure class="">
+                        <svg width="100%" height="100vh" viewBox="0 0 100vh 100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="1000" fill="#F7F8FC" />
+                            <g filter="url(#filter0_f_0_1)">
+                                <circle cx="375" cy="280" r="120" fill="#C57171" />
+                            </g>
+                            <g filter="url(#filter1_f_0_1)">
+                                <circle cx="1498.5" cy="789.5" r="196.5" fill="#AFBAE1" />
+                            </g>
+                            <defs>
+                                <filter id="filter0_f_0_1" x="-45" y="-140" width="840" height="840" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1" />
+                                </filter>
+                                <filter id="filter1_f_0_1" x="1002" y="293" width="993" height="993" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                    <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_0_1" />
+                                </filter>
+                            </defs>
+                        </svg>
+                    </figure>
+                </div>
+
+                <div class="container py-5 py-sm-7">
+                    <div class="row justify-content-center">
+                        <div class="col-md-10 col-lg-10">
+                            <div class="card card-lg mb-5">
+                                <div class=row>
+                                    <div class="col-lg-7 pr-0">
+                                        <div class="p-2 pr-0 w-100 h-100">
+                                            <div class=" p-2 p-2">
+                                                <img src="~/Content/assets/images/Illustration3.png" class="w-100" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 ">
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <div class="mb-5 text-left">
+                                                    
+                                                <div class="logo-content text-left mb-4">
+                                                    <img src="~/Content/assets/images/AccountBeautyBookLogo.png" class="w-40" />
+                                                </div>
+                                                    <h3>@(beautybook.Resources.Languages.Confirmation_Code)</h3>
+                                                </div>
+
+                                            <form action="" name="Verify_your_Email">
+                                                <div class="form-group">
+                                                    <label class="input-label" for="">@(beautybook.Resources.Languages.Type_Here_Verification_Code)</label>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-md-2">
+                                                    <input type="text" class="form-control form-control-lg" tabindex="1" name="" id="verificationCode" tabindex="1" placeholder="0" aria-label="0">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control form-control-lg" tabindex="1" name="" id="verificationCode" tabindex="1" placeholder="0" aria-label="0">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control form-control-lg" tabindex="1" name="" id="verificationCode" tabindex="1" placeholder="0" aria-label="0">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control form-control-lg" tabindex="1" name="" id="verificationCode" tabindex="1" placeholder="0" aria-label="0">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control form-control-lg" tabindex="1" name="" id="verificationCode" tabindex="1" placeholder="0" aria-label="0">
+                                                </div>
+                                              </div>
+                                             </div>
+
+
+
+                                                <button type="submit" tabindex="3" role="button" id="" class="btn btn-lg btn-block btn-primary" value="Submit">@(beautybook.Resources.Languages.Submit )</button>
+                                                <button type="button" class="btn btn-lg btn-block btn-primary" id="" style="display:none;" disabled>
+                                                    @(beautybook.Resources.Languages.Submit)
+                                                    <i class="fa fa-circle-o-notch mr-2 fa-spin" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script src="~/Content/assets/js/main.js"></script>
+    @*This Js Call API in SignIn*@
+    <script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+    <script src="~/Content/BeautyBookAPI/AuthenticationAPI/SignIn/SignIn.js"></script>
+    <script src="~/Content/assets/js/sweetalert/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+</body>
+</html>
+<script>
+    //getCookie
+    $(function () {
+        $("form[name='verificationCode']").validate({
+            rules: {
+                verificationCode: {
+                    required: true,
+                    email: true
+                },
+
+            },
+            messages: {
+                verificationCode: {
+                    required: "@(beautybook.Resources.Languages.Verification_Code_is_required)",
+                },
+            },
+            submitHandler: function () {
+                userSignIn();
+            }
+        });
+    });
+
+
+
+</script>
+
+<script src="~/Content/assets/js/arabic.js"></script>

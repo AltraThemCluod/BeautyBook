@@ -1,0 +1,588 @@
+﻿@using BeautyBook.Common;
+@{
+    ViewBag.Title = "Appoinment Manager";
+}
+<style>
+    .fc-scrollgrid-liquid {
+        background: #fff;
+    }
+
+    .fc-button-primary {
+        color: #fff !important;
+        background-color: #00acc1 !important;
+        border-color: #00acc1 !important;
+        padding: 0.5rem 0.85rem;
+        font-size: 0.875rem;
+    }
+
+    .fc-daygrid-event {
+        display: block !important;
+        background: #00515b0d;
+        padding: 1px;
+        border: 1px solid #4bc3d0;
+    }
+
+    .fc-daygrid-event-dot {
+        display: none !important;
+    }
+</style>
+<link rel="stylesheet" href="~/Content/assets/Calendarcdn/main.css" />
+<script src="~/Content/assets/Calendarcdn/main.js"></script>
+
+
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Manage_Appointments)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Manage_Appointments)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-header">
+            <form class="container-fluid ">
+                <div class="row align-items-center align-items-xl-end mb-5">
+                    <div class="col-lg-2 ">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeType" class="custom-label">@(beautybook.Resources.Languages.Customer_Name)</label>
+                            <select class="selectpicker form-control" tabindex="1" id="customerDatalist" data-live-search="true" data-size="5" title="@(beautybook.Resources.Languages.Select_a_Customer_Name)" data-size="5">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeRole" class="custom-label">@(beautybook.Resources.Languages.Assigned_to)</label>
+                            <select class="selectpicker form-control" tabindex="2" id="appoinmentAssignedTo" data-live-search="true" title="@(beautybook.Resources.Languages.Select_a_Assigned_To)" data-size="5">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <label for="employeeName" class="custom-label">@(beautybook.Resources.Languages.Date)</label>
+                        <div class="col-sm-12 p-0">
+                            <div class="input-group">
+                                <input type="text" class="datepicker w-100 singledatepicker form-control" placeholder="" name="appoinmentDate" tabindex="3" id="appoinmentDate">
+                                <div class="input-group-append input-box-label">
+                                    <span class="input-group-text text-muted">
+                                        <i class="bb-calendar fs-21"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeRole" class="custom-label">@(beautybook.Resources.Languages.Time)</label>
+                            <input type="time" class="form-control" id="appoinmentTime" tabindex="4" name="appoinmentTime" placeholder="100">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeStatus" class="custom-label">@(beautybook.Resources.Languages.Status)</label>
+                            <select class="selectpicker form-control" tabindex="6" id="appoinmentStatus" title="@(beautybook.Resources.Languages.Select_a_option)" data-size="5">
+                                <option value="0">@(beautybook.Resources.Languages.Any)</option>
+                                <option value="6">@(beautybook.Resources.Languages.Waiting)</option>
+                                <option value="7">@(beautybook.Resources.Languages.Cancelled)</option>
+                                <option value="8">@(beautybook.Resources.Languages.Postpone)</option>
+                                <option value="9">@(beautybook.Resources.Languages.In_Progress)</option>
+                                <option value="10">@(beautybook.Resources.Languages.Completed)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-primary btn-wide" tabindex="7" id="appoinmentSearch" onclick="appoinmentListfillter(); appoinmentCalendar();">@(beautybook.Resources.Languages.Search)</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="appoinmentSearchloading" style="display:none;" disabled>
+                            @(beautybook.Resources.Languages.Search) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" tabindex="8" id="appoinmentReset" onclick="resetappoinmentList()">@(beautybook.Resources.Languages.Reset)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="appoinmentloading" style="display:none;" disabled>
+                            @(beautybook.Resources.Languages.Reset) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container mt-3">
+            <div class="row justify-content-between">
+                <div class="col-md-4 mb-4 mb-md-0 text-left-to-right">
+                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "AddNewAppointment").FirstOrDefault().Value == true)
+                    {
+                        <a href="javascript:void(0)" onclick="CreateBlankAppointment();" class="btn btn-primary btn-wide"><i class="bb-plus fs-16 mr-1"></i>@(beautybook.Resources.Languages.Add_New_Appointment)</a>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center justify-content-md-end">
+
+                        <ul class="nav nav-custom-pills bg-white ml-2" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link nav-pills-icon" id="appoinmentTabbing" onclick="appoinmentList.init();" data-toggle="pill" href="#appoinmentData" role="tab" aria-selected="false">
+                                    <i class="bb-list fs-18"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link nav-pills-icon active" id="appoinmentCalendarTabbing" data-toggle="pill" href="#appoinmentCalendarData" role="tab" aria-selected="true">
+                                    <i class="bb-calendar fs-18"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner pt-2">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="appoinmentCalendarData" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                @*https://www.youtube.com/watch?v=wA-Iy6ThYz4*@
+                                @*https://www.c-sharpcorner.com/article/asp-net-mvc5-full-calendar-jquery-plugin/*@
+                                <div id='calendar'></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="appoinmentData" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div id="appoinmentGriddiv">
+                                        <table class="table table-card" id="appoinmentGrid" style="width:100%; display:inherit;">
+                                        </table>
+                                        <div id="appoinmentGridloader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Customer Profile Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="customerModalLabel">@(beautybook.Resources.Languages.Customer_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <ul class="nav nav-lines" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="customer-tab" data-toggle="tab" href="#customer" role="tab" aria-controls="customer" aria-selected="true"><span class="d-none d-md-inline-block">@(beautybook.Resources.Languages.Save_Customer_Information)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="appoinMents-tab" data-toggle="tab" href="#appoinMents" role="tab" aria-controls="appoinMents" aria-selected="false">@(beautybook.Resources.Languages.Appointments)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="customer" role="tabpanel" aria-labelledby="customer-tab">
+                        <div class="row fs-14" id="customerDetails">
+
+
+                        </div>
+                        <div id="customerDetailsloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="appoinMents" role="tabpanel" aria-labelledby="appoinMents-tab">
+                        <div class="fs-14 mx-3" id="appoinmentListtable">
+                            <h6 class="mb-3">@(beautybook.Resources.Languages.Appointments)</h6>
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.ID)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Date)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Service_Name)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Service_Provider)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Price)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Status)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Total_Price)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userAppointmentslist">
+                                    </tbody>
+                                </table>
+                                <div id="userAppointmentslistloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="customerModalbtn">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Appointment Modal -->
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="appointmentModalLabel">@(beautybook.Resources.Languages.Appointment_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row fs-14" id="appointmentUserdetails">
+
+                </div>
+                <div id="appointmentUserdetailsloader" style="display: none;" class="text-center mb-2 mt-2">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+            </div>
+            <div class="modal-footer" id="profileModalbtn">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Employee Profile Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="employeeModalLabel">@(beautybook.Resources.Languages.Employee_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <ul class="nav nav-lines" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">@(beautybook.Resources.Languages.Basic_Info)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">@beautybook.Resources.Languages.Services</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="WorkingHours-tab" data-toggle="tab" href="#WorkingHours" role="tab" aria-controls="WorkingHours" aria-selected="false">@(beautybook.Resources.Languages.Working_Hours)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="leave-tab" data-toggle="tab" href="#leave" role="tab" aria-controls="leave" aria-selected="false">@(beautybook.Resources.Languages.Leave)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="AssignToAppointments-tab" data-toggle="tab" href="#AssignToAppointments" role="tab" aria-controls="leave" aria-selected="false">@beautybook.Resources.Languages.Appointments</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+                        <div class="row fs-14" id="employeeInfodetails">
+
+                        </div>
+                        <div id="employeeProfileloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="services" role="tabpanel" aria-labelledby="services-tab">
+                        <div class="fs-14 mx-3" id="userServicestable">
+
+                        </div>
+                        <div id="userServicestableloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="WorkingHours" role="tabpanel" aria-labelledby="WorkingHours-tab">
+                        <div class="fs-14 mx-3">
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary w-lg-50">@beautybook.Resources.Languages.Day</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Start)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.End)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeeWorksheet">
+                                    </tbody>
+                                </table>
+                                <div id="employeeWorksheetloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="tab-pane" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+                        <div class="fs-14 mx-3">
+                            <div id="leaveCountList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 text-center">
+
+                            </div>
+                            <div id="leaveCountListloader" style="display: none;" class="text-center mb-2 mt-2">
+                                <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="AssignToAppointments" role="tabpanel" aria-labelledby="AssignToAppointments-tab">
+                        <div class="fs-14 mx-3" id="AssignToAppointmentsListtable">
+                            <h6 class="mb-3">@beautybook.Resources.Languages.Appointments</h6>
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.ID</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Date</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Service_Name</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Customer_Name</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Price</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="AssignToAppointmentslist">
+                                    </tbody>
+                                </table>
+                                <div id="AssignToAppointmentslistloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" id="EmployeeDetailsModalbtn">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- UPDATE STATUS MODAL -->
+<div class="modal fade" id="changeAppointmentStatusModal" tabindex="-1" aria-labelledby="changeAppointmentStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeAppointmentStatusModalLabel">@beautybook.Resources.Languages.Update_Status</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group" id="updateStatusgrp">
+                            <label for="updateStatus" class="custom-label">@(beautybook.Resources.Languages.Status)</label>
+                            <select class="selectpicker form-control" id="updateStatus" title="@beautybook.Resources.Languages.Select_a_status" data-size="5">
+                                <option value="6">@(beautybook.Resources.Languages.Waiting)</option>
+                                <option value="7">@(beautybook.Resources.Languages.Cancelled)</option>
+                                <option value="8">@(beautybook.Resources.Languages.Postpone)</option>
+                                <option value="9">@(beautybook.Resources.Languages.In_Progress)</option>
+                                <option value="10">@(beautybook.Resources.Languages.Completed)</option>
+                            </select>
+                        </div>
+                        <div id="updateStatusgrploader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal" onclick="location.reload();">@(beautybook.Resources.Languages.Cancel)</button>
+                <button type="button" id="Changestatus" onclick="appoinmentChangestatus();" class="btn btn-primary font-weight-medium">@beautybook.Resources.Languages.Update</button>
+                <button type="button" id="Changestatusloading" class="btn btn-primary font-weight-medium" disabled style="display:none;">
+                    @beautybook.Resources.Languages.Update <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/AppointmentManager/ManageAppointments.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/AppointmentManager/AssignToUserDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/AppointmentDetails/AppointmentDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/AppointmentManager/AppointmentUserDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/AppointmentManager/AppointmentChangeStatus.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/AppointmentManager/CustomerDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/AppointmentDetails/AppointmentDetailsEdit.js"></script>
+<script src="~/Content/BeautyBookAPI/AppointmentsAPI/Invoice/Invoice.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        ArbicLanguage();
+
+        //appoinmentCalendar api function call
+        appoinmentCalendar();
+
+        //appoinmentList api function call
+        appoinmentList.init();
+
+        //appoinmentAssignedToUser api function call
+        appoinmentAssignedUser();
+
+        //customerData api functiob call
+        customerData();
+
+        //appoinmentModaldetails api function call
+        appoinmentModaldetails();
+
+        //appoinmentModaldetails api function call
+        appoinmentModaldetails();
+
+
+
+        $("#appoinmentTabbing").addClass("active")
+        $("#appoinmentCalendarTabbing").removeClass("active")
+        $("#appoinmentCalendarData").removeClass("active show")
+        $("#appoinmentData").addClass("active show")
+    });
+
+
+
+    //getCookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+
+    }
+
+    var DeviceTokenNumber = getCookie("DeviceToken&Type");
+    var SalonId = getCookie("SalonId");
+
+    var appoinmentDataArray = [];
+
+
+    function appoinmentCalendar() {
+
+        var appointmentDates = $('#appoinmentDate').val();
+        var appoinmentTimes = $('#appoinmentTime').val();
+        var appoinmentStatus = ~~$('#appoinmentStatus').val();
+        var appoinmentCustomer = ~~$('#customerDatalist').val();
+        var appoinmentAssignedToUser = ~~$('#appoinmentAssignedTo').val();
+
+        let AppoinmentCalendar = new Object();
+        AppoinmentCalendar.IsPageProvided = true;
+
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/userAppointments/UserAppointments_All?search&SalonId=${atob(SalonId)}&CustomerId=${appoinmentCustomer}&AssignedToUserId=${appoinmentAssignedToUser}&AppointmentDate=${appointmentDates}&AppointmentTime=${appoinmentTimes}&LookUpStatusId=${appoinmentStatus}`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            data: JSON.stringify(AppoinmentCalendar),
+            crossDomain: true,
+            success: function (result) {
+                appoinmentDataArray = [];
+                for (i = 0; i < result.Values.length; i++) {
+                    var appoinmentDataObj = {};
+                    var ChangeDateFormate = result.Values[i].AppointmentDate.split('/');
+
+                    //YYYY-MM-DD
+                    var AppoinmentDate = ChangeDateFormate[2] + '-' + ChangeDateFormate[0] + '-' + ChangeDateFormate[1];
+                    appoinmentDataObj['title'] = result.Values[i].CustomerFirstname + ' ' + result.Values[i].CustomerSecondName + ' - ' + result.Values[i].AssignedToFirstname + ' ' + result.Values[i].AssignedToSecondName;
+                    appoinmentDataObj['start'] = AppoinmentDate + ' ' + result.Values[i].AppointmentTime;
+                    appoinmentDataObj['url'] = `/Appointments/AppointmentDetails?AppoinmentDetailsId=${btoa(result.Values[i].Id)}`;
+                    appoinmentDataArray.push(appoinmentDataObj);
+                }
+                scedualCalendar();
+            }, error: function (error) {
+                // Error function
+            }
+        });
+        return false;
+    }
+
+    var d = new Date();
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+    //YYYY-MM-DD
+    var CurrentDate = d.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+    function scedualCalendar() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            initialDate: CurrentDate,
+            editable: true,
+            selectable: true,
+            businessHours: true,
+            dayMaxEvents: true,
+            // allow "more" link when too many events
+            events: appoinmentDataArray
+        });
+
+        calendar.render();
+
+        setInterval(function () {
+            calendar.render();
+        }, 1000);
+    }
+
+
+
+</script>

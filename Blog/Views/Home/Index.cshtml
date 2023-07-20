@@ -1,0 +1,435 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+@Html.AntiForgeryToken()
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Dashboard</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block">Shared in Twitter</span>
+                                <h4 class="mb-0">
+                                    <span class="counter-value">@ViewBag.SocialMediaSharePost.Item.TwitterShare</span>
+                                </h4>
+                            </div>
+                            <div class="col-4 text-end">
+                                <i class="bx bxl-twitter align-middle" style="font-size: 55px;color: #00acee;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block">Shared in Linkedin</span>
+                                <h4 class="mb-0">
+                                    <span class="counter-value">@ViewBag.SocialMediaSharePost.Item.linkedinShare</span>
+                                </h4>
+                            </div>
+                            <div class="col-4 text-end">
+                                <i class="bx bxl-linkedin align-middle" style="font-size: 55px; color: #0072b1;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block">Shared in Email</span>
+                                <h4 class="mb-0">
+                                    <span class="counter-value">@ViewBag.SocialMediaSharePost.Item.EmailShare</span>
+                                </h4>
+                            </div>
+                            <div class="col-4 text-end">
+                                <i class="bx bx-envelope align-middle" style="font-size: 55px; color: #BB001B;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-xl-3 col-md-6">
+                <div class="card card-h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block">Shared in Instagram</span>
+                                <h4 class="mb-0">
+                                    <span class="counter-value">@ViewBag.SocialMediaSharePost.Item.InstagramShare</span>
+                                </h4>
+                            </div>
+                            <div class="col-4 text-end">
+                                <i class="bx bxl-instagram align-middle instagram-color" style="font-size: 55px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block">Shared in Whatsapp</span>
+                                <h4 class="mb-0">
+                                    <span class="counter-value">@ViewBag.SocialMediaSharePost.Item.WhatsAppShare</span>
+                                </h4>
+                            </div>
+                            <div class="col-4 text-end">
+                                <i class="bx bxl-whatsapp align-middle" style="font-size: 55px; color: #25D366;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line-bar"></div>
+        @*Top 5 Like Blog data*@
+        <div class="row clearfix">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header p-2 d-flex align-items-center justify-content-between">
+                        <div>
+                            <h4 class="card-title">Manage Blog</h4>
+                            <p class="card-title-desc">
+                                5 blogs that are most liked
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="portlet-body table-responsive" id="divBlogMostLikedTable">
+                            <table class="table table-striped table-bordered table-hover" id="BlogMostLikedTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="line-bar"></div>
+        @*Top 5 Blog data*@
+        <div class="row clearfix">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header p-2 d-flex align-items-center justify-content-between">
+                        <div>
+                            <h4 class="card-title">Manage Blog</h4>
+                            <p class="card-title-desc">
+                                5 top post new blogs
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="portlet-body table-responsive" id="divTopPostBlogTable">
+                            <table class="table table-striped table-bordered table-hover" id="TopPostBlogTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- container-fluid -->
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            BlogMostLikedDataTable.init();
+            TopPostBlogDataTable.init();
+        });
+
+        /////////////////BlogMostLikedDataTable//////////////////////////////////
+        var BlogMostLikedDataTable = function () {
+            let initTable1 = function () {
+                let table = $('#BlogMostLikedTable');
+
+                let oTable = table.dataTable({
+                    "stateSave": true,
+                    "autoWidth": false,
+                    "paging": true,
+                    buttons: [],
+                    // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "No data available in table",
+                        "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                        "infoEmpty": "No entries found",
+                        "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                        "lengthMenu": "_MENU_ entries",
+                        "search": "Search:",
+                        "zeroRecords": "No matching records found"
+                    },
+                    "pageLength": 10,
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        async: true,
+                        url: '@Url.Action("ManageMostLikedBlogData", "Home")',
+                        type: "post",
+                        data: BuildSearchCriteria(),
+                    },
+                    "columns": [
+                        {
+                            "title": "Id", "data": "Id",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData = `${row["Id"]}`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "0.5%"
+                        },
+                        {
+                            "title": "Created User Details", "data": "CreatedUserName",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-1"><b>User Name : </b>${row["CreatedUserName"] == "" || row["CreatedUserName"] == null ? '-' : row["CreatedUserName"]}</p>`;
+                                htmlData += `<p class="mb-1"><b>Email : </b>${row["CreatedUserEmail"] == "" || row["CreatedUserEmail"] == null ? '-' : `<a href="mailto:${row["CreatedUserEmail"]}">${row["CreatedUserEmail"]}</a>`}</p>`;
+                                htmlData += `<p class="mb-1"><b>Contact Number : </b>${row["CreatedUserContactNumber"] == "" || row["CreatedUserContactNumber"] == null ? '-' : `<a href="tel:${row["CreatedUserContactNumber"]}">${row["CreatedUserContactNumber"]}</a>`}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "2%"
+                        },
+                        {
+                            "title": "Category", "data": "CategoryName",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData = `<p class="mb-1">${row["CategoryName"] == "" || row["CategoryName"] == null ? '-' : row["CategoryName"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "1%"
+                        },
+                        {
+                            "title": "Like / Share", "data": "Like",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-1"><b>Like : </b>${row["Like"]}</p>`;
+                                htmlData += `<p class="mb-1"><b>Twitter Share : </b>${row["TwitterShare"]}</p>`;
+                                htmlData += `<p class="mb-1"><b>Linkedin Share : </b>${row["linkedinShare"]}</p>`;
+                                htmlData += `<p class="mb-0"><b>Instagram Share : </b>${row["InstagramShare"]}</p>`;
+                                htmlData += `<p class="mb-0"><b>Email Share : </b>${row["EmailShare"]}</p>`;
+                                htmlData += `<p class="mb-0"><b>WhatsApp Share : </b>${row["WhatsAppShare"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "4%"
+                        },
+                        {
+                            "title": "Is Active ?", "data": "IsActive",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                if (row["IsActive"] == true) {
+                                    //InactiveMessage
+                                    htmlData = `<button class="badge bg-soft-success text-success">Active</button>`;
+                                } else {
+                                    htmlData = `<button class="badge bg-soft-danger text-danger">In-Active</button>`;
+                                }
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "1%"
+                        },
+                        {
+                            "title": "Action", "data": "Id",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<a title="View" href="@Url.Action("ViewDetails", "UsersBlog")?ri=${btoa(row["Id"])}" class="cur-pointer-icon"><i class="far fa-eye"></i></a>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "1%"
+                        },
+                    ],
+
+                    // setup responsive extension: http://datatables.net/extensions/responsive/
+                    responsive: true,
+
+                    "lengthMenu": [
+                        [5, 10, 15, 20, 1000],
+                        [5, 10, 15, 20, 1000] // change per page values here
+                    ],
+                    // set the initial value
+
+                    "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                });
+            }
+
+            return {
+                //main function to initiate the module
+                init: function () {
+                    if ($.fn.DataTable.isDataTable("#BlogMostLikedTable")) {
+                        $('#BlogMostLikedTable').dataTable().fnDestroy();
+                        $('#divBlogMostLikedTable').html('<table class="table table-striped table-bordered table-hover" id="BlogMostLikedTable"></table>');
+                    }
+                    initTable1();
+                }
+            };
+        }();
+
+        ////////////// Top Post new blog////////////////////////////////////////////////////////////
+        /////////////////BlogMostLikedDataTable//////////////////////////////////
+        var TopPostBlogDataTable = function () {
+            let initTable1 = function () {
+                let table = $('#TopPostBlogTable');
+
+                let oTable = table.dataTable({
+                    "stateSave": true,
+                    "autoWidth": false,
+                    "paging": true,
+                    buttons: [],
+                    // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+                    "language": {
+                        "aria": {
+                            "sortAscending": ": activate to sort column ascending",
+                            "sortDescending": ": activate to sort column descending"
+                        },
+                        "emptyTable": "No data available in table",
+                        "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                        "infoEmpty": "No entries found",
+                        "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                        "lengthMenu": "_MENU_ entries",
+                        "search": "Search:",
+                        "zeroRecords": "No matching records found"
+                    },
+                    "pageLength": 10,
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        async: true,
+                        url: '@Url.Action("ManageTopPostBlogData", "Home")',
+                        type: "post",
+                        data: BuildSearchCriteria(),
+                    },
+                    "columns": [
+                        {
+                            "title": "Id", "data": "Id",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData = `${row["Id"]}`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "0.5%"
+                        },
+                        {
+                            "title": "Created User Details", "data": "CreatedUserName",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-1"><b>User Name : </b>${row["CreatedUserName"] == "" || row["CreatedUserName"] == null ? '-' : row["CreatedUserName"]}</p>`;
+                                htmlData += `<p class="mb-1"><b>Email : </b>${row["CreatedUserEmail"] == "" || row["CreatedUserEmail"] == null ? '-' : `<a href="mailto:${row["CreatedUserEmail"]}">${row["CreatedUserEmail"]}</a>`}</p>`;
+                                htmlData += `<p class="mb-1"><b>Contact Number : </b>${row["CreatedUserContactNumber"] == "" || row["CreatedUserContactNumber"] == null ? '-' : `<a href="tel:${row["CreatedUserContactNumber"]}">${row["CreatedUserContactNumber"]}</a>`}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "2%"
+                        },
+                        {
+                            "title": "Category", "data": "CategoryName",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData = `<p class="mb-1">${row["CategoryName"] == "" || row["CategoryName"] == null ? '-' : row["CategoryName"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "1%"
+                        },
+                        {
+                            "title": "Like / Share", "data": "Like",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<p class="mb-1"><b>Like : </b>${row["Like"]}</p>`;
+                                htmlData += `<p class="mb-1"><b>Twitter Share : </b>${row["TwitterShare"]}</p>`;
+                                htmlData += `<p class="mb-1"><b>Linkedin Share : </b>${row["linkedinShare"]}</p>`;
+                                htmlData += `<p class="mb-0"><b>Instagram Share : </b>${row["InstagramShare"]}</p>`;
+                                htmlData += `<p class="mb-0"><b>Email Share : </b>${row["EmailShare"]}</p>`;
+                                htmlData += `<p class="mb-0"><b>WhatsApp Share : </b>${row["WhatsAppShare"]}</p>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "4%"
+                        },
+                        {
+                            "title": "Is Active ?", "data": "IsActive",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                if (row["IsActive"] == true) {
+                                    //InactiveMessage
+                                    htmlData = `<button class="badge bg-soft-success text-success">Active</button>`;
+                                } else {
+                                    htmlData = `<button class="badge bg-soft-danger text-danger">In-Active</button>`;
+                                }
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "1%"
+                        },
+                        {
+                            "title": "Action", "data": "Id",
+                            "render": function (data, type, row) {
+                                let htmlData = "";
+                                htmlData += `<a title="View" href="@Url.Action("ViewDetails", "UsersBlog")?ri=${btoa(row["Id"])}" class="cur-pointer-icon"><i class="far fa-eye"></i></a>`;
+                                return htmlData;
+                            }
+                            , "orderable": false, "width": "1%"
+                        },
+                    ],
+
+                    // setup responsive extension: http://datatables.net/extensions/responsive/
+                    responsive: true,
+
+                    "lengthMenu": [
+                        [5, 10, 15, 20, 1000],
+                        [5, 10, 15, 20, 1000] // change per page values here
+                    ],
+                    // set the initial value
+
+                    "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                });
+            }
+
+            return {
+                //main function to initiate the module
+                init: function () {
+                    if ($.fn.DataTable.isDataTable("#TopPostBlogTable")) {
+                        $('#TopPostBlogTable').dataTable().fnDestroy();
+                        $('#divTopPostBlogTable').html('<table class="table table-striped table-bordered table-hover" id="TopPostBlogTable"></table>');
+                    }
+                    initTable1();
+                }
+            };
+        }();
+
+        //Data fillter function
+        function BuildSearchCriteria() {
+            try {
+                var param = {};
+                return addRequestVerificationToken(param);
+            } catch (e) { }
+        }
+
+
+        function addRequestVerificationToken(data) {
+            data.__RequestVerificationToken = $('input[name=__RequestVerificationToken]').val();
+            return data;
+        }
+    </script>
+}

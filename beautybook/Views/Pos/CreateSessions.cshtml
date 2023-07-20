@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "Create Session";
+}
+<style>
+    .coin-cash::-webkit-inner-spin-button,
+    .coin-cash::-webkit-outer-spin-button {
+        opacity: 1 !important;
+    }
+
+    .coin-cash {
+        border: none;
+        border-bottom: 3px solid #7e7e7e;
+        border-radius: 0;
+    }
+</style>
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Create_Session</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Create_Session</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+                <div class="row" id="posSessionCard">
+                    @*<div class="badge badge-danger">To Close</div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<br />
+<br />
+
+<div class="modal fade p-0" id="cashControl" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="cashControl" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom modal-fullscreen-md-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cashControl">@beautybook.Resources.Languages.Opening_Cash_Control</h5>
+                <button type="button" onclick="location.reload();" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form class="row" id="salonsForm" name="salonsForm" novalidate="novalidate">
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                <div class="row m-0" id="CoinsAmount">
+                                    @*<div class="col-lg-3 p-1 text-center d-flex" style="align-items: center;">
+                                            <label class="mb-0" style="font-weight:500;width: 100%;">SAR 10</label>
+                                            <div class="d-flex align-items-center">
+                                                <input type="number" id="amount_0" value="0" class="form-control coin-cash">
+                                                <div class="count-arrow">
+                                                    <i class="filter-arrow bb-chevron-up" onclick="PlusMinusAmount(0,true,10)"></i>
+                                                    <i class="filter-arrow bb-chevron-down" onclick="PlusMinusAmount(0,false,10)"></i>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    @*<div class="col-lg-3 p-1 text-center d-flex" style="align-items: center;">
+                                            <label class="mb-0" style="font-weight:500;width: 100%;">SAR 20</label>
+                                            <div class="d-flex align-items-center">
+                                                <input type="number" id="amount_1" value="0" class="form-control coin-cash">
+                                                <div class="count-arrow">
+                                                    <i class="filter-arrow bb-chevron-up" onclick="PlusMinusAmount(1,true,20)"></i>
+                                                    <i class="filter-arrow bb-chevron-down" onclick="PlusMinusAmount(1,false,20)"></i>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <h5 style="text-align:end;">SAR : <span id="cashtotal_amount">0</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="modal-footer w-100">
+                        <button type="button" onclick="CreatePosSession();" class="btn btn-primary" id="sessionBtn">
+                            @beautybook.Resources.Languages.Open_Session
+                        </button>
+                        <button type="button" class="btn btn-primary" id="sessionLoadingBtn" disabled style="display:none;">
+                            @beautybook.Resources.Languages.Open_Session
+                            <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/PosApi/CoinsAmount.js"></script>
+<script src="~/Content/BeautyBookAPI/PosApi/PosSession.js"></script>
+
+<script>
+    //getCookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    //setCookie
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    //NewSession
+    function NewSession() {
+        $("#cashControl").modal("show");
+    }
+
+
+    $(document).ready(function () {
+        PosCard();
+
+        CoinsAmount();
+    })
+
+    //plushAmount
+    var amountSum = 0;
+    function PlusMinusAmount(index, isPlush, amount) {
+        var countGet = parseInt($("#amount_" + index).val());
+
+        if (isPlush == true) {
+            countGet = countGet + 1;
+            amountSum = amountSum + amount;
+
+        }
+        else if (isPlush == false && countGet > 0) {
+            countGet = countGet - 1;
+            amountSum = amountSum - amount;
+        }
+
+        $("#amount_" + index).val(countGet);
+        $("#cashtotal_amount").text(amountSum.toFixed(2));
+    }
+</script>

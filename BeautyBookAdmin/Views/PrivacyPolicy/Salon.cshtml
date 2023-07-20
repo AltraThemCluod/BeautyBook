@@ -1,0 +1,248 @@
+﻿@using BeautyBook.Common;
+@using BeautyBookAdmin.Pages;
+@using BeautyBookAdmin.Infrastructure;
+
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "Salon Privacy Policy";
+}
+
+
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+
+<style>
+    .checkbox2 {
+        width: 25px;
+        height: 25px;
+    }
+
+    thead {
+        background: #0069D9;
+        color: white;
+    }
+
+    .row {
+        margin: 0 !important;
+    }
+
+    .activ {
+        background: linear-gradient(to right, #0069D9, #0069D9);
+        color: white;
+    }
+
+    .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .form-control-feedback, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
+        color: #e73d4a
+    }
+
+    .has-error .form-control {
+        border-color: #e73d4a;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    }
+
+        .has-error .form-control:focus {
+            border-color: #d71b29;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #f2989f
+        }
+
+    .has-error .input-group-addon {
+        color: #e73d4a;
+        border-color: #e73d4a;
+        background-color: #fbe1e3
+    }
+
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        z-index: 99;
+        top: 40px;
+        left: 0;
+        right: 0;
+        box-shadow: 0 39px 70px 0 rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+        .autocomplete-items > div {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .autocomplete-items > div:hover {
+                background: #fbfbfb;
+            }
+
+    .addDelete {
+        color: black !important;
+        background: #e9e9e9 !important;
+    }
+
+    .hideDelete {
+        display: none !important;
+    }
+</style>
+
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Salon Privacy Policy</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action(Actions.Index,Controllers.Home,new { Area=""})"><i class="icon-home"></i></a></li>
+                <li class="breadcrumb-item active">Salon Privacy Policy</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <div class="header">
+            </div>
+            <div class="body">
+                <div>
+                    <div class="w-100">
+                        <button id="TnCview" onclick="PrivacyPolicyView();" type="button" class="btn btn-primary saveBtn mb-3 mt-2 d-flex align-items-center justify-content-end"><i class="icon-eye mr-1"></i>View</button>
+                    </div>
+                    <input type="hidden" id="PrivacyPolicyId" name="PrivacyPolicyId" />
+                    <!-- The toolbar will be rendered in this container. -->
+                    <div id="toolbar-container"></div>
+
+                    <!-- This container will become the editable. -->
+                    @*<div class="w-100" id="editor" style="height:500px;border:1px solid #ccc;">
+
+                        </div>*@
+
+                    <textarea name="EditorPrivacyPolicy" style="height:500px;border:1px solid #ccc;"></textarea>
+
+
+                    <div class="w-100">
+                        <button id="CreatePrivacyPolicy" onclick="EditPrivacyPolicy();" type="button" class="btn btn-primary saveBtn mb-3 mt-2" style="float:right;">Save Change</button>
+                        <button class="btn btn-primary loading  mb-3 mt-2" type="button" disabled style="display:none;float:right;">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Save Change...
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="PrivacyPolicyModalBody">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section dashboardscripts{
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/datatable.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/datatables.bootstrap.js"></script>
+}
+
+@section Scripts {
+    <script>
+
+        $(document).ready(() => {
+            CKEDITOR.replace('EditorPrivacyPolicy');
+            CKEDITOR.on('instanceReady', function (evt) {
+                var editor = evt.editor;
+
+                editor.on('change', function (e) {
+                    var text = editor.editable().getText();
+                    console.log(text);
+                });
+            });
+
+            GetPrivacyPolicyData();
+        });
+
+        function PrivacyPolicyView() {
+            $("#exampleModal").modal('show');
+        }
+
+        function EditPrivacyPolicy() {
+            $(".loading").show();
+            $("#CreatePrivacyPolicy").hide();
+
+            var PrivacyPolicyData = CKEDITOR.instances.EditorPrivacyPolicy.getData();
+
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.PrivacyPolicyUpsert, Controllers.PrivacyPolicy)',
+                data: ({
+                    Id: $("#PrivacyPolicyId").val(),
+                    PrivacyPolicyText: encodeURIComponent(PrivacyPolicyData),
+                    Type: 2,
+                }),
+                dataType: 'json',
+                success: function (response) {
+
+                    if (response.Code == 200) {
+                        swal("Great!", response.Message , "success");
+                    }
+                    else {
+                        swal("Error !", response.Message , "error");
+                    }
+                    $(".loading").hide();
+                    $("#CreatePrivacyPolicy").show();
+                    setTimeout(function () { window.location.reload(); }, 3000);
+                },
+                error: function (error) {
+
+                    swal("Error!", error.Message, "error");
+                    $(".loading").hide();
+                    $('#CreatePrivacyPolicy').show();
+                    $('#PrivacyPolicyId').val(0);
+                    setTimeout(function () { window.location.reload(); }, 3000);
+                }
+            });
+         }
+
+
+        function GetPrivacyPolicyData() {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action(Actions.GetDataPrivacyPolicyById, Controllers.PrivacyPolicy)',
+                data: { eptId: "MQ==" , Type : 2},
+                dataType: 'json',
+                async : false,
+                success: function (response) {
+                    $('#PrivacyPolicyId').val(response.Item.Id)
+                    CKEDITOR.instances.EditorPrivacyPolicy.setData(decodeURIComponent(response.Item.PrivacyPolicyText));
+                    $('#PrivacyPolicyModalBody').html(decodeURIComponent(response.Item.PrivacyPolicyText));
+                },
+                error: function (error) {
+                }
+            });
+        }
+
+
+    </script>
+    <script src="~/assets/validation/js/jquery-ui.min.js"></script>
+    <script src="~/assets/validation/js/app.min.js"></script>
+    <script src="~/assets/validation/js/ui-modals.min.js"></script>
+    <script src="~/assets/validation/js/jquery.validate.min.js"></script>
+    <script src="~/assets/validation/js/additional-methods.min.js"></script>
+    <script src="~/assets/validation/js/toastr.min.js"></script>
+    <script src="~/assets/validation/js/ui-toastr.min.js"></script>
+    <script src="~/assets/vendor/dropify/js/dropify.min.js"></script>
+    <script src="~/assets/vendor/sweetalert/sweetalert.min.js"></script> <!-- SweetAlert Plugin Js -->
+    <script src="~/assets/js/pages/forms/dropify.js"></script>
+    <script src="~/assets/js/pages/ui/dialogs.js"></script>
+}

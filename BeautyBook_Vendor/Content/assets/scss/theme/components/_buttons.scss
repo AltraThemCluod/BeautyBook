@@ -1,0 +1,62 @@
+.btn-white {
+    background-color: $white;
+    border-color: $gray-200;
+
+    &.active,
+    &.focus,
+    &:active,
+    &:focus,
+    &:hover {
+        color: $primary;
+        box-shadow: 0 3px 6px -2px rgba($color: $gray-700, $alpha: 0.25);
+    }
+
+    &.disabled,
+    &:disabled {
+        color: $gray-700;
+        background-color: rgba($color: $gray-200, $alpha: 0.5);
+    }
+}
+
+.btn{
+    &.focus, 
+    &:focus {
+        outline: 0;
+        box-shadow: 0 3px 6px -2px rgba($color: $gray-700, $alpha: 0.25);
+    }
+    
+}
+
+
+.btn-wide {
+    min-width: 7rem
+}
+
+
+
+.btn-link {
+    font-weight: 600;
+
+    &.focus, 
+    &:focus,
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.btn-icon{
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:focus{
+        box-shadow: none;
+
+        i{
+            color: $dark !important;
+        }
+       
+    }
+}

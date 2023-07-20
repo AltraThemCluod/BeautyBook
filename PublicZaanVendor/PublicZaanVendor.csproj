@@ -1,0 +1,673 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B7539B61-86A1-45CF-BF29-1773438E22F1}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PublicZaanVendor</RootNamespace>
+    <AssemblyName>PublicZaanVendor</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44327</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DataTables.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\datatables.mvc5.0.1.0\lib\net45\DataTables.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\Language.ar.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Language.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\BaseController.cs" />
+    <Compile Include="Pages\Actions.cs" />
+    <Compile Include="Pages\Areas.cs" />
+    <Compile Include="Pages\BindDropdown.cs" />
+    <Compile Include="Pages\Controllers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\assets\css\main.css" />
+    <Content Include="Content\assets\images\20 Volume Gentle Creme Developer.jpg" />
+    <Content Include="Content\assets\images\arrowhead-right.png" />
+    <Content Include="Content\assets\images\arrow_down.png" />
+    <Content Include="Content\assets\images\article1.png" />
+    <Content Include="Content\assets\images\article2.png" />
+    <Content Include="Content\assets\images\article3.png" />
+    <Content Include="Content\assets\images\Artist Hand Professional Hair Steamer.jpg" />
+    <Content Include="Content\assets\images\Baheya.png" />
+    <Content Include="Content\assets\images\BannerEllipse.png" />
+    <Content Include="Content\assets\images\beautybook.png" />
+    <Content Include="Content\assets\images\blog_imgs.png" />
+    <Content Include="Content\assets\images\blog_imgs1.png" />
+    <Content Include="Content\assets\images\blog_imgs2.png" />
+    <Content Include="Content\assets\images\blog_imgs3.png" />
+    <Content Include="Content\assets\images\blog_imgs4.png" />
+    <Content Include="Content\assets\images\blog_slide.png" />
+    <Content Include="Content\assets\images\blog_top_img.png" />
+    <Content Include="Content\assets\images\bottom_banner.png" />
+    <Content Include="Content\assets\images\box_banner.png" />
+    <Content Include="Content\assets\images\calendar.png" />
+    <Content Include="Content\assets\images\cal_Icon.png" />
+    <Content Include="Content\assets\images\Check.png" />
+    <Content Include="Content\assets\images\checkmark-square.png" />
+    <Content Include="Content\assets\images\Check_2.png" />
+    <Content Include="Content\assets\images\Conditioner.jpg" />
+    <Content Include="Content\assets\images\cosmetologist-hairstyle-hair-clipper-comb-beauty-parlour-shampoo.png" />
+    <Content Include="Content\assets\images\curve_arrow.png" />
+    <Content Include="Content\assets\images\Design-System.png" />
+    <Content Include="Content\assets\images\DREOX HAIR DRYER, 2000W AC.jpg" />
+    <Content Include="Content\assets\images\Ellipse.png" />
+    <Content Include="Content\assets\images\email.png" />
+    <Content Include="Content\assets\images\email1.png" />
+    <Content Include="Content\assets\images\facebook.png" />
+    <Content Include="Content\assets\images\Facial Steamer.jpg" />
+    <Content Include="Content\assets\images\fb_btn.png" />
+    <Content Include="Content\assets\images\Gloves.jpg" />
+    <Content Include="Content\assets\images\hair-clipper-comb-philips-hairclipper-series-3000-hair-trimmer.png" />
+    <Content Include="Content\assets\images\hair-styling-tools-beauty-parlour-cosmetologist-waxing-hair.png" />
+    <Content Include="Content\assets\images\Heat Protecting Smoothing Spray.jpg" />
+    <Content Include="Content\assets\images\Heat Protection Spray.jpg" />
+    <Content Include="Content\assets\images\Highlight Brush.jpg" />
+    <Content Include="Content\assets\images\Image_not_available.png" />
+    <Content Include="Content\assets\images\instagrame.png" />
+    <Content Include="Content\assets\images\insta_follow.png" />
+    <Content Include="Content\assets\images\invoice_new.png" />
+    <Content Include="Content\assets\images\linkedin.png" />
+    <Content Include="Content\assets\images\link_follow.png" />
+    <Content Include="Content\assets\images\lkdn_btn.png" />
+    <Content Include="Content\assets\images\logo-new-slogan.png" />
+    <Content Include="Content\assets\images\logo-prime-preto.png" />
+    <Content Include="Content\assets\images\logo-sh1.png" />
+    <Content Include="Content\assets\images\Madi.png" />
+    <Content Include="Content\assets\images\mail.png" />
+    <Content Include="Content\assets\images\Manicure Implement Kit.jpg" />
+    <Content Include="Content\assets\images\Menu %282%29.png" />
+    <Content Include="Content\assets\images\MenuLine.png" />
+    <Content Include="Content\assets\images\Nazih.png" />
+    <Content Include="Content\assets\images\NextArrow.png" />
+    <Content Include="Content\assets\images\NextArrow.svg" />
+    <Content Include="Content\assets\images\NextArrow1.png" />
+    <Content Include="Content\assets\images\NiceOne.png" />
+    <Content Include="Content\assets\images\OLAPLEX NO. 4 INTENSIVE BOND BUILDING HAIR TREATMENT.jpg" />
+    <Content Include="Content\assets\images\phone.png" />
+    <Content Include="Content\assets\images\ph_whatsapp-logo-fill.png" />
+    <Content Include="Content\assets\images\Powder Lightener Tub.jpg" />
+    <Content Include="Content\assets\images\PrevArrow.png" />
+    <Content Include="Content\assets\images\PrevArrow.svg" />
+    <Content Include="Content\assets\images\PrevArrow1.png" />
+    <Content Include="Content\assets\images\Pro Diamond Nail Bits.jpg" />
+    <Content Include="Content\assets\images\Product\andrea-donato-lJFLGirYwV0-unsplash.png" />
+    <Content Include="Content\assets\images\Quote.png" />
+    <Content Include="Content\assets\images\Rectangle 4147-1.png" />
+    <Content Include="Content\assets\images\Rectangle 4147-2.png" />
+    <Content Include="Content\assets\images\Rectangle 4147.png" />
+    <Content Include="Content\assets\images\SearchIcon.png" />
+    <Content Include="Content\assets\images\Skin Perfect HD Foundation 20C.jpg" />
+    <Content Include="Content\assets\images\small-logo.png" />
+    <Content Include="Content\assets\images\social.png" />
+    <Content Include="Content\assets\images\star.png" />
+    <Content Include="Content\assets\images\Styling Chair.jpg" />
+    <Content Include="Content\assets\images\Styling Comb.jpg" />
+    <Content Include="Content\assets\images\Top Coat.jpg" />
+    <Content Include="Content\assets\images\twitter.png" />
+    <Content Include="Content\assets\images\twitt_follow.png" />
+    <Content Include="Content\assets\images\tw_btn.png" />
+    <Content Include="Content\assets\images\user-default-profile.png" />
+    <Content Include="Content\assets\images\VendorCheck.png" />
+    <Content Include="Content\assets\images\VendorCheck_2.png" />
+    <Content Include="Content\assets\images\zaan.png" />
+    <Content Include="Content\assets\js\main.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-grid.css" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-reboot.css" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.bundle.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\popper.min.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\popper.min.js.map.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\jquery\jquery.min.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\jquery\popper.min.js.map.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\alert.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\button.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\carousel.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\collapse.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\dropdown.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\index.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\modal.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\popover.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\scrollspy.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\tab.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\toast.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\tooltip.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\util.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\index.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\alert.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\button.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\carousel.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\collapse.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\dropdown.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\modal.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\popover.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\scrollspy.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\tab.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\toast.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\tools\sanitizer.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\tooltip.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\src\util.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\browsers.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\index.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\integration\bundle.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\integration\index.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\integration\rollup.bundle.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\karma.conf.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\alert.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\button.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\carousel.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\collapse.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\dropdown.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\modal.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\popover.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\scrollspy.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\tab.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\toast.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\tooltip.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\util.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\alert.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\button.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\carousel.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\collapse.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\dropdown.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\modal.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\popover.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\scrollspy.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\tab.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\toast.html" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\visual\tooltip.html" />
+    <Content Include="Content\assets\SalonMaterial\css\style.css" />
+    <Content Include="Content\assets\SalonMaterial\img\Branch Management.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\Calender 1.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\call.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Customer Service.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\Dashboard.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\form_after.png" />
+    <Content Include="Content\assets\SalonMaterial\img\form_img.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Group 92.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Group 95.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Group 96.png" />
+    <Content Include="Content\assets\SalonMaterial\img\hero-img-old.png" />
+    <Content Include="Content\assets\SalonMaterial\img\hero-img.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Inventory.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\invoice.png" />
+    <Content Include="Content\assets\SalonMaterial\img\logo-1-old.png" />
+    <Content Include="Content\assets\SalonMaterial\img\logo-1.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Mail.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Marketing 1.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\one_stop.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Rectangle 5.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Rectangle 8.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Rectangle 9.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Service Management.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\Staff Management.svg" />
+    <Content Include="Content\assets\SalonMaterial\img\Vector-1.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Vector-2.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Vector-3.png" />
+    <Content Include="Content\assets\SalonMaterial\img\Vector.png" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-ajax-unobtrusive\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\jquery-ajax-unobtrusive\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\jquery-validate\additional-methods.js" />
+    <Content Include="Content\jquery-validate\additional-methods.min.js" />
+    <Content Include="Content\jquery-validate\jquery.validate.js" />
+    <Content Include="Content\jquery-validate\jquery.validate.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ar.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ar.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_az.js" />
+    <Content Include="Content\jquery-validate\localization\messages_az.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bg.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bg.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bn_BD.js" />
+    <Content Include="Content\jquery-validate\localization\messages_bn_BD.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ca.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ca.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_cs.js" />
+    <Content Include="Content\jquery-validate\localization\messages_cs.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_da.js" />
+    <Content Include="Content\jquery-validate\localization\messages_da.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_de.js" />
+    <Content Include="Content\jquery-validate\localization\messages_de.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_el.js" />
+    <Content Include="Content\jquery-validate\localization\messages_el.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_AR.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_AR.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_PE.js" />
+    <Content Include="Content\jquery-validate\localization\messages_es_PE.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_et.js" />
+    <Content Include="Content\jquery-validate\localization\messages_et.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_eu.js" />
+    <Content Include="Content\jquery-validate\localization\messages_eu.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fa.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fa.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fi.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fi.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_fr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ge.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ge.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_gl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_gl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_he.js" />
+    <Content Include="Content\jquery-validate\localization\messages_he.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hu.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hu.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hy_AM.js" />
+    <Content Include="Content\jquery-validate\localization\messages_hy_AM.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_id.js" />
+    <Content Include="Content\jquery-validate\localization\messages_id.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_is.js" />
+    <Content Include="Content\jquery-validate\localization\messages_is.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_it.js" />
+    <Content Include="Content\jquery-validate\localization\messages_it.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ja.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ja.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ka.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ka.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_kk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_kk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ko.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ko.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lt.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lt.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lv.js" />
+    <Content Include="Content\jquery-validate\localization\messages_lv.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_mk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_mk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_my.js" />
+    <Content Include="Content\jquery-validate\localization\messages_my.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_nl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_nl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_no.js" />
+    <Content Include="Content\jquery-validate\localization\messages_no.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_BR.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_BR.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_PT.js" />
+    <Content Include="Content\jquery-validate\localization\messages_pt_PT.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ro.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ro.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ru.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ru.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sd.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sd.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_si.js" />
+    <Content Include="Content\jquery-validate\localization\messages_si.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sl.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sl.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr_lat.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sr_lat.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sv.js" />
+    <Content Include="Content\jquery-validate\localization\messages_sv.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_th.js" />
+    <Content Include="Content\jquery-validate\localization\messages_th.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tj.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tj.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tr.js" />
+    <Content Include="Content\jquery-validate\localization\messages_tr.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_uk.js" />
+    <Content Include="Content\jquery-validate\localization\messages_uk.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ur.js" />
+    <Content Include="Content\jquery-validate\localization\messages_ur.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_vi.js" />
+    <Content Include="Content\jquery-validate\localization\messages_vi.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh.min.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh_TW.js" />
+    <Content Include="Content\jquery-validate\localization\messages_zh_TW.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_de.js" />
+    <Content Include="Content\jquery-validate\localization\methods_de.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_es_CL.js" />
+    <Content Include="Content\jquery-validate\localization\methods_es_CL.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_fi.js" />
+    <Content Include="Content\jquery-validate\localization\methods_fi.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_it.js" />
+    <Content Include="Content\jquery-validate\localization\methods_it.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_nl.js" />
+    <Content Include="Content\jquery-validate\localization\methods_nl.min.js" />
+    <Content Include="Content\jquery-validate\localization\methods_pt.js" />
+    <Content Include="Content\jquery-validate\localization\methods_pt.min.js" />
+    <Content Include="Content\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\Social\css\socialSharing.css" />
+    <Content Include="Content\Social\js\socialSharing.js" />
+    <Content Include="Content\Social\js\socialSharing.min.js" />
+    <Content Include="EmailTemplate\Consultation.html" />
+    <Content Include="EmailTemplate\Schedule.html" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap.css.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\css\bootstrap.min.css.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\dist\js\bootstrap.min.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\alert.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\button.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\carousel.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\collapse.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\dropdown.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\modal.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\popover.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\scrollspy.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\tab.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\toast.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\tooltip.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\dist\util.js.map" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\README.md" />
+    <Content Include="Content\assets\SalonMaterial\bootstrap\js\tests\unit\.eslintrc.json" />
+    <Content Include="Content\Social\css\socialSharing.css.map" />
+    <Content Include="Content\Social\css\socialSharing.scss" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\HomeStore.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Blog\BlogInner.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Content\assets\js\main.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\beautybook.Entities\BeautyBook.Entities.csproj">
+      <Project>{04E7E08D-16ED-4223-B428-D52666D3DBC4}</Project>
+      <Name>BeautyBook.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\beautybook.Services\BeautyBook.Services.csproj">
+      <Project>{26C1A3F8-6D53-4938-8461-96C5AEBDBA05}</Project>
+      <Name>BeautyBook.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\beautybook.Common\BeautyBook.Common.csproj">
+      <Project>{8529A692-F045-4CBF-860F-6E006DED5CA7}</Project>
+      <Name>BeautyBook.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Language.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Language.ar.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Language.ar.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52759</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44327/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <!-- <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" /> -->
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Employee Permission";
+}
+<style>
+
+    .employee-permission .custom-control-label::before 
+    {
+        width: 1.2rem;
+        height: 1.2rem;
+        top: 0.05rem;
+    }
+    .employee-permission .custom-control-label::after
+    {
+        top:1px;
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+    .employee-permission ul {
+        list-style-type: none;
+    }
+</style>
+<main class="app-content mb-5">
+    <div class="app-content-wrapper">
+        <!-- Page Title -->
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageEmployee","Employee")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.EmployeePermission</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageEmployee","Employee")">@(beautybook.Resources.Languages.Manage_Employee)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.EmployeePermission</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner" id="employeeForm" name="employeeForm">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9">
+                        <div class="card card-lg mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-1">@beautybook.Resources.Languages.EmployeePermissionAccess</h6>
+                                @*<p class="mb-0 text-muted fs-13">Tell us all about your <span id="employeeinfoEdit">new</span> employee.</p>*@
+                                <p class="mb-0 text-muted fs-13">@beautybook.Resources.Languages.GiveEmployeeModule</p>
+                            </div>
+
+                            <div class="card-body employee-permission">
+                                <div class="multi-collapse collapse show" id="employeePermission">
+                                    @*<ul class="product-category-list">
+                                        <li>
+                                            <a href="#" class="product-category-link">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input value="47" type="checkbox" class="custom-control-input" name="ProductType" id="ProductType47">
+                                                    <label class="custom-control-label fs-16" for="ProductType47">Furniture &amp; Equipment</label>
+                                                </div>
+                                            </a>
+                                            <ul id="SubCategory_47">
+                                                <li style="list-style: none;">
+                                                    <a href="#" class="product-category-link">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input value="28" type="checkbox" class="custom-control-input ProductType_47" name="ProductCategory" id="ProductCategory28">
+                                                            <label class="custom-control-label fs-16" for="ProductCategory28">Chair</label>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li style="list-style: none;">
+                                                    <a href="#" class="product-category-link">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input value="31" type="checkbox" class="custom-control-input ProductType_47" name="ProductCategory" id="ProductCategory31">
+                                                            <label class="custom-control-label fs-16" for="ProductCategory31">Tools</label>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>*@
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fixed-footer text-center">
+                            <button type="button" name="button" class="btn btn-primary font-weight-medium btn-wide" onclick="addEmployeesPermissionData()" id="addEmployeePermissionbtn"> <span>@(beautybook.Resources.Languages.Save_Change)</span> </button>
+
+                            <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="addEmployeePermissionbtnloading" style="display:none;">
+                                <span id="employeeBtntextloading">@(beautybook.Resources.Languages.Save_Change)</span>  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                            </button>
+                            <a href="@Url.Action("ManageEmployee","Employee")" class="btn btn-link btn-wide">@(beautybook.Resources.Languages.Cancel)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/ManageEmployee/EmployeePermission.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        EmployeePermissionModule();
+    });
+</script>

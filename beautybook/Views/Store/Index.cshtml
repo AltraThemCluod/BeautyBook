@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Store";
+}
+
+<style>
+    .card-img-top{
+        width:100%;
+        height:196px;
+        object-fit:cover;
+    }
+</style>
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-12">
+                        <h4 class="lh-12">@(beautybook.Resources.Languages.One_Stop_Shop_for_Your_Salons_and_Spas)</h4>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center text-center row-cols-xl-5" id="manage_Store">
+
+                </div>
+                <div id="manage_Store_loader" style="display: none;" class="text-center mb-4">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/StoreAPI/Index/Index.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        ManageStore();
+    });
+</script>

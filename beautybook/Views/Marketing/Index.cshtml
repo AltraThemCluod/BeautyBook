@@ -1,0 +1,134 @@
+﻿@using BeautyBook.Common;
+@{
+    ViewBag.Title = "Customer Manager";
+}
+
+
+<body class="has-fixed-footer">
+
+    <div class="app-root">
+        <div class="app-wrapper">
+
+
+            <main class="app-content">
+
+                <div class="app-content-wrapper">
+
+                    <div class="app-content-title">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                                        <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(beautybook.Resources.Languages.Marketing)</h6>
+                                        <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                            <ol class="breadcrumb mb-0 pl-0">
+                                                <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Marketing)</li>
+                                            </ol>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-content-inner">
+                        <div class="container-fluid">
+                            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 row-cols-1 text-center">
+                                @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManageEmailMarketing").FirstOrDefault().Value == true)
+                                {
+                                    <div class="col mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img class="mb-4 img-fluid" src="~/Content/assets/images/Marketing/EmailMarketing.png" width="100" alt="">
+                                                <h6>@(beautybook.Resources.Languages.Email_Marketing)</h6>
+                                                @*<p class="fs-14 mb-0 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>*@
+
+                                                <a href="@Url.Action("ManageEmailMarketing","Marketing")" class="btn btn-primary font-weight-medium btn-wide mt-3">@(beautybook.Resources.Languages.Create_Email_Marketing)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManageSmsMarketing").FirstOrDefault().Value == true)
+                                {
+                                    <div class="col mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img class="mb-4 img-fluid" src="~/Content/assets/images/Marketing/SMSMarketing.png" width="83" alt="">
+                                                <h6>@(beautybook.Resources.Languages.SMS_Marketing)</h6>
+                                                @*<p class="fs-14 mb-0 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>*@
+
+                                                <a href="@Url.Action("ManageSmsMarketing","Marketing")" class="btn btn-primary font-weight-medium btn-wide mt-3">@(beautybook.Resources.Languages.Create_SMS_Marketing)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManageOffers").FirstOrDefault().Value == true)
+                                {
+                                    <div class="col mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img class="mb-4 img-fluid" src="~/Content/assets/images/Marketing/Offers.png" width="100" alt="">
+                                                <h6>@(beautybook.Resources.Languages.Offers)</h6>
+                                                @*<p class="fs-14 mb-0 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>*@
+
+                                                <a href="@Url.Action("ManageOffers", "Offers")" class="btn btn-primary font-weight-medium btn-wide mt-3">@(beautybook.Resources.Languages.Create_Offers)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManageDailyDeals").FirstOrDefault().Value == true)
+                                {
+                                    <div class="col mb-3">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img class="mb-4 img-fluid" src="~/Content/assets/images/Marketing/DailyDeals.png" width="70" alt="">
+                                                <h6>@(beautybook.Resources.Languages.Daily_Deals)</h6>
+                                                @*<p class="fs-14 mb-0 text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>*@
+
+                                                <a href="@Url.Action("ManageDailyDeals","DailyDeals")" class="btn btn-primary font-weight-medium btn-wide mt-3">@(beautybook.Resources.Languages.Create_Daily_Deals)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+
+    <!-- Scripts -->
+    <script src="./js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="./js/popper/popper.min.js"></script>
+    <script src="./js/bootstrap/bootstrap.min.js"></script>
+    <script src="./js/daterangepicker/moment.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script>var plugin_path = './js/';</script>
+
+    <script src="./js/main.js"></script>
+</body>
+
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/CustomersAPI/ManageCustomers/ManageCustomers.js"></script>
+<script src="~/Content/BeautyBookAPI/CustomersAPI/ManageCustomers/EmployeeProfile.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        //CustomerList api funcation call
+        CustomerList.init();
+    });
+</script>

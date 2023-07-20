@@ -1,0 +1,117 @@
+
+
+// Font weight
+
+.font-weight-medium{
+    font-weight: $font-weight-medium !important;
+}
+.font-weight-semibold{
+    font-weight: $font-weight-semibold !important;
+}
+
+.ls-normal{
+    letter-spacing: normal !important;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+
+    &::before {
+        margin-right: 1.5rem;
+    }
+
+    &::after {
+        margin-left: 1.5rem;
+    }
+
+    &::after, 
+    &::before {
+        flex: 1 1 0%;
+        border-top: .0625rem solid $gray-200;
+        content: "";
+        margin-top: .0625rem;
+    }
+}
+
+
+.fs-12{
+    font-size: 12px !important;
+}
+
+.fs-13{
+    font-size: 13px !important;
+}
+
+.fs-14{
+    font-size: 14px !important;
+}
+
+.fs-15{
+    font-size: 15px !important;
+}
+
+.fs-16{
+    font-size: 16px !important;
+}
+
+.fs-18{
+    font-size: 18px !important;
+}
+
+.fs-20{
+    font-size: 20px !important;
+}
+
+.fs-22{
+    font-size: 22px !important;
+}
+
+.fs-24{
+    font-size: 24px !important;
+}
+
+.text-cap {
+    display: block;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: .03125rem;
+}
+
+
+.lh-1{
+    line-height: 1 !important;
+}
+
+.lh-12{
+    line-height: 1.2 !important;
+}
+
+.lh-17{
+    line-height: 1.7 !important;
+}
+
+@each $color, $value in $grays {
+    @include text-emphasis-variant(".text-gray-#{$color}", $value, true);
+  }
+
+  .rounded-left-0{
+      .btn{
+          border-top-left-radius: 0 !important;
+          border-bottom-left-radius: 0 !important;
+      }
+  }
+
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+      @if($infix != ''){
+        @each $prop, $abbrev in (width: w) {
+          @each $size, $length in $sizes {
+            .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Technical Support Details";
+}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<main class="app-content" style="filter: inherit !important; ">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <a href="@Url.Action("ManageCustomers","Customers")"><i class="bb-arrow-left mr-3"></i></a>
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Technical_Support_Details</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item"><a href="@Url.Action("ManageCustomers","Customers")">@beautybook.Resources.Languages.Manage_Technical_Support</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Technical_Support_Details</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-9">
+                        <form>
+                            <div class="card card-lg mb-5">
+                                <div class="card-header">
+                                    <h6 class="mb-1">@beautybook.Resources.Languages.Decription</h6>
+                                    <p class="mb-0 text-muted fs-13">@beautybook.Resources.Languages.Create_a_technical_support_ticket</p>
+                                </div>
+
+                                <div class="card-body pb-0">
+                                    <input type="hidden" name="TicketId" id="TicketId" value="0" />
+                                    <div class="row">
+                                        <input type="hidden" name="Id" id="Id" value="0" />
+                                        <div class="col-lg-12 form-group">
+                                            <textarea id="TechnicalSupportDiscription"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fixed-footer text-center">
+                                <button type="button" id="addTicketbtn" onclick="CreateTechnicalTicket();" tabindex="11" class="btn btn-primary font-weight-medium btn-wide">@beautybook.Resources.Languages.Save_ticket_information</button>
+                                <button type="button" class="btn btn-primary font-weight-medium btn-wide" id="addTicketbtnloading" style="display:none;" disabled>
+                                    <span>@beautybook.Resources.Languages.Save_ticket_information</span> <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                                </button>
+                                @*<button type="button" class="btn btn-link btn-wide">Cancle</button>*@
+                                <a href="@Url.Action("ManageCustomers","Customers")" tabindex="12" class="btn btn-link btn-wide text-muted">@(beautybook.Resources.Languages.Cancel)</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/TechnicalSupportAPI/TechnicalSupportDetails/TechnicalSupportDetails.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        getTechnicalTicketdata();
+    });
+</script>

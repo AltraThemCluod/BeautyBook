@@ -1,0 +1,174 @@
+USE [BeautyBook]
+GO
+/****** Object:  StoredProcedure [dbo].[Orders_ById]    Script Date: 16-05-2022 22:24:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Krinal Patel
+-- Create date: 25 June 2021 9:28 AM
+-- Description:	This sp is used for get the Orders data by id
+-- =============================================
+-- select * from Orders
+-- exec Orders_ById 1
+ALTER PROCEDURE [dbo].[Orders_ById] 
+	@Id BIGINT = 0
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+	Declare 
+	        @Code BIGINT = 200,
+            @Message varchar(200) = ''
+
+	SET @Message = 'Data retrived successfully'
+
+	       Select @Code as Code,
+			      @Message as [Message]
+
+		-- Orders data get for id
+
+		Select 
+		 OS.Id,
+			OS.Id,
+			OS.SalonId,
+			(select VATNumber from Salons where Id = OS.SalonId) as SalonVATNumber,
+			(select SalonName from Salons where Id = OS.SalonId) as CustomerName,
+			OS.OrderNo,
+			OS.InvoiceNo,
+			OS.OrderDate,
+			OS.Payment,
+			(select Name from LookUpStatus where Id = OS.Payment) as PaymentTypeName,
+			OS.MasterPaymentMethodId,
+			(select Name from LookUpPaymentMethod where Id = OS.MasterPaymentMethodId) as PaymentMethod,
+
+			--ShippingAddress Get Name
+			OS.ShippingAddress,
+			SA.Address AS ShippingAddressName,
+			SA.SalonId AS ShippingSalonId,
+			(select SalonName from Salons where Id = SA.SalonId) as ShippingCustomerName,
+			SA.CountryId AS ShippingCountryId,
+			(select Name from LookUpCountry where id = SA.CountryId) as ShippingCountryName,
+			SA.StateId AS ShippingStateId,
+			(select Name from LookUpState where id = SA.StateId) as ShippingStateName,
+			SA.City AS ShippingCityName,
+
+			--BillingAddress Get Name
+			OS.BillingAddress,
+			BA.Address AS BillingAddressName,
+			BA.SalonId AS BillingSalonId,
+			(select SalonName from Salons where Id = BA.SalonId) as BillingCustomerName,
+			BA.CountryId AS BillingCountryId,
+			(select Name from LookUpCountry where id = BA.CountryId) as BillingCountryName,
+			BA.StateId AS BillingStateId,
+			(select Name from LookUpState where id = BA.StateId) as BillingStateName,
+			BA.City AS BillingCityName,
+			BA.ZipCode As BillingZipCode,
+			OS.ProceedStatus,
+			(select Name from LookUpStatus where Id = OS.ProceedStatus) as ProceedStatusName,
+			OS.LookUpStatusId,
+			(select Name from LookUpStatus where Id = OS.LookUpStatusId) as LookUpStatusName,
+			OS.IsDeleted,
+			OS.DeletedDate,
+			OS.DeletedBy,
+			OS.CreatedDate,
+			OS.CreatedBy,
+			OS.UpdatedDate,
+			OS.UpdatedBy,
+			(select FORMAT(GETUTCDATE(), 'dd/MM/yyyy')) as InvoicePrintDate
+		FROM 
+			[dbo].[Orders] OS
+			left join
+			ShippingAddress SA on SA.Id = OS.ShippingAddress
+			left join
+			ShippingAddress BA on BA.Id = OS.BillingAddress      
+		WHERE
+			OS.Id = @Id 
+
+		SELECT 
+			OP.Id,
+			OP.OrderId,
+			OP.VendorId,
+			OP.AddToCartIds,
+			ATC.SalonId as SalonId,
+			ATC.ProductId as ProductId,
+		    P.ProductName as ProductName,
+			P.Price as ProductRate,
+			P.ProductTax as ProductTax,
+			ATC.Qty as Qty,
+			P.Price*ATC.Qty as ProductAmount,
+			--SUM(P.Price*ATC.Qty) over (partition by OP.OrderId) as ProductSubTotal,
+			--SUM(CONVERT(decimal(18,2),P.Price/P.ProductTax*ATC.Qty)) over (partition by OP.OrderId) as ProductTaxAmount,
+			--SUM(CONVERT(decimal(18,2),P.Price*ATC.Qty) + CONVERT(decimal(18,2),P.Price/P.ProductTax*ATC.Qty)) over (partition by OP.OrderId) as ProductTotal,
+			SUM(P.Price*ATC.Qty) over (partition by OP.OrderId) as ProductSubTotal,
+			SUM(CONVERT(decimal(18,2),(P.Price * P.ProductTax / 100) * ATC.Qty)) over (partition by OP.OrderId) as ProductTaxAmount,
+			SUM(CONVERT(decimal(18,2),(P.Price*ATC.Qty) + (P.Price * P.ProductTax / 100) * ATC.Qty)) over (partition by OP.OrderId) as ProductTotal,
+
+			-------------------------------------------------------------------Invoice Query
+
+			CONVERT(decimal(18,2),P.Price) as InvoiceUnitePrice,
+			CONVERT(decimal(18,2),P.Price * P.ProductTax / 100) as InvoiceTaxPrice,
+			CONVERT(decimal(18,2),P.Price + P.Price * P.ProductTax / 100) as InvoiceProductRate,
+			CONVERT(decimal(18,2),(P.Price + P.Price * P.ProductTax / 100) * ATC.Qty) as InvoiceProductAmount,
+			SUM(CONVERT(decimal(18,2),(P.Price + P.Price * P.ProductTax / 100) * ATC.Qty)) over (partition by OP.OrderId) as InvoiceProductSubTotal,
+
+
+			-------------------ProductDiscount
+			SUM(CONVERT(decimal(18,2),
+				 P.Price - (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate))
+			*ATC.Qty)) over (partition by ATC.SalonId) as InvoiceProductDiscount,
+
+			--------------ProductSubTotalWithDiscount
+			SUM(CONVERT(decimal(18,2),
+				  (case when (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate)) is null
+				  then (select CONVERT(decimal(18,2),Price) from Product where Id = ATC.ProductId)
+				  else (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate))
+				  end)
+			  *ATC.Qty)) over (partition by ATC.SalonId) as InvoiceProductSubTotalWithDiscount,
+
+			  ----------ProductTaxAmount
+			SUM(CONVERT(decimal(18,2),(
+				  (case when (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate)) is null
+				  then (select CONVERT(decimal(18,2),Price) from Product where Id = ATC.ProductId)
+				  else (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate))
+				  end)
+			* P.ProductTax / 100) * ATC.Qty)) over (partition by OP.OrderId) as InvoiceProductTaxAmount,
+
+			-----ProductTotal
+			SUM(CONVERT(decimal(18,2),(
+				  (case when (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate)) is null
+				  then (select CONVERT(decimal(18,2),Price) from Product where Id = ATC.ProductId)
+				  else (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate))
+				  end)
+			*ATC.Qty) 
+			+ 
+			(
+				(case when (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate)) is null
+				then (select CONVERT(decimal(18,2),Price) from Product where Id = ATC.ProductId)
+				else (select OfferPrice from Promotion where ProductId = ATC.ProductId and CONVERT(DATE,GETUTCDATE() ) >= CONVERT(DATE,StartDate) AND  CONVERT(DATE,GETUTCDATE()) <= CONVERT(DATE,EndDate))
+				end)
+			* P.ProductTax / 100) * ATC.Qty)) over (partition by OP.OrderId) as InvoiceProductTotal,
+			OP.CreatedDate	
+		from 
+			[dbo].[OrderProducts] OP
+			
+			left join
+			AddToCart ATC on ATC.Id = OP.AddToCartIds
+			left join
+			Product P on P.Id = ATC.ProductId
+			where OP.OrderId = @Id
+		Select  
+			Id,
+			OrderId,
+			LookUpStatusId,
+		    Comment,
+		    CreatedDate,
+			(select Name from LookUpStatus where Id = LookUpStatusId) as LookUpStatus
+		FROM 
+			[dbo].[OrderStatusTracking] 	       
+		WHERE
+			OrderId = @Id
+END
+

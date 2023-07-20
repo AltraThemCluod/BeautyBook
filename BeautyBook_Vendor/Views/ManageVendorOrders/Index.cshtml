@@ -1,0 +1,295 @@
+﻿@{
+    ViewBag.Title = "Manage Orders";
+}
+<style>
+    a {
+        color: #00acc1;
+        text-decoration: none;
+        background-color: transparent;
+    }
+
+    .link {
+        font-weight: 600;
+        color: #00acc1;
+    }
+</style>
+<link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@(BeautyBook_Vendor.Resources.Languages.Orders)</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(BeautyBook_Vendor.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        @(BeautyBook_Vendor.Resources.Languages.Orders)
+                                        @*<h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto"></h6>*@
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-header">
+            <form class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 row-cols-xxl-5 align-items-center align-items-xl-end mb-5">
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="productName" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Order_Id)</label>
+                            <input type="text" class="form-control" id="orderno" placeholder="@(BeautyBook_Vendor.Resources.Languages.Order_Id)">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="productType" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Salon_Name)</label>
+                            <select class="selectpicker form-control" id="salonName" title="@(BeautyBook_Vendor.Resources.Languages.Select_a_salon_name)" data-live-search="true" data-size="5">
+                                <option value="0">@(BeautyBook_Vendor.Resources.Languages.Select_a_type)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="orderStatusSearch" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Order_Status)</label>
+                            <select class="selectpicker form-control" id="orderStatus" title="@(BeautyBook_Vendor.Resources.Languages.Select_a_status)" data-size="5">
+                                <option value="16">@(BeautyBook_Vendor.Resources.Languages.Confirm)</option>
+                                <option value="20">@(BeautyBook_Vendor.Resources.Languages.Awaiting_Shipment)</option>
+                                <option value="19">@(BeautyBook_Vendor.Resources.Languages.Shipped)</option>
+                                <option value="18">@(BeautyBook_Vendor.Resources.Languages.Out_for_delivery)</option>
+                                <option value="21">@(BeautyBook_Vendor.Resources.Languages.Deliverd)</option>
+                                <option value="17">New</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="orderDate" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Order_Date)</label>
+                            <div class="input-group">
+                                <input type="text" class="datepicker singledatepicker form-control" tabindex="1" id="orderDate">
+                                <div class="input-group-append">
+                                    <span class="input-group-text text-muted">
+                                        <i class="bb-calendar fs-14"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-wide" id="searchOrderbtn" onclick="seachOrder();">@(BeautyBook_Vendor.Resources.Languages.Search)</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="searchOrderbtnloading" style="display:none;" disabled>
+                            @(BeautyBook_Vendor.Resources.Languages.Search) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="resetOrderbtn" onclick="resetOrder();">@(BeautyBook_Vendor.Resources.Languages.Reset)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="resetOrderbtnloading" style="display:none;" disabled>
+                            @(BeautyBook_Vendor.Resources.Languages.Reset) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+
+        <div class="app-content-inner">
+            <div class="container">
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive table-hover fs-14">
+                            <div class="">
+                                <div id="manageOrderdiv">
+                                    <table id="orderList" class="table table-card" style="width:100%; display:inherit;">
+                                        <!-- Ajax Color Table Body -->
+                                    </table>
+                                    <div id="orderListloader" style="display: none;" class="text-center mb-2 mt-2">
+                                        <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ORDER DETAILS -->
+<div class="modal fade" id="orderDetails" tabindex="-1" aria-labelledby="orderDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="orderDetailsLabel">@(BeautyBook_Vendor.Resources.Languages.Order_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <ul class="nav nav-lines" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="order-summery-tab" data-toggle="tab" href="#order-summery" role="tab" aria-controls="order-summery" aria-selected="true">@(BeautyBook_Vendor.Resources.Languages.Order_Summary)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="items-details-tab" data-toggle="tab" href="#items-details" role="tab" aria-controls="items-details" aria-selected="false">@(BeautyBook_Vendor.Resources.Languages.Items_Details)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="track-order-tab" data-toggle="tab" href="#track-order" role="tab" aria-controls="track-order" aria-selected="false">
+                            @(BeautyBook_Vendor.Resources.Languages.Track_Order)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="order-summery" role="tabpanel" aria-labelledby="order-summery-tab">
+                        <div class="row fs-14" id="ordersummaryetails">
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="items-details" role="tabpanel" aria-labelledby="items-details-tab">
+                        <div class="table-card table-responsive fs-14" id="orderitemdetails">
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="track-order" role="tabpanel" aria-labelledby="track-order-tab">
+                        <div class="row fs-14">
+                            <div class="col-12">
+
+                                <div class="card rounded-sm shadow-1">
+                                    <div class="card-body" id="orderstatustracking">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- UPDATE STATUS MODAL -->
+<div class="modal fade" id="changeOrderStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateStatusModalLabel">@(BeautyBook_Vendor.Resources.Languages.Update_Status)</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="form-group" id="updateStatusgrp">
+                            <label for="updateOrderStatus" class="custom-label">@(BeautyBook_Vendor.Resources.Languages.Order_Status)</label>
+                            <select class="selectpicker form-control" id="updateOrderStatus" title="@(BeautyBook_Vendor.Resources.Languages.Select_a_status)" data-size="5">
+                                <option value="16">@(BeautyBook_Vendor.Resources.Languages.Confirm)</option>
+                                <option value="20">@(BeautyBook_Vendor.Resources.Languages.Awaiting_Shipment)</option>
+                                <option value="19">@(BeautyBook_Vendor.Resources.Languages.Shipped)</option>
+                                <option value="18">@(BeautyBook_Vendor.Resources.Languages.Out_for_delivery)</option>
+                                <option value="21">@(BeautyBook_Vendor.Resources.Languages.Deliverd)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="custom-label" for="orderUpdateComment">@(BeautyBook_Vendor.Resources.Languages.Comment)</label>
+                            <textarea class="form-control" id="updateOrderStatusComment" rows="3" placeholder="@(BeautyBook_Vendor.Resources.Languages.Enter_your_comment_here)"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link" data-dismiss="modal" onclick="location.reload();">@(BeautyBook_Vendor.Resources.Languages.Close)</button>
+                <button type="button" id="Changestatus" onclick="orderChangestatus();" class="btn btn-primary font-weight-medium">@(BeautyBook_Vendor.Resources.Languages.Update)</button>
+                <button type="button" id="Changestatusloading" class="btn btn-primary font-weight-medium" disabled style="display:none;">
+                    Updating <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- CUSTOMER Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+
+                    <h5 class="modal-title text-white" id="customerModalLabel">@(BeautyBook_Vendor.Resources.Languages.Customer_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="salonformloader" style="display: none;" class="text-center mb-4">
+                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                </div>
+                <div class="row fs-14">
+                    <div class="col-lg-9">
+                        <div class="row" id="salondetails">
+                        </div>
+                    </div>
+                    <div class="col-lg-3" id="salonprofile">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+
+@*API JS FILE*@
+
+<script src="~/Content/BeautyBook_VendorAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorOrderAPI/ManageOrder/ManageOrder.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorOrderAPI/ManageOrder/OrderDetails.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorOrderAPI/ManageOrder/ChangeOrderStatus.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorOrderAPI/ManageOrder/OrderDelete.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorOrderAPI/ManageOrder/SalonDetails.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/VendorOrderAPI/Invoice/InvoiceDetails.js"></script>
+<script src="~/Content/BeautyBook_VendorAPI/Dashboard/VendorNewOrder.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+
+        //orderlist api function call
+        orderList.init();
+        //Salon list dropdown
+        salonlistdropdown();
+    });
+</script>
+
+
+

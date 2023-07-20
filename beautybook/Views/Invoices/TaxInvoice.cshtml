@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Manage Invoice";
+}
+<link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">@beautybook.Resources.Languages.Manage_Invoice</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@beautybook.Resources.Languages.Manage_Invoice</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="app-content-header text-left-to-right">
+            <form class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 row-cols-xxl-5 align-items-center align-items-xl-end">
+                    <div class="col-lg-2">
+                        <label for="employeeName" class="custom-label">@(beautybook.Resources.Languages.Date)</label>
+                        <div class="col-sm-12 p-0">
+                            <div class="input-group">
+                                <input type="text" class="datepicker w-100 singledatepicker form-control" placeholder="" name="InvoiceDate" tabindex="3" id="InvoiceDate">
+                                <div class="input-group-append input-box-label">
+                                    <span class="input-group-text text-muted">
+                                        <i class="bb-calendar fs-21"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeStatus" class="custom-label">Invoice Number</label>
+                            <input type="text" id="InvoiceNumber" name="InvoiceNumber" class="form-control" value="" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeStatus" class="custom-label">Saller Name</label>
+                            <select class="selectpicker form-control" tabindex="6" id="CustomerName" name="CustomerName" data-live-search="true" data-size="5" title="@(beautybook.Resources.Languages.Select_a_option)">
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-wide" tabindex="4" id="Searchbtn" onclick="TaxInvoiceSearch();">@(beautybook.Resources.Languages.Search)</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="Searchbtnloading" disabled style="display:none;">
+                            @(beautybook.Resources.Languages.Search)  <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" tabindex="5" onclick="ResetTaxInvoice();" id="ResetDatabtn">@(beautybook.Resources.Languages.Reset)</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="Resetbtnloading" disabled style="display:none;">
+                            @(beautybook.Resources.Languages.Reset) <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane fade  active show" id="grid-view" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div id="TaxInvoiceDiv">
+                                        <table id="TaxInvoice" class="table table-card" style="width:100%; display:inherit;">
+                                        </table>
+                                        <div id="ManageListingloader" style="display:none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="card-view" role="tabpanel">
+                        <div class="row" id="defualtServiceSelect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<!-- Custom JS -->
+<script src="~/Content/assets/js/main.js"></script>
+
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/InvoicesAPI/ManageTaxInvoice/ManageTaxInvoice.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        ArbicLanguage();
+        //SiplifedInvoice API function call
+        TaxInvoiceList.init();
+
+        //InvoiceCustomers list
+        InvoiceCustomers();
+    });
+</script>

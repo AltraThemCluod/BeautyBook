@@ -1,0 +1,257 @@
+﻿@{
+    ViewBag.Title = "Manage Employee";
+}
+
+<main class="app-content">
+
+    <div class="app-content-wrapper">
+        <div class="app-content-title">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                            <h6 class="mb-0 pb-3 pb-sm-0 order-2 order-sm-1 mr-auto">Employee Manager</h6>
+                            <nav aria-label="breadcrumb" class="order-1 order-sm-2 ml-sm-3">
+                                <ol class="breadcrumb mb-0 pl-0">
+                                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">@(beautybook.Resources.Languages.Manage_Employee)</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-content-header">
+            <form class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 row-cols-xxl-5 align-items-center align-items-xl-end mb-5">
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeName" class="custom-label">@beautybook.Resources.Languages.Employee_Name</label>
+                            <input type="text" class="form-control" tabindex="1" id="employeeName" placeholder="@beautybook.Resources.Languages.Employee_Name">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeType" class="custom-label">@beautybook.Resources.Languages.Type</label>
+                            <select class="selectpicker form-control" tabindex="2" id="employeeType" title="@(beautybook.Resources.Languages.Select_a_type)" data-size="6">
+                                <option value="0">@(beautybook.Resources.Languages.Select_a_type)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeRole" class="custom-label">@beautybook.Resources.Languages.Role</label>
+                            <select class="selectpicker form-control" tabindex="3" id="employeeRole" title="@beautybook.Resources.Languages.Select_a_option" data-size="6">
+                                <option value="0">@beautybook.Resources.Languages.Select_a_option</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group mb-xl-0">
+                            <label for="employeeStatus" class="custom-label">@beautybook.Resources.Languages.Status</label>
+                            <select class="selectpicker form-control" tabindex="4" id="employeeStatus" title="@beautybook.Resources.Languages.Select_a_option" data-size="6">
+                                <option value="0">@beautybook.Resources.Languages.Any</option>
+                                <option value="1">@beautybook.Resources.Languages.Active</option>
+                                <option value="2">@beautybook.Resources.Languages.In_active</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-wide" tabindex="5" id="employeeSearch" onclick="searchEmployeedata();">@beautybook.Resources.Languages.Search</button>
+                        <button type="button" class="btn btn-primary btn-wide" id="employeeSearchloading" style="display:none;" disabled>
+                            @beautybook.Resources.Languages.Search <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" tabindex="6" id="employeeReset" onclick="Employeedatareset();">@beautybook.Resources.Languages.Reset</button>
+                        <button type="button" class="btn btn-link btn-sm fs-13 text-muted" id="employeeResetloading" style="display:none;" disabled>
+                            @beautybook.Resources.Languages.Reset <i class="fa fa-circle-o-notch ml-1 fa-spin" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="grid-view" role="tabpanel">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive table-hover fs-14">
+                                    <div class="employeeDatalistdiv">
+                                        <table id="employeeDatalist" class="table table-card" style="width:100%; display:inherit;">
+                                        </table>
+                                        <div id="loader" style="display: none;" class="text-center mb-2 mt-2">
+                                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Employee Profile Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-right modal-dialog-scrollable">
+        <form class="modal-content">
+            <div class="modal-header bg-primary flex-column align-items-start border-bottom-0 pb-0">
+                <div class="d-flex justify-content-between w-100 mb-2">
+                    <h5 class="modal-title text-white" id="employeeModalLabel">@(beautybook.Resources.Languages.Employee_Details)</h5>
+                    <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <ul class="nav nav-lines" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">@beautybook.Resources.Languages.Basic_Info</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">@beautybook.Resources.Languages.Services</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="WorkingHours-tab" data-toggle="tab" href="#WorkingHours" role="tab" aria-controls="WorkingHours" aria-selected="false">@(beautybook.Resources.Languages.Working_Hours)</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="leave-tab" data-toggle="tab" href="#leave" role="tab" aria-controls="leave" aria-selected="false">@(beautybook.Resources.Languages.Leave)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="AssignToAppointments-tab" data-toggle="tab" href="#AssignToAppointments" role="tab" aria-controls="leave" aria-selected="false">@beautybook.Resources.Languages.Appointments</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+                        <div class="row fs-14" id="employeeInfodetails">
+
+                        </div>
+                        <div id="employeeProfileloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="services" role="tabpanel" aria-labelledby="services-tab">
+                        <div class="fs-14 mx-3" id="userServicestable">
+
+                        </div>
+                        <div id="userServicestableloader" style="display: none;" class="text-center mb-2 mt-2">
+                            <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="WorkingHours" role="tabpanel" aria-labelledby="WorkingHours-tab">
+                        <div class="fs-14 mx-3">
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary w-lg-50">@beautybook.Resources.Languages.Day</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.Start)</th>
+                                            <th class="bg-soft-primary text-primary">@(beautybook.Resources.Languages.End)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeeWorksheet"></tbody>
+                                </table>
+                                <div id="employeeWorksheetloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+                        <div class="fs-14 mx-3">
+                            <div id="leaveCountList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 text-center">
+
+                            </div>
+                            <div id="leaveCountListloader" style="display: none;" class="text-center mb-2 mt-2">
+                                <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="AssignToAppointments" role="tabpanel" aria-labelledby="AssignToAppointments-tab">
+                        <div class="fs-14 mx-3" id="AssignToAppointmentsListtable">
+                            <h6 class="mb-3">@(beautybook.Resources.Languages.Appointments)</h6>
+                            <div class="table-responsive table-card mb-3">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.ID</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Date</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Service_Name</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Customer_Name</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Price</th>
+                                            <th class="bg-soft-primary text-primary">@beautybook.Resources.Languages.Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="AssignToAppointmentslist">
+                                    </tbody>
+                                </table>
+                                <div id="AssignToAppointmentslistloader" style="display: none;" class="text-center mb-2 mt-2">
+                                    <img src='~/Content/assets/images/ajax-loader.gif' width='32px' height='32px'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" id="profileModalbtn">
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+@*API JS FILE*@
+<script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/ManageEmployee/ManageEmployee.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/EmployeeDetails/EmployeeDetails.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/ManageEmployee/EmployeeProfile.js"></script>
+<script src="~/Content/BeautyBookAPI/EmployeeAPI/ManageEmployee/EmployeeActInAct.js"></script>
+
+<script>
+    
+    $(document).ready(function () {
+        ArbicLanguage();
+       
+        // EmployeeList API function call
+        EmployeeList.init();
+
+        //employeeTypedrp API function call
+        employeeTypedrp();
+
+        //employeeRolesdrp API function call
+        employeeRolesdrp();
+
+        //employeeIscreate api function call
+        employeeIscreate();
+    });
+    
+</script>
+
+
+

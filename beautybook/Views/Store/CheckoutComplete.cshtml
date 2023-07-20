@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Checkout Complete";
+}
+
+<style>
+    .loader-text {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .loader-text:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: -1;
+        background-filter: blur(1px);
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    .loader-text {
+        position: fixed;
+        z-index: 9999;
+        width: 100%;
+        display: none;
+    }
+
+        .loader-text span {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            align-items: center;
+            min-height: 100vh;
+            color: #000;
+        }
+</style>
+
+<p class="loader-text cmn-text"><span>@(beautybook.Resources.Languages.Order_is_in_process_please_do_not_refresh_the_page___)</span></p>
+
+<main class="app-content">
+    <div class="app-content-wrapper">
+
+        <div class="app-content-inner">
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-6">
+                        <img src="~/Content/assets/images/media/hi-five.svg" alt="">
+                        <div class="my-4">
+                            <p>@(beautybook.Resources.Languages.Order_NO) <a href="javascript:;" id="orderNumber" class="link"></a></p>
+                            <h3 class="font-weight-medium ls-normal">@(beautybook.Resources.Languages.Thank_you_for_your_order_)</h3>
+                            <p class="lead text-gray-600">
+                                @(beautybook.Resources.Languages.Your_order_has_been_placed_and_will_be_processed_as_soon_as_possible__You_will_receive_an_email_confirmation_)
+
+                            </p>
+                        </div>
+
+                        <a class="btn btn-primary font-weight-semibold" href="@Url.Action("Index","Store")">
+                            <i class="bb-shopping-cart fs-14 mr-1"></i> @(beautybook.Resources.Languages.Continue_Shopping)
+                        </a>
+                        <a class="btn btn-primary font-weight-semibold" href="@Url.Action("Invoice","Store")">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            @(beautybook.Resources.Languages.Invoice)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Core Scripts -->
+<script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/popper/popper.min.js"></script>
+
+<script>
+    //getCookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var OrderNumber = getCookie("OrderNo");
+
+    $(document).ready(function () {
+        ArbicLanguage();
+        $('#orderNumber').text(atob(OrderNumber));
+        if (@ViewBag.OrdId > 0) {
+            $('.loader-text').show();
+            IsPaymentComplete();
+        }
+    });
+
+    //IsPaymentComplete api call
+    function IsPaymentComplete() {
+        
+        var DeviceTokenNumber = getCookie("DeviceToken&Type");
+        debugger;
+        $.ajax({
+            type: 'POST',
+            url: APIEndPoint + `/api/orders/Orders_PaymentComplete?Id=@ViewBag.OrdId`,
+            headers: { 'Content-Type': 'application/json', "Authorization": '' + DeviceTokenNumber + '' },
+            dataType: 'json',
+            crossDomain: true,
+            success: function (result) {
+                debugger;
+                window.location.href = "/Store/CheckoutComplete"
+                $('.loader-text').hide();
+            }, error: function (error) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: error.responseJSON.Message,
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                $('.loader-text').hide();
+            }
+        });
+    }
+
+</script>

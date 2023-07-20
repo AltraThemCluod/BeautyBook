@@ -1,0 +1,38 @@
+
+// Soft backgrounds colors varient
+@each $name, $color in $theme-colors {
+    .bg-soft-#{$name} {
+        background-color: mix($color, $white, 8%) !important;
+    }
+}
+
+// Light backgrounds colors varient
+@each $name, $color in $theme-colors {
+    .bg-light-#{$name} {
+        background-color: mix($color, $white, 3%) !important;
+    }
+}
+
+// Light backgrounds colors varient
+@each $name, $color in $grays {
+    .bg-gray-#{$name} {
+        background-color: $color !important;
+    }
+}
+
+
+// Light backgrounds colors varient
+@each $name, $color in $grays {
+    .bg-hover-gray-#{$name} {
+
+        &:hover{
+            background-color: $color !important;
+        }
+       
+    }
+}
+
+
+.bg-dark-primary{
+    background-color: $bg-dark-primary;
+}

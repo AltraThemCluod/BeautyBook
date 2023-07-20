@@ -1,0 +1,163 @@
+﻿/*.arabic-lan .navbar-collapse {
+    flex-grow:1;
+}*/
+.arabic-lan .navbar-collapse .rtl-drop{
+    text-align:right;
+}
+.arabic-lan .text-left-to-right, .arabic-lan .dataTables_info {
+    text-align: right !important;
+}
+.arabic-lan .text-right-to-left {
+    text-align: left !important;
+}
+.arabic-lan .dataTables_wrapper .dataTables_length {
+    text-align: right !important;
+}
+.arabic-lan .dataTables_wrapper .dataTables_filter {
+    text-align: left !important;
+}
+.arabic-lan .dataTables_wrapper .dataTables_filter .form-control{
+    margin-left:0;
+    margin-right:5px;
+}
+/*.arabic-lan .dataTables_wrapper .dropdown {
+    text-align: -webkit-left;
+}*/
+.arabic-lan .dataTables_wrapper .dropdown .dropdown-item{
+    text-align: right;
+}
+.arabic-lan .dataTables_wrapper .dropdown .dropdown-item i{
+    margin-left: 10px;
+    margin-right: 0 !important;
+}
+.arabic-lan .bootstrap-select .dropdown-menu{
+    text-align:right !important;
+}
+.arabic-lan .bootstrap-select .filter-option-inner {
+    text-align: right !important;
+}
+.arabic-lan .input-box-label {
+    left: 0;
+    right: initial;
+}
+.arabic-lan .input-group-append {
+    margin-left: 0;
+}
+.arabic-lan .custom-label{
+    float:right;
+}
+.arabic-lan table{
+    text-align:right;
+}
+.arabic-lan .card-header{
+    text-align:right;
+}
+.arabic-lan .modal-dialog-right {
+    text-align: right;
+}
+.arabic-lan .bb-printer, .arabic-lan .bb-download {
+    margin-left: 5px;
+    margin-right: 0px;
+}
+.arabic-lan .breadcrumb-item + .breadcrumb-item::before {
+    float: right;
+    padding-left: 0.5rem;
+}
+.arabic-lan .rating_wrap{
+    display:initial;
+}
+.arabic-lan .rating_wrap .rating_num{
+    margin-left: 0px;
+}
+.arabic-lan #productBasicDetails img {
+    margin-right: 0 !important;
+    margin-left: 15px !important;
+}
+.arabic-lan #productBasicDetails div{
+    text-align:right;
+}
+.arabic-lan .bootstrap-touchspin-down {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+}
+.arabic-lan .bootstrap-touchspin-up {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
+}
+.arabic-lan .nav-custom-pills , .arabic-lan .pr_action_btn{
+    padding:0 !important;
+}
+.arabic-lan .nav-custom-pills .nav-item:last-of-type .nav-link {
+    margin: 0.3125rem 0 0.3125rem .3125rem;
+}
+.arabic-lan .nav-custom-pills .nav-item:first-of-type .nav-link {
+    margin: 0.3125rem 0.3125rem 0.3125rem 0;
+}
+.arabic-lan #vendorDetailscard .vendor-basic-details {
+    text-align:right;
+    margin-right:10px;
+}
+.arabic-lan #vendorDetailscard .text-right {
+    text-align: left !important;
+}
+.arabic-lan .product-basic-details{
+    text-align:right;
+    padding-right:25px;
+}
+.arabic-lan .product-delete {
+    text-align: left !important;
+}
+.arabic-lan #priceTotalSidebar h4, .arabic-lan #priceTotalSidebar h3 {
+    text-align: left !important;
+}
+.arabic-lan .product-amount-details h4, .arabic-lan .product-amount-details h3 {
+    text-align: left !important;
+}
+.arabic-lan #subTotalarea .vendor-order-subtotal dd {
+    margin: 0;
+    margin-bottom: 8px;
+}
+.arabic-lan #shippingaddresslist, .arabic-lan .billing-address {
+    text-align: right;
+}
+.arabic-lan .add-new-address {
+    float:right;
+}
+.arabic-lan .leave-table-btn .mr-2 {
+    margin-left: 10px !important;
+}
+.arabic-lan .note-editor{
+    text-align:right !important;
+}
+/*Signin page arbic language*/
+.arabic-lan-signin form {
+    text-align: right !important;
+}
+.arabic-lan-signin .avatar-xss {
+    margin-left:10px !important;
+    margin-right:0 !important;
+}
+.arabic-lan-signin .password-checkbox {
+    float: left !important;
+}
+
+/*EmailVerification page arbic language*/
+.arabic-lan-EmailVerification form {
+    text-align: right !important;
+}
+
+/*ResetPassword page arbic language*/
+.arabic-lan-ResetPassword form {
+    text-align: right !important;
+}
+
+
+/*EmailVerificationCode page arbic language*/
+.arabic-lan-EmailVerificationCode form .form-group {
+    text-align: right !important;
+}
+

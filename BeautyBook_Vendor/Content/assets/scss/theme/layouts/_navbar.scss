@@ -1,0 +1,25 @@
+.navbar-nav{
+
+    .nav-link{
+        font-weight: $font-weight-medium;
+        font-size: 15px;
+        border-radius: $border-radius;
+        margin:  0 0.125rem;
+        
+        &:hover,
+        &:focus,
+        &:active,
+        &.active{
+            background-color: darken($color: $primary, $amount: 5);
+        }
+    }
+
+    .nav-item{
+        &.show{
+            .nav-link{
+                background-color: darken($color: $primary, $amount: 5);
+            }
+        }
+    }
+
+}

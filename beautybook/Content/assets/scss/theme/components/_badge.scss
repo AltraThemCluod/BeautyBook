@@ -1,0 +1,7 @@
+@each $color,
+$value in $theme-colors {
+    .badge-soft-#{$color} {
+        background-color: lighten($color: $value, $amount: 40%);
+        color: $value;
+    }
+}

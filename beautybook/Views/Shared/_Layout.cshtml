@@ -1,0 +1,1312 @@
+﻿@using BeautyBook.Common;
+@{ /**/
+
+    var curController = Convert.ToString(ViewContext.RouteData.Values["Controller"]);
+    var curAction = Convert.ToString(ViewContext.RouteData.Values["Action"]);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Metatags -->
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <meta name=author content="">
+    <title>@ViewBag.Title :: Zaan</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon.png">
+    @*<link rel="apple-touch-icon" sizes="152x152" href="~/Content/assets/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="~/Content/assets/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicons/favicon-16x16.png">*@
+    @*<link rel="manifest" href="~/Content/assets/images/favicons/site.webmanifest">*@
+    @*<link rel="mask-icon" href="~/Content/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <meta name="msapplication-TileColor" content="#e94a1f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Font Stylesheet -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="~/Content/assets/css/main.min.css" rel=stylesheet>
+    <link href="~/Content/assets/css/pos-style.css" rel=stylesheet>
+    <link href="~/Content/assets/css/arabic.css" rel=stylesheet>
+    <style>
+
+        #loader_langauge {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            /*background-image: url('../../assets/loader/1494.gif');*/
+            background: url('../../content/assets/images/ajax-loader.gif')50% 50% no-repeat rgb(249,249,249);
+            /*background: url('../../assets/loader/1494.gif') 50% 50% no-repeat rgb(249,249,249);*/
+        }
+
+        .keyframes spin {
+            transform: rotate(360deg);
+        }
+
+        .pac-container {
+            z-index: 10000 !important;
+        }
+
+        :root {
+            --star-size: 25px;
+            --star-color: #ccc;
+            --star-background: #f3bf28;
+        }
+
+        .Stars {
+            --percent: calc(var(--rating) / 5 * 100%);
+            display: inline-block;
+            font-size: var(--star-size);
+            font-family: Times;
+            line-height: 1;
+        }
+
+            .Stars::before {
+                content: '★★★★★';
+                letter-spacing: 0px;
+                background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+        .active-light {
+            color: #11151e !important;
+            text-decoration: none !important;
+            background-color: #f8f9fa !important;
+        }
+
+        .vendor-details-profile {
+            width: 100px !important;
+            background: #00acc1 !important;
+            color: #fff !important;
+            height: 100px !important;
+            font-size: 41px !important;
+            margin-right: 10px !important;
+        }
+
+        .table-card thead tr th {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            font-size: 12px;
+            line-height: 1.2;
+            letter-spacing: 0.1em;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .form-sticky {
+            position: sticky;
+            top: 80px;
+        }
+
+        .languages-drp .dropdown-menu {
+            padding: 0 !important;
+        }
+
+        .side-drp .form-control {
+            background-color: transparent !important;
+        }
+
+        .side-drp .btn-white {
+            background-color: transparent !important;
+            border: none !important;
+            color: #fff;
+        }
+
+            .side-drp .btn-white:hover {
+                background-color: transparent !important;
+                border: none !important;
+                color: #fff !important;
+            }
+
+        h6[aria-expanded="true"] > .bb-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .loader-text {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .loader-text:before {
+                position: absolute;
+                content: "";
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                z-index: -1;
+                background-filter: blur(1px);
+                backdrop-filter: blur(10px);
+                background-color: rgba(255, 255, 255, 0.5);
+            }
+
+        .loader-text {
+            position: fixed;
+            z-index: 9999;
+            width: 100%;
+            display: none;
+        }
+
+            .loader-text span {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                align-items: center;
+                min-height: 100vh;
+                color: #000;
+            }
+
+        .contact-number {
+            flex-wrap: inherit;
+        }
+
+            .contact-number input {
+                width: 100% !important;
+            }
+
+        .brrt-rb {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
+        .brlt-lb {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+
+        .note-editor {
+            background: #fff !important;
+        }
+
+        .custom-control-input {
+            z-index: 1 !important;
+        }
+
+        .cart-count {
+            background: #dc3545;
+            font-size: 10px;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            top: -5px;
+            right: -5px;
+        }
+
+        .appo-pos-delete {
+            position: absolute;
+            right: -5%;
+            z-index: 9;
+        }
+
+        .service-error {
+            box-shadow: 0px 0 12px rgb(255 0 0 / 10%) !important;
+            border: 1px solid #ff0000;
+        }
+
+        .object-cover-h-100 {
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .w-70 {
+            width: 70%;
+        }
+
+        .count-arrow .bb-chevron-up, .count-arrow .bb-chevron-down {
+            cursor: pointer;
+        }
+
+            .count-arrow .bb-chevron-up:hover, .count-arrow .bb-chevron-down:hover {
+                color: #00515b;
+            }
+
+        .error {
+            font-size: 12px;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .pos-orderdetails {
+            height: 416px;
+            overflow: auto;
+        }
+
+            .pos-orderdetails::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .pos-orderdetails::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            .pos-orderdetails::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 10px;
+            }
+
+                .pos-orderdetails::-webkit-scrollbar-thumb:hover {
+                    background: #555;
+                }
+
+        .pos-order-complete {
+            height: 113px;
+            overflow: auto;
+        }
+
+            .pos-order-complete::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .pos-order-complete::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            .pos-order-complete::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 10px;
+            }
+
+                .pos-order-complete::-webkit-scrollbar-thumb:hover {
+                    background: #555;
+                }
+
+        .spinner-border {
+            width: 1.4rem;
+            height: 1.4rem;
+        }
+
+        .product-defualt-img {
+            height: 300px !important;
+            object-fit: cover;
+        }
+
+        .contact-number label.error {
+            position: absolute;
+            bottom: -28px;
+            left: 0;
+        }
+
+        /*//////////////////////////////////////////*/
+        /*.overlay {
+            display: none;
+        }*/
+
+        .overlay-loader {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            background: rgb(255 255 255 / 97%) center no-repeat;
+        }
+        /* Turn off scrollbar when body element has the loading class */
+        body.loading {
+            overflow: hidden;
+        }
+        /* Make spinner image visible when body element has the loading class */
+        /* body.loading .overlay {
+            display: block;
+        }*/
+
+
+        /*Invoice address formate css*/
+        #address_formate table, #address_formate th, #address_formate td {
+            border: 1px solid #dee2e6;
+            border-collapse: collapse;
+        }
+
+        .border-none {
+            border: none !important;
+        }
+
+        .border-bottom-left-none {
+            border-bottom: none !important;
+            border-left: none !important;
+        }
+
+        .border-right-none {
+            border-right: none !important;
+        }
+
+        .border-left-none {
+            border-left: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay row m-0">
+        <div class="overlay-loader">
+            <img src='~/Content/assets/images/ajax-loader.gif' width='32' height='32'> <p class="mb-0 ml-2">@beautybook.Resources.Languages.Loading...</p>
+        </div>
+    </div>
+    <div class="app-root">
+        <div class="app-wrapper">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark-primary w-100">
+                    <div class="container-fluid">
+                        <a class="h5 font-weight-medium d-flex align-items-center pr-3 mb-0 beauty-book-logo" href="@Url.Action("Index","Home")">
+                            <img src="~/Content/assets/images/logo-white.png" alt="" class="mr-3" height="40">
+                        </a>
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                            <div id="beautyBookmenu">
+
+                            </div>
+
+                            <div class="d-flex align-items-center ml-auto side-drp">
+                                <div class="d-flex align-items-center ml-auto" id="iconMenubar">
+
+                                </div>
+                                <div class="ml-auto rtl-drop mr-2">
+                                    <div class="dropdown">
+                                        <div class="d-flex align-items-center " data-toggle="dropdown" role="button" id="userProfilebox">
+
+                                        </div>
+
+                                        <div class="dropdown-menu text-left-to-right dropdown-menu-right p-0 navbar-drp">
+                                            <div class="bg-primary rounded-top p-3" id="UsernameBox">
+
+                                            </div>
+
+                                            <div class="p-2">
+                                                <a class="dropdown-item" id="profileId" href="@Url.Action("EditProfile","MyProfile")">@(beautybook.Resources.Languages.Profile)</a>
+                                                @if (ProjectSession.UserTypeId == 2)
+                                                {
+                                                    <a class="dropdown-item" href="@Url.Action("EditSalonInfo","Salons")" id="editInfo">@(beautybook.Resources.Languages.Edit_Info)</a>
+                                                    <a class="dropdown-item" href="javascript:void(0)" onclick="changeSalons();" id="changeSalon">@(beautybook.Resources.Languages.Change_Salon)</a>
+                                                }
+                                                <a class="dropdown-item" href="@Url.Action("ChangePassword","Authentication")" id="settingsId">@(beautybook.Resources.Languages.Settings)</a>
+                                                <a class="dropdown-item" onclick="userLogout();" href="javascript:void(0)">@(beautybook.Resources.Languages.Logout)</a>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                @*<div class="keyframes" id="loader_langauge" style="display:none;"></div>*@
+                                <select class="selectpicker form-control ml-auto languages-drp LanSelect" id="LanSelect" onchange="LanguageSelect();">
+                                    <option value="en" id="en">EN</option>
+                                    <option value="ar" id="ar" selected>AR</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            @RenderBody()
+
+
+        </div>
+    </div>
+
+
+    <script src="~/Content/BeautyBookAPI/APIEndPoint.js"></script>
+    <script src="~/Content/BeautyBookAPI/Comon/Layout.js"></script>
+
+    <!-- Scripts -->
+    <script src="~/Content/assets/js/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/Content/assets/js/popper/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="~/Content/assets/js/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/assets/js/fancybox/jquery.fancybox.min.js"></script>
+
+    <!-- Plugin Path -->
+    <script>var plugin_path = '/Content/assets/js/';</script>
+
+    <script src="~/Content/assets/js/sweetalert/sweetalert2.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/Content/assets/js/daterangepicker/daterangepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
+    <!-- Custom JS -->
+
+    <script src="~/Content/assets/js/main.js"></script>
+    <script src="~/Content/BeautyBookAPI/Pagination.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/sl-1.3.0/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+
+    <script>
+        $(document).on({
+            //ajaxStart: function () {
+            //    //$("body").addClass("loading");
+            //},
+            ajaxStop: function () {
+                $(".overlay").hide();
+            }
+        });
+
+        //getCookie
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+
+        }
+
+
+        //setCookie
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        var Language = getCookie("Languages");
+
+        // delete cookie
+        $(document).ready(function () {
+
+            //if (Language != 'en') {
+            //    setCookie("Languages", "ar", 30);
+            //}
+            EmployeePermission();
+            CartProductCount();
+            WishlistProductcount();
+
+            $('.selectpicker').selectpicker();
+            checkAuthenticationApi();
+
+            $('#LanSelect').val(Language == "" ? 'en' : Language);
+            if (Language == "en") {
+                $('html').attr('dir', 'ltl');
+                $('html').attr('lang', 'en');
+            } else if (Language == "ar") {
+                $('html').attr('dir', 'rtl');
+                $('html').attr('lang', 'ar');
+                $('body').addClass('arabic-lan');
+            }
+
+            $(document).on('keyup', 'input[type="number"]', function () {
+                if ($(this).val() > Number($(this).attr("max"))) {
+                    val = $(this).val().slice(0, $(this).attr("max").length);
+                    $(this).val(val);
+                }
+            });
+
+            ArbicLanguage();
+            BackToButton();
+        });
+
+
+        //Get array of permission
+        var PermissionData = "";
+        function EmployeePermission() {
+            debugger;
+            $.ajax({
+                type: 'POST',
+                url: '/SetAuthCookie/GetPermissionData',
+                dataType: 'json',
+                crossDomain: true,
+                async: false,
+                success: function (result)
+                {
+                    PermissionData = result;
+                },
+                error: function (error)
+                {
+                    //Error function
+                }
+            });
+        }
+
+        var Langaugestore = {};
+        function ArbicLanguage() {
+            Langaugestore = {
+                addNewSalon: "@beautybook.Resources.Languages.Add_New_Salon",
+                BackToDashboard: "@beautybook.Resources.Languages.Back_to_Dashboard",
+                BackToSalonDetails: "@beautybook.Resources.Languages.Back_to_salon_details",
+                ServiceName: "@beautybook.Resources.Languages.Service_Name",
+                ServiceCategory: "@beautybook.Resources.Languages.Service_Category",
+                Duration: "@beautybook.Resources.Languages.Duration",
+                Price: "@beautybook.Resources.Languages.Price",
+                Status: "@beautybook.Resources.Languages.Status",
+                Actions: "@beautybook.Resources.Languages.Actions",
+                NoRecordsFound: "@beautybook.Resources.Languages.No_Records_Found",
+                TOTALDURATION: "@beautybook.Resources.Languages.TOTAL_DURATION",
+                SERVICELIST: "@beautybook.Resources.Languages.SERVICE_LIST",
+                PACKAGENAME: "@beautybook.Resources.Languages.PACKAGE_NAME",
+                Print : "@beautybook.Resources.Languages.Print",
+                ExporttoExcel: "@beautybook.Resources.Languages.Export_to_Excel",
+                EmployeeName: "@beautybook.Resources.Languages.Employee_Name",
+                Gender: "@beautybook.Resources.Languages.Gender",
+                Type: "@beautybook.Resources.Languages.Type",
+                Role: "@beautybook.Resources.Languages.Role",
+                PHONE: "@beautybook.Resources.Languages.PHONE",
+                Email: "@beautybook.Resources.Languages.Email",
+                LeaveType: "@beautybook.Resources.Languages.Leave_Type",
+                CustomerName: "@beautybook.Resources.Languages.Customer_Name",
+                @*Email: "@beautybook.Resources.Languages.EmailUnite_Price
+                @*PHONE: "@beautybook.Resources.Languages.PHONE",*@
+                Appointments: "@beautybook.Resources.Languages.Appointments",
+                SALES: "@beautybook.Resources.Languages.SALES",
+                LastVisit: "@beautybook.Resources.Languages.Last_Visit",
+                Actions: "@beautybook.Resources.Languages.Actions",
+                NoofDays: "@beautybook.Resources.Languages.No__of_Days",
+                ProductName: "@beautybook.Resources.Languages.Product_Name",
+                ProductType: "@beautybook.Resources.Languages.Product_Type",
+                Brand: "@beautybook.Resources.Languages.Brand",
+                Weight: "@beautybook.Resources.Languages.Weight",
+                InStock: "@beautybook.Resources.Languages.In_Stock",
+                LowQtyAlert: "@beautybook.Resources.Languages.Low_Qty_Alert",
+                Date: "@beautybook.Resources.Languages.Date",
+                Services: "@beautybook.Resources.Languages.Services",
+                NoPackageSelected: "@beautybook.Resources.Languages.No_Package_Selected",
+                FreePlan: "@beautybook.Resources.Languages.Free_Plan",
+                SmallPackage: "@beautybook.Resources.Languages.Small_Package",
+                MediumPackage: "@beautybook.Resources.Languages.Medium_Package",
+                LargePackage: "@beautybook.Resources.Languages.Large_Package",
+                UnlimitedPackage: "@beautybook.Resources.Languages.Unlimited_Package",
+                Messages: "@beautybook.Resources.Languages.Messages",
+                Day: "@beautybook.Resources.Languages.Day",
+                SelectPlan: "@beautybook.Resources.Languages.Select_Plan",
+                TextMessages: "@beautybook.Resources.Languages.Text_Messages",
+                SUBJECT: "@beautybook.Resources.Languages.SUBJECT",
+                CREATEDBY: "@beautybook.Resources.Languages.CREATED_BY",
+                EDIT: "@beautybook.Resources.Languages.EDIT",
+                OfferName: "@beautybook.Resources.Languages.Offer_Name",
+                Close: "@beautybook.Resources.Languages.Close",
+                Edit_Profile: "@beautybook.Resources.Languages.Edit_Profile",
+                Select_a_status: "@beautybook.Resources.Languages.Select_a_status",
+                Select_a_type: "@beautybook.Resources.Languages.Select_a_type",
+                Approved: "@beautybook.Resources.Languages.Approved",
+                Rejected: "@beautybook.Resources.Languages.Rejected",
+                Approval_Pending: "@beautybook.Resources.Languages.Approval_Pending",
+                Full_Name: "@beautybook.Resources.Languages.Full_Name",
+                Alternate_Phone: "@beautybook.Resources.Languages.Alternate_Phone",
+                Customer_Since: "@beautybook.Resources.Languages.Customer_Since",
+                Last_Visit: "@beautybook.Resources.Languages.Last_Visit",
+                Delete: "@beautybook.Resources.Languages.Delete",
+                Add_New_Customer: "@beautybook.Resources.Languages.Add_New_Customer",
+                Low_Qty_Alert: "@beautybook.Resources.Languages.Low_Qty_Alert",
+                View: "@beautybook.Resources.Languages.View",
+                Update_Quantity: "@beautybook.Resources.Languages.Update_Quantity",
+                Subtract_Quantity: "@beautybook.Resources.Languages.Subtract_Quantity",
+                Product_Name: "@beautybook.Resources.Languages.Product_Name",
+                Edit_Profile: "@beautybook.Resources.Languages.Edit_Profile",
+                Contact: "@beautybook.Resources.Languages.Contact",
+                Comment : "@beautybook.Resources.Languages.Comment",
+
+
+
+                SERVICEPACKAGENAME: "@beautybook.Resources.Languages.SERVICE___PACKAGE_NAME",
+                OFFERDATE: "@beautybook.Resources.Languages.OFFER_DATE",
+                START_TIME: "@beautybook.Resources.Languages.START_TIME",
+                END_TIME: "@beautybook.Resources.Languages.END_TIME",
+                Original_Price: "@beautybook.Resources.Languages.Original_Price",
+                Offer_Price: "@beautybook.Resources.Languages.Offer_Price",
+                Manage_Daily_Deals: "@beautybook.Resources.Languages.Manage_Daily_Deals",
+
+                Add_New_Daily_Deals: "@beautybook.Resources.Languages.Add_New_Daily_Deals",
+                Offer_Price_for_Service_Packages: "@beautybook.Resources.Languages.Offer_Price_for_Service_Packages",
+                Manage_Daily_Deals: "@beautybook.Resources.Languages.Manage_Daily_Deals",
+                Service_Name: "@beautybook.Resources.Languages.Service_Name",
+
+                IN_TIME: "@beautybook.Resources.Languages.IN_TIME",
+                OUT_TIME: "@beautybook.Resources.Languages.OUT_TIME",
+                BREAK: "@beautybook.Resources.Languages.BREAK",
+                SHORT_LEAVE: "@beautybook.Resources.Languages.SHORT_LEAVE",
+                PRODUCTIVE: "@beautybook.Resources.Languages.PRODUCTIVE",
+                Actions: "@beautybook.Resources.Languages.Actions",
+                Primary_Phone: "@beautybook.Resources.Languages.Primary_Phone",
+                Joining_Date: "@beautybook.Resources.Languages.Joining_Date",
+                Referred_By: "@beautybook.Resources.Languages.Referred_By",
+                Terminate: "@beautybook.Resources.Languages.Terminate",
+                Create_New_Package: "@beautybook.Resources.Languages.Create_New_Package",
+                Add_New_Employee: "@beautybook.Resources.Languages.Add_New_Employee",
+                Adress: "@beautybook.Resources.Languages.Adress",
+                From: "@beautybook.Resources.Languages.From",
+                To: "@beautybook.Resources.Languages.to",
+                Reason: "@beautybook.Resources.Languages.Reason",
+                Add_Leave: "@beautybook.Resources.Languages.Add_Leave",
+                Change_Status: "@beautybook.Resources.Languages.Change_Status",
+                Add_New_Prouduct: "@beautybook.Resources.Languages.Add_New_Prouduct",
+                Add_New_Prouduct: "@beautybook.Resources.Languages.Add_New_Prouduct",
+                Not_Available_Online_Store: "@beautybook.Resources.Languages.Not_Available_Online_Store",
+                Buy_Now: "@beautybook.Resources.Languages.Buy_Now",
+                Start_Date: "@beautybook.Resources.Languages.Start_Date",
+                End_Date: "@beautybook.Resources.Languages.End_Date",
+                Assigned_to: "@beautybook.Resources.Languages.Assigned_to",
+                Time: "@beautybook.Resources.Languages.Time",
+                Start: "@beautybook.Resources.Languages.Start",
+                End: "@beautybook.Resources.Languages.End",
+                In_Stock: "@beautybook.Resources.Languages.In_Stock",
+                Stock_Out: "@beautybook.Resources.Languages.Stock_Out",
+                Reviews: "@beautybook.Resources.Languages.Reviews",
+                Ratings: "@beautybook.Resources.Languages.Ratings",
+                inclusive_of_all_taxes: "@beautybook.Resources.Languages.inclusive_of_all_taxes",
+                Seller: "@beautybook.Resources.Languages.Seller",
+                of_customers_recommend_this_product: "@beautybook.Resources.Languages.of_customers_recommend_this_product",
+                Add_to_Cart: "@beautybook.Resources.Languages.Add_to_Cart",
+                Add_to_wishlist: "@beautybook.Resources.Languages.Add_to_wishlist",
+                Seller_since: "@beautybook.Resources.Languages.Seller_since",
+                No_Wishlist_found: "@beautybook.Resources.Languages.No_Wishlist_found",
+                Subtotal: "@beautybook.Resources.Languages.Subtotal",
+                Delivery: "@beautybook.Resources.Languages.Delivery",
+                VAT_included: "@beautybook.Resources.Languages.VAT_included",
+                Total_to_pay: "@beautybook.Resources.Languages.Total_to_pay",
+                Default: "@beautybook.Resources.Languages.Default",
+                You_have_selected_to_pay_with_cash_upon_delivery_: "@beautybook.Resources.Languages.You_have_selected_to_pay_with_cash_upon_delivery_",
+                Total: "@beautybook.Resources.Languages.Total",
+                Order_ID: "@beautybook.Resources.Languages.Order_ID",
+                Date: "@beautybook.Resources.Languages.Date",
+                Weight: "@beautybook.Resources.Languages.Weight",
+                Price: "@beautybook.Resources.Languages.Price",
+                Total: "@beautybook.Resources.Languages.Total",
+                Actions: "@beautybook.Resources.Languages.Actions",
+                Create_your_account: "@beautybook.Resources.Languages.Create_your_account",
+                Already_have_an_account__Sign_in_here: "@beautybook.Resources.Languages.Already_have_an_account",
+                Sign_in_here: "@beautybook.Resources.Languages.Sign_in_here",
+                Password: "@beautybook.Resources.Languages.Password",
+                _8__characters_required: "@beautybook.Resources.Languages._8__characters_required",
+                I_accept_the_Terms_and_Conditions: "@beautybook.Resources.Languages.I_accept_the_Terms_and_Conditions",
+                Terms_and_Conditions: "@beautybook.Resources.Languages.Terms_and_Conditions",
+                Create_an_account: "@beautybook.Resources.Languages.Create_an_account",
+                Login: "@beautybook.Resources.Languages.Login",
+                Sign_in: "@beautybook.Resources.Languages.Sign_in",
+                Don_t_have_an_account_yet__Sign_up_here: "@beautybook.Resources.Languages.Don_t_have_an_account_yet_",
+                Sign_up_here: "@beautybook.Resources.Languages.Sign_up_here",
+                Sign_in_with_Google: "@beautybook.Resources.Languages.Sign_in_with_Google",
+                OR: "@beautybook.Resources.Languages.OR",
+                Forfot_Password_: "@beautybook.Resources.Languages.Forfot_Password_",
+                Forgot_password: "@beautybook.Resources.Languages.Forgot_password",
+                Enter_the_email_address_you_used_when_you_joined_and_we_ll_send_you_instructions_to_reset_your_password_: "@beautybook.Resources.Languages.Enter_the_email_address_you_used_when_you_joined_and_we_ll_send_you_instructions_to_reset_your_password_",
+                Enter_your_email_address: "@beautybook.Resources.Languages.Enter_your_email_address",
+                Send_Reset_Password_Link: "@beautybook.Resources.Languages.Send_Reset_Password_Link",
+                Back_to_Sign_in: "@beautybook.Resources.Languages.Back_to_Sign_in",
+                Verify_your_email: "@beautybook.Resources.Languages.Verify_your_email",
+                Skip: "@beautybook.Resources.Languages.Skip",
+                Send_Code: "@beautybook.Resources.Languages.Send_Code",
+                Sending_Code: "@beautybook.Resources.Languages.Sending_Code",
+                Verification_code_sent_successfully__: "@beautybook.Resources.Languages.Verification_code_sent_successfully__",
+                Please_enter_the_6_digit_code: "@beautybook.Resources.Languages.Please_enter_the_6_digit_code",
+                Enter_code: "@beautybook.Resources.Languages.Enter_code",
+                Resend: "@beautybook.Resources.Languages.Resend",
+                Resending: "@beautybook.Resources.Languages.Resending",
+                Verify: "@beautybook.Resources.Languages.Verify",
+                Enter_salon_name: "@beautybook.Resources.Languages.Enter_salon_name",
+                Enter_your_address_here: "@beautybook.Resources.Languages.Enter_your_address_here",
+                Select_a_Country: "@beautybook.Resources.Languages.Select_a_Country",
+                Select_a_State: "@beautybook.Resources.Languages.Select_a_State",
+                Enter_your_city: "@beautybook.Resources.Languages.Enter_your_city",
+                Enter_your_zipcode: "@beautybook.Resources.Languages.Enter_your_zipcode",
+                Enter_your_primarynumber: "@beautybook.Resources.Languages.Enter_your_primarynumber",
+                Enter_your_alternatenumber: "@beautybook.Resources.Languages.Enter_your_alternatenumber",
+                Enter_your_Bank_Name_here: "@beautybook.Resources.Languages.Enter_your_Bank_Name_here",
+                Enter_your_IBAN_Number_here: "@beautybook.Resources.Languages.Enter_your_IBAN_Number_here",
+                No_file_chosen: "@beautybook.Resources.Languages.No_file_chosen",
+                Update_Salon_Information: "@beautybook.Resources.Languages.Update_Salon_Information",
+                entries: "@beautybook.Resources.Languages.entries",
+                In_active: "@beautybook.Resources.Languages.In_active",
+                Active: "@beautybook.Resources.Languages.Active",
+                Are_you_sure_you_want_to_In_Active_this_service__: "@beautybook.Resources.Languages.Are_you_sure_you_want_to_In_Active_this_service__",
+                Yes: "@beautybook.Resources.Languages.Yes",
+                Previous: "@beautybook.Resources.Languages.Previous",
+                Edit_Service_Details: "@beautybook.Resources.Languages.Edit_Service_Details",
+                Add_Employee_and_Charges: "@beautybook.Resources.Languages.Add_Employee_and_Charges",
+                Select_Employee: "@beautybook.Resources.Languages.Select_Employee",
+                Perform_By: "@beautybook.Resources.Languages.Perform_By",
+                mins: "@beautybook.Resources.Languages.mins",
+                Basic_Info: "@beautybook.Resources.Languages.Basic_Info",
+                Add_New_Category: "@beautybook.Resources.Languages.Add_New_Category",
+                Category_Name: "@beautybook.Resources.Languages.Category_Name",
+                Skin_care: "@beautybook.Resources.Languages.Skin_care",
+                Service_Price: "@beautybook.Resources.Languages.Service_Price",
+                Service_Duration: "@beautybook.Resources.Languages.Service_Duration",
+                Are_you_sure_In_Active_this_employee__: "@beautybook.Resources.Languages.Are_you_sure_In_Active_this_employee__",
+                Are_you_sure_you_want_to_delete_this_employee_details_: "@beautybook.Resources.Languages.Are_you_sure_you_want_to_delete_this_employee_details_",
+                Are_you_sure_Active_this_employee__: "@beautybook.Resources.Languages.Are_you_sure_Active_this_employee__",
+                Select_a_role: "@beautybook.Resources.Languages.Select_a_role",
+                Gaomi_City: "@beautybook.Resources.Languages.Gaomi_City",
+                ID: "@beautybook.Resources.Languages.ID",
+                START_AT: "@beautybook.Resources.Languages.START_AT",
+                Select_a_option: "@beautybook.Resources.Languages.Select_a_option",
+                Select_a_Employee_Name: "@beautybook.Resources.Languages.Select_a_Employee_Name",
+                Update_Status: "@beautybook.Resources.Languages.Update_Status",
+                Name: "@beautybook.Resources.Languages.Name",
+                Are_you_sure_delete_this_employee_leave_details__: "@beautybook.Resources.Languages.Are_you_sure_delete_this_employee_leave_details__",
+                Edit_Leave: "@beautybook.Resources.Languages.Edit_Leave",
+                Select_a_Leave_Type: "@beautybook.Resources.Languages.Select_a_Leave_Type",
+                Add_tags_and_Press_enter: "@beautybook.Resources.Languages.Add_tags_and_Press_enter",
+                Tell_us_all_about_your_new_customer_: "@beautybook.Resources.Languages.Tell_us_all_about_your_new_customer_",
+                Tell_us_all_about_your_edit_customer_: "@beautybook.Resources.Languages.Tell_us_all_about_your_edit_customer_",
+                Are_you_sure_Delete_this_customer_details__: "@beautybook.Resources.Languages.Are_you_sure_Delete_this_customer_details__",
+                Order_is_in_process_please_do_not_refresh_the_page___: "@beautybook.Resources.Languages.Order_is_in_process_please_do_not_refresh_the_page___",
+                Add_a_New_Address: "@beautybook.Resources.Languages.Add_a_New_Address",
+                Address: "@beautybook.Resources.Languages.Address",
+                Make_this_address_to_default: "@beautybook.Resources.Languages.Make_this_address_to_default",
+                Add_Address: "@beautybook.Resources.Languages.Add_Address",
+                Adding_Address: "@beautybook.Resources.Languages.Adding_Address",
+                Rate: "@beautybook.Resources.Languages.Rate",
+                QTY: "@beautybook.Resources.Languages.QTY",
+                Amount: "@beautybook.Resources.Languages.Amount",
+                NOTE___This_is_computer_generated_receipt_and_does_not_require_physical_signature_: "@beautybook.Resources.Languages.NOTE___This_is_computer_generated_receipt_and_does_not_require_physical_signature_",
+                Products: "@beautybook.Resources.Languages.Products",
+                Total_Items: "@beautybook.Resources.Languages.Total_Items",
+                Load_more: "@beautybook.Resources.Languages.Load_more",
+                View_More: "@beautybook.Resources.Languages.View_More",
+                Order_Details: "@beautybook.Resources.Languages.Order_Details",
+                Skin_Type: "@beautybook.Resources.Languages.Skin_Type",
+                All_Skin_Types: "@beautybook.Resources.Languages.All_Skin_Types",
+                Choose_rating: "@beautybook.Resources.Languages.Choose_rating",
+                _5_stars: "@beautybook.Resources.Languages._5_stars",
+                _4_stars: "@beautybook.Resources.Languages._4_stars",
+                _3_stars: "@beautybook.Resources.Languages._3_stars",
+                _2_stars: "@beautybook.Resources.Languages._2_stars",
+                _1_star: "@beautybook.Resources.Languages._1_star",
+                Please_choose_rating_: "@beautybook.Resources.Languages.Please_choose_rating_",
+                Heading: "@beautybook.Resources.Languages.Heading",
+                AddNewService: "@beautybook.Resources.Languages.Add_New_Service",
+                Submit_a_Review: "@beautybook.Resources.Languages.Submit_a_Review",
+                Free: "@beautybook.Resources.Languages.Free",
+                Update_Cart: "@beautybook.Resources.Languages.Update_Cart",
+                Are_you_sure_you_want_to_remove_this_product__: "@beautybook.Resources.Languages.Are_you_sure_you_want_to_remove_this_product__",
+                Are_you_sure_you_want_to_delete_this_address_details_: "@beautybook.Resources.Languages.Are_you_sure_you_want_to_delete_this_address_details_",
+                Shipping_fee: "@beautybook.Resources.Languages.Shipping_fee",
+                Tax: "@beautybook.Resources.Languages.Tax",
+                Highlights_not_fount: "@beautybook.Resources.Languages.Highlights_not_fount",
+                Services_not_found: "@beautybook.Resources.Languages.Services_not_found",
+                Specifications_not_fount: "@beautybook.Resources.Languages.Specifications_not_fount",
+                This_item_is_currently_out_of_stock: "@beautybook.Resources.Languages.This_item_is_currently_out_of_stock",
+                of_cusromers_recommend_this_product: "@beautybook.Resources.Languages.of_cusromers_recommend_this_product",
+                This_product_allready_add_in_cart: "@beautybook.Resources.Languages.This_product_allready_add_in_cart",
+                Already_added_in_your_wishlist: "@beautybook.Resources.Languages.Already_added_in_your_wishlist",
+                Proceed_to_Checkouts: "@beautybook.Resources.Languages.Proceed_to_Checkouts",
+                Enter_city_name: "@beautybook.Resources.Languages.Enter_city_name",
+                Enter_zip_code: "@beautybook.Resources.Languages.Enter_zip_code",
+                Enter_primary_number: "@beautybook.Resources.Languages.Enter_primary_number",
+                Enter_phone_number: "@beautybook.Resources.Languages.Enter_phone_number",
+                Cash_on_delivery: "@beautybook.Resources.Languages.Cash_on_delivery",
+                Debit_or_Credit_card: "@beautybook.Resources.Languages.Debit_or_Credit_card",
+                Paypal: "@beautybook.Resources.Languages.Paypal",
+                Invoiced_To: "@beautybook.Resources.Languages.Invoiced_To",
+                Pay_To: "@beautybook.Resources.Languages.Pay_To",
+                Invoice_No: "@beautybook.Resources.Languages.Invoice_No",
+                Invoice: "@beautybook.Resources.Languages.Invoice",
+                Sub_Total: "@beautybook.Resources.Languages.Sub_Total",
+                Select_a_product_type: "@beautybook.Resources.Languages.Select_a_product_type",
+                Order_Date: "@beautybook.Resources.Languages.Order_Date", // Change text
+                TOTAL_AMOUNT: "@beautybook.Resources.Languages.TOTAL_AMOUNT",
+                PAYMENT: "@beautybook.Resources.Languages.PAYMENT",
+                ORDER_STATUS: "@beautybook.Resources.Languages.ORDER_STATUS",
+                LAST_UPDATED: "@beautybook.Resources.Languages.LAST_UPDATED",
+                Confirmed: "@beautybook.Resources.Languages.Confirmed",
+                Shipped: "@beautybook.Resources.Languages.Shipped",
+                COD: "@beautybook.Resources.Languages.COD",
+                Shipment_to: "@beautybook.Resources.Languages.Shipment_to",
+                Create_SMS_Marketing: "@beautybook.Resources.Languages.Create_SMS_Marketing",
+                Create_Daily_Deals: "@beautybook.Resources.Languages.Create_Daily_Deals",
+                And: "@beautybook.Resources.Languages.And",
+                Simple_Template1: "@beautybook.Resources.Languages.Simple_Template1",
+                Send: "@beautybook.Resources.Languages.Send",
+                Upgrade_Plan: "@beautybook.Resources.Languages.Upgrade_Plan",
+                Try_for_free: "@beautybook.Resources.Languages.Try_for_free",
+                Enter_sms_subject: "@beautybook.Resources.Languages.Enter_sms_subject",
+                Add_Email_Marketing: "@beautybook.Resources.Languages.Add_Email_Marketing",
+                Home: "@beautybook.Resources.Languages.Home",
+                Trainer: "@beautybook.Resources.Languages.Trainer",
+                Full_Time: "@beautybook.Resources.Languages.Full_Time",
+                Hair_Salon: "@beautybook.Resources.Languages.Hair_Salon",
+                Cut___Blow_Dry_Hair: "@beautybook.Resources.Languages.Cut___Blow_Dry_Hair",
+                Hair_Dye: "@beautybook.Resources.Languages.Hair_Dye",
+                Hair_Styling: "@beautybook.Resources.Languages.Hair_Styling",
+                Hair_Treatment: "@beautybook.Resources.Languages.Hair_Treatment",
+                Tattoos: "@beautybook.Resources.Languages.Hair_Treatment",
+                Hair_Removal: "@beautybook.Resources.Languages.Hair_Removal",
+                Manicure: "@beautybook.Resources.Languages.Manicure",
+                Pedicure: "@beautybook.Resources.Languages.Pedicure",
+                Medical_Leave: "@beautybook.Resources.Languages.Medical_Leave",
+                Paternity_Leave: "@beautybook.Resources.Languages.Paternity_Leave",
+                Expire_your_plan: "@beautybook.Resources.Languages.Expire_your_plan",
+                Nails: "@beautybook.Resources.Languages.Nails",
+                Health__Care: "@beautybook.Resources.Languages.Health__Care",
+                Are_you_sure_you_want_to_delete_this_offer__: "@beautybook.Resources.Languages.Are_you_sure_you_want_to_delete_this_offer__",
+                PACKAGES_NAME: "@beautybook.Resources.Languages.PACKAGES_NAME",
+                Save_Deal: "@beautybook.Resources.Languages.Save_Deal",
+                Hair_Styling___Service: "@beautybook.Resources.Languages.Hair_Styling___Service",
+                Are_you_sure_you_want_to_delete_this_Daily_Deals__: "@beautybook.Resources.Languages.Are_you_sure_you_want_to_delete_this_Daily_Deals__",
+                Select_a_Customer_Name: "@beautybook.Resources.Languages.Select_a_Customer_Name",
+                Select_a_Assigned_To: "@beautybook.Resources.Languages.Select_a_Assigned_To",
+                Sat: "@beautybook.Resources.Languages.Sat",
+                HEALTH_CARE: "@beautybook.Resources.Languages.HEALTH_CARE",
+                Status_updated_successfully: "@beautybook.Resources.Languages.Status_updated_successfully",
+                Updating: "@beautybook.Resources.Languages.Updating",
+                Appointment_Details: "@beautybook.Resources.Languages.Appointment_Details",
+                Appointment_ID: "@beautybook.Resources.Languages.Appointment_ID",
+                Appointment_Date: "@beautybook.Resources.Languages.Appointment_Date",
+                Appointment_Time: "@beautybook.Resources.Languages.Appointment_Time",
+                Assign_To: "@beautybook.Resources.Languages.Assign_To",
+                NoProductFound: "@beautybook.Resources.Languages.no_product_found",
+                Are_you_sure_you_want_to_delete_this_appoinment__: "@beautybook.Resources.Languages.Are_you_sure_you_want_to_delete_this_appoinment__",
+                CustomerDetails: "@beautybook.Resources.Languages.Customer_Details",
+                Proceed_to_Chechouts: "@beautybook.Resources.Languages.Proceed_to_Chechouts",
+                Hello: "@beautybook.Resources.Languages.Hello",
+
+                //invoice content
+                Invoice_Date: "@beautybook.Resources.Languages.Invoice_Date",
+                Printing_Date: "@beautybook.Resources.Languages.Printing_Date",
+                Tax_No: "@beautybook.Resources.Languages.Tax_No",
+                Salon_Details: "@beautybook.Resources.Languages.Salon_Details",
+                VAT_15__: "@beautybook.Resources.Languages.VAT_15__",
+                Total_Including_tax: "@beautybook.Resources.Languages.Total_Including_tax",
+                Simplifed_tax_invoice: "@beautybook.Resources.Languages.Simplifed_tax_invoice",
+                InvoiceNote: "@beautybook.Resources.Languages.NOTE___This_is_computer_generated_receipt_and_does_not_require_physical_signature_",
+                TaxAmount: "@beautybook.Resources.Languages.Tax_Amount",
+                UnitePrice: "@beautybook.Resources.Languages.Unite_Price",
+
+
+                //PRODUCT INVOICE
+                Tax_Invoice: "@beautybook.Resources.Languages.Tax_Invoice",
+                Suppler: "@beautybook.Resources.Languages.Suppler",
+                Buyer: "@beautybook.Resources.Languages.Buyer",
+                Total__excluding_VAT_: "@beautybook.Resources.Languages.Total__excluding_VAT_",
+                Discount: "@beautybook.Resources.Languages.Discount",
+                Total_Taxable_amount__excluding_VAT_: "@beautybook.Resources.Languages.Total_Taxable_amount__excluding_VAT_",
+                Total_VAT: "@beautybook.Resources.Languages.Total_VAT",
+
+                Today_s_Appointments: "@beautybook.Resources.Languages.Today_s_Appointments",
+                Technical_Support: "@beautybook.Resources.Languages.Technical_Support",
+                Contact_Us: "@beautybook.Resources.Languages.Contact_Us",
+                Description: "@beautybook.Resources.Languages.Description",
+                Created_Date: "@beautybook.Resources.Languages.Created_Date",
+                Actions: "@beautybook.Resources.Languages.Actions",
+                Invoice_Counter: "@beautybook.Resources.Languages.Invoice_Counter",
+                Invoice_Number: "@beautybook.Resources.Languages.Invoice_Number",
+                Invoice_Date: "@beautybook.Resources.Languages.Invoice_Date",
+                Entered_By: "@beautybook.Resources.Languages.Entered_By",
+                Customer_Name: "@beautybook.Resources.Languages.Customer_Name",
+                Action: "@beautybook.Resources.Languages.Action",
+                Notice_Creditor: "@beautybook.Resources.Languages.Notice_Creditor",
+                View_Invoice: "@beautybook.Resources.Languages.View_Invoice",
+                Saller_Name: "@beautybook.Resources.Languages.Saller_Name",
+
+                Orginal_invoice_No: "@beautybook.Resources.Languages.Orginal_invoice_No",
+                Sevice_list_for_invoice_number: "@beautybook.Resources.Languages.Sevice_list_for_invoice_number",
+                Please_chose_the_services: "@beautybook.Resources.Languages.Please_chose_the_services_you_want_to_return_from_the_original_invoice",
+                Return_invoice_No: "@beautybook.Resources.Languages.Return_invoice_No",
+                Service_Provider: "@beautybook.Resources.Languages.Service_Provider",
+
+                //POS arabic content get
+                NEW_SESSION: "@beautybook.Resources.Languages.NEW_SESSION",
+                CONTINUE_SELLING: "@beautybook.Resources.Languages.CONTINUE_SELLING",
+                Last_Closing_Date: "@beautybook.Resources.Languages.Last_Closing_Date",
+                Last_Closing_Cash: "@beautybook.Resources.Languages.Last_Closing_Cash",
+                Last_Closing_Online: "@beautybook.Resources.Languages.Last_Closing_Online",
+                All: "@beautybook.Resources.Languages.All",
+                Order_details_not_found: "@beautybook.Resources.Languages.Order_details_not_found",
+                Services_not_found: "@beautybook.Resources.Languages.Services_not_found",
+                Print_Invoice: "@beautybook.Resources.Languages.Print_Invoice",
+                Select_a_assigned_user: "@beautybook.Resources.Languages.Select_a_assigned_user",
+                Salon: "@beautybook.Resources.Languages.Salon",
+                Service_not_found: "@beautybook.Resources.Languages.Service_not_found",
+                EmployeePermission: "@beautybook.Resources.Languages.EmployeePermission",
+            };
+        }
+
+        //Custom Script
+        function LanguageSelect() {
+            debugger;
+            //$("#loader_langauge").show();
+            var Item = $('#LanSelect').selectpicker('val');
+            window.location.href = `/Home/Change?LanguageAbbrevation=${Item}&con=${"@curController"}&act=${"@curAction"}`
+
+            $.post("/Language/Change",
+            {
+                LanguageAbbrevation: Item
+            });
+            //$("#loader_langauge").hide();
+
+        }
+
+        //Input time picker 24 ht to convert 12 hr
+        function onTimeChange(timeVal) {
+            debugger;
+            var timeSplit = timeVal.split(':'),
+                hours,
+                minutes,
+                meridian;
+            hours = timeSplit[0];
+            minutes = timeSplit[1];
+            if (hours > 12) {
+                meridian = 'PM';
+                hours -= 12;
+            } else if (hours < 12) {
+                meridian = 'AM';
+                if (hours == 0) {
+                    hours = 12;
+                }
+            } else {
+                meridian = 'PM';
+            }
+            return hours + ':' + minutes + ' ' + meridian;
+        }
+
+        function delete_cookie(name) {
+            document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+
+        var UserName = getCookie("UserName");
+        var UserProfile = getCookie("UserProfileUrl");
+        var ServPhots = getCookie("ServPhotosUrl");
+        var UserType = getCookie("UserTypeId");
+        var Salon = getCookie("SalonId");
+        var UserId = getCookie("UserId");
+
+        //get window path
+        var windowUrlpath = window.location.pathname;
+
+        //Salon not select redairect salon choose page
+
+        if ('/Salons/SalonsDetails' != windowUrlpath) {
+            if (Salon == "") {
+                if ('/MyProfile/EditProfile' != windowUrlpath && '/Authentication/ChangePassword' != windowUrlpath) {
+                    window.location = "/Salons/SalonsDetails";
+                } else if ('/MyProfile/EditProfile' == windowUrlpath || '/Authentication/ChangePassword' == windowUrlpath){
+                    $('#beautyBookmenu').hide();
+                }
+            }
+        }
+
+        //userProfilebox append data
+        $('#userProfilebox').append(`
+            <span class="avatar avatar-primary avatar-circle ">
+               <img onerror="this.src='/Content/assets/images/default-avatar.png'"  src="${APIEndPoint}/${UserProfile}" class="custome-profile-avatar" alt="User Profile"ActiUrln />
+            </span>
+        `)
+        //UsernameBox append data
+        $('#UsernameBox').append(`
+            <h6 class="lh-1 mb-0 text-white">${UserName}</h6>
+             <span class="text-light fs-12 lh-1">@(beautybook.Resources.Languages.Salon_Owner)
+
+            </span>
+        `)
+        //beautyBookmenu header menu append
+
+        //${ UserType == 1 ? 'Admin' : '' }
+        //${ UserType == 2 ? 'Salon Owner' : '' }
+        //${ UserType == 3 ? 'Employee' : '' }
+        //${ UserType == 4 ? 'Customer' : '' }
+        //${ UserType == 5 ? 'Seller' : '' }
+
+        $('#beautyBookmenu').append(`
+            ${'/Salons/SalonsDetails' == windowUrlpath ? '' :
+                `<ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" id="dashboardId" href="@Url.Action("Index","Home")">@(beautybook.Resources.Languages.Dashboard)</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Service").FirstOrDefault().Value == true)
+                         {
+                            <a class="nav-link dropdown-toggle" href="#" id="servicesdropdownId" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                @(beautybook.Resources.Languages.Services)
+                            </a>
+                            <div class="dropdown-menu navbar-drp text-left-to-right" aria-labelledby="servicesdropdownId">
+                                @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManageService").FirstOrDefault().Value == true)
+                                {
+                                    <a class="dropdown-item" id="servicesId" href="@Url.Action("ManageSalonServices", "SalonServices")"> @(beautybook.Resources.Languages.Manage_Services)</a>
+                                }
+                                @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManagePackages").FirstOrDefault().Value == true)
+                                {
+                                    <a class="dropdown-item" id="packagesId" href="@Url.Action("ManagePackages", "Packages")">@(beautybook.Resources.Languages.Manage_Packages)</a>
+                                }
+                            </div>
+                         }
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Staff").FirstOrDefault().Value == true)
+                         {
+                            <a class="nav-link dropdown-toggle" href="#" id="employeeId" id="productsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                @(beautybook.Resources.Languages.Staff)
+                            </a>
+                         }
+
+                        <div class="dropdown-menu navbar-drp text-left-to-right" aria-labelledby="productsDropdown">
+                            @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManageEmployee").FirstOrDefault().Value == true)
+                             {
+                                <a class="dropdown-item" id="employeeManagementid" href="@Url.Action("ManageEmployee", "Employee")">@(beautybook.Resources.Languages.Manage_Employee)</a>
+                             }
+                            @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "LeaveManagement").FirstOrDefault().Value == true)
+                             {
+                                <a class="dropdown-item" id="leaveManagementId" href="@Url.Action("EmployeeLeaveManagement", "Employee")">@(beautybook.Resources.Languages.Leave_Management)</a>
+                             }
+                             @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "WorkSheet").FirstOrDefault().Value == true)
+                             {
+                                <a class="dropdown-item" id="workSheetId" href="@Url.Action("EmployeeWorksheet", "Employee")">@(beautybook.Resources.Languages.Work_Sheet)</a>
+                             }
+                        </div>
+                    </li>
+                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Customers").FirstOrDefault().Value == true)
+                     {
+                        <li class="nav-item">
+                            <a class="nav-link" id="customersId" href="@Url.Action("ManageCustomers", "Customers")">@(beautybook.Resources.Languages.Customers)</a>
+                        </li>
+                     }
+
+                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Store").FirstOrDefault().Value == true)
+                     {
+                        <li class="nav-item">
+                            <a class="nav-link" id="Store" href="@Url.Action("Index","Store")">@(beautybook.Resources.Languages.Store)</a>
+                        </li>
+                     }
+
+                    @*<li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)")">Reports</a>
+                    </li>*@
+                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Inventory").FirstOrDefault().Value == true)
+                     {
+                        <li class="nav-item">
+                            <a class="nav-link" id="InventoryId" href="@Url.Action("ManageInventory", "InventoryProduct")">@(beautybook.Resources.Languages.Inventory)</a>
+                        </li>
+                     }
+
+                    @*<li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)")">Bookings</a>
+                    </li>*@
+                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Marketing").FirstOrDefault().Value == true)
+                     {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="@Url.Action("Index","Marketing")" id="marketingDropdown">
+                                @(beautybook.Resources.Languages.Marketing)
+                            </a>
+                        </li>
+                     }
+
+                    @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Appointments").FirstOrDefault().Value == true)
+                     {
+                        <li class="nav-item">
+                            <a class="nav-link" id="appointmentsId" href="@Url.Action("ManageAppointments", "Appointments")">@(beautybook.Resources.Languages.Appointments)</a>
+                        </li>
+                     }
+
+                    <li class="nav-item dropdown">
+                         @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Invoice").FirstOrDefault().Value == true)
+                         {
+                            <a class="nav-link dropdown-toggle" href="#" id="InvoiceId" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                @(beautybook.Resources.Languages.Invoices)
+                            </a>
+                         }
+                        <div class="dropdown-menu navbar-drp text-left-to-right" aria-labelledby="productsDropdown">
+                            @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "SimplifiedInvoice").FirstOrDefault().Value == true)
+                            {
+                                if
+                                (
+                                    @ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "AppointmentInvoice").FirstOrDefault().Value == true &&
+                                    @ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "POSInvoice").FirstOrDefault().Value == true
+                                )
+                                {
+                                    <a class="dropdown-item" id="SiplifedInvoiceId" href="@Url.Action("SiplifedInvoice", "Invoices")">@(beautybook.Resources.Languages.Siplifed_Invoice)</a>
+                                }
+                                else if(@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "AppointmentInvoice").FirstOrDefault().Value == true)
+                                {
+                                   <a class="dropdown-item" id="SiplifedInvoiceId" href="@Url.Action("SiplifedInvoice", "Invoices")">@(beautybook.Resources.Languages.Siplifed_Invoice)</a>
+                                }
+                                else if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "POSInvoice").FirstOrDefault().Value == true)
+                                {
+                                    <a class="dropdown-item" id="SiplifedInvoiceId" href="@Url.Action("SiplifedInvoice", "Pos")">@(beautybook.Resources.Languages.Siplifed_Invoice)</a>
+                                }
+                            }
+
+                            @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "TaxInvoice").FirstOrDefault().Value == true)
+                            {
+                                <a class="dropdown-item" id="TaxInvoiceId" href="@Url.Action("TaxInvoice", "Invoices")">@(beautybook.Resources.Languages.Tax_Invoice)</a>
+                            }
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "TaxInvoice").FirstOrDefault().Value == true)
+                         {
+                            <a class="nav-link dropdown-toggle" href="#" id="PosId" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                @beautybook.Resources.Languages.Pos
+                            </a>
+                         }
+                        <div class="dropdown-menu navbar-drp text-left-to-right" aria-labelledby="productsDropdown">
+                            @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "CreateSession").FirstOrDefault().Value == true)
+                             {
+                                <a class="dropdown-item" id="managePos" href="@Url.Action("CreateSessions", "Pos")">@beautybook.Resources.Languages.Create_Session</a>
+                             }
+                             @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "ManageSession").FirstOrDefault().Value == true)
+                             {
+                                <a class="dropdown-item" id="managePosSession" href="@Url.Action("ManageSession", "Pos")">@beautybook.Resources.Languages.Manage_Session</a>
+                             }
+                        </div>
+                    </li>
+                </ul>`
+            }
+        `);
+        $('#iconMenubar').append(`
+            ${'/Salons/SalonsDetails' == windowUrlpath ? '' :
+                `@if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Wishlist").FirstOrDefault().Value == true)
+                  {
+                    <a href="@Url.Action("Wishlist","Store")" class="btn btn-icon rounded-circle mx-1 header-icon-box">
+                        <span class="rounded-pill cart-count" id="wishlistProductcount">0</span>
+                        <i class="bb-heart"></i> @ViewBag.ProductCount
+                    </a>
+                  }
+                @if (@ProjectSession.EmployeePermission.Item.Where(x => x.ModuleKey == "Cart").FirstOrDefault().Value == true)
+                  {
+                    <a href="@Url.Action("Cart","Store")" class="btn btn-icon rounded-circle mx-1 mr-3 header-icon-box">
+                        <span class="rounded-pill cart-count" id="cartProductcount">0</span>
+                        <i class="bb-shopping-cart"></i>
+                    </a>
+                  }`
+            }
+        `);
+
+        function setActiveclass() {
+            if ("@curController" == "Appointments") {
+                $('#appointmentsId').addClass('active');
+            } else if ("@curController" == "SalonServices" && "@curAction" == "ManageSalonServices") {
+                $('#servicesId').addClass('active-light');
+                $('#servicesdropdownId').addClass('active');
+            } else if ("@curController" == "Packages" && "@curAction" == "ManagePackages") {
+                $('#packagesId').addClass('active-light');
+                $('#servicesdropdownId').addClass('active');
+            } else if ("@curController" == "Customers") {
+                $('#customersId').addClass('active');
+            } else if ("@curController" == "Home"){
+                $('#dashboardId').addClass('active');
+            } else if ("@curController" == "MyProfile"){
+                $('#profileId').addClass('active-light');
+            } else if ("@curController" == "Salons"){
+                $('#editInfo').addClass('active-light');
+            } else if ("@curController" == "Authentication"){
+                $('#settingsId').addClass('active-light');
+            } else if ("@curController" == "Employee" && "@curAction" == "ManageEmployee") {
+                $('#employeeManagementid').addClass('active-light');
+                $('#employeeId').addClass('active');
+            } else if ("@curController" == "Employee" && "@curAction" == "EmployeeDetails") {
+                $('#employeeManagementid').addClass('active-light');
+                $('#employeeId').addClass('active');
+            } else if ("@curController" == "Employee" && "@curAction" == "EmployeeLeaveManagement") {
+                $('#leaveManagementId').addClass('active-light');
+                $('#employeeId').addClass('active');
+            } else if ("@curController" == "Employee" && "@curAction" == "EmployeeWorksheet") {
+                $('#employeeId').addClass('active');
+            }
+            else if ("@curController" == "InventoryProduct" && "@curAction" == "ManageInventory") {
+                $('#InventoryId').addClass('active');
+            }else if ("@curController" == "Packages" && "@curAction" == "ManagePackages") {
+                $('#packagesId').addClass('active-light');
+                $('#servicesdropdownId').addClass('active');
+            } else if ("@curController" == "Marketing" || "@curController" == "Offers") {
+                $('#marketingDropdown').addClass('active');
+            } else if ("@curController" == "Email_Sms_Package" && "@curController" == "Index") {
+                $('#marketingDropdown').addClass('active');
+                $('#email&smspackages').addClass('active-light');
+            }
+            else if ("@curController" == "Invoices" && "@curAction" == "SiplifedInvoice") {
+                $('#InvoiceId').addClass('active');
+                $('#SiplifedInvoiceId').addClass('active-light');
+            }
+            else if ("@curController" == "Invoices" && "@curAction" == "TaxInvoice") {
+                $('#InvoiceId').addClass('active');
+                $('#TaxInvoiceId').addClass('active-light');
+            }
+            else if ("@curController" == "Store") {
+                $('#Store').addClass('active');
+            }
+            else if ("@curController" == "TechnicalSupport") {
+                $('#technicalSupport').addClass('active');
+            }
+            else if ("@curController" == "POS") {
+                $('#Pos_System').addClass('active');
+            }
+        }
+
+        function changeSalons() {
+            delete_cookie("SalonsLogoUrl");
+            delete_cookie("SalonName");
+            delete_cookie("Choosesalons");
+            delete_cookie("SalonId");
+
+            window.location = "/Salons/SalonsDetails";
+        }
+
+
+        if (atob(Salon) < 0 || atob(Salon) == "") {
+            $('.beauty-book-logo').attr('href', '/Salons/SalonsDetails')
+            $('#changeSalon').hide();
+            $('#editInfo').hide();
+        }
+
+        //User Logout
+        function userLogout() {
+            delete_cookie("SalonsLogoUrl");
+            delete_cookie("SalonName");
+            delete_cookie("Choosesalons");
+            delete_cookie("SalonId");
+            delete_cookie("UserTypeId");
+            delete_cookie("DevtoceToken&Type");
+            delete_cookie("UserEmail");
+            delete_cookie("UserName");
+            delete_cookie("UserProfileUrl");
+            delete_cookie("UserId");
+
+            if (@ProjectSession.UserTypeId == 2) {
+                window.location = "/Authentication/SignIn";
+            }
+            else if (@ProjectSession.UserTypeId == 3) {
+                window.location = "/Authentication/EmployeeSignIn";
+            }
+        }
+
+        setActiveclass();
+
+    </script>
+
+    <script src="~/Content/assets/js/arabic.js"></script>
+</body>
+</html>
