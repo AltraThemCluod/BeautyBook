@@ -432,6 +432,7 @@
     <Content Include="EmailTemplate\bootstrap\js\bootstrap.js" />
     <Content Include="EmailTemplate\bootstrap\js\bootstrap.min.js" />
     <Content Include="EmailTemplate\CreateEmployee.html" />
+    <Content Include="EmailTemplate\PurchaseProduct.html" />
     <Content Include="EmailTemplate\CreateOwner.html" />
     <Content Include="EmailTemplate\CreateSalonBranch.html" />
     <Content Include="EmailTemplate\Schedule.html" />

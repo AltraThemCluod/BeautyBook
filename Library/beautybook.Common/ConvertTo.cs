@@ -539,6 +539,30 @@ namespace BeautyBook.Common
             }
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Document file convert to byte[]
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <param name="chunkSize"></param>
+        /// <returns></returns>
+        public static List<byte[]> ConvertToByteChunks(byte[] bytes, int chunkSize)
+        {
+            List<byte[]> chunks = new List<byte[]>();
+            int offset = 0;
+
+            while (offset < bytes.Length)
+            {
+                int size = Math.Min(chunkSize, bytes.Length - offset);
+                byte[] chunk = new byte[size];
+                Buffer.BlockCopy(bytes, offset, chunk, 0, size);
+                chunks.Add(chunk);
+                offset += size;
+            }
+
+            return chunks;
+        }
+
         #endregion
     }
 

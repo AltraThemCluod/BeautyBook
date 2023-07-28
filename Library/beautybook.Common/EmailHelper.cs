@@ -129,6 +129,53 @@
             return reason;
         }
 
+        public static bool PurchaseProduct(
+            string SalonName, string SalonPrimaryPhone, string SalonAddress,
+            string ProductImageUrl , string ProductName, decimal ProductAmount
+        )
+        {
+            
+            return true;
+        }
+
+
+        public static bool PurchaseProductEmail(string toEmail , string pdfOutputFilePath)
+        {
+            SmtpClient objSMTP = new SmtpClient();
+
+            objSMTP.Host = Configurations.EmailHost;
+
+            objSMTP.EnableSsl = Convert.ToBoolean(Configurations.EnableSsl);
+
+            string senderEmail = Configurations.EmailUserName;
+            string senderPassword = Configurations.EmailPassword;
+            string recipientEmail = toEmail;
+
+            objSMTP.UseDefaultCredentials = true;
+
+            objSMTP.Credentials = new System.Net.NetworkCredential(senderEmail, senderPassword);
+
+            objSMTP.Port = int.Parse(Configurations.Port);
+           
+            MailMessage mail = new MailMessage(senderEmail, recipientEmail);
+
+            mail.Subject = "PDF Attachment";
+            mail.Body = "Please find the attached PDF.";
+
+            Attachment attachment = new Attachment(pdfOutputFilePath, System.Net.Mime.MediaTypeNames.Application.Pdf);
+            mail.Attachments.Add(attachment);
+
+            try
+            {
+                objSMTP.Send(mail);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public static bool SendScheduleEmail(string fullName, string phoneNumber, string DuringDay)
         {
             string body = "";

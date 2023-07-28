@@ -13,6 +13,9 @@ namespace BeautyBook.Entities.Contract
         public long Id { get; set; }
         public long VendorId { get; set; }
         public long SalonId { get; set; }
+        public string SalonName { get; set; }
+        public string PrimaryPhone { get; set; }
+        public string AddressLine1 { get; set; }
         public long OrignalInvoiceNo { get; set; }
         public string CustomerName { get; set; }
         public string Comment { get; set; }
@@ -59,6 +62,10 @@ namespace BeautyBook.Entities.Contract
         public string DateOfOrder { get; set; }
         public List<OrderProducts> OrderProducts { get; set; }
         public List<OrderStatusTracking> OrderStatusTracking { get; set; }
+
+        public List<OrderProductRoot> ProductDetails { get; set; }
+        public string ProductDetailsStr { get; set; }
+
         public string LookUpStatus { get; set; }
 
         public long ProductId { get; set; }
@@ -91,6 +98,14 @@ namespace BeautyBook.Entities.Contract
         [NotMapped]
         public string DeletedDateStr => DeletedDate != null ? DeletedDate?.ToString("dd-MMM-yyyy hh:mm tt") : "-";
     }
+}
+
+public class OrderProductRoot
+{
+    public int Id { get; set; }
+    public string ProductName { get; set; }
+    public int Price { get; set; }
+    public string ProductImage { get; set; }
 }
 
 public class MyPayload

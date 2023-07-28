@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,9 @@ using BeautyBook.Common.Paging;
 using BeautyBook.Data.Contract;
 using BeautyBook.Entities.Contract;
 using BeautyBook.Services.Contract;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 
 namespace BeautyBook.Services.V1
 {
@@ -38,7 +42,35 @@ namespace BeautyBook.Services.V1
 
         public override SuccessResult<AbstractOrders> Orders_PaymentComplete(long Id)
         {
-            return this.abstractOrdersDao.Orders_PaymentComplete(Id);
+            //GeneratePDF();
+
+            var response = this.abstractOrdersDao.Orders_PaymentComplete(Id);
+
+            EmailHelper.PurchaseProduct(response.Item.SalonName, response.Item.PrimaryPhone, response.Item.AddressLine1, "Imageurl" , "احمر شفاه سائل مطفي من هدى بيوتي - ثعلبة" , 80);
+
+            return response;
+        }
+
+        public void GeneratePDF()
+        {
+            string dynamicHtml = "<!DOCTYPE html><html><head><title>Dynamic PDF</title></head><body><h1>Hello, PDF!</h1><p>This is a dynamically generated PDF using iTextSharp in C#.</p></body></html>";
+
+            Document pdfDoc = new Document(PageSize.A4);
+
+            string outputFilePath = "E:\\PDF\\dynamic_output.pdf";
+
+            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, new FileStream(outputFilePath, FileMode.Create));
+
+            pdfDoc.Open();
+
+            using (var sr = new StringReader(dynamicHtml))
+            {
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+            }
+
+            pdfDoc.Close();
+
+            //EmailHelper.PurchaseProductEmail("amiparakartik@gmail.com" , outputFilePath);
         }
 
         public override SuccessResult<AbstractOrders> Orders_Upsert(AbstractOrders abstractOrders)
